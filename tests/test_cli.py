@@ -3,7 +3,7 @@
 import pytest
 from typer.testing import CliRunner
 
-from my_agent_framework.cli import app
+from indus_agents.cli import app
 
 # Create a CLI runner for testing
 runner = CliRunner()
@@ -17,12 +17,12 @@ class TestCLIVersion:
         result = runner.invoke(app, ["version"])
 
         assert result.exit_code == 0
-        assert "My Agent Framework" in result.stdout
+        assert "indus-agents" in result.stdout
         assert "Version:" in result.stdout
 
     def test_version_shows_correct_version(self):
         """Test that version command shows the correct version."""
-        from my_agent_framework import __version__
+        from indus_agents import __version__
 
         result = runner.invoke(app, ["version"])
 
@@ -35,7 +35,7 @@ class TestCLIVersion:
 
         assert result.exit_code == 0
         # Should contain both framework name and version
-        assert "My Agent Framework" in result.stdout
+        assert "indus-agents" in result.stdout
         assert "0.1.0" in result.stdout
 
 
@@ -148,7 +148,7 @@ class TestCLIHelp:
         result = runner.invoke(app, ["--help"])
 
         assert result.exit_code == 0
-        assert "My Agent Framework" in result.stdout
+        assert "indus-agents" in result.stdout
         assert "version" in result.stdout.lower()
         assert "run" in result.stdout.lower()
         assert "config" in result.stdout.lower()
@@ -239,7 +239,7 @@ class TestCLIOutput:
 
         assert result.exit_code == 0
         # Rich formatting indicators might be in output
-        assert "My Agent Framework" in result.stdout
+        assert "indus-agents" in result.stdout
 
     def test_run_output_includes_prompt(self):
         """Test that run output includes the provided prompt."""
@@ -323,7 +323,7 @@ class TestCLIApp:
     def test_app_has_help(self):
         """Test CLI app has help text."""
         assert app.info.help is not None
-        assert "My Agent Framework" in app.info.help
+        assert "indus-agents" in app.info.help
 
     def test_app_no_completion(self):
         """Test CLI app has completion disabled."""

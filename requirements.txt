@@ -1,4 +1,4 @@
-# Core Dependencies for Agent Framework with OpenAI Integration
+# Core Dependencies for indus-agents with OpenAI Integration
 
 # OpenAI API client
 openai>=1.12.0

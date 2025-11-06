@@ -380,7 +380,7 @@ from rich.markdown import Markdown
 from .orchestrator import Orchestrator
 import os
 
-app = typer.Typer(help="AI Agent Framework CLI")
+app = typer.Typer(help="AI indus-agents CLI")
 console = Console()
 
 @app.command()
@@ -388,7 +388,7 @@ def run(
     prompt: str = typer.Argument(..., help="Prompt for the agent"),
     verbose: bool = typer.Option(False, "--verbose", "-v", help="Verbose output")
 ):
-    """Run the agent framework with a prompt."""
+    """Run the indus-agents with a prompt."""
 
     # Check API key
     if not os.getenv("ANTHROPIC_API_KEY"):
@@ -410,7 +410,7 @@ def run(
 def version():
     """Show version information."""
     console.print("[bold]my-agent-framework[/bold] v0.1.0")
-    console.print("Python agent framework with multi-agent orchestration")
+    console.print("Python indus-agents with multi-agent orchestration")
 
 @app.command()
 def interactive():
@@ -495,9 +495,9 @@ pytest tests/ -v
 **Create:** `README.md`
 
 ```markdown
-# My Agent Framework
+# indus-agents
 
-AI agent framework with multi-agent orchestration and tool support.
+indus-agents with multi-agent orchestration and tool support.
 
 ## Installation
 

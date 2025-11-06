@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from my_agent_framework.core.config import Config, LLMConfig
+from indus_agents.core.config import Config, LLMConfig
 
 
 class TestConfig:
@@ -409,8 +409,8 @@ class TestConfigIntegration:
     @pytest.mark.integration
     def test_config_with_agent(self, sample_config):
         """Test using Config with Agent."""
-        from my_agent_framework.core.agent import Agent
-        from my_agent_framework.agent.base import AgentConfig
+        from indus_agents.core.agent import Agent
+        from indus_agents.agent.base import AgentConfig
 
         agent_config = AgentConfig(
             model=sample_config.default_model,

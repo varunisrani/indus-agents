@@ -1,6 +1,6 @@
 # Packaging and Deployment Setup - Complete
 
-This document summarizes all the packaging and deployment work completed for My Agent Framework.
+This document summarizes all the packaging and deployment work completed for indus-agents.
 
 ## Overview
 
@@ -374,7 +374,7 @@ pytest tests/test_agent/test_base.py -v
 
 ## Summary
 
-The My Agent Framework is now **publication-ready** with:
+The indus-agents is now **publication-ready** with:
 
 ✅ Professional documentation
 ✅ Complete packaging configuration

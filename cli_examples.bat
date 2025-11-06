@@ -1,9 +1,9 @@
 @echo off
-REM Agent Framework CLI - Usage Examples (Windows)
+REM indus-agents CLI - Usage Examples (Windows)
 REM This script demonstrates all CLI commands with various options
 
 echo ===============================================================
-echo       Agent Framework CLI - Interactive Examples
+echo       indus-agents CLI - Interactive Examples
 echo ===============================================================
 echo.
 

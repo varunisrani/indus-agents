@@ -2,7 +2,7 @@
 
 ## 🎉 Success Summary
 
-The My Agent Framework has been successfully integrated and tested. All working implementations created by the specialized sub-agents have been properly integrated into the package structure.
+The indus-agents has been successfully integrated and tested. All working implementations created by the specialized sub-agents have been properly integrated into the package structure.
 
 ---
 
@@ -10,7 +10,7 @@ The My Agent Framework has been successfully integrated and tested. All working 
 
 ```
 ======================================================================
-INTEGRATION TEST - My Agent Framework
+INTEGRATION TEST - indus-agents
 ======================================================================
 
 [1/7] Testing package import...                    [OK]

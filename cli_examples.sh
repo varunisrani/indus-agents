@@ -1,9 +1,9 @@
 #!/bin/bash
-# Agent Framework CLI - Usage Examples
+# indus-agents CLI - Usage Examples
 # This script demonstrates all CLI commands with various options
 
 echo "╔═══════════════════════════════════════════════════════════════╗"
-echo "║       Agent Framework CLI - Interactive Examples             ║"
+echo "║       indus-agents CLI - Interactive Examples             ║"
 echo "╚═══════════════════════════════════════════════════════════════╝"
 echo ""
 

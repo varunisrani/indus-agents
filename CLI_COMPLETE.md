@@ -2,7 +2,7 @@
 
 ## Summary
 
-A **production-ready, professional CLI interface** has been successfully built for the Agent Framework using **Typer** and **Rich**. The CLI provides a beautiful, intuitive experience for interacting with AI agents.
+A **production-ready, professional CLI interface** has been successfully built for indus-agents using **Typer** and **Rich**. The CLI provides a beautiful, intuitive experience for interacting with AI agents.
 
 ## What Was Built
 
@@ -107,7 +107,7 @@ python cli.py list-agents
 
 ### Version Command Output
 ```
-Agent Framework - Version Info      
+indus-agents - Version Info      
 ┌────────────────────┬───────────────┐
 │ Component          │ Version/Info  │
 ├────────────────────┼───────────────┤
@@ -182,7 +182,7 @@ python cli.py interactive
 $ python test_cli.py
 
 ======================================================================
-Agent Framework CLI - Test Suite
+indus-agents CLI - Test Suite
 ======================================================================
 
 Testing imports...
@@ -482,7 +482,7 @@ python cli.py test-connection --verbose
 
 ## Conclusion
 
-The Agent Framework CLI is **complete and production-ready**. It provides:
+The indus-agents CLI is **complete and production-ready**. It provides:
 
 ✅ **Professional UI** - Beautiful Rich formatting throughout
 ✅ **Full Functionality** - All 6 commands working perfectly
@@ -500,6 +500,6 @@ Users can start using it immediately, and developers can extend it easily.
 
 **Created**: January 7, 2025  
 **Version**: 1.0.0  
-**Author**: AI Agent Framework Team
+**Author**: indus-agents Team
 
 **Start using now**: `python cli.py --help`

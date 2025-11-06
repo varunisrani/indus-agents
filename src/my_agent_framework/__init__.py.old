@@ -1,4 +1,4 @@
-"""My Agent Framework - A modern, extensible AI agent framework.
+"""indus-agents - A modern, extensible indus-agents.
 
 This framework provides a clean, modular architecture for building AI agents
 with support for tool use, async execution, and multiple LLM providers.

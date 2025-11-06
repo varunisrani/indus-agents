@@ -2,7 +2,7 @@
 
 ## Overview
 
-A comprehensive test suite has been created for the My Agent Framework using pytest. The test suite includes 255 tests covering all major components of the framework with extensive coverage of unit tests, integration tests, and edge cases.
+A comprehensive test suite has been created for the indus-agents using pytest. The test suite includes 255 tests covering all major components of the framework with extensive coverage of unit tests, integration tests, and edge cases.
 
 ## Test Files Created
 
@@ -256,7 +256,7 @@ Potential areas for expansion:
 
 ## Conclusion
 
-The test suite provides comprehensive coverage of the My Agent Framework with:
+The test suite provides comprehensive coverage of the indus-agents with:
 - ✅ 255 passing tests
 - ✅ 92% code coverage
 - ✅ Fast execution (< 1 second)

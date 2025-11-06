@@ -1,8 +1,8 @@
-# Test Suite for My Agent Framework
+# Test Suite for indus-agents
 
 ## Overview
 
-This directory contains a comprehensive test suite for the My Agent Framework with 255 tests covering all major components.
+This directory contains a comprehensive test suite for the indus-agents with 255 tests covering all major components.
 
 ## Quick Start
 

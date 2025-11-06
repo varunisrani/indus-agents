@@ -1,5 +1,5 @@
 """
-Multi-Agent Orchestrator System for Agent Framework
+Multi-Agent Orchestrator System for indus-agents
 
 This module provides an intelligent orchestration system that manages multiple
 specialized AI agents and routes queries to the most appropriate agent based on
@@ -21,7 +21,7 @@ Architecture:
         |-- Math Agent (calculations, mathematical operations)
         |-- Time/Date Agent (time queries, date operations)
 
-Author: AI Agent Framework
+Author: indus-agents
 License: MIT
 """
 

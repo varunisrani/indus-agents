@@ -2,7 +2,7 @@
 
 ## Summary
 
-The custom tools feature allows users to create their own tools and integrate them seamlessly into the agent framework. This feature is now fully implemented, tested, and documented.
+The custom tools feature allows users to create their own tools and integrate them seamlessly into the indus-agents. This feature is now fully implemented, tested, and documented.
 
 ---
 
@@ -683,4 +683,4 @@ The custom tools feature is **fully implemented, tested, and documented**. Users
 
 **No modifications to core framework required!** 🎉
 
-Everything integrates seamlessly with the existing agent framework.
+Everything integrates seamlessly with the existing indus-agents.

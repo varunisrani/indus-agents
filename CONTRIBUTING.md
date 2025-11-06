@@ -1,6 +1,6 @@
-# Contributing to My Agent Framework
+# Contributing to indus-agents
 
-Thank you for your interest in contributing to My Agent Framework! We welcome contributions from the community and are grateful for any help you can provide.
+Thank you for your interest in contributing to indus-agents! We welcome contributions from the community and are grateful for any help you can provide.
 
 ## Table of Contents
 
@@ -429,7 +429,7 @@ Contributors will be recognized in:
 - Release notes
 - The CONTRIBUTORS file
 
-Thank you for contributing to My Agent Framework!
+Thank you for contributing to indus-agents!
 
 ---
 

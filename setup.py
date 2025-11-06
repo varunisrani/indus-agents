@@ -1,5 +1,5 @@
 """
-Setup script for Agent Framework CLI
+Setup script for indus-agents CLI
 
 This makes the CLI installable as a package with a convenient entry point.
 """
@@ -9,8 +9,8 @@ from setuptools import setup, find_packages
 setup(
     name="agent-framework-cli",
     version="1.0.0",
-    description="Professional CLI interface for AI Agent Framework",
-    author="AI Agent Framework",
+    description="Professional CLI interface for indus-agents",
+    author="indus-agents",
     license="MIT",
     py_modules=["cli", "agent", "tools"],
     install_requires=[

@@ -32,7 +32,7 @@ if not os.getenv("OPENAI_API_KEY"):
     print("\n" + "="*70)
     sys.exit(1)
 
-from my_agent_framework import Agent, registry
+from indus_agents import Agent, registry
 
 def print_banner(text, char="="):
     """Print a banner with text."""

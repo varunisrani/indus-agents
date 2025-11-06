@@ -2,7 +2,7 @@
 
 ## Overview
 
-A robust, production-ready tool registry system for the agent framework with **OpenAI format** schema generation, comprehensive error handling, and built-in security validation.
+A robust, production-ready tool registry system for the indus-agents with **OpenAI format** schema generation, comprehensive error handling, and built-in security validation.
 
 ## Files Created
 

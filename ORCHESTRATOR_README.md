@@ -530,4 +530,4 @@ MIT License - See LICENSE file for details
 
 **Last Updated**: 2025
 
-**Author**: AI Agent Framework Team
+**Author**: AI indus-agents Team

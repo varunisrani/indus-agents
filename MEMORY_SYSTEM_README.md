@@ -1,6 +1,6 @@
 # Conversation Memory Management System
 
-A production-ready conversation memory management system for AI agent frameworks with advanced features including circular buffers, persistence, search, and cost estimation.
+A production-ready conversation memory management system for AI indus-agents with advanced features including circular buffers, persistence, search, and cost estimation.
 
 ## Features
 

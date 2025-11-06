@@ -1,7 +1,7 @@
 """
-My Agent Framework - AI Agent Framework with Multi-Agent Orchestration
+indus-agents - indus-agents with Multi-Agent Orchestration
 
-A production-ready AI agent framework featuring:
+A production-ready indus-agents featuring:
 - OpenAI GPT-4o integration with tool calling
 - Multi-agent orchestration with intelligent routing
 - Conversation memory management
@@ -10,7 +10,7 @@ A production-ready AI agent framework featuring:
 - Comprehensive testing (92% coverage)
 
 Quick Start:
-    >>> from my_agent_framework import Agent, create_orchestrator
+    >>> from indus_agents import Agent, create_orchestrator
     >>>
     >>> # Single agent
     >>> agent = Agent("Helper", "Helpful assistant")
@@ -33,15 +33,15 @@ For more information, see README.md
 """
 
 __version__ = "0.1.0"
-__author__ = "AI Agent Framework Team"
+__author__ = "indus-agents Team"
 __email__ = "contact@example.com"
 __license__ = "MIT"
 
 # Core imports from working implementation files
-from my_agent_framework.agent import Agent, AgentConfig
-from my_agent_framework.tools import registry, ToolRegistry
-from my_agent_framework.orchestrator import MultiAgentOrchestrator, OrchestratorResponse, create_orchestrator
-from my_agent_framework.memory import ConversationMemory, Message
+from indus_agents.agent import Agent, AgentConfig
+from indus_agents.tools import registry, ToolRegistry
+from indus_agents.orchestrator import MultiAgentOrchestrator, OrchestratorResponse, create_orchestrator
+from indus_agents.memory import ConversationMemory, Message
 
 # Expose public API
 __all__ = [

@@ -1,6 +1,6 @@
-# My Agent Framework
+# indus-agents
 
-A modern, extensible AI agent framework for building autonomous agents with Large Language Models (LLMs). Built with Python, featuring a clean architecture, type safety, and async-first design.
+A modern, extensible indus-agents for building autonomous agents with Large Language Models (LLMs). Built with Python, featuring a clean architecture, type safety, and async-first design.
 
 ## Features
 
@@ -331,7 +331,7 @@ If you use this framework in your research, please cite:
 
 ```bibtex
 @software{my_agent_framework,
-  title = {My Agent Framework: A Modern AI Agent Framework},
+  title = {indus-agents: A Modern indus-agents},
   author = {Your Name},
   year = {2025},
   url = {https://github.com/yourusername/my-agent-framework}
@@ -340,4 +340,4 @@ If you use this framework in your research, please cite:
 
 ---
 
-Made with care by the My Agent Framework team.
+Made with care by the indus-agents team.

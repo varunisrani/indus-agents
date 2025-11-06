@@ -1,8 +1,8 @@
 """
-Custom Tools Example - User-Defined Tools for Agent Framework
+Custom Tools Example - User-Defined Tools for indus-agents
 
 This file demonstrates how users can create their own custom tools
-and register them with the agent framework.
+and register them with indus-agents.
 
 Usage:
     1. Create your tool function with type hints
@@ -11,7 +11,7 @@ Usage:
     4. The tool becomes immediately available to all agents!
 
 Example:
-    from my_agent_framework import registry
+    from indus_agents import registry
 
     @registry.register
     def my_tool(param: str) -> str:
@@ -19,7 +19,7 @@ Example:
         return param.upper()
 """
 
-from my_agent_framework import registry
+from indus_agents import registry
 from typing import Optional, List
 import random
 import os

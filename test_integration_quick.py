@@ -4,15 +4,15 @@ Tests all core components without making real API calls.
 """
 
 print("=" * 70)
-print("INTEGRATION TEST - My Agent Framework")
+print("INTEGRATION TEST - indus-agents")
 print("=" * 70)
 
 # Test 1: Import package
 print("\n[1/7] Testing package import...")
 try:
-    import my_agent_framework
+    import indus_agents
     print(f"[OK] Package imported successfully")
-    print(f"  Version: {my_agent_framework.__version__}")
+    print(f"  Version: {indus_agents.__version__}")
 except Exception as e:
     print(f"[FAIL] Failed to import package: {e}")
     exit(1)
@@ -20,7 +20,7 @@ except Exception as e:
 # Test 2: Import core components
 print("\n[2/7] Testing core component imports...")
 try:
-    from my_agent_framework import (
+    from indus_agents import (
         Agent, AgentConfig,
         ToolRegistry, registry,
         MultiAgentOrchestrator, create_orchestrator,
@@ -85,7 +85,7 @@ except Exception as e:
 # Test 7: Test CLI imports
 print("\n[7/7] Testing CLI module...")
 try:
-    from my_agent_framework import cli
+    from indus_agents import cli
     print(f"[OK] CLI module imported successfully")
 except Exception as e:
     print(f"[FAIL] CLI import failed: {e}")

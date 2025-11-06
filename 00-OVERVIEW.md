@@ -1,8 +1,8 @@
-# Building Your Own Agent Framework: 2-3 Hour Live Coding Plan
+# Building Your Own indus-agents: 2-3 Hour Live Coding Plan
 
 ## 🎯 Project Goal
 
-Build a **production-ready, minimal agent framework** from scratch in 2-3 hours that:
+Build a **production-ready, minimal indus-agents** from scratch in 2-3 hours that:
 - Supports multiple AI agents with specialized roles
 - Implements tool/function calling
 - Handles conversation memory
@@ -138,7 +138,7 @@ my-agent-framework/
 
 By the end of the session, you'll have:
 
-1. **Working Agent Framework** that:
+1. **Working indus-agents** that:
    - Connects to Claude/GPT API
    - Uses 2-3 tools (calculator, web search, etc.)
    - Maintains conversation memory

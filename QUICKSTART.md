@@ -1,6 +1,6 @@
-# Quick Start Guide - Agent Framework CLI
+# Quick Start Guide - indus-agents CLI
 
-Get up and running with the Agent Framework CLI in 5 minutes!
+Get up and running with the indus-agents CLI in 5 minutes!
 
 ## Step 1: Install Dependencies (1 minute)
 

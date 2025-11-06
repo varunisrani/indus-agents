@@ -280,7 +280,7 @@ def example_custom_system_prompt():
 def main():
     """Run all examples."""
     print("\n" + "=" * 60)
-    print("Agent Framework - OpenAI Integration Examples")
+    print("indus-agents - OpenAI Integration Examples")
     print("=" * 60 + "\n")
 
     # Check for API key

@@ -1,8 +1,8 @@
-# 🎉 My Agent Framework - Final Project Summary
+# 🎉 indus-agents - Final Project Summary
 
 ## Project Status: ✅ COMPLETE & PRODUCTION-READY
 
-Built by multiple specialized AI agents working in parallel, this is a **complete, production-ready AI agent framework** with multi-agent orchestration, tool calling, memory management, and a beautiful CLI.
+Built by multiple specialized AI agents working in parallel, this is a **complete, production-ready AI indus-agents** with multi-agent orchestration, tool calling, memory management, and a beautiful CLI.
 
 ---
 
