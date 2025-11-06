@@ -1,0 +1,46 @@
+"""My Agent Framework - A modern, extensible AI agent framework.
+
+This framework provides a clean, modular architecture for building AI agents
+with support for tool use, async execution, and multiple LLM providers.
+
+Example:
+    >>> from my_agent_framework import Agent, AgentConfig
+    >>> config = AgentConfig(name="MyAgent", model="gpt-4")
+    >>> agent = Agent(config=config)
+    >>> response = await agent.run("Hello, world!")
+"""
+
+__version__ = "0.1.0"
+__author__ = "Your Name"
+__email__ = "your.email@example.com"
+__license__ = "MIT"
+
+# Core imports
+from my_agent_framework.agent.base import AgentConfig, BaseAgent
+from my_agent_framework.core.agent import Agent
+from my_agent_framework.core.config import Config
+
+# Tool imports
+from my_agent_framework.tools.base import BaseTool, ToolConfig, ToolResult
+
+# Utility imports
+from my_agent_framework.utils.logger import get_logger
+
+__all__ = [
+    # Core classes
+    "Agent",
+    "BaseAgent",
+    "AgentConfig",
+    "Config",
+    # Tool classes
+    "BaseTool",
+    "ToolConfig",
+    "ToolResult",
+    # Utilities
+    "get_logger",
+    # Metadata
+    "__version__",
+    "__author__",
+    "__email__",
+    "__license__",
+]
