@@ -2,9 +2,9 @@
 
 import pytest
 
-from my_agent_framework import Agent, Config
-from my_agent_framework.agent.base import AgentConfig
-from my_agent_framework.tools.base import ToolConfig
+from indus_agents import Agent, Config
+from indus_agents.agent.base import AgentConfig
+from indus_agents.tools.base import ToolConfig
 
 
 @pytest.mark.integration

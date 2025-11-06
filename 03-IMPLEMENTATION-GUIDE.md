@@ -70,7 +70,7 @@ Edit `pyproject.toml` to add:
 [project]
 name = "my-agent-framework"
 version = "0.1.0"
-description = "AI agent framework with multi-agent orchestration"
+description = "AI indus-agents with multi-agent orchestration"
 readme = "README.md"
 requires-python = ">=3.9"
 dependencies = [
@@ -776,7 +776,7 @@ python src/my_agent_framework/orchestrator.py
 
 ```python
 """
-Command-line interface for the agent framework.
+Command-line interface for indus-agents.
 """
 import typer
 from rich.console import Console
@@ -790,7 +790,7 @@ from .orchestrator import Orchestrator
 from .agent import AgentConfig
 
 app = typer.Typer(
-    help="AI Agent Framework - Multi-agent system with tool support",
+    help="indus-agents - Multi-agent system with tool support",
     add_completion=False,
 )
 console = Console()
@@ -821,7 +821,7 @@ def run(
     model: Optional[str] = typer.Option(None, "--model", "-m", help="Override model"),
 ):
     """
-    Run a single query through the agent framework.
+    Run a single query through indus-agents.
 
     Example:
         my-agent run "What is 50 * 2?"
@@ -871,7 +871,7 @@ def interactive(
     # Welcome message
     console.print(
         Panel(
-            "[bold green]Welcome to Agent Framework Interactive Mode[/bold green]\n\n"
+            "[bold green]Welcome to indus-agents Interactive Mode[/bold green]\n\n"
             "Type your queries and press Enter.\n"
             "Commands:\n"
             "  • 'quit' or 'exit' - Exit the session\n"
@@ -932,7 +932,7 @@ def version():
     from . import __version__
 
     console.print(f"\n[bold]my-agent-framework[/bold] v{__version__}")
-    console.print("Python agent framework with multi-agent orchestration\n")
+    console.print("Python indus-agents with multi-agent orchestration\n")
 
 
 @app.command()
@@ -980,7 +980,7 @@ if __name__ == "__main__":
 
 ```python
 """
-My Agent Framework - Multi-agent AI framework with tool support.
+indus-agents - Multi-agent indus-agents with tool support.
 """
 
 __version__ = "0.1.0"
@@ -1163,9 +1163,9 @@ pytest tests/ -v --cov=src/my_agent_framework --cov-report=term-missing
 ### Update README.md
 
 ```markdown
-# My Agent Framework
+# indus-agents
 
-AI agent framework with multi-agent orchestration and tool support.
+indus-agents with multi-agent orchestration and tool support.
 
 ## Features
 
@@ -1315,7 +1315,7 @@ ls dist/
 
 ## 🎉 Congratulations!
 
-You've built a complete agent framework with:
+You've built a complete indus-agents with:
 - ✅ Multi-agent orchestration
 - ✅ Tool calling system
 - ✅ Professional CLI

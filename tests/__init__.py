@@ -1,1 +1,1 @@
-"""Tests for My Agent Framework."""
+"""Tests for indus-agents."""

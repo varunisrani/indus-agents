@@ -762,6 +762,6 @@ pytest tests/ -v
 
 ---
 
-**End of Quick Reference** - You now have everything needed to build, test, and deploy your agent framework!
+**End of Quick Reference** - You now have everything needed to build, test, and deploy your indus-agents!
 
 Happy coding! 🚀

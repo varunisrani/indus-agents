@@ -1,14 +1,14 @@
-# Agent Framework - Complete Project Report
+# indus-agents - Complete Project Report
 
 **Date:** November 7, 2025
-**Project:** My Agent Framework - AI Agent Framework with Custom Tools
+**Project:** indus-agents - indus-agents with Custom Tools
 **Status:** ✅ COMPLETE AND VERIFIED
 
 ---
 
 ## Executive Summary
 
-We have successfully built a **production-ready AI agent framework** from scratch using OpenAI's GPT-4o API. The framework includes:
+We have successfully built a **production-ready AI indus-agents** from scratch using OpenAI's GPT-4o API. The framework includes:
 
 - ✅ **Core agent system** with OpenAI integration
 - ✅ **Tool registry** with 18 tools (9 built-in + 9 custom)
@@ -576,7 +576,7 @@ Documentation was for Anthropic but we used OpenAI. Adaptation was necessary.
 
 ## Conclusion
 
-This project successfully delivers a **production-ready AI agent framework** with:
+This project successfully delivers a **production-ready AI indus-agents** with:
 
 - ✅ Complete core functionality
 - ✅ Custom tool creation system

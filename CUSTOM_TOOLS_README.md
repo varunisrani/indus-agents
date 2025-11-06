@@ -2,7 +2,7 @@
 
 ## What Are Custom Tools?
 
-Custom tools let you extend the agent framework with your own functionality. The agent can then autonomously use your tools to complete tasks!
+Custom tools let you extend indus-agents with your own functionality. The agent can then autonomously use your tools to complete tasks!
 
 ---
 

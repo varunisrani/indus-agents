@@ -2,7 +2,7 @@
 
 ## Overview
 
-Successfully implemented a complete multi-agent orchestrator system that seamlessly integrates with the existing Agent framework and tool registry. The system provides intelligent routing, comprehensive metrics, and production-ready architecture.
+Successfully implemented a complete multi-agent orchestrator system that seamlessly integrates with the existing indus-agents and tool registry. The system provides intelligent routing, comprehensive metrics, and production-ready architecture.
 
 ## Files Created
 

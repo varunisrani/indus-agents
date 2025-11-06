@@ -1,5 +1,5 @@
 """
-Professional CLI Interface for Agent Framework
+Professional CLI Interface for indus-agents
 
 A beautiful, production-ready command-line interface built with Typer and Rich.
 Provides intuitive commands for interacting with AI agents, managing tools,
@@ -15,7 +15,7 @@ Features:
 - Verbose logging support
 - Model selection options
 
-Author: AI Agent Framework
+Author: indus-agents
 License: MIT
 """
 
@@ -67,7 +67,7 @@ console = Console(theme=custom_theme)
 # Initialize Typer app
 app = typer.Typer(
     name="agent-cli",
-    help="Professional AI Agent Framework CLI - Interact with intelligent agents powered by OpenAI",
+    help="Professional indus-agents CLI - Interact with intelligent agents powered by OpenAI",
     add_completion=False,
     rich_markup_mode="rich",
 )
@@ -97,7 +97,7 @@ def print_banner():
     banner = """
     ╔═══════════════════════════════════════════════════════════════╗
     ║                                                               ║
-    ║            AI AGENT FRAMEWORK - CLI Interface                 ║
+    ║            INDUS-AGENTS - CLI Interface                       ║
     ║                                                               ║
     ║              Intelligent Agents Powered by OpenAI             ║
     ║                                                               ║
@@ -395,7 +395,7 @@ def interactive(
                 # Handle special commands
                 if user_input.strip().lower() in ["/quit", "/exit"]:
                     if Confirm.ask("[warning]Are you sure you want to exit?[/warning]"):
-                        console.print("\n[success]Thank you for using Agent Framework CLI![/success]\n")
+                        console.print("\n[success]Thank you for using indus-agents CLI![/success]\n")
                         break
                     continue
 
@@ -487,9 +487,9 @@ def interactive(
 @app.command()
 def version():
     """
-    Display version information about the Agent Framework.
+    Display version information about indus-agents.
     """
-    version_info = Table(title="Agent Framework - Version Info", box=box.DOUBLE)
+    version_info = Table(title="indus-agents - Version Info", box=box.DOUBLE)
     version_info.add_column("Component", style="cyan", width=20)
     version_info.add_column("Version/Info", style="yellow")
 
@@ -689,7 +689,7 @@ def test_connection(
         console.print(results_table)
         console.print()
         print_success(
-            "Connection test completed successfully!\nYou're ready to use the Agent Framework.",
+            "Connection test completed successfully!\nYou're ready to use indus-agents.",
             "Test Passed"
         )
 

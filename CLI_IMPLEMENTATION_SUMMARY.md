@@ -2,7 +2,7 @@
 
 ## Overview
 
-A production-ready, professional CLI interface has been successfully built for the Agent Framework using Typer and Rich. The CLI provides a beautiful, user-friendly experience for interacting with AI agents powered by OpenAI.
+A production-ready, professional CLI interface has been successfully built for the indus-agents using Typer and Rich. The CLI provides a beautiful, user-friendly experience for interacting with AI agents powered by OpenAI.
 
 ## Files Created
 
@@ -429,7 +429,7 @@ All requirements have been met:
 
 ## Conclusion
 
-The Agent Framework CLI is **production-ready** and provides a professional, user-friendly interface for interacting with AI agents. The implementation is:
+The indus-agents CLI is **production-ready** and provides a professional, user-friendly interface for interacting with AI agents. The implementation is:
 
 - **Complete**: All requested features implemented
 - **Beautiful**: Rich formatting throughout

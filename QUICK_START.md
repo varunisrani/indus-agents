@@ -1,6 +1,6 @@
 # Quick Start Guide
 
-Get up and running with My Agent Framework in 5 minutes.
+Get up and running with indus-agents in 5 minutes.
 
 ## Installation
 

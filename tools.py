@@ -1,5 +1,5 @@
 """
-Tool Registry System for Agent Framework
+Tool Registry System for indus-agents
 
 This module provides a robust tool registration and management system with:
 - Decorator pattern for easy tool registration
@@ -8,7 +8,7 @@ This module provides a robust tool registration and management system with:
 - Built-in security validation for dangerous operations
 - Example tools for common use cases
 
-Author: AI Agent Framework
+Author: indus-agents
 License: MIT
 """
 
@@ -953,7 +953,7 @@ def expensive_api_call(query: str) -> str:
     return response.text
 
 
-6. Integration with Agent Framework
+6. Integration with indus-agents
 ------------------------------------
 from agent import Agent
 from tools import registry

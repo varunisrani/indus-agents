@@ -1,10 +1,10 @@
-"""Basic usage example for My Agent Framework."""
+"""Basic usage example for indus-agents."""
 
 import asyncio
 
-from my_agent_framework import Agent
-from my_agent_framework.agent.base import AgentConfig
-from my_agent_framework.core.config import Config
+from indus_agents import Agent
+from indus_agents.agent.base import AgentConfig
+from indus_agents.core.config import Config
 
 
 async def main():

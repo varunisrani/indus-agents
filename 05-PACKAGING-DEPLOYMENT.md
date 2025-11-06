@@ -103,7 +103,7 @@ Ensure your `pyproject.toml` is complete:
 [project]
 name = "my-agent-framework"
 version = "0.1.0"
-description = "AI agent framework with multi-agent orchestration"
+description = "AI indus-agents with multi-agent orchestration"
 readme = "README.md"
 requires-python = ">=3.9"
 authors = [
@@ -385,7 +385,7 @@ from pydantic import BaseModel
 from my_agent_framework import Orchestrator
 import os
 
-app = FastAPI(title="Agent Framework API")
+app = FastAPI(title="indus-agents API")
 orchestrator = Orchestrator()
 
 class Query(BaseModel):

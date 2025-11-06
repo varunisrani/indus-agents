@@ -26,7 +26,7 @@ if not os.getenv("OPENAI_API_KEY"):
     print("="*70)
     sys.exit(1)
 
-from my_agent_framework import Agent, registry
+from indus_agents import Agent, registry
 
 # ============================================================================
 # STEP 1: Import custom tools (this auto-registers them!)

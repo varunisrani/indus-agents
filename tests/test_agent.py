@@ -2,9 +2,9 @@
 
 import pytest
 
-from my_agent_framework.agent.base import AgentConfig, BaseAgent
-from my_agent_framework.core.agent import Agent
-from my_agent_framework.tools.base import ToolConfig
+from indus_agents.agent.base import AgentConfig, BaseAgent
+from indus_agents.core.agent import Agent
+from indus_agents.tools.base import ToolConfig
 
 
 class TestAgentConfig:

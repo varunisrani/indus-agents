@@ -1,5 +1,5 @@
 """
-Test script for Agent Framework CLI
+Test script for indus-agents CLI
 
 This script tests the CLI functionality without requiring API calls.
 Useful for verifying installation and basic functionality.
@@ -174,7 +174,7 @@ def test_cli_help():
 def main():
     """Run all tests."""
     print("=" * 70)
-    print("Agent Framework CLI - Test Suite")
+    print("indus-agents CLI - Test Suite")
     print("=" * 70)
     print()
 

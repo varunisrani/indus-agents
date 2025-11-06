@@ -2,7 +2,7 @@
 
 import pytest
 
-from my_agent_framework.core.agent import Agent
+from indus_agents.core.agent import Agent
 
 
 class TestOrchestrator:
@@ -225,7 +225,7 @@ class TestOrchestratorWithMemory:
     async def test_orchestrator_memory_max_size(self):
         """Test orchestrator respects memory max size."""
         from tests.conftest import MockOrchestrator, MockMemorySystem, MockToolRegistry
-        from my_agent_framework.agent.base import AgentConfig
+        from indus_agents.agent.base import AgentConfig
 
         agent = Agent(AgentConfig())
         memory = MockMemorySystem(max_size=5)
@@ -396,7 +396,7 @@ class TestOrchestratorCreation:
     async def test_create_orchestrator_with_defaults(self):
         """Test creating orchestrator with default components."""
         from tests.conftest import MockOrchestrator, MockMemorySystem, MockToolRegistry
-        from my_agent_framework.agent.base import AgentConfig
+        from indus_agents.agent.base import AgentConfig
 
         agent = Agent(AgentConfig())
         orch = MockOrchestrator(agent)

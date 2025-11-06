@@ -1,4 +1,4 @@
-# Agent Framework CLI
+# indus-agents CLI
 
 A professional, beautiful command-line interface for interacting with AI agents powered by OpenAI. Built with Typer and Rich for an exceptional user experience.
 

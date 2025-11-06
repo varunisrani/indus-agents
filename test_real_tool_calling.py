@@ -22,7 +22,7 @@ if not os.getenv("OPENAI_API_KEY"):
     print("\nPlease set your API key in .env file")
     sys.exit(1)
 
-from my_agent_framework import Agent, registry
+from indus_agents import Agent, registry
 import custom_tools
 import re
 

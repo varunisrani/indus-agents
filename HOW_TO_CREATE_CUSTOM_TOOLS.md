@@ -1,4 +1,4 @@
-# How to Create Custom Tools for Agent Framework
+# How to Create Custom Tools for indus-agents
 
 This guide shows you how to create your own custom tools that agents can use automatically.
 

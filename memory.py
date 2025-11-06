@@ -1,5 +1,5 @@
 """
-Conversation Memory Management System for AI Agent Framework.
+Conversation Memory Management System for indus-agents.
 
 This module provides comprehensive conversation memory management with features including:
 - Circular buffer for message history
@@ -10,7 +10,7 @@ This module provides comprehensive conversation memory management with features 
 - Metadata tracking
 - Summary generation capabilities
 
-Author: AI Agent Framework
+Author: indus-agents
 License: MIT
 """
 

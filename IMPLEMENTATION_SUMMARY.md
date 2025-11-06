@@ -1,4 +1,4 @@
-# Agent Framework - OpenAI Implementation Summary
+# indus-agents - OpenAI Implementation Summary
 
 Complete implementation of the core Agent class using OpenAI API.
 
@@ -385,7 +385,7 @@ test_agent_quick.py
 
 ## Credits
 
-**Implementation:** Complete OpenAI-based Agent framework
+**Implementation:** Complete OpenAI-based indus-agents
 **Standard:** Production-ready code quality
 **Documentation:** Comprehensive API and usage docs
 **Testing:** Full test coverage
@@ -393,7 +393,7 @@ test_agent_quick.py
 
 ## License
 
-This implementation is part of the Agent Framework project and follows the same license as the main framework.
+This implementation is part of the indus-agents project and follows the same license as the main framework.
 
 ## Support
 

@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "my-agent-framework"
 version = "0.1.0"
-description = "A modern, extensible AI agent framework for building autonomous agents with LLMs"
+description = "A modern, extensible indus-agents for building autonomous agents with LLMs"
 readme = "README.md"
 requires-python = ">=3.9"
 license = {text = "MIT"}

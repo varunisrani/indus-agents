@@ -1,6 +1,6 @@
 # Deployment Guide
 
-This guide covers building, testing, and deploying My Agent Framework to various environments.
+This guide covers building, testing, and deploying indus-agents to various environments.
 
 ## Table of Contents
 

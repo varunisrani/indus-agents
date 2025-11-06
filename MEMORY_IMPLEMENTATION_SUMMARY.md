@@ -2,7 +2,7 @@
 
 ## Overview
 
-A production-ready conversation memory management system has been successfully implemented for the AI Agent Framework. The system provides comprehensive message history management with advanced features for persistence, search, cost tracking, and thread-safe operations.
+A production-ready conversation memory management system has been successfully implemented for the AI indus-agents. The system provides comprehensive message history management with advanced features for persistence, search, cost tracking, and thread-safe operations.
 
 ## Files Created
 

@@ -1,4 +1,4 @@
-# Pre-commit hooks for My Agent Framework
+# Pre-commit hooks for indus-agents
 # Install: pre-commit install
 # Run manually: pre-commit run --all-files
 

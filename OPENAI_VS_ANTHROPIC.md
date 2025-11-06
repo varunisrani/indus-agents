@@ -1,6 +1,6 @@
 # OpenAI vs Anthropic Implementation Guide
 
-Comprehensive comparison between OpenAI and Anthropic implementations for the Agent framework.
+Comprehensive comparison between OpenAI and Anthropic implementations for the indus-agents.
 
 ## Quick Reference Table
 
@@ -499,4 +499,4 @@ Both OpenAI and Anthropic provide excellent APIs for building AI agents. The cho
 - **OpenAI**: Better for cost-sensitive applications, faster responses, and when you have existing OpenAI infrastructure
 - **Anthropic**: Better for complex reasoning, long contexts, and when you need the most capable models
 
-The Agent framework supports both with minimal code changes, allowing you to switch or use both based on your needs.
+The indus-agents supports both with minimal code changes, allowing you to switch or use both based on your needs.
