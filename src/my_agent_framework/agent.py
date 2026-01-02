@@ -10,6 +10,7 @@ from pydantic import BaseModel, Field
 import os
 import time
 import json
+from my_agent_framework.tool_usage_logger import tool_logger
 
 
 class AgentConfig(BaseModel):
@@ -123,6 +124,7 @@ class Agent:
         role: str,
         config: Optional[AgentConfig] = None,
         system_prompt: Optional[str] = None,
+        context: Optional[Any] = None,
     ) -> None:
         """
         Initialize an Agent instance.
@@ -132,6 +134,7 @@ class Agent:
             role: Agent's specialized role/purpose
             config: Configuration settings (uses defaults if None)
             system_prompt: Custom system prompt (auto-generated if None)
+            context: Shared context object for tool state (optional)
 
         Raises:
             ValueError: If OPENAI_API_KEY not set in environment
@@ -139,6 +142,7 @@ class Agent:
         self.name = name
         self.role = role
         self.config = config or AgentConfig.from_env()
+        self.context = context
 
         # Check for API key
         api_key = os.getenv("OPENAI_API_KEY")
@@ -230,7 +234,7 @@ class Agent:
         user_input: str,
         tools: Optional[List[Dict[str, Any]]] = None,
         tool_executor: Optional[Any] = None,
-        max_turns: int = 10
+        max_turns: int = 30
     ) -> str:
         """
         Process user input with tool calling support.
@@ -316,6 +320,41 @@ class Agent:
 
                 # Check if tools were called
                 if finish_reason == "tool_calls" and response_message.tool_calls:
+                    # ⚠️ ENFORCE ONE-BY-ONE EXECUTION WHEN TODOS ARE ACTIVE
+                    # Check if there are active todos in context
+                    todos = self.context.get("todos", []) if self.context else []
+                    has_active_todos = any(
+                        todo.get("status") in ["pending", "in_progress"]
+                        for todo in todos
+                    )
+
+                    # Count non-todo_write tool calls
+                    non_todo_calls = [
+                        tc for tc in response_message.tool_calls
+                        if tc.function.name != "todo_write"
+                    ]
+
+                    # If there are active todos and multiple non-todo tools called, enforce one-by-one
+                    if has_active_todos and len(non_todo_calls) > 1:
+                        print(f"\n{'='*70}")
+                        print(f"[{self.name}] ⚠️ WARNING: Attempted to execute {len(non_todo_calls)} tools at once!")
+                        print(f"[{self.name}] Enforcing ONE-BY-ONE execution when todos are active")
+                        print(f"[{self.name}] Only executing the first tool call")
+                        print(f"{'='*70}\n")
+
+                        # Filter to only allow first non-todo_write call + any todo_write calls
+                        allowed_calls = []
+                        first_non_todo_found = False
+                        for tc in response_message.tool_calls:
+                            if tc.function.name == "todo_write":
+                                allowed_calls.append(tc)
+                            elif not first_non_todo_found:
+                                allowed_calls.append(tc)
+                                first_non_todo_found = True
+
+                        # Override tool_calls with filtered list
+                        response_message.tool_calls = allowed_calls
+
                     # Execute each tool call
                     tool_messages = []
 
@@ -323,16 +362,57 @@ class Agent:
                         tool_name = tool_call.function.name
                         tool_args = json.loads(tool_call.function.arguments)
 
-                        print(f"[{self.name}] Using tool: {tool_name} with args: {tool_args}")
+                        # Format tool usage log
+                        self._log_tool_usage(tool_name, tool_args)
 
-                        # Execute tool
+                        # Execute tool with timing and logging
+                        start_time = time.time()
+                        success = True
+                        error_msg = None
+
                         if tool_executor:
                             try:
                                 result = tool_executor.execute(tool_name, **tool_args)
+                                # Log tool result for important tools
+                                self._log_tool_result(tool_name, result)
                             except Exception as e:
                                 result = f"Error executing tool: {str(e)}"
+                                success = False
+                                error_msg = str(e)
                         else:
                             result = f"Tool executor not provided for {tool_name}"
+                            success = False
+                            error_msg = "No tool executor"
+
+                        execution_time = time.time() - start_time
+
+                        # Log to tool usage logger
+                        tool_logger.log_call(
+                            tool_name=tool_name,
+                            agent_name=self.name,
+                            arguments=tool_args,
+                            result=result,
+                            success=success,
+                            execution_time=execution_time,
+                            error=error_msg
+                        )
+
+                        # Display real-time tool usage info
+                        status_icon = "✅" if success else "❌"
+                        print(f"\n{'─'*70}")
+                        print(f"📊 TOOL USAGE: {status_icon} {tool_name}")
+                        print(f"{'─'*70}")
+                        print(f"⏱️  Execution Time: {execution_time:.3f}s")
+                        print(f"🤖 Agent: {self.name}")
+                        if error_msg:
+                            print(f"❌ Error: {error_msg}")
+
+                        # Show running statistics
+                        stats = tool_logger.get_statistics()
+                        print(f"📈 Session Stats: {stats['total_calls']} calls | "
+                              f"{stats['success_rate']:.1f}% success | "
+                              f"{stats['total_execution_time']:.2f}s total")
+                        print(f"{'─'*70}\n")
 
                         # Add tool result to messages
                         tool_messages.append({
@@ -444,6 +524,126 @@ class Agent:
             for msg in self.messages
         )
         return total_chars // 4  # Rough estimate: 4 chars per token
+
+    def _log_tool_usage(self, tool_name: str, tool_args: dict) -> None:
+        """
+        Log tool usage in a user-friendly format.
+
+        Args:
+            tool_name: Name of the tool being used
+            tool_args: Arguments passed to the tool
+        """
+        # Special formatting for different tools
+        if tool_name == "todo_write":
+            todos = tool_args.get("todos", [])
+            # Check if this is an initial todo creation or update
+            statuses = [t.get("status") for t in todos]
+            in_progress_count = statuses.count("in_progress")
+            completed_count = statuses.count("completed")
+            pending_count = statuses.count("pending")
+
+            if completed_count == 0 and in_progress_count == 0:
+                # Initial todo creation
+                print(f"\n{'='*70}")
+                print(f"[{self.name}] Creating todo list with {len(todos)} tasks:")
+                print(f"{'='*70}")
+                for i, todo in enumerate(todos, 1):
+                    priority_emoji = {"high": "!", "medium": "~", "low": "-"}.get(todo.get("priority", "medium"), "~")
+                    status_emoji = "⏳"
+                    print(f"  {i}. [{priority_emoji}] {status_emoji} {todo.get('task')}")
+                print(f"{'='*70}")
+            else:
+                # Todo update - ALWAYS show full list with progress
+                print(f"\n{'='*70}")
+                print(f"[{self.name}] TODO LIST UPDATE:")
+                print(f"{'='*70}")
+                for i, todo in enumerate(todos, 1):
+                    priority_emoji = {"high": "!", "medium": "~", "low": "-"}.get(todo.get("priority", "medium"), "~")
+                    status = todo.get("status")
+
+                    # Status emoji
+                    if status == "completed":
+                        status_emoji = "✅"
+                    elif status == "in_progress":
+                        status_emoji = "🔄"
+                    else:
+                        status_emoji = "⏳"
+
+                    print(f"  {i}. [{priority_emoji}] {status_emoji} {todo.get('task')}")
+
+                print(f"\nProgress: {completed_count} done, {in_progress_count} in progress, {pending_count} pending")
+                print(f"{'='*70}")
+
+        elif tool_name == "write":
+            file_path = tool_args.get("file_path", "")
+            print(f"[{self.name}] Creating file: {file_path}")
+
+        elif tool_name == "edit":
+            file_path = tool_args.get("file_path", "")
+            print(f"[{self.name}] Editing file: {file_path}")
+
+        elif tool_name == "read":
+            file_path = tool_args.get("file_path", "")
+            print(f"[{self.name}] Reading file: {file_path}")
+
+        elif tool_name == "bash":
+            command = tool_args.get("command", "")
+            description = tool_args.get("command_description", "")
+            # Show BOTH command and description to debug what's actually being executed
+            if description and description != command:
+                print(f"[{self.name}] Running bash: '{command}'")
+                print(f"[{self.name}] Description: {description}")
+            else:
+                print(f"[{self.name}] Running bash: '{command}'")
+
+        elif tool_name == "glob":
+            pattern = tool_args.get("pattern", "")
+            print(f"[{self.name}] Finding files: {pattern}")
+
+        elif tool_name == "grep":
+            pattern = tool_args.get("pattern", "")
+            print(f"[{self.name}] Searching for: {pattern}")
+
+        elif tool_name == "handoff_to_agent":
+            agent_name = tool_args.get("agent_name", "")
+            message = tool_args.get("message", "")
+            print(f"[{self.name}] Handing off to {agent_name}: {message[:60]}...")
+
+        else:
+            # Default logging for unknown tools
+            print(f"[{self.name}] Using {tool_name}")
+
+    def _log_tool_result(self, tool_name: str, result: str) -> None:
+        """
+        Log tool results for important operations.
+
+        Args:
+            tool_name: Name of the tool
+            result: Result from the tool execution
+        """
+        # Log bash errors (especially validation errors)
+        if tool_name == "bash":
+            if "❌ ERROR" in result or "Error" in result:
+                # Show the full error message
+                print(f"\n{'='*70}")
+                print(f"[{self.name}] BASH ERROR:")
+                print(f"{'='*70}")
+                print(result)
+                print(f"{'='*70}\n")
+            elif "Exit code: 0" in result:
+                # Success - show brief confirmation
+                print(f"[{self.name}] ✅ Command completed successfully")
+            else:
+                # Show other results
+                print(f"[{self.name}] Result: {result[:200]}")
+
+        # Only log results for specific tools (not todo_write since we show full list in _log_tool_usage)
+        elif tool_name == "write" and "Successfully" in result:
+            # Show success message
+            if "created" in result:
+                print(f"[{self.name}] ✅ File created successfully")
+            elif "overwritten" in result:
+                print(f"[{self.name}] ✅ File updated successfully")
 
     def __repr__(self) -> str:
         """String representation of Agent."""

@@ -40,8 +40,8 @@ from rich.progress import Progress, SpinnerColumn, TextColumn
 from rich import box
 from dotenv import load_dotenv
 
-from agent import Agent, AgentConfig
-from tools import registry, ToolRegistry
+from my_agent_framework.agent import Agent, AgentConfig
+from my_agent_framework.tools import registry, ToolRegistry
 
 # ============================================================================
 # Application Setup
@@ -774,6 +774,34 @@ def list_agents():
         border_style="info"
     ))
     console.print()
+
+
+@app.command("create-agent")
+def create_agent_cmd(
+    name: str = typer.Argument(..., help="Name of the agent (e.g., 'qa_tester')"),
+    template: str = typer.Option("default", "--template", "-t", help="Template to use"),
+    output: str = typer.Option("./agents", "--output", "-o", help="Output directory"),
+    description: str = typer.Option("A specialized agent", "--description", "-d"),
+):
+    """Create a new agent from template."""
+    from my_agent_framework.templates.scaffolder import scaffold_agent
+
+    console.print(f"[bold blue]Creating agent: {name}[/bold blue]")
+
+    try:
+        agent_path = scaffold_agent(
+            name=name,
+            output_dir=output,
+            description=description
+        )
+        console.print(f"[green]Success! Agent created at: {agent_path}[/green]")
+        console.print("\nNext steps:")
+        console.print("  1. Edit instructions.md to customize behavior")
+        console.print("  2. Add agent-specific tools if needed")
+        console.print("  3. Import in your agency.py")
+    except Exception as e:
+        console.print(f"[red]Error creating agent: {e}[/red]")
+        raise typer.Exit(1)
 
 
 # ============================================================================
