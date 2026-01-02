@@ -1,0 +1,8 @@
+"""
+{agent_name} Agent Package
+
+Auto-generated subagent for indus-agents framework.
+"""
+from .{snake_name} import create_{snake_name}_agent
+
+__all__ = ["create_{snake_name}_agent"]

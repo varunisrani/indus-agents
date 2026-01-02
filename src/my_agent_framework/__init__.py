@@ -49,6 +49,28 @@ from my_agent_framework.agency import Agency, AgencyResponse, HandoffResult, Han
 # Import tool usage logger
 from my_agent_framework.tool_usage_logger import tool_logger, ToolUsageLogger
 
+# Shared utilities
+from my_agent_framework.shared import (
+    detect_model_type,
+    select_instructions_file,
+    render_instructions,
+    create_model_settings,
+    get_model_instance,
+    ModelSettings,
+    AgentHooks,
+    SystemReminderHook,
+    create_system_reminder_hook,
+    silence_warnings_and_logs,
+)
+
+# Enhanced tools
+from my_agent_framework.tools import (
+    SendMessageHandoff,
+    Git,
+    LS,
+    Tree,
+)
+
 # Expose public API
 __all__ = [
     # Version info
@@ -82,6 +104,24 @@ __all__ = [
     # Tool Usage Logging
     "tool_logger",
     "ToolUsageLogger",
+
+    # Shared utilities
+    "detect_model_type",
+    "select_instructions_file",
+    "render_instructions",
+    "create_model_settings",
+    "get_model_instance",
+    "ModelSettings",
+    "AgentHooks",
+    "SystemReminderHook",
+    "create_system_reminder_hook",
+    "silence_warnings_and_logs",
+
+    # Enhanced tools
+    "SendMessageHandoff",
+    "Git",
+    "LS",
+    "Tree",
 
     # Templates (imported on demand)
     # "templates",

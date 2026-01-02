@@ -1,0 +1,69 @@
+"""
+{class_name} Agent Factory
+
+Auto-generated subagent template for indus-agents framework.
+Generated on: {today}
+"""
+
+import os
+from typing import Optional, List, Dict, Any
+from my_agent_framework.agent import Agent, AgentConfig
+from my_agent_framework.shared.agent_utils import (
+    render_instructions,
+    select_instructions_file,
+    create_model_settings,
+    get_model_instance,
+)
+from my_agent_framework.shared.system_hooks import create_system_reminder_hook
+from my_agent_framework.tools.dev import Read, Write, Bash, Grep, Glob, Edit, TodoWrite
+
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+
+def create_{snake_name}_agent(
+    model: str = "gpt-4o",
+    reasoning_effort: str = "medium",
+    config: Optional[AgentConfig] = None,
+    enable_hooks: bool = True,
+) -> Agent:
+    """
+    Factory function that returns a fresh {class_name} instance.
+
+    Args:
+        model: Model to use (e.g., 'gpt-4o', 'gpt-5', 'claude-opus')
+        reasoning_effort: Reasoning effort level ('low', 'medium', 'high')
+        config: Optional AgentConfig override
+        enable_hooks: Whether to enable lifecycle hooks
+
+    Returns:
+        Configured Agent instance
+    """
+    # Select and render model-specific instructions
+    instructions_file = select_instructions_file(current_dir, model)
+    instructions = render_instructions(instructions_file, model)
+
+    # Create or update config
+    agent_config = config or AgentConfig.from_env()
+    agent_config.model = model
+
+    # Create model settings
+    model_settings = create_model_settings(model, reasoning_effort)
+
+    # Create hooks if enabled
+    hooks = create_system_reminder_hook() if enable_hooks else None
+
+    return Agent(
+        name="{class_name}",
+        role="{description}",
+        config=agent_config,
+        system_prompt=instructions,
+        hooks=hooks,
+        model_settings=model_settings,
+    )
+
+
+# Convenience aliases
+{class_name} = create_{snake_name}_agent
+
+# Default tools for this agent type
+DEFAULT_TOOLS = [Read, Write, Bash, Grep, Glob, Edit, TodoWrite]

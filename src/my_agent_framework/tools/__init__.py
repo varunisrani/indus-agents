@@ -5,6 +5,20 @@ from typing import Dict, List, Any
 from .base import BaseTool, ToolContext, get_tool_context
 from .dev import Bash, Read, Edit, Write, Glob, Grep, TodoWrite
 from .handoff import handoff_to_agent, set_current_agency, get_current_agency, register_handoff_tool
+from .send_message_handoff import (
+    SendMessageHandoff,
+    SendMessageToCoordinator,
+    set_current_agency,
+    get_current_agency,
+    clear_current_agency,
+    push_agent,
+    pop_agent,
+    get_current_agent,
+    get_call_stack,
+    create_handoff_tool,
+)
+from .dev.git import Git, GitStatus, GitDiff
+from .dev.ls import LS, Tree
 
 
 class ToolRegistry:
@@ -64,6 +78,22 @@ __all__ = [
     "set_current_agency",
     "get_current_agency",
     "register_handoff_tool",
+    # SendMessage handoff tools
+    "SendMessageHandoff",
+    "SendMessageToCoordinator",
+    "clear_current_agency",
+    "push_agent",
+    "pop_agent",
+    "get_current_agent",
+    "get_call_stack",
+    "create_handoff_tool",
+    # Git tools
+    "Git",
+    "GitStatus",
+    "GitDiff",
+    # File system tools
+    "LS",
+    "Tree",
     # Compatibility exports (to be implemented)
     "registry",
     "ToolRegistry",

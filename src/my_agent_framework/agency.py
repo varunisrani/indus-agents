@@ -4,13 +4,21 @@ Agency - Multi-Agent Orchestration System
 Provides Agency Swarm-like orchestration for indus-agents.
 """
 import os
-from typing import List, Dict, Tuple, Optional, Any
+from typing import List, Dict, Tuple, Optional, Any, Union, Type
 from dataclasses import dataclass, field
 from enum import Enum
 import time
 
 from my_agent_framework.agent import Agent
 from my_agent_framework.tool_usage_logger import tool_logger
+from my_agent_framework.tools.send_message_handoff import (
+    SendMessageHandoff,
+    set_current_agency,
+    push_agent,
+    pop_agent,
+    get_current_agent,
+    clear_current_agency,
+)
 
 
 class HandoffType(Enum):
@@ -67,7 +75,7 @@ class Agency:
         self,
         entry_agent: Agent,
         agents: Optional[List[Agent]] = None,
-        communication_flows: Optional[List[Tuple[Agent, Agent]]] = None,
+        communication_flows: Optional[List[Union[Tuple[Agent, Agent], Tuple[Agent, Agent, Type]]]] = None,
         shared_instructions: Optional[str] = None,
         name: str = "Agency",
         max_handoffs: int = 10,
@@ -97,13 +105,25 @@ class Agency:
         self.agents = agents or [entry_agent]
         self._agent_map: Dict[str, Agent] = {a.name: a for a in self.agents}
 
-        # Build communication graph
+        # Store raw flows for later reference
+        self._raw_flows = communication_flows
+
+        # Register this agency for handoff tools
+        set_current_agency(self)
+
+        # Build communication graph - support both (Agent, Agent) and (Agent, Agent, ToolClass) formats
         self._flows: Dict[str, List[str]] = {}
         if communication_flows:
-            for source, target in communication_flows:
-                if source.name not in self._flows:
-                    self._flows[source.name] = []
-                self._flows[source.name].append(target.name)
+            for flow in communication_flows:
+                if len(flow) >= 2:
+                    source = flow[0]
+                    target = flow[1]
+                    if source.name not in self._flows:
+                        self._flows[source.name] = []
+                    self._flows[source.name].append(target.name)
+
+        # Register handoff tools based on communication flows
+        self._register_handoff_tools()
 
         # Load shared instructions
         self._shared_context = ""
@@ -133,6 +153,25 @@ class Agency:
         """Get list of agents this agent can hand off to."""
         return self._flows.get(agent_name, [])
 
+    def _register_handoff_tools(self) -> None:
+        """Register handoff tools based on communication flows."""
+        for flow in self._raw_flows or []:
+            if len(flow) >= 3:
+                source, target, tool_class = flow
+                # Tool class is registered for source agent
+                # This enables LLM-driven handoff decisions
+                if hasattr(source, '_handoff_targets'):
+                    source._handoff_targets.append(target.name)
+                else:
+                    source._handoff_targets = [target.name]
+
+    def get_handoff_tool_for_agent(self, agent_name: str) -> Optional[type]:
+        """Get the handoff tool class configured for an agent."""
+        for flow in self._raw_flows or []:
+            if len(flow) >= 3 and flow[0].name == agent_name:
+                return flow[2]
+        return SendMessageHandoff  # Default tool
+
     def handoff(
         self,
         from_agent: Agent,
@@ -140,20 +179,10 @@ class Agency:
         message: str,
         context: Optional[Dict[str, Any]] = None
     ) -> HandoffResult:
-        """
-        Execute a handoff from one agent to another.
-
-        Args:
-            from_agent: The agent initiating the handoff
-            to_agent_name: Name of the target agent
-            message: Message to pass to target agent
-            context: Optional additional context
-
-        Returns:
-            HandoffResult with response and metadata
-        """
+        """Execute a handoff with call stack management."""
         start_time = time.time()
 
+        # Validate handoff is allowed
         if not self.can_handoff(from_agent.name, to_agent_name):
             return HandoffResult(
                 success=False,
@@ -185,8 +214,20 @@ class Agency:
             context_str = "\n".join(f"- {k}: {v}" for k, v in context.items())
             full_message += f"\n\n[Additional Context]\n{context_str}"
 
+        # Push target onto call stack
+        push_agent(to_agent_name)
+
         try:
-            response = target.process(full_message)
+            # Use process_with_tools if tools are configured
+            if self.tools and self.tool_executor:
+                response = target.process_with_tools(
+                    full_message,
+                    tools=self.tools,
+                    tool_executor=self.tool_executor
+                )
+            else:
+                response = target.process(full_message)
+
             processing_time = time.time() - start_time
 
             result = HandoffResult(
@@ -208,6 +249,9 @@ class Agency:
                 processing_time=time.time() - start_time,
                 error=str(e)
             )
+        finally:
+            # Pop from call stack
+            pop_agent()
 
     def process(self, user_input: str, use_tools: bool = True, tools: Optional[List[Dict[str, Any]]] = None, tool_executor: Optional[Any] = None) -> AgencyResponse:
         """
@@ -228,28 +272,34 @@ class Agency:
         self._handoff_history = []
         agents_used = [self.entry_agent.name]
 
-        # Add shared context to initial message
-        full_input = user_input
-        if self._shared_context:
-            full_input = f"[Project Context]\n{self._shared_context}\n\n[User Request]\n{user_input}"
+        # Push entry agent onto call stack
+        push_agent(self.entry_agent.name)
 
-        # Process with entry agent - use tools if enabled
-        if use_tools and tools is not None:
-            response = self.entry_agent.process_with_tools(
-                full_input,
-                tools=tools,
-                tool_executor=tool_executor
+        try:
+            # Add shared context to initial message
+            full_input = user_input
+            if self._shared_context:
+                full_input = f"[Project Context]\n{self._shared_context}\n\n[User Request]\n{user_input}"
+
+            # Process with entry agent - use tools if enabled
+            if use_tools and tools is not None:
+                response = self.entry_agent.process_with_tools(
+                    full_input,
+                    tools=tools,
+                    tool_executor=tool_executor
+                )
+            else:
+                response = self.entry_agent.process(full_input)
+
+            return AgencyResponse(
+                response=response,
+                agents_used=agents_used,
+                handoffs=self._handoff_history,
+                total_time=time.time() - start_time,
+                final_agent=agents_used[-1]
             )
-        else:
-            response = self.entry_agent.process(full_input)
-
-        return AgencyResponse(
-            response=response,
-            agents_used=agents_used,
-            handoffs=self._handoff_history,
-            total_time=time.time() - start_time,
-            final_agent=agents_used[-1]
-        )
+        finally:
+            pop_agent()
 
     def get_shared_state(self, key: str, default: Any = None) -> Any:
         """Get a value from shared state."""

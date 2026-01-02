@@ -4,13 +4,18 @@ Core Agent class for LLM interaction using OpenAI API.
 This module provides the Agent class which handles communication with OpenAI's API,
 manages conversation history, and supports tool calling capabilities.
 """
-from typing import Optional, List, Dict, Any
+import asyncio
+from typing import Optional, List, Dict, Any, TYPE_CHECKING
 from openai import OpenAI
 from pydantic import BaseModel, Field
 import os
 import time
 import json
 from my_agent_framework.tool_usage_logger import tool_logger
+
+if TYPE_CHECKING:
+    from my_agent_framework.shared.system_hooks import AgentHooks
+    from my_agent_framework.shared.agent_utils import ModelSettings
 
 
 class AgentConfig(BaseModel):
@@ -110,6 +115,10 @@ class Agent:
         client: OpenAI API client
         messages: Conversation message history
         system_prompt: System prompt defining agent behavior
+        context: Shared context object for tool state
+        hooks: Lifecycle hooks for agent events (optional)
+        parent_agent: Parent agent if this is a sub-agent (optional)
+        model_settings: Model configuration settings (optional)
 
     Example:
         >>> agent = Agent("Assistant", "Helpful AI assistant")
@@ -125,6 +134,9 @@ class Agent:
         config: Optional[AgentConfig] = None,
         system_prompt: Optional[str] = None,
         context: Optional[Any] = None,
+        hooks: Optional["AgentHooks"] = None,
+        parent_agent: Optional["Agent"] = None,
+        model_settings: Optional["ModelSettings"] = None,
     ) -> None:
         """
         Initialize an Agent instance.
@@ -135,6 +147,9 @@ class Agent:
             config: Configuration settings (uses defaults if None)
             system_prompt: Custom system prompt (auto-generated if None)
             context: Shared context object for tool state (optional)
+            hooks: Lifecycle hooks for agent events (optional)
+            parent_agent: Parent agent if this is a sub-agent (optional)
+            model_settings: Model configuration settings (optional)
 
         Raises:
             ValueError: If OPENAI_API_KEY not set in environment
@@ -143,6 +158,9 @@ class Agent:
         self.role = role
         self.config = config or AgentConfig.from_env()
         self.context = context
+        self.hooks = hooks
+        self.parent_agent = parent_agent
+        self.model_settings = model_settings
 
         # Check for API key
         api_key = os.getenv("OPENAI_API_KEY")
@@ -277,6 +295,10 @@ class Agent:
             "content": user_input
         })
 
+        # Call on_start hook if hooks are configured
+        if self.hooks:
+            self._run_hook(self.hooks.on_start(self.context, self))
+
         # Tool calling loop
         for turn in range(max_turns):
             try:
@@ -316,7 +338,11 @@ class Agent:
                 # Check if we're done
                 if finish_reason == "stop":
                     # No tool calls, return final answer
-                    return response_message.content or "I've completed the task."
+                    final_response = response_message.content or "I've completed the task."
+                    # Call on_end hook if hooks are configured
+                    if self.hooks:
+                        self._run_hook(self.hooks.on_end(self.context, self, final_response))
+                    return final_response
 
                 # Check if tools were called
                 if finish_reason == "tool_calls" and response_message.tool_calls:
@@ -365,6 +391,10 @@ class Agent:
                         # Format tool usage log
                         self._log_tool_usage(tool_name, tool_args)
 
+                        # Call on_tool_start hook if hooks are configured
+                        if self.hooks:
+                            self._run_hook(self.hooks.on_tool_start(self.context, self, tool_name, tool_args))
+
                         # Execute tool with timing and logging
                         start_time = time.time()
                         success = True
@@ -385,6 +415,10 @@ class Agent:
                             error_msg = "No tool executor"
 
                         execution_time = time.time() - start_time
+
+                        # Call on_tool_end hook if hooks are configured
+                        if self.hooks:
+                            self._run_hook(self.hooks.on_tool_end(self.context, self, tool_name, tool_args, result, success))
 
                         # Log to tool usage logger
                         tool_logger.log_call(
@@ -430,20 +464,32 @@ class Agent:
 
                 # If we get here, something unexpected happened
                 if response_message.content:
-                    return response_message.content
+                    final_response = response_message.content
                 else:
-                    return "I encountered an unexpected situation while processing your request."
+                    final_response = "I encountered an unexpected situation while processing your request."
+                # Call on_end hook if hooks are configured
+                if self.hooks:
+                    self._run_hook(self.hooks.on_end(self.context, self, final_response))
+                return final_response
 
             except Exception as e:
                 error_msg = f"Error in tool calling loop (turn {turn + 1}): {str(e)}"
                 print(f"[Agent {self.name}] {error_msg}")
-                return f"I apologize, but I encountered an error: {str(e)}"
+                error_response = f"I apologize, but I encountered an error: {str(e)}"
+                # Call on_end hook if hooks are configured
+                if self.hooks:
+                    self._run_hook(self.hooks.on_end(self.context, self, error_response))
+                return error_response
 
         # If we've exhausted max turns
-        return (
+        max_turns_response = (
             "I've reached the maximum number of processing steps. "
             "The task may be too complex or I may need different tools to complete it."
         )
+        # Call on_end hook if hooks are configured
+        if self.hooks:
+            self._run_hook(self.hooks.on_end(self.context, self, max_turns_response))
+        return max_turns_response
 
     def clear_history(self) -> None:
         """
@@ -502,6 +548,26 @@ class Agent:
             2
         """
         self.messages = messages.copy()
+
+    def _run_hook(self, coro):
+        """
+        Run an async hook, handling event loop properly.
+
+        This method ensures hooks can be called even if there's no existing
+        event loop or if we're already in an async context.
+
+        Args:
+            coro: Coroutine to execute
+        """
+        try:
+            asyncio.run(coro)
+        except RuntimeError:
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+            try:
+                loop.run_until_complete(coro)
+            finally:
+                loop.close()
 
     def get_token_count_estimate(self) -> int:
         """
