@@ -149,3 +149,7 @@ Thumbs.db
 # Project specific
 *.log
 .uv/
+
+# Cloned external repositories
+Agency-Code/
+agency-swarm/
