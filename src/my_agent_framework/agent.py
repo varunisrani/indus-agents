@@ -18,8 +18,8 @@ class AgentConfig(BaseModel):
     Configuration for an Agent instance.
 
     Attributes:
-        model: OpenAI model to use (e.g., 'gpt-4o', 'gpt-4-turbo')
-        max_tokens: Maximum tokens in response (100-4096)
+        model: OpenAI model to use (e.g., 'gpt-4o', 'gpt-4-turbo', 'gpt-5-mini')
+        max_tokens: Maximum tokens in response (100-32000)
         temperature: Sampling temperature for randomness (0.0-2.0)
         top_p: Nucleus sampling parameter (0.0-1.0)
         frequency_penalty: Penalty for token frequency (-2.0 to 2.0)
@@ -35,7 +35,7 @@ class AgentConfig(BaseModel):
     max_tokens: int = Field(
         default=1024,
         ge=100,
-        le=4096,
+        le=32000,  # Increased to support comprehensive outputs
         description="Maximum tokens in response"
     )
     temperature: float = Field(
@@ -191,19 +191,30 @@ class Agent:
         # Attempt API call with retries
         for attempt in range(self.config.max_retries):
             try:
-                # Call OpenAI API
-                response = self.client.chat.completions.create(
-                    model=self.config.model,
-                    messages=[
+                # Prepare API params - GPT-5 has different parameter requirements
+                is_gpt5_or_reasoning = "gpt-5" in self.config.model.lower() or "o1" in self.config.model.lower() or "o3" in self.config.model.lower()
+
+                api_params = {
+                    "model": self.config.model,
+                    "messages": [
                         {"role": "system", "content": self.system_prompt},
                         *self.messages
                     ],
-                    max_tokens=self.config.max_tokens,
-                    temperature=self.config.temperature,
-                    top_p=self.config.top_p,
-                    frequency_penalty=self.config.frequency_penalty,
-                    presence_penalty=self.config.presence_penalty,
-                )
+                }
+
+                # GPT-5/reasoning models: only support temperature=1, no top_p, no penalties
+                if is_gpt5_or_reasoning:
+                    api_params["max_completion_tokens"] = self.config.max_tokens
+                    api_params["temperature"] = 1  # Only value supported
+                else:
+                    api_params["max_tokens"] = self.config.max_tokens
+                    api_params["temperature"] = self.config.temperature
+                    api_params["top_p"] = self.config.top_p
+                    api_params["frequency_penalty"] = self.config.frequency_penalty
+                    api_params["presence_penalty"] = self.config.presence_penalty
+
+                # Call OpenAI API
+                response = self.client.chat.completions.create(**api_params)
 
                 # Extract response text
                 assistant_message = response.choices[0].message.content
@@ -280,19 +291,27 @@ class Agent:
         # Tool calling loop
         for turn in range(max_turns):
             try:
-                # Prepare API call parameters
+                # Prepare API call parameters - GPT-5 has different requirements
+                is_gpt5_or_reasoning = "gpt-5" in self.config.model.lower() or "o1" in self.config.model.lower() or "o3" in self.config.model.lower()
+
                 api_params = {
                     "model": self.config.model,
                     "messages": [
                         {"role": "system", "content": self.system_prompt},
                         *self.messages
                     ],
-                    "max_tokens": self.config.max_tokens,
-                    "temperature": self.config.temperature,
-                    "top_p": self.config.top_p,
-                    "frequency_penalty": self.config.frequency_penalty,
-                    "presence_penalty": self.config.presence_penalty,
                 }
+
+                # GPT-5/reasoning models: only support temperature=1, no top_p, no penalties
+                if is_gpt5_or_reasoning:
+                    api_params["max_completion_tokens"] = self.config.max_tokens
+                    api_params["temperature"] = 1  # Only value supported
+                else:
+                    api_params["max_tokens"] = self.config.max_tokens
+                    api_params["temperature"] = self.config.temperature
+                    api_params["top_p"] = self.config.top_p
+                    api_params["frequency_penalty"] = self.config.frequency_penalty
+                    api_params["presence_penalty"] = self.config.presence_penalty
 
                 # Add tools if provided
                 if tools:
@@ -305,6 +324,11 @@ class Agent:
                 # Get the message from response
                 response_message = response.choices[0].message
                 finish_reason = response.choices[0].finish_reason
+
+                # DEBUG: Log finish_reason
+                print(f"\nDEBUG [{self.name}]: finish_reason = {finish_reason}")
+                print(f"DEBUG [{self.name}]: has content = {bool(response_message.content)}")
+                print(f"DEBUG [{self.name}]: has tool_calls = {bool(response_message.tool_calls)}")
 
                 # Add assistant message to history
                 self.messages.append({
@@ -334,31 +358,36 @@ class Agent:
                         if tc.function.name != "todo_write"
                     ]
 
+                    # Track which tool calls to actually execute vs skip
+                    tools_to_execute = []
+                    tools_to_skip = []
+
                     # If there are active todos and multiple non-todo tools called, enforce one-by-one
                     if has_active_todos and len(non_todo_calls) > 1:
                         print(f"\n{'='*70}")
-                        print(f"[{self.name}] ⚠️ WARNING: Attempted to execute {len(non_todo_calls)} tools at once!")
+                        print(f"[{self.name}] WARNING: Attempted to execute {len(non_todo_calls)} tools at once!")
                         print(f"[{self.name}] Enforcing ONE-BY-ONE execution when todos are active")
                         print(f"[{self.name}] Only executing the first tool call")
                         print(f"{'='*70}\n")
 
-                        # Filter to only allow first non-todo_write call + any todo_write calls
-                        allowed_calls = []
+                        # Determine which to execute vs skip
                         first_non_todo_found = False
                         for tc in response_message.tool_calls:
                             if tc.function.name == "todo_write":
-                                allowed_calls.append(tc)
+                                tools_to_execute.append(tc)
                             elif not first_non_todo_found:
-                                allowed_calls.append(tc)
+                                tools_to_execute.append(tc)
                                 first_non_todo_found = True
+                            else:
+                                tools_to_skip.append(tc)  # Skip remaining tools
+                    else:
+                        # Execute all tools normally
+                        tools_to_execute = response_message.tool_calls
 
-                        # Override tool_calls with filtered list
-                        response_message.tool_calls = allowed_calls
-
-                    # Execute each tool call
+                    # Execute each allowed tool call
                     tool_messages = []
 
-                    for tool_call in response_message.tool_calls:
+                    for tool_call in tools_to_execute:
                         tool_name = tool_call.function.name
                         tool_args = json.loads(tool_call.function.arguments)
 
@@ -398,21 +427,35 @@ class Agent:
                         )
 
                         # Display real-time tool usage info
-                        status_icon = "✅" if success else "❌"
-                        print(f"\n{'─'*70}")
-                        print(f"📊 TOOL USAGE: {status_icon} {tool_name}")
-                        print(f"{'─'*70}")
-                        print(f"⏱️  Execution Time: {execution_time:.3f}s")
-                        print(f"🤖 Agent: {self.name}")
+                        status_icon = "[OK]" if success else "[FAIL]"
+                        print(f"\n{'-'*70}")
+                        print(f"TOOL USAGE: {status_icon} {tool_name}")
+                        print(f"{'-'*70}")
+                        print(f"Execution Time: {execution_time:.3f}s")
+                        print(f"Agent: {self.name}")
                         if error_msg:
-                            print(f"❌ Error: {error_msg}")
+                            print(f"Error: {error_msg}")
 
                         # Show running statistics
                         stats = tool_logger.get_statistics()
-                        print(f"📈 Session Stats: {stats['total_calls']} calls | "
+                        print(f"Session Stats: {stats['total_calls']} calls | "
                               f"{stats['success_rate']:.1f}% success | "
                               f"{stats['total_execution_time']:.2f}s total")
-                        print(f"{'─'*70}\n")
+                        print(f"{'-'*70}\n")
+
+                        # Check if this was a handoff - if so, stop processing
+                        if tool_name == "handoff_to_agent":
+                            # Add tool result
+                            tool_messages.append({
+                                "role": "tool",
+                                "tool_call_id": tool_call.id,
+                                "name": tool_name,
+                                "content": str(result)
+                            })
+                            # Stop processing - let Agency handle the handoff
+                            print(f"\nSTOP [Agent {self.name}] Handoff requested - stopping agent processing")
+                            self.messages.extend(tool_messages)
+                            return f"Handoff to {tool_args.get('agent_name', 'unknown')} requested."
 
                         # Add tool result to messages
                         tool_messages.append({
@@ -422,6 +465,15 @@ class Agent:
                             "content": str(result)
                         })
 
+                    # Add error responses for skipped tools (to satisfy OpenAI API requirement)
+                    for skipped_tool in tools_to_skip:
+                        tool_messages.append({
+                            "role": "tool",
+                            "tool_call_id": skipped_tool.id,
+                            "name": skipped_tool.function.name,
+                            "content": "Tool execution skipped: ONE-BY-ONE enforcement is active. Please complete the current task before starting the next one."
+                        })
+
                     # Add all tool results to history
                     self.messages.extend(tool_messages)
 
@@ -429,10 +481,11 @@ class Agent:
                     continue
 
                 # If we get here, something unexpected happened
+                print(f"\nWARNING [{self.name}] UNEXPECTED: finish_reason={finish_reason}, content={bool(response_message.content)}, tool_calls={bool(response_message.tool_calls)}")
                 if response_message.content:
                     return response_message.content
                 else:
-                    return "I encountered an unexpected situation while processing your request."
+                    return f"I encountered an unexpected situation (finish_reason={finish_reason})."
 
             except Exception as e:
                 error_msg = f"Error in tool calling loop (turn {turn + 1}): {str(e)}"

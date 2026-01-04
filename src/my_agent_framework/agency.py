@@ -234,14 +234,74 @@ class Agency:
             full_input = f"[Project Context]\n{self._shared_context}\n\n[User Request]\n{user_input}"
 
         # Process with entry agent - use tools if enabled
-        if use_tools and tools is not None:
-            response = self.entry_agent.process_with_tools(
-                full_input,
-                tools=tools,
-                tool_executor=tool_executor
-            )
-        else:
-            response = self.entry_agent.process(full_input)
+        current_agent = self.entry_agent
+        current_message = full_input
+        response = ""
+        handoff_count = 0
+
+        # Loop until no more handoffs or max reached
+        continue_processing = True
+
+        while continue_processing and handoff_count < self.max_handoffs:
+            # Process with current agent
+            if use_tools and tools is not None:
+                response = current_agent.process_with_tools(
+                    current_message,
+                    tools=tools,
+                    tool_executor=tool_executor
+                )
+            else:
+                response = current_agent.process(current_message)
+
+            # Check if a handoff was requested via tool execution
+            handoff_target = None
+            handoff_message = None
+
+            if tool_executor and hasattr(tool_executor, '_pending_handoff'):
+                handoff_data = tool_executor._pending_handoff
+                print(f"\nDEBUG: handoff_data = {handoff_data}")  # DEBUG
+                # Check if handoff_data is not None before calling .get()
+                if handoff_data is not None:
+                    handoff_target = handoff_data.get('agent_name')
+                    handoff_message = handoff_data.get('message', '')
+                    print(f"DEBUG: handoff_target = {handoff_target}")  # DEBUG
+                # Clear the pending handoff
+                tool_executor._pending_handoff = None
+
+            # If no handoff requested, we're done processing
+            if not handoff_target:
+                print(f"\nDEBUG: No handoff - processing complete")  # DEBUG
+                continue_processing = False
+                break
+
+            print(f"\nDEBUG: Handoff detected to {handoff_target}")  # DEBUG
+
+            # Validate handoff is allowed
+            if not self.can_handoff(current_agent.name, handoff_target):
+                print(f"\nWARNING: Handoff from {current_agent.name} to {handoff_target} not allowed")
+                continue_processing = False
+                break
+
+            # Get target agent
+            target_agent = self._agent_map.get(handoff_target)
+            if not target_agent:
+                print(f"\nWARNING: Target agent {handoff_target} not found")
+                continue_processing = False
+                break
+
+            # Execute handoff
+            print(f"\nHANDOFF: [{current_agent.name}] -> Handing off to [{handoff_target}]...")
+
+            # Prepare message for target agent
+            current_message = f"[Handoff from {current_agent.name}]\n\n{handoff_message}"
+            if self._shared_context:
+                current_message = f"[Shared Context]\n{self._shared_context}\n\n{current_message}"
+
+            # Update current agent and continue loop to process with new agent
+            current_agent = target_agent
+            agents_used.append(current_agent.name)
+            handoff_count += 1
+            # continue_processing stays True - loop will continue with new agent
 
         return AgencyResponse(
             response=response,

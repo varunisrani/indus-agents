@@ -377,10 +377,10 @@ def main():
     print("=" * 70)
     print()
 
-    # Create the agency
+    # Create the agency with gpt-5-mini (latest, fastest)
     print("Creating development agency...")
     agency = create_development_agency(
-        model="gpt-4o",
+        model="gpt-5-mini",  # ✅ Latest GPT-5 mini (Aug 2025)
         reasoning_effort="medium",
         max_handoffs=10
     )

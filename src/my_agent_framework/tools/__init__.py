@@ -13,6 +13,7 @@ class ToolRegistry:
     def __init__(self):
         self._tools: Dict[str, type[BaseTool]] = {}
         self.context = get_tool_context()  # Shared context for all tools
+        self._pending_handoff: Dict[str, Any] | None = None  # For agency handoffs
 
     def register(self, tool_class: type[BaseTool]) -> None:
         """Register a tool class."""

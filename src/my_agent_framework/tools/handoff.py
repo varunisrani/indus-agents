@@ -46,30 +46,24 @@ def handoff_to_agent(
         context: Additional context to provide
 
     Returns:
-        The target agent's response
+        Confirmation message that handoff will occur
     """
     if _current_agency is None:
         return "Error: No agency context available. Handoffs require an Agency."
 
-    # Find current agent (the one calling this tool)
-    # This is a simplification - in practice, would need to track this
-    current = _current_agency.entry_agent
+    # Instead of executing handoff immediately, signal that one is requested
+    # The Agency.process() loop will handle the actual handoff
+    from my_agent_framework.tools import registry
 
-    if not _current_agency.can_handoff(current.name, agent_name):
-        allowed = _current_agency.get_allowed_handoffs(current.name)
-        return f"Error: Cannot handoff to {agent_name}. Allowed: {allowed}"
+    # Store pending handoff information
+    registry._pending_handoff = {
+        'agent_name': agent_name,
+        'message': message,
+        'context': context
+    }
 
-    result = _current_agency.handoff(
-        from_agent=current,
-        to_agent_name=agent_name,
-        message=message,
-        context={"additional_context": context} if context else None
-    )
-
-    if result.success:
-        return result.response
-    else:
-        return f"Handoff failed: {result.error}"
+    # Return confirmation (the actual handoff will happen in Agency.process())
+    return f"Handoff to {agent_name} scheduled. Message: {message[:100]}..."
 
 
 def register_handoff_tool(tool_registry: "ToolRegistry") -> None:
