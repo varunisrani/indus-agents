@@ -1,16 +1,18 @@
 """
-Core Agent class for LLM interaction using OpenAI API.
+Core Agent class for LLM interaction using OpenAI and Anthropic APIs.
 
-This module provides the Agent class which handles communication with OpenAI's API,
-manages conversation history, and supports tool calling capabilities.
+This module provides the Agent class which handles communication with multiple LLM
+providers (OpenAI, Anthropic), manages conversation history, and supports tool calling.
 """
 from typing import Optional, List, Dict, Any
-from openai import OpenAI
 from pydantic import BaseModel, Field
 import os
 import time
 import json
 from my_agent_framework.tool_usage_logger import tool_logger
+from my_agent_framework.providers.base import BaseProvider, ProviderResponse, ToolCall
+from my_agent_framework.providers.openai_provider import OpenAIProvider
+from my_agent_framework.providers.anthropic_provider import AnthropicProvider
 
 
 class AgentConfig(BaseModel):
@@ -18,7 +20,8 @@ class AgentConfig(BaseModel):
     Configuration for an Agent instance.
 
     Attributes:
-        model: OpenAI model to use (e.g., 'gpt-4o', 'gpt-4-turbo', 'gpt-5-mini')
+        model: Model to use (e.g., 'gpt-4o', 'claude-sonnet-4-5-20250929')
+        provider: LLM provider ('openai' or 'anthropic'). Auto-detected if None.
         max_tokens: Maximum tokens in response (100-32000)
         temperature: Sampling temperature for randomness (0.0-2.0)
         top_p: Nucleus sampling parameter (0.0-1.0)
@@ -30,7 +33,11 @@ class AgentConfig(BaseModel):
 
     model: str = Field(
         default="gpt-4o",
-        description="OpenAI model identifier"
+        description="Model identifier (OpenAI: gpt-4o, gpt-5-mini | Anthropic: claude-sonnet-4-5-20250929)"
+    )
+    provider: Optional[str] = Field(
+        default=None,
+        description="LLM provider: 'openai' or 'anthropic'. Auto-detected if None."
     )
     max_tokens: int = Field(
         default=1024,
@@ -81,23 +88,68 @@ class AgentConfig(BaseModel):
         Create configuration from environment variables.
 
         Environment variables:
-            OPENAI_MODEL: Model to use (default: gpt-4o)
-            OPENAI_MAX_TOKENS: Maximum tokens (default: 1024)
-            OPENAI_TEMPERATURE: Temperature (default: 0.7)
+            LLM_PROVIDER: Provider to use ('openai' or 'anthropic')
+            ANTHROPIC_MODEL: Anthropic model (default: claude-sonnet-4-5-20250929)
+            OPENAI_MODEL: OpenAI model (default: gpt-4o)
+            MAX_TOKENS: Maximum tokens (default: 1024)
+            TEMPERATURE: Temperature (default: 0.7)
 
         Returns:
             AgentConfig instance with values from environment
         """
+        # Detect provider
+        provider = cls._detect_provider()
+
+        # Get model based on provider
+        if provider == "anthropic":
+            default_model = "claude-sonnet-4-5-20250929"
+            model_env = "ANTHROPIC_MODEL"
+        else:
+            default_model = "gpt-4o"
+            model_env = "OPENAI_MODEL"
+
         return cls(
-            model=os.getenv("OPENAI_MODEL", "gpt-4o"),
-            max_tokens=int(os.getenv("OPENAI_MAX_TOKENS", "1024")),
-            temperature=float(os.getenv("OPENAI_TEMPERATURE", "0.7"))
+            model=os.getenv(model_env, default_model),
+            provider=provider,
+            max_tokens=int(os.getenv("MAX_TOKENS", "1024")),
+            temperature=float(os.getenv("TEMPERATURE", "0.7"))
         )
+
+    @staticmethod
+    def _detect_provider() -> str:
+        """
+        Auto-detect provider from environment variables.
+
+        Priority:
+        1. LLM_PROVIDER environment variable
+        2. ANTHROPIC_API_KEY (if set)
+        3. OPENAI_API_KEY (if set)
+        4. Default to 'openai'
+
+        Returns:
+            Provider name: 'openai' or 'anthropic'
+        """
+        # Check explicit provider setting
+        explicit_provider = os.getenv("LLM_PROVIDER")
+        if explicit_provider in ["openai", "anthropic"]:
+            return explicit_provider
+
+        # Auto-detect based on API keys
+        has_anthropic = bool(os.getenv("ANTHROPIC_API_KEY"))
+        has_openai = bool(os.getenv("OPENAI_API_KEY"))
+
+        if has_anthropic and not has_openai:
+            return "anthropic"
+        elif has_openai:
+            return "openai"
+
+        # Default to OpenAI for backward compatibility
+        return "openai"
 
 
 class Agent:
     """
-    AI Agent that interacts with OpenAI's API.
+    AI Agent that interacts with LLM providers (OpenAI, Anthropic).
 
     The Agent class manages conversation with LLM, maintains message history,
     and supports tool calling for extended capabilities. It handles retries,
@@ -107,7 +159,7 @@ class Agent:
         name: Unique identifier for the agent
         role: Agent's specialized role or purpose
         config: Configuration settings
-        client: OpenAI API client
+        provider: LLM provider instance (OpenAI or Anthropic)
         messages: Conversation message history
         system_prompt: System prompt defining agent behavior
 
@@ -137,27 +189,85 @@ class Agent:
             context: Shared context object for tool state (optional)
 
         Raises:
-            ValueError: If OPENAI_API_KEY not set in environment
+            ValueError: If required API key not set in environment
         """
         self.name = name
         self.role = role
         self.config = config or AgentConfig.from_env()
         self.context = context
 
-        # Check for API key
-        api_key = os.getenv("OPENAI_API_KEY")
-        if not api_key:
-            raise ValueError(
-                "OPENAI_API_KEY environment variable not set. "
-                "Please set it with: export OPENAI_API_KEY='your-key-here'"
-            )
+        # Determine provider (explicit config overrides auto-detection)
+        provider_name = self.config.provider or self.config._detect_provider()
 
-        self.client = OpenAI(api_key=api_key)
+        # Initialize the appropriate provider
+        self.provider = self._create_provider(provider_name)
+
         self.messages: List[Dict[str, Any]] = []
         self.system_prompt = system_prompt or (
             f"You are {name}, a helpful AI assistant. Your role is: {role}. "
             "Provide clear, accurate, and helpful responses."
         )
+
+    def _create_provider(self, provider_name: str) -> BaseProvider:
+        """
+        Create and return the appropriate provider instance.
+
+        Args:
+            provider_name: Provider to use ('openai' or 'anthropic')
+
+        Returns:
+            Provider instance
+
+        Raises:
+            ValueError: If provider_name is invalid or API key is missing
+        """
+        if provider_name == "anthropic":
+            api_key = os.getenv("ANTHROPIC_API_KEY")
+            if not api_key:
+                raise ValueError(
+                    "ANTHROPIC_API_KEY environment variable not set. "
+                    "Please set it with: export ANTHROPIC_API_KEY='your-key-here'"
+                )
+
+            base_url = os.getenv("ANTHROPIC_BASE_URL")
+            return AnthropicProvider(api_key=api_key, base_url=base_url)
+
+        elif provider_name == "openai":
+            api_key = os.getenv("OPENAI_API_KEY")
+            if not api_key:
+                raise ValueError(
+                    "OPENAI_API_KEY environment variable not set. "
+                    "Please set it with: export OPENAI_API_KEY='your-key-here'"
+                )
+
+            base_url = os.getenv("OPENAI_BASE_URL")
+            return OpenAIProvider(api_key=api_key, base_url=base_url)
+
+        else:
+            raise ValueError(
+                f"Unknown provider: {provider_name}. "
+                "Supported providers: 'openai', 'anthropic'"
+            )
+
+    def _tool_call_to_openai_format(self, tool_call: ToolCall) -> Dict[str, Any]:
+        """
+        Convert normalized ToolCall to OpenAI format for message history storage.
+
+        Args:
+            tool_call: Normalized ToolCall object from provider
+
+        Returns:
+            Tool call in OpenAI format
+        """
+        import json
+        return {
+            "id": tool_call.id,
+            "type": "function",
+            "function": {
+                "name": tool_call.name,
+                "arguments": json.dumps(tool_call.arguments)
+            }
+        }
 
     def process(self, user_input: str) -> str:
         """
@@ -191,35 +301,18 @@ class Agent:
         # Attempt API call with retries
         for attempt in range(self.config.max_retries):
             try:
-                # Prepare API params - GPT-5 has different parameter requirements
-                is_gpt5_or_reasoning = "gpt-5" in self.config.model.lower() or "o1" in self.config.model.lower() or "o3" in self.config.model.lower()
+                # Use provider abstraction
+                response = self.provider.create_completion(
+                    messages=self.messages,
+                    system_prompt=self.system_prompt,
+                    config=self.config,
+                    tools=None
+                )
 
-                api_params = {
-                    "model": self.config.model,
-                    "messages": [
-                        {"role": "system", "content": self.system_prompt},
-                        *self.messages
-                    ],
-                }
+                # Extract response content from normalized response
+                assistant_message = response.content
 
-                # GPT-5/reasoning models: only support temperature=1, no top_p, no penalties
-                if is_gpt5_or_reasoning:
-                    api_params["max_completion_tokens"] = self.config.max_tokens
-                    api_params["temperature"] = 1  # Only value supported
-                else:
-                    api_params["max_tokens"] = self.config.max_tokens
-                    api_params["temperature"] = self.config.temperature
-                    api_params["top_p"] = self.config.top_p
-                    api_params["frequency_penalty"] = self.config.frequency_penalty
-                    api_params["presence_penalty"] = self.config.presence_penalty
-
-                # Call OpenAI API
-                response = self.client.chat.completions.create(**api_params)
-
-                # Extract response text
-                assistant_message = response.choices[0].message.content
-
-                # Add to history
+                # Add to history (store in OpenAI format for consistency)
                 self.messages.append({
                     "role": "assistant",
                     "content": assistant_message
@@ -291,59 +384,45 @@ class Agent:
         # Tool calling loop
         for turn in range(max_turns):
             try:
-                # Prepare API call parameters - GPT-5 has different requirements
-                is_gpt5_or_reasoning = "gpt-5" in self.config.model.lower() or "o1" in self.config.model.lower() or "o3" in self.config.model.lower()
+                # Use provider abstraction
+                response = self.provider.create_completion(
+                    messages=self.messages,
+                    system_prompt=self.system_prompt,
+                    config=self.config,
+                    tools=tools
+                )
 
-                api_params = {
-                    "model": self.config.model,
-                    "messages": [
-                        {"role": "system", "content": self.system_prompt},
-                        *self.messages
-                    ],
-                }
-
-                # GPT-5/reasoning models: only support temperature=1, no top_p, no penalties
-                if is_gpt5_or_reasoning:
-                    api_params["max_completion_tokens"] = self.config.max_tokens
-                    api_params["temperature"] = 1  # Only value supported
-                else:
-                    api_params["max_tokens"] = self.config.max_tokens
-                    api_params["temperature"] = self.config.temperature
-                    api_params["top_p"] = self.config.top_p
-                    api_params["frequency_penalty"] = self.config.frequency_penalty
-                    api_params["presence_penalty"] = self.config.presence_penalty
-
-                # Add tools if provided
-                if tools:
-                    api_params["tools"] = tools
-                    api_params["tool_choice"] = "auto"
-
-                # Call OpenAI API
-                response = self.client.chat.completions.create(**api_params)
-
-                # Get the message from response
-                response_message = response.choices[0].message
-                finish_reason = response.choices[0].finish_reason
+                # Extract normalized response
+                finish_reason = response.finish_reason
+                content = response.content
+                tool_calls = response.tool_calls
 
                 # DEBUG: Log finish_reason
                 print(f"\nDEBUG [{self.name}]: finish_reason = {finish_reason}")
-                print(f"DEBUG [{self.name}]: has content = {bool(response_message.content)}")
-                print(f"DEBUG [{self.name}]: has tool_calls = {bool(response_message.tool_calls)}")
+                print(f"DEBUG [{self.name}]: has content = {bool(content)}")
+                print(f"DEBUG [{self.name}]: has tool_calls = {bool(tool_calls)}")
 
-                # Add assistant message to history
-                self.messages.append({
+                # Add assistant message to history (store in OpenAI format)
+                assistant_msg = {
                     "role": "assistant",
-                    "content": response_message.content,
-                    "tool_calls": response_message.tool_calls
-                })
+                    "content": content,
+                }
+
+                # Convert tool_calls to OpenAI format if present
+                if tool_calls:
+                    assistant_msg["tool_calls"] = [
+                        self._tool_call_to_openai_format(tc) for tc in tool_calls
+                    ]
+
+                self.messages.append(assistant_msg)
 
                 # Check if we're done
                 if finish_reason == "stop":
                     # No tool calls, return final answer
-                    return response_message.content or "I've completed the task."
+                    return content or "I've completed the task."
 
                 # Check if tools were called
-                if finish_reason == "tool_calls" and response_message.tool_calls:
+                if finish_reason == "tool_calls" and tool_calls:
                     # ⚠️ ENFORCE ONE-BY-ONE EXECUTION WHEN TODOS ARE ACTIVE
                     # Check if there are active todos in context
                     todos = self.context.get("todos", []) if self.context else []
@@ -354,8 +433,8 @@ class Agent:
 
                     # Count non-todo_write tool calls
                     non_todo_calls = [
-                        tc for tc in response_message.tool_calls
-                        if tc.function.name != "todo_write"
+                        tc for tc in tool_calls
+                        if tc.name != "todo_write"
                     ]
 
                     # Track which tool calls to actually execute vs skip
@@ -372,8 +451,8 @@ class Agent:
 
                         # Determine which to execute vs skip
                         first_non_todo_found = False
-                        for tc in response_message.tool_calls:
-                            if tc.function.name == "todo_write":
+                        for tc in tool_calls:
+                            if tc.name == "todo_write":
                                 tools_to_execute.append(tc)
                             elif not first_non_todo_found:
                                 tools_to_execute.append(tc)
@@ -382,14 +461,14 @@ class Agent:
                                 tools_to_skip.append(tc)  # Skip remaining tools
                     else:
                         # Execute all tools normally
-                        tools_to_execute = response_message.tool_calls
+                        tools_to_execute = tool_calls
 
                     # Execute each allowed tool call
                     tool_messages = []
 
                     for tool_call in tools_to_execute:
-                        tool_name = tool_call.function.name
-                        tool_args = json.loads(tool_call.function.arguments)
+                        tool_name = tool_call.name
+                        tool_args = tool_call.arguments  # Already a dict in normalized format
 
                         # Format tool usage log
                         self._log_tool_usage(tool_name, tool_args)
@@ -465,12 +544,12 @@ class Agent:
                             "content": str(result)
                         })
 
-                    # Add error responses for skipped tools (to satisfy OpenAI API requirement)
+                    # Add error responses for skipped tools (to satisfy API requirement)
                     for skipped_tool in tools_to_skip:
                         tool_messages.append({
                             "role": "tool",
                             "tool_call_id": skipped_tool.id,
-                            "name": skipped_tool.function.name,
+                            "name": skipped_tool.name,
                             "content": "Tool execution skipped: ONE-BY-ONE enforcement is active. Please complete the current task before starting the next one."
                         })
 
@@ -481,9 +560,9 @@ class Agent:
                     continue
 
                 # If we get here, something unexpected happened
-                print(f"\nWARNING [{self.name}] UNEXPECTED: finish_reason={finish_reason}, content={bool(response_message.content)}, tool_calls={bool(response_message.tool_calls)}")
-                if response_message.content:
-                    return response_message.content
+                print(f"\nWARNING [{self.name}] UNEXPECTED: finish_reason={finish_reason}, content={bool(content)}, tool_calls={bool(tool_calls)}")
+                if content:
+                    return content
                 else:
                     return f"I encountered an unexpected situation (finish_reason={finish_reason})."
 
