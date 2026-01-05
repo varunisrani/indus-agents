@@ -149,3 +149,4 @@ Thumbs.db
 # Project specific
 *.log
 .uv/
+activity-tracker-agent/.env.local

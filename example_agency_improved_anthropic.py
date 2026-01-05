@@ -377,7 +377,7 @@ def main():
     agency = create_development_agency(
         model="glm-4.7",  # ✅ GLM-4.7 via Z.AI Anthropic-compatible API
         reasoning_effort="medium",
-        max_handoffs=15
+        max_handoffs=100
     )
 
     print(f"Agency: {agency.name}")

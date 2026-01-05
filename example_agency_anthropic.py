@@ -253,7 +253,7 @@ When done, hand back to CEO with your strategy recommendations."""
         communication_flows=communication_flows,
         tools=registry.schemas,
         tool_executor=registry,
-        max_handoffs=20
+        max_handoffs=100
     )
 
     # Set the current agency for handoff tools
