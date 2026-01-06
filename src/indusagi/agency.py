@@ -4,7 +4,7 @@ Agency - Multi-Agent Orchestration System
 Provides Agency Swarm-like orchestration for indus-agents.
 """
 import os
-from typing import List, Dict, Tuple, Optional, Any
+from typing import List, Dict, Tuple, Optional, Any, Callable
 from dataclasses import dataclass, field
 from enum import Enum
 import time
@@ -71,6 +71,7 @@ class Agency:
         shared_instructions: Optional[str] = None,
         name: str = "Agency",
         max_handoffs: int = 10,
+        max_turns: Optional[int] = 100,
         tools: Optional[List[Dict[str, Any]]] = None,
         tool_executor: Optional[Any] = None,
     ):
@@ -84,12 +85,15 @@ class Agency:
             shared_instructions: Path to shared instructions file
             name: Name of this agency
             max_handoffs: Maximum number of handoffs allowed per request
+            max_turns: Maximum number of tool-calling iterations per agent. None uses default of 1000. (default: 100)
             tools: List of tool schemas for function calling
             tool_executor: Tool executor instance
         """
         self.entry_agent = entry_agent
         self.name = name
         self.max_handoffs = max_handoffs
+        # Handle None max_turns - use large default (1000)
+        self.max_turns = 1000 if max_turns is None else max_turns
         self.tools = tools or []
         self.tool_executor = tool_executor
 
@@ -209,7 +213,14 @@ class Agency:
                 error=str(e)
             )
 
-    def process(self, user_input: str, use_tools: bool = True, tools: Optional[List[Dict[str, Any]]] = None, tool_executor: Optional[Any] = None) -> AgencyResponse:
+    def process(
+        self,
+        user_input: str,
+        use_tools: bool = True,
+        tools: Optional[List[Dict[str, Any]]] = None,
+        tool_executor: Optional[Any] = None,
+        on_max_turns_reached: Optional[Callable[[], bool]] = None
+    ) -> AgencyResponse:
         """
         Process user input through the agency.
 
@@ -220,6 +231,7 @@ class Agency:
             use_tools: Whether to enable tool usage
             tools: List of tool schemas (optional)
             tool_executor: Tool executor instance (optional)
+            on_max_turns_reached: Optional callback that returns bool to continue after max_turns
 
         Returns:
             AgencyResponse with full processing details
@@ -248,7 +260,9 @@ class Agency:
                 response = current_agent.process_with_tools(
                     current_message,
                     tools=tools,
-                    tool_executor=tool_executor
+                    tool_executor=tool_executor,
+                    max_turns=self.max_turns,
+                    on_max_turns_reached=on_max_turns_reached
                 )
             else:
                 response = current_agent.process(current_message)

@@ -1,19 +1,32 @@
 """
-Improved Agency Setup - Dynamic AI-Controlled Routing with Anthropic Provider
+IndusAGI Multi-Agent Example - Using PyPI Package
 
-Based on Agency-Code architecture using Anthropic Provider (GLM-4.7 via Z.AI):
-- Coder agent is the entry point (receives all user requests)
-- Coder intelligently decides when to handoff to Planner
-- Planner creates detailed plans and hands back to Coder
-- No separate router needed - intelligence is in the instructions
-- Uses GLM-4.7 via Z.AI's Anthropic-compatible API
+This example demonstrates using the indusagi package from PyPI.
+
+Installation:
+    pip install indusagi
+
+Environment Setup:
+    1. Create .env file with:
+       ANTHROPIC_API_KEY=your-api-key-here
+
+    2. Or export environment variable:
+       export ANTHROPIC_API_KEY=your-api-key-here
 
 Usage:
-    python example_agency_improved_anthropic.py
+    python example_agency_pypi.py
+
+Features:
+    - Multi-agent system with Coder and Planner agents
+    - Dynamic AI-controlled routing
+    - Uses Anthropic provider (Claude or compatible APIs)
+    - Interactive terminal interface
+
+Package: https://pypi.org/project/indusagi/
+GitHub: https://github.com/varunisrani/indus-agents
 """
 
 import os
-from typing import Optional, List, Dict, Any
 from dotenv import load_dotenv
 
 # Load environment variables
@@ -270,8 +283,7 @@ Be precise, systematic, and always verify your changes.
 def create_development_agency(
     model: str = "glm-4.7",
     reasoning_effort: str = "medium",
-    max_handoffs: int = 100,
-    max_turns: Optional[int] = None
+    max_handoffs: int = 100
 ) -> Agency:
     """
     Create development agency with intelligent routing using Anthropic provider.
@@ -282,12 +294,6 @@ def create_development_agency(
     - Planner creates plans and hands back to Coder
     - Bidirectional communication flows
     - All agents use GLM-4.7 via Z.AI's Anthropic API
-
-    Args:
-        model: LLM model to use (default: "glm-4.7")
-        reasoning_effort: Reasoning effort level (default: "medium")
-        max_handoffs: Maximum number of handoffs allowed (default: 100)
-        max_turns: Max tool-calling iterations per agent. None uses 1000 (default: None)
     """
     # Register tools in global registry
     for tool_class in [Bash, Read, Edit, Write, Glob, Grep, TodoWrite]:
@@ -340,7 +346,6 @@ def create_development_agency(
         shared_instructions=None,
         name="DevAgency_Anthropic",
         max_handoffs=max_handoffs,
-        max_turns=max_turns,  # ✅ Uses provided max_turns or 1000 if None
         tools=tools,
         tool_executor=registry
     )
@@ -387,7 +392,6 @@ def main():
         model="glm-4.7",  # ✅ GLM-4.7 via Z.AI Anthropic-compatible API
         reasoning_effort="medium",
         max_handoffs=100
-        # max_turns=None uses 1000 as default (increased from 100)
     )
 
     print(f"Agency: {agency.name}")

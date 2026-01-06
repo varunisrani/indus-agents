@@ -1,0 +1,185 @@
+import os
+
+# Base template for industry pages
+base_template = '''<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="{description}">
+  <title>{title} Solutions - CloudFlow</title>
+  <link rel="stylesheet" href="../../css/main.css">
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <a href="../../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="32" height="32" rx="8" fill="currentColor"/>
+          <path d="M16 8L24 16L16 24L8 16L16 8Z" fill="white"/>
+        </svg>
+        CloudFlow
+      </a>
+      <nav class="nav-menu">
+        <a href="../../index.html" class="nav-link">Home</a>
+        <a href="../about.html" class="nav-link">About</a>
+        <a href="../features.html" class="nav-link">Features</a>
+        <a href="../pricing.html" class="nav-link">Pricing</a>
+        <a href="../product/overview.html" class="nav-link">Product</a>
+        <a href="healthcare.html" class="nav-link active">Industries</a>
+        <a href="../resources.html" class="nav-link">Resources</a>
+        <a href="../contact.html" class="nav-cta">Get Started</a>
+      </nav>
+      <div class="mobile-toggle"><span></span><span></span><span></span></div>
+    </div>
+    <div class="mobile-overlay"></div>
+    <div class="mobile-menu">
+      <a href="../../index.html" class="nav-link">Home</a>
+      <a href="../about.html" class="nav-link">About</a>
+      <a href="../features.html" class="nav-link">Features</a>
+      <a href="../pricing.html" class="nav-link">Pricing</a>
+      <a href="../product/overview.html" class="nav-link">Product</a>
+      <a href="healthcare.html" class="nav-link">Industries</a>
+      <a href="../resources.html" class="nav-link">Resources</a>
+      <a href="../contact.html" class="nav-cta">Get Started</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="section" style="background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; padding: var(--space-20) 0;">
+      <div class="container text-center">
+        <h1 style="color: white; margin-bottom: var(--space-4);">{hero_title}</h1>
+        <p style="font-size: var(--text-xl); max-width: 700px; margin: 0 auto; opacity: 0.9;">{hero_subtitle}</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="grid grid-cols-2 gap-8">
+          <div>
+            <h2 style="margin-bottom: var(--space-4);">{content_title}</h2>
+            <p style="color: var(--gray-600); margin-bottom: var(--space-6);">{content}</p>
+            <a href="../contact.html" class="btn btn-primary">Learn More</a>
+          </div>
+          <div class="card" style="padding: var(--space-8); background: var(--gray-50);">
+            <h3 style="margin-bottom: var(--space-4);">Benefits</h3>
+            <ul style="list-style: none; padding: 0;">
+              <li style="padding: var(--space-2) 0;">✓ {benefit1}</li>
+              <li style="padding: var(--space-2) 0;">✓ {benefit2}</li>
+              <li style="padding: var(--space-2) 0;">✓ {benefit3}</li>
+              <li style="padding: var(--space-2) 0;">✓ {benefit4}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-column">
+          <h4>Product</h4>
+          <ul class="footer-links">
+            <li><a href="../product/overview.html">Overview</a></li>
+            <li><a href="../product/automation.html">Automation</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Company</h4>
+          <ul class="footer-links">
+            <li><a href="../about.html">About Us</a></li>
+            <li><a href="../contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Stay Updated</h4>
+          <form id="newsletter-form" style="display: flex; gap: 0.5rem;">
+            <input type="email" placeholder="Enter your email" class="form-input" style="flex: 1;" required>
+            <button type="submit" class="btn btn-primary">Subscribe</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 CloudFlow. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="../../js/main.js"></script>
+</body>
+</html>'''
+
+# Industry pages to generate
+industry_pages = {
+    'healthcare.html': {
+        'title': 'Healthcare',
+        'description': 'CloudFlow solutions for healthcare industry',
+        'hero_title': 'Healthcare Solutions',
+        'hero_subtitle': 'Streamline healthcare operations with automation',
+        'content_title': 'Transform Healthcare Operations',
+        'content': 'CloudFlow helps healthcare providers automate patient intake, scheduling, billing, and compliance workflows while maintaining HIPAA compliance.',
+        'benefit1': 'HIPAA compliant',
+        'benefit2': 'Patient scheduling automation',
+        'benefit3': 'Claims processing',
+        'benefit4': 'EHR integration'
+    },
+    'finance.html': {
+        'title': 'Finance',
+        'description': 'CloudFlow solutions for financial services',
+        'hero_title': 'Financial Services',
+        'hero_subtitle': 'Automate financial workflows securely',
+        'content_title': 'Modernize Finance Operations',
+        'content': 'Automate loan processing, fraud detection, compliance reporting, and customer onboarding with enterprise-grade security.',
+        'benefit1': 'SOC 2 compliant',
+        'benefit2': 'Automated compliance',
+        'benefit3': 'Risk management',
+        'benefit4': 'Audit trails'
+    },
+    'retail.html': {
+        'title': 'Retail',
+        'description': 'CloudFlow solutions for retail and e-commerce',
+        'hero_title': 'Retail & E-Commerce',
+        'hero_subtitle': 'Deliver exceptional customer experiences',
+        'content_title': 'Streamline Retail Operations',
+        'content': 'Automate inventory management, order processing, customer service, and marketing campaigns to drive growth.',
+        'benefit1': 'Inventory automation',
+        'benefit2': 'Order processing',
+        'benefit3': 'Customer engagement',
+        'benefit4': 'Multi-channel integration'
+    },
+    'manufacturing.html': {
+        'title': 'Manufacturing',
+        'description': 'CloudFlow solutions for manufacturing industry',
+        'hero_title': 'Manufacturing Solutions',
+        'hero_subtitle': 'Optimize production workflows',
+        'content_title': 'Smart Manufacturing',
+        'content': 'Automate supply chain management, quality control, maintenance scheduling, and production planning.',
+        'benefit1': 'Supply chain automation',
+        'benefit2': 'Quality control',
+        'benefit3': 'Predictive maintenance',
+        'benefit4': 'Production planning'
+    },
+    'education.html': {
+        'title': 'Education',
+        'description': 'CloudFlow solutions for education sector',
+        'hero_title': 'Education Solutions',
+        'hero_subtitle': 'Transform educational operations',
+        'content_title': 'Modernize Education',
+        'content': 'Automate student enrollment, course management, communication, and administrative tasks for educational institutions.',
+        'benefit1': 'Student enrollment',
+        'benefit2': 'Course management',
+        'benefit3': 'Communication automation',
+        'benefit4': 'Reporting & analytics'
+    }
+}
+
+# Generate industry pages
+for filename, data in industry_pages.items():
+    filepath = f'pages/industries/{filename}'
+    content = base_template.format(**data)
+    with open(filepath, 'w', encoding='utf-8') as f:
+        f.write(content)
+    print(f'Created industries/{filename}')
+
+print('\nAll industry pages created successfully!')

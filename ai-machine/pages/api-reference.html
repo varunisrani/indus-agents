@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AI Machine API reference - Complete API documentation with code examples and SDK information.">
+  <title>API Reference - AI Machine</title>
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="navbar-container">
+      <a href="../index.html" class="navbar-logo">AI Machine</a>
+      <nav class="navbar-menu hide-mobile">
+        <a href="products.html" class="navbar-link">Products</a>
+        <a href="api-reference.html" class="navbar-link active">API Reference</a>
+        <a href="contact.html" class="navbar-link">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="section-lg bg-alt">
+      <div class="container text-center">
+        <h1 class="text-5xl font-bold mb-6">API Reference</h1>
+        <p class="text-xl text-secondary max-w-3xl mx-auto">
+          Complete API documentation for integrating with AI Machine
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div>
+            <div class="card">
+              <h3 class="text-lg font-bold mb-4">API Endpoints</h3>
+              <ul class="space-y-2 text-sm">
+                <li><a href="#" class="text-secondary hover:text-primary">POST /train</a></li>
+                <li><a href="#" class="text-secondary hover:text-primary">POST /predict</a></li>
+                <li><a href="#" class="text-secondary hover:text-primary">GET /models</a></li>
+                <li><a href="#" class="text-secondary hover:text-primary">GET /status</a></li>
+                <li><a href="#" class="text-secondary hover:text-primary">DELETE /model/:id</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="lg:col-span-2">
+            <div class="card">
+              <h3 class="text-xl font-bold mb-4">Example: Training Request</h3>
+              <div class="code-block">
+<pre><code>POST /api/v1/train
+Content-Type: application/json
+
+{
+  "model_type": "neural_network",
+  "dataset": "s3://bucket/data",
+  "parameters": {
+    "epochs": 100,
+    "batch_size": 32,
+    "learning_rate": 0.001
+  }
+}</code></pre>
+              </div>
+
+              <h3 class="text-xl font-bold mb-4 mt-8">Example: Prediction Request</h3>
+              <div class="code-block">
+<pre><code>POST /api/v1/predict
+Content-Type: application/json
+
+{
+  "model_id": "model_123",
+  "input": [1.0, 2.0, 3.0, 4.0]
+}</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-12">
+          <div class="card">
+            <h3 class="text-2xl font-bold mb-6">SDKs & Libraries</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div>
+                <h4 class="font-bold mb-2">Python SDK</h4>
+                <code class="text-sm">pip install aimachine</code>
+              </div>
+              <div>
+                <h4 class="font-bold mb-2">JavaScript SDK</h4>
+                <code class="text-sm">npm install @aimachine/sdk</code>
+              </div>
+              <div>
+                <h4 class="font-bold mb-2">Go SDK</h4>
+                <code class="text-sm">go get github.com/aimachine/sdk</code>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; <span class="current-year"></span> AI Machine. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

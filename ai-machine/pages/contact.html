@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Contact AI Machine - Get in touch with our sales and support teams.">
+  <title>Contact - AI Machine</title>
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="navbar-container">
+      <a href="../index.html" class="navbar-logo">AI Machine</a>
+      <nav class="navbar-menu hide-mobile">
+        <a href="products.html" class="navbar-link">Products</a>
+        <a href="contact.html" class="navbar-link active">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="section-lg bg-alt">
+      <div class="container text-center">
+        <h1 class="text-5xl font-bold mb-6">Contact Us</h1>
+        <p class="text-xl text-secondary max-w-3xl mx-auto">
+          Get in touch with our team to discuss your AI infrastructure needs
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div>
+            <h2 class="text-3xl font-bold mb-6">Send us a message</h2>
+            <form data-validate class="card">
+              <div class="mb-4">
+                <label class="label" for="name">Name</label>
+                <input type="text" id="name" name="name" class="input" required>
+              </div>
+              <div class="mb-4">
+                <label class="label" for="email">Email</label>
+                <input type="email" id="email" name="email" class="input" required>
+              </div>
+              <div class="mb-4">
+                <label class="label" for="company">Company</label>
+                <input type="text" id="company" name="company" class="input">
+              </div>
+              <div class="mb-4">
+                <label class="label" for="message">Message</label>
+                <textarea id="message" name="message" class="input" rows="5" required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary btn-lg w-full">Send Message</button>
+            </form>
+          </div>
+          <div>
+            <h2 class="text-3xl font-bold mb-6">Contact Information</h2>
+            <div class="space-y-6">
+              <div class="card">
+                <h3 class="font-bold text-lg mb-2">📧 Email</h3>
+                <p class="text-secondary">info@aimachine.com</p>
+              </div>
+              <div class="card">
+                <h3 class="font-bold text-lg mb-2">📞 Phone</h3>
+                <p class="text-secondary">1-800-AI-MACHINE</p>
+              </div>
+              <div class="card">
+                <h3 class="font-bold text-lg mb-2">📍 Headquarters</h3>
+                <p class="text-secondary">123 AI Boulevard<br>San Francisco, CA 94105</p>
+              </div>
+              <div class="card">
+                <h3 class="font-bold text-lg mb-2">💼 Sales</h3>
+                <p class="text-secondary">sales@aimachine.com</p>
+              </div>
+              <div class="card">
+                <h3 class="font-bold text-lg mb-2">🔧 Support</h3>
+                <p class="text-secondary">support@aimachine.com</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; <span class="current-year"></span> AI Machine. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

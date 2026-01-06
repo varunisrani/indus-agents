@@ -1,0 +1,144 @@
+import os
+
+# Base template for customer pages
+base_template = '''<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="{description}">
+  <title>{title} - CloudFlow</title>
+  <link rel="stylesheet" href="../../css/main.css">
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <a href="../../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="32" height="32" rx="8" fill="currentColor"/>
+          <path d="M16 8L24 16L16 24L8 16L16 8Z" fill="white"/>
+        </svg>
+        CloudFlow
+      </a>
+      <nav class="nav-menu">
+        <a href="../../index.html" class="nav-link">Home</a>
+        <a href="../about.html" class="nav-link">About</a>
+        <a href="../features.html" class="nav-link">Features</a>
+        <a href="../pricing.html" class="nav-link">Pricing</a>
+        <a href="../product/overview.html" class="nav-link">Product</a>
+        <a href="../industries/healthcare.html" class="nav-link">Industries</a>
+        <a href="../resources.html" class="nav-link">Resources</a>
+        <a href="../contact.html" class="nav-cta">Get Started</a>
+      </nav>
+      <div class="mobile-toggle"><span></span><span></span><span></span></div>
+    </div>
+    <div class="mobile-overlay"></div>
+    <div class="mobile-menu">
+      <a href="../../index.html" class="nav-link">Home</a>
+      <a href="../about.html" class="nav-link">About</a>
+      <a href="../features.html" class="nav-link">Features</a>
+      <a href="../pricing.html" class="nav-link">Pricing</a>
+      <a href="../product/overview.html" class="nav-link">Product</a>
+      <a href="../industries/healthcare.html" class="nav-link">Industries</a>
+      <a href="../resources.html" class="nav-link">Resources</a>
+      <a href="../contact.html" class="nav-cta">Get Started</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="section" style="background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; padding: var(--space-20) 0;">
+      <div class="container text-center">
+        <h1 style="color: white; margin-bottom: var(--space-4);">{hero_title}</h1>
+        <p style="font-size: var(--text-xl); max-width: 700px; margin: 0 auto; opacity: 0.9;">{hero_subtitle}</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="grid grid-cols-3 gap-8">
+          <div class="card">
+            <h3 class="card-title">TechCorp</h3>
+            <p class="card-content">"Automated 80% of our manual processes and saved countless hours every week."</p>
+            <p style="font-size: var(--text-sm); color: var(--gray-600); margin-top: var(--space-4);">Sarah Mitchell, CEO</p>
+          </div>
+          <div class="card">
+            <h3 class="card-title">InnovateCo</h3>
+            <p class="card-content">"The integrations are incredible. We connected all our tools in minutes."</p>
+            <p style="font-size: var(--text-sm); color: var(--gray-600); margin-top: var(--space-4);">James Davidson, CTO</p>
+          </div>
+          <div class="card">
+            <h3 class="card-title">GlobalNet</h3>
+            <p class="card-content">"Best investment we've made. ROI was visible within the first month."</p>
+            <p style="font-size: var(--text-sm); color: var(--gray-600); margin-top: var(--space-4);">Emily Watson, Operations Director</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-column">
+          <h4>Product</h4>
+          <ul class="footer-links">
+            <li><a href="../product/overview.html">Overview</a></li>
+            <li><a href="../product/automation.html">Automation</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Company</h4>
+          <ul class="footer-links">
+            <li><a href="../about.html">About Us</a></li>
+            <li><a href="../contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Stay Updated</h4>
+          <form id="newsletter-form" style="display: flex; gap: 0.5rem;">
+            <input type="email" placeholder="Enter your email" class="form-input" style="flex: 1;" required>
+            <button type="submit" class="btn btn-primary">Subscribe</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 CloudFlow. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="../../js/main.js"></script>
+</body>
+</html>'''
+
+# Customer pages to generate
+customer_pages = {
+    'case-studies.html': {
+        'title': 'Case Studies',
+        'description': 'Read detailed case studies from CloudFlow customers',
+        'hero_title': 'Customer Case Studies',
+        'hero_subtitle': 'Learn how businesses succeed with CloudFlow'
+    },
+    'testimonials.html': {
+        'title': 'Testimonials',
+        'description': 'What our customers say about CloudFlow',
+        'hero_title': 'Customer Testimonials',
+        'hero_subtitle': 'Hear from our satisfied customers'
+    },
+    'success-stories.html': {
+        'title': 'Success Stories',
+        'description': 'Success stories from CloudFlow customers',
+        'hero_title': 'Success Stories',
+        'hero_subtitle': 'Real results from real customers'
+    }
+}
+
+# Generate customer pages
+for filename, data in customer_pages.items():
+    filepath = f'pages/customers/{filename}'
+    content = base_template.format(**data)
+    with open(filepath, 'w', encoding='utf-8') as f:
+        f.write(content)
+    print(f'Created customers/{filename}')
+
+print('\nAll customer pages created successfully!')

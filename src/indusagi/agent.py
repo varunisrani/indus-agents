@@ -4,7 +4,7 @@ Core Agent class for LLM interaction using OpenAI and Anthropic APIs.
 This module provides the Agent class which handles communication with multiple LLM
 providers (OpenAI, Anthropic), manages conversation history, and supports tool calling.
 """
-from typing import Optional, List, Dict, Any
+from typing import Optional, List, Dict, Any, Callable
 from pydantic import BaseModel, Field
 import os
 import time
@@ -81,6 +81,12 @@ class AgentConfig(BaseModel):
         le=10.0,
         description="Delay between retries in seconds"
     )
+    max_turns: Optional[int] = Field(
+        default=30,
+        ge=1,
+        le=10000,
+        description="Maximum tool-calling iterations. None uses default of 1000."
+    )
 
     @classmethod
     def from_env(cls) -> "AgentConfig":
@@ -112,7 +118,8 @@ class AgentConfig(BaseModel):
             model=os.getenv(model_env, default_model),
             provider=provider,
             max_tokens=int(os.getenv("MAX_TOKENS", "1024")),
-            temperature=float(os.getenv("TEMPERATURE", "0.7"))
+            temperature=float(os.getenv("TEMPERATURE", "0.7")),
+            max_turns=int(os.getenv("MAX_TURNS", "30")) if os.getenv("MAX_TURNS") else 30
         )
 
     @staticmethod
@@ -338,7 +345,8 @@ class Agent:
         user_input: str,
         tools: Optional[List[Dict[str, Any]]] = None,
         tool_executor: Optional[Any] = None,
-        max_turns: int = 30
+        max_turns: Optional[int] = None,
+        on_max_turns_reached: Optional[Callable[[], bool]] = None
     ) -> str:
         """
         Process user input with tool calling support.
@@ -351,7 +359,8 @@ class Agent:
             user_input: User's query or message
             tools: List of tool schemas in OpenAI format (optional)
             tool_executor: Object with execute(name, **kwargs) method (optional)
-            max_turns: Maximum iterations of tool calling loop (default: 10)
+            max_turns: Maximum iterations of tool calling loop. None uses 1000 (default: None)
+            on_max_turns_reached: Optional callback that returns bool to continue after max_turns
 
         Returns:
             Final agent response after tool usage (if any)
@@ -365,7 +374,8 @@ class Agent:
             >>> response = agent.process_with_tools(
             ...     "What is 25 * 4?",
             ...     tools=registry.schemas,
-            ...     tool_executor=registry
+            ...     tool_executor=registry,
+            ...     max_turns=30
             ... )
             >>> print(response)
             "The result of 25 * 4 is 100."
@@ -373,13 +383,18 @@ class Agent:
         Note:
             - The agent will automatically determine when to use tools
             - Multiple tool calls can be made in sequence
-            - If max_turns is reached, returns partial result
+            - If max_turns is reached, prompts user to continue (in interactive mode)
+            - When max_turns=None, uses 1000 as the default limit
         """
         # Add user message to history
         self.messages.append({
             "role": "user",
             "content": user_input
         })
+
+        # Handle None max_turns - use large default (1000)
+        if max_turns is None:
+            max_turns = 1000
 
         # Tool calling loop
         for turn in range(max_turns):
@@ -571,11 +586,61 @@ class Agent:
                 print(f"[Agent {self.name}] {error_msg}")
                 return f"I apologize, but I encountered an error: {str(e)}"
 
-        # If we've exhausted max turns
-        return (
-            "I've reached the maximum number of processing steps. "
-            "The task may be too complex or I may need different tools to complete it."
-        )
+        # If we've exhausted max turns, ask user to continue
+        if self._should_continue_after_max_turns(on_max_turns_reached):
+            # User wants to continue - recursively call with remaining context
+            # This allows the agent to continue making tool calls
+            return self.process_with_tools(
+                "",  # Empty message - we want to continue the conversation
+                tools=tools,
+                tool_executor=tool_executor,
+                max_turns=30,  # Reset to 30 for next batch
+                on_max_turns_reached=on_max_turns_reached
+            )
+        else:
+            # User declined or not interactive - return partial result
+            return (
+                "I've reached the maximum number of processing steps. "
+                "The task may be too complex or I may need different tools to complete it."
+            )
+
+    def _should_continue_after_max_turns(
+        self,
+        callback: Optional[Callable[[], bool]] = None
+    ) -> bool:
+        """
+        Determine if processing should continue after max_turns is reached.
+
+        Args:
+            callback: Optional callback that returns True to continue
+
+        Returns:
+            True if should continue, False otherwise
+        """
+        # Priority 1: Use callback if provided
+        if callback is not None:
+            try:
+                return callback()
+            except Exception as e:
+                print(f"[Warning] Callback error: {e}")
+                return False
+
+        # Priority 2: Detect interactive mode and prompt user
+        if self._is_interactive_mode():
+            try:
+                response = input("\n🔄 Max turns reached. Continue processing? (y/n): ").strip().lower()
+                return response in ['y', 'yes']
+            except (EOFError, KeyboardInterrupt):
+                print("\n[Stopped by user]")
+                return False
+
+        # Priority 3: Default to not continuing
+        return False
+
+    def _is_interactive_mode(self) -> bool:
+        """Check if running in interactive terminal mode."""
+        import sys
+        return sys.stdin.isatty() and sys.stdout.isatty()
 
     def clear_history(self) -> None:
         """

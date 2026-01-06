@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Contact AI Smart Band support. Get help with your device, ask questions or provide feedback.">
+  <title>Contact Us - AI Smart Band</title>
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  
+  <header class="navbar">
+    <div class="navbar-container">
+      <a href="../index.html" class="navbar-logo">AI Smart Band</a>
+      <nav class="navbar-menu hide-mobile">
+        <a href="products.html" class="navbar-link">Products</a>
+        <a href="ai-features.html" class="navbar-link">AI Features</a>
+        <a href="health-tracking.html" class="navbar-link">Health</a>
+        <a href="fitness-features.html" class="navbar-link">Fitness</a>
+        <a href="compare-models.html" class="navbar-link">Compare</a>
+        <a href="support.html" class="navbar-link">Support</a>
+      </nav>
+      <div class="flex items-center gap-4">
+        <button class="btn btn-primary btn-sm hide-mobile">Shop Now</button>
+        <button class="menu-toggle show-mobile" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="section bg-alt">
+      <div class="container">
+        <div class="text-center mb-16">
+          <h1 class="text-5xl font-bold mb-6">Contact Us</h1>
+          <p class="text-xl text-secondary max-w-2xl mx-auto">We're here to help. Get in touch with our support team.</p>
+        </div>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+          <div class="card text-center">
+            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">📧</div>
+            <h3 class="font-bold text-lg mb-2">Email Us</h3>
+            <p class="text-secondary mb-4">Get a response within 24 hours</p>
+            <a href="mailto:support@asmartband.com" class="text-primary font-medium">support@asmartband.com</a>
+          </div>
+          
+          <div class="card text-center">
+            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">💬</div>
+            <h3 class="font-bold text-lg mb-2">Live Chat</h3>
+            <p class="text-secondary mb-4">Available 24/7</p>
+            <button class="btn btn-outline btn-sm">Start Chat</button>
+          </div>
+          
+          <div class="card text-center">
+            <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">📞</div>
+            <h3 class="font-bold text-lg mb-2">Call Us</h3>
+            <p class="text-secondary mb-4">Mon-Fri, 9am-6pm EST</p>
+            <a href="tel:+18001234567" class="text-primary font-medium">1-800-123-4567</a>
+          </div>
+        </div>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div class="card">
+            <h2 class="text-2xl font-bold mb-6">Send us a message</h2>
+            <form class="contact-form" data-validate>
+              <div class="space-y-4">
+                <div class="form-group">
+                  <label class="label" for="name">Name *</label>
+                  <input type="text" id="name" name="name" class="input" required>
+                  <span class="error-message text-error text-sm hidden"></span>
+                </div>
+                
+                <div class="form-group">
+                  <label class="label" for="email">Email *</label>
+                  <input type="email" id="email" name="email" class="input" required>
+                  <span class="error-message text-error text-sm hidden"></span>
+                </div>
+                
+                <div class="form-group">
+                  <label class="label" for="subject">Subject *</label>
+                  <select id="subject" name="subject" class="input" required>
+                    <option value="">Select a topic</option>
+                    <option value="general">General Inquiry</option>
+                    <option value="technical">Technical Support</option>
+                    <option value="order">Order Status</option>
+                    <option value="warranty">Warranty Claim</option>
+                    <option value="feedback">Feedback</option>
+                  </select>
+                  <span class="error-message text-error text-sm hidden"></span>
+                </div>
+                
+                <div class="form-group">
+                  <label class="label" for="message">Message *</label>
+                  <textarea id="message" name="message" class="input" rows="5" required minlength="10"></textarea>
+                  <span class="error-message text-error text-sm hidden"></span>
+                </div>
+                
+                <button type="submit" class="btn btn-primary w-full">Send Message</button>
+              </div>
+            </form>
+          </div>
+          
+          <div>
+            <h2 class="text-2xl font-bold mb-6">Office Locations</h2>
+            <div class="space-y-6">
+              <div class="card">
+                <h3 class="font-bold text-lg mb-2">Headquarters</h3>
+                <p class="text-secondary mb-2">123 Tech Street<br>San Francisco, CA 94102<br>United States</p>
+                <a href="mailto:hq@asmartband.com" class="text-primary">hq@asmartband.com</a>
+              </div>
+              
+              <div class="card">
+                <h3 class="font-bold text-lg mb-2">European Office</h3>
+                <p class="text-secondary mb-2">45 Innovation Way<br>London, EC1A 1BB<br>United Kingdom</p>
+                <a href="mailto:eu@asmartband.com" class="text-primary">eu@asmartband.com</a>
+              </div>
+              
+              <div class="card">
+                <h3 class="font-bold text-lg mb-2">Asia Pacific</h3>
+                <p class="text-secondary mb-2">78 Digital Avenue<br>Singapore 018956<br>Singapore</p>
+                <a href="mailto:apac@asmartband.com" class="text-primary">apac@asmartband.com</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom"><p>&copy; 2024 AI Smart Band. All rights reserved.</p></div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/form-validation.js"></script>
+</body>
+</html>
