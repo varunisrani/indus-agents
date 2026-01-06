@@ -2,7 +2,12 @@
 
 import pytest
 
-from indusagi.tools.base import BaseTool, ToolConfig, ToolResult
+from indusagi.tools.base import BaseTool
+
+# Import compatibility classes from conftest
+import sys
+sys.path.insert(0, 'tests')
+from conftest import ToolConfig, ToolResult
 
 
 class TestToolResult:

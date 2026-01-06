@@ -2,7 +2,7 @@
 
 import pytest
 
-from indusagi.core.agent import Agent
+from indusagi import Agent
 
 
 class TestOrchestrator:
