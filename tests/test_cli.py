@@ -318,7 +318,7 @@ class TestCLIApp:
 
     def test_app_name(self):
         """Test CLI app has correct name."""
-        assert app.info.name == "my-agent"
+        assert app.info.name == "indusagi"
 
     def test_app_has_help(self):
         """Test CLI app has help text."""
@@ -330,7 +330,7 @@ class TestCLIApp:
         # The app was created with add_completion=False
         # Just verify the app exists and works
         assert app is not None
-        assert app.info.name == "my-agent"
+        assert app.info.name == "indusagi"
 
 
 class TestCLIPerformance:

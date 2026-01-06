@@ -81,10 +81,10 @@ def demo_glob_search():
     """Demonstrate glob file pattern matching."""
     demo_header("Glob Pattern Matching")
 
-    print("\n1. Finding all Python files in src/my_agent_framework/tools/...")
+    print("\n1. Finding all Python files in src/indusagi/tools/...")
     glob_tool = Glob(
         pattern="**/*.py",
-        path="src/my_agent_framework/tools"
+        path="src/indusagi/tools"
     )
     result = glob_tool.execute()
     print(result)
@@ -92,7 +92,7 @@ def demo_glob_search():
     print("\n2. Finding only tool files (not __init__.py)...")
     glob_tool2 = Glob(
         pattern="**/[!_]*.py",
-        path="src/my_agent_framework/tools/dev"
+        path="src/indusagi/tools/dev"
     )
     result2 = glob_tool2.execute()
     print(result2)
