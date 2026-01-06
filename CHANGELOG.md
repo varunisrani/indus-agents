@@ -20,6 +20,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.2.0] - 2026-01-06
 
+### Added
+
+- Published to PyPI as `indusagi` - now installable via `pip install indusagi`
+- Added .env.example template for users
+
 ### Changed
 
 **BREAKING CHANGE: Package Renamed to IndusAGI**

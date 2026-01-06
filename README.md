@@ -1,5 +1,9 @@
 # indus-agents
 
+[![PyPI version](https://badge.fury.io/py/indusagi.svg)](https://pypi.org/project/indusagi/)
+[![Python versions](https://img.shields.io/pypi/pyversions/indusagi.svg)](https://pypi.org/project/indusagi/)
+[![License](https://img.shields.io/pypi/l/indusagi.svg)](https://github.com/varunisrani/indus-agents/blob/main/LICENSE)
+
 A modern, extensible indus-agents for building autonomous agents with Large Language Models (LLMs). Built with Python, featuring a clean architecture, type safety, and async-first design.
 
 ## Features
