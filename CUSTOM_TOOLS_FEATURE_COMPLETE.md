@@ -73,7 +73,7 @@ Complete guide (400+ lines) covering:
 
 **Step 1:** Create your tool function
 ```python
-from my_agent_framework import registry
+from indusagi import registry
 
 @registry.register
 def my_tool(param: str) -> str:
@@ -88,7 +88,7 @@ import custom_tools  # Auto-registers all tools!
 
 **Step 3:** Use with agent
 ```python
-from my_agent_framework import Agent
+from indusagi import Agent
 
 agent = Agent("MyAgent", "Helpful assistant")
 response = agent.process_with_tools("Use my_tool with value 'test'")
@@ -207,7 +207,7 @@ def my_new_tool(param: str) -> str:
 
 # 3. Import and use!
 import custom_tools
-from my_agent_framework import Agent
+from indusagi import Agent
 
 agent = Agent("Bot", "Assistant")
 agent.process_with_tools("Use my_new_tool")
@@ -347,7 +347,7 @@ Custom tools work with the existing framework **without any modifications** to:
 ### Registry is Global
 
 ```python
-from my_agent_framework import registry
+from indusagi import registry
 
 # Same registry instance everywhere
 # Tools registered in any file are available everywhere
@@ -517,7 +517,7 @@ def read_file(filename: str) -> str:
 import custom_tools
 
 # Check if registered
-from my_agent_framework import registry
+from indusagi import registry
 print(registry.list_tools())  # Should see 'my_tool'
 ```
 

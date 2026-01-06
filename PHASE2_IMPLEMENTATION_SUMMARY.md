@@ -5,7 +5,7 @@ Phase 2 of the Agency Swarm Implementation Plan has been successfully completed.
 
 ## Files Created
 
-### 1. `src/my_agent_framework/agency.py`
+### 1. `src/indusagi/agency.py`
 **Purpose**: Core Agency orchestration system
 
 **Key Components**:
@@ -40,7 +40,7 @@ class Agency:
 - `terminal_demo(show_reasoning)` - Interactive terminal interface
 - `visualize()` - ASCII visualization of agency structure
 
-### 2. `src/my_agent_framework/tools/handoff.py`
+### 2. `src/indusagi/tools/handoff.py`
 **Purpose**: Agent handoff tool implementation
 
 **Functions**:
@@ -49,10 +49,10 @@ class Agency:
 - `handoff_to_agent(agent_name, message, context)` - Tool for agent-to-agent handoffs
 - `register_handoff_tool(tool_registry)` - Register handoff tool with registry
 
-### 3. `src/my_agent_framework/tools/__init__.py`
+### 3. `src/indusagi/tools/__init__.py`
 **Updates**: Added exports for handoff functions
 
-### 4. `src/my_agent_framework/__init__.py`
+### 4. `src/indusagi/__init__.py`
 **Updates**: Added Agency-related exports to public API:
 - `Agency`
 - `AgencyResponse`
@@ -63,7 +63,7 @@ class Agency:
 
 ### Basic Agency Setup
 ```python
-from my_agent_framework import Agency, Agent
+from indusagi import Agency, Agent
 
 # Create agents
 coder = Agent('CoderAgent', 'Handles coding tasks')
@@ -234,9 +234,9 @@ Based on the implementation plan, Phase 3 will include:
 
 ## Files Modified
 
-1. `src/my_agent_framework/__init__.py` - Added Agency exports
-2. `src/my_agent_framework/orchestrator.py` - Fixed import paths
-3. `src/my_agent_framework/tools/__init__.py` - Added handoff exports
+1. `src/indusagi/__init__.py` - Added Agency exports
+2. `src/indusagi/orchestrator.py` - Fixed import paths
+3. `src/indusagi/tools/__init__.py` - Added handoff exports
 
 ## Verification
 

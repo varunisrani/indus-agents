@@ -26,8 +26,8 @@ Best for: Complete framework, deployable package, full features
 **Commands:**
 ```bash
 # Create project
-uv init --package my-agent-framework
-cd my-agent-framework
+uv init --package indusagi
+cd indusagi
 
 # Add dependencies
 uv add typer anthropic rich pydantic
@@ -45,7 +45,7 @@ python -c "import anthropic; print('✓ Anthropic installed')"
 **Test:**
 ```bash
 # Should work immediately
-my-agent-framework --help
+indusagi --help
 ```
 
 **Checkpoint:** ✓ CLI command exists and shows help
@@ -59,7 +59,7 @@ my-agent-framework --help
 - ✅ Integrate LLM API
 - ✅ Test basic query
 
-**Create:** `src/my_agent_framework/agent.py`
+**Create:** `src/indusagi/agent.py`
 
 ```python
 from anthropic import Anthropic
@@ -109,7 +109,7 @@ if __name__ == "__main__":
 
 **Test:**
 ```bash
-python src/my_agent_framework/agent.py
+python src/indusagi/agent.py
 # Should print a friendly response
 ```
 
@@ -124,7 +124,7 @@ python src/my_agent_framework/agent.py
 - ✅ Register 2-3 simple tools
 - ✅ Test tool execution
 
-**Create:** `src/my_agent_framework/tools.py`
+**Create:** `src/indusagi/tools.py`
 
 ```python
 from typing import Callable, Dict, Any
@@ -202,7 +202,7 @@ if __name__ == "__main__":
 
 **Test:**
 ```bash
-python src/my_agent_framework/tools.py
+python src/indusagi/tools.py
 # Should show: 4, current time, and tool list
 ```
 
@@ -216,7 +216,7 @@ python src/my_agent_framework/tools.py
 - ✅ Integrate tools with agent
 - ✅ Test tool calling
 
-**Update:** `src/my_agent_framework/agent.py`
+**Update:** `src/indusagi/agent.py`
 
 ```python
 from .tools import registry
@@ -264,7 +264,7 @@ class Agent:
 **Test:**
 ```bash
 python -c "
-from src.my_agent_framework.agent import Agent
+from src.indusagi.agent import Agent
 agent = Agent('Test', 'Helper')
 print(agent.process_with_tools('What is 25 * 4?'))
 "
@@ -287,7 +287,7 @@ print(agent.process_with_tools('What is 25 * 4?'))
 **Quick Demo Test:**
 ```bash
 python -c "
-from src.my_agent_framework.agent import Agent
+from src.indusagi.agent import Agent
 agent = Agent('Demo', 'Assistant')
 print('Test 1:', agent.process_with_tools('What time is it?'))
 print('Test 2:', agent.process_with_tools('Calculate 100 / 4'))
@@ -305,7 +305,7 @@ print('Test 2:', agent.process_with_tools('Calculate 100 / 4'))
 - ✅ Add 2-3 specialized agents
 - ✅ Test routing
 
-**Create:** `src/my_agent_framework/orchestrator.py`
+**Create:** `src/indusagi/orchestrator.py`
 
 ```python
 from typing import Dict
@@ -357,7 +357,7 @@ if __name__ == "__main__":
 
 **Test:**
 ```bash
-python src/my_agent_framework/orchestrator.py
+python src/indusagi/orchestrator.py
 ```
 
 **Checkpoint:** ✓ Different agents handle different queries
@@ -371,7 +371,7 @@ python src/my_agent_framework/orchestrator.py
 - ✅ Add commands
 - ✅ Test CLI
 
-**Create:** `src/my_agent_framework/cli.py`
+**Create:** `src/indusagi/cli.py`
 
 ```python
 import typer
@@ -409,7 +409,7 @@ def run(
 @app.command()
 def version():
     """Show version information."""
-    console.print("[bold]my-agent-framework[/bold] v0.1.0")
+    console.print("[bold]indusagi[/bold] v0.1.0")
     console.print("Python indus-agents with multi-agent orchestration")
 
 @app.command()
@@ -441,14 +441,14 @@ if __name__ == "__main__":
 
 ```toml
 [project.scripts]
-my-agent = "my_agent_framework.cli:app"
+indusagi = "indusagi.cli:app"
 ```
 
 **Test:**
 ```bash
-my-agent run "What is 10 * 5?"
-my-agent version
-my-agent interactive
+indusagi run "What is 10 * 5?"
+indusagi version
+indusagi interactive
 ```
 
 **Checkpoint:** ✓ CLI works with all commands
@@ -466,8 +466,8 @@ my-agent interactive
 
 ```python
 import pytest
-from my_agent_framework.agent import Agent, AgentConfig
-from my_agent_framework.tools import registry
+from indusagi.agent import Agent, AgentConfig
+from indusagi.tools import registry
 
 def test_agent_creation():
     agent = Agent(name="Test", role="Tester")
@@ -509,8 +509,8 @@ pip install -e .
 
 \`\`\`bash
 export ANTHROPIC_API_KEY="your-key"
-my-agent run "What is 10 * 5?"
-my-agent interactive
+indusagi run "What is 10 * 5?"
+indusagi interactive
 \`\`\`
 ```
 
@@ -556,7 +556,7 @@ Same as 2-hour session **00:10-00:30**, plus:
 **Enhanced Configuration:**
 
 ```python
-# src/my_agent_framework/config.py
+# src/indusagi/config.py
 from pydantic import BaseModel, Field
 from typing import Optional
 import os
@@ -612,7 +612,7 @@ Same as 2-hour session **00:50-01:00**
 
 #### **01:25-01:45 | Memory System (20 min)**
 
-**Create:** `src/my_agent_framework/memory.py`
+**Create:** `src/indusagi/memory.py`
 
 ```python
 from collections import deque
@@ -778,7 +778,7 @@ def process_streaming(self, user_input: str):
 
 ```bash
 # Run all tests
-pytest tests/ -v --cov=src/my_agent_framework
+pytest tests/ -v --cov=src/indusagi
 
 # Build package
 uv build
@@ -787,7 +787,7 @@ uv build
 pip install dist/*.whl
 
 # Final demo
-my-agent interactive
+indusagi interactive
 ```
 
 ---
@@ -849,9 +849,9 @@ my-agent interactive
 
 ```bash
 # All these should work:
-my-agent version
-my-agent run "Calculate 50 * 2"
-my-agent interactive
+indusagi version
+indusagi run "Calculate 50 * 2"
+indusagi interactive
 pytest tests/ -v
 ```
 

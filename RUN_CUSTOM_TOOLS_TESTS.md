@@ -107,7 +107,7 @@ What's the weather in London and pick a random number between 1 and 100?
 Test individual tools directly without the agent.
 
 ```bash
-python -c "from my_agent_framework import registry; import custom_tools; print(registry.execute('get_weather', city='Paris', unit='celsius'))"
+python -c "from indusagi import registry; import custom_tools; print(registry.execute('get_weather', city='Paris', unit='celsius'))"
 ```
 
 **Output:** `Weather in Paris: [condition], [temp] degrees C`
@@ -116,19 +116,19 @@ python -c "from my_agent_framework import registry; import custom_tools; print(r
 
 ```bash
 # Random number
-python -c "from my_agent_framework import registry; import custom_tools; print(registry.execute('random_number', min_value=1, max_value=10))"
+python -c "from indusagi import registry; import custom_tools; print(registry.execute('random_number', min_value=1, max_value=10))"
 
 # Date calculator
-python -c "from my_agent_framework import registry; import custom_tools; print(registry.execute('date_calculator', days_from_now=30))"
+python -c "from indusagi import registry; import custom_tools; print(registry.execute('date_calculator', days_from_now=30))"
 
 # Text statistics
-python -c "from my_agent_framework import registry; import custom_tools; print(registry.execute('text_stats', text='Hello World'))"
+python -c "from indusagi import registry; import custom_tools; print(registry.execute('text_stats', text='Hello World'))"
 
 # Password generator
-python -c "from my_agent_framework import registry; import custom_tools; print(registry.execute('generate_password', length=16, include_symbols=True))"
+python -c "from indusagi import registry; import custom_tools; print(registry.execute('generate_password', length=16, include_symbols=True))"
 
 # Pick random item
-python -c "from my_agent_framework import registry; import custom_tools; print(registry.execute('pick_random_item', items='apple,banana,orange', separator=','))"
+python -c "from indusagi import registry; import custom_tools; print(registry.execute('pick_random_item', items='apple,banana,orange', separator=','))"
 ```
 
 ---
@@ -138,7 +138,7 @@ python -c "from my_agent_framework import registry; import custom_tools; print(r
 See all registered tools (built-in + custom).
 
 ```bash
-python -c "from my_agent_framework import registry; import custom_tools; print('\n'.join(registry.list_tools()))"
+python -c "from indusagi import registry; import custom_tools; print('\n'.join(registry.list_tools()))"
 ```
 
 **Expected Output:**
@@ -197,7 +197,7 @@ def my_custom_tool(text: str) -> str:
 ### Step 3: Test Your Tool
 
 ```bash
-python -c "from my_agent_framework import registry; import custom_tools; print(registry.execute('my_custom_tool', text='Hello World'))"
+python -c "from indusagi import registry; import custom_tools; print(registry.execute('my_custom_tool', text='Hello World'))"
 ```
 
 **Expected:** `Alternating case: HeLlO WoRlD`
@@ -210,7 +210,7 @@ python
 
 Then in Python:
 ```python
-from my_agent_framework import Agent
+from indusagi import Agent
 import custom_tools
 
 agent = Agent("TestBot", "Test assistant")
@@ -305,7 +305,7 @@ python
 
 Then:
 ```python
-from my_agent_framework import Agent
+from indusagi import Agent
 import custom_tools
 
 agent = Agent("CustomToolBot", "Assistant with custom tools")
@@ -376,7 +376,7 @@ If you get "Module not found":
 cd "C:\Users\Varun israni\agent-framework-build-plan"
 
 # Verify package is installed
-python -c "import my_agent_framework; print('OK')"
+python -c "import indusagi; print('OK')"
 
 # If not, install it
 python -m pip install -e .
@@ -388,7 +388,7 @@ If agent can't find your tool:
 
 ```bash
 # Verify tool is registered
-python -c "from my_agent_framework import registry; import custom_tools; print('my_tool_name' in registry.list_tools())"
+python -c "from indusagi import registry; import custom_tools; print('my_tool_name' in registry.list_tools())"
 
 # If False, check:
 # 1. Did you add @registry.register decorator?
@@ -422,7 +422,7 @@ Expected execution times on a typical system:
 python test_custom_tools_quick.py
 
 # 2. Direct execution test (1 second)
-python -c "from my_agent_framework import registry; import custom_tools; print(registry.execute('get_weather', city='Tokyo', unit='celsius'))"
+python -c "from indusagi import registry; import custom_tools; print(registry.execute('get_weather', city='Tokyo', unit='celsius'))"
 
 # 3. Full demo (30-60 seconds, requires API key)
 python demo_custom_tools.py

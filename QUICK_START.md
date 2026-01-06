@@ -8,18 +8,18 @@ Get up and running with indus-agents in 5 minutes.
 
 ```bash
 # Using pip
-pip install my-agent-framework
+pip install indusagi
 
 # Using uv (faster)
-uv pip install my-agent-framework
+uv pip install indusagi
 ```
 
 ### For Developers
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/my-agent-framework.git
-cd my-agent-framework
+git clone https://github.com/yourusername/indusagi.git
+cd indusagi
 
 # Install with development dependencies
 uv venv
@@ -43,20 +43,20 @@ cp .env.example .env
 
 ```bash
 # Check version
-my-agent version
+indusagi version
 
 # Run agent with a prompt
-my-agent run "What is the capital of France?"
+indusagi run "What is the capital of France?"
 
 # Run with verbose output
-my-agent run "Explain Python" --verbose
+indusagi run "Explain Python" --verbose
 ```
 
 ### Using Python API
 
 ```python
 import asyncio
-from my_agent_framework import Agent, AgentConfig
+from indusagi import Agent, AgentConfig
 
 async def main():
     # Create agent
@@ -73,7 +73,7 @@ asyncio.run(main())
 ### With Tools
 
 ```python
-from my_agent_framework import Agent, BaseTool, ToolConfig, ToolResult
+from indusagi import Agent, BaseTool, ToolConfig, ToolResult
 
 class CalculatorTool(BaseTool):
     def __init__(self):
@@ -116,7 +116,7 @@ agent.add_tool(CalculatorTool())
 pytest
 
 # Run tests with coverage
-pytest --cov=my_agent_framework
+pytest --cov=indusagi
 
 # Format code
 black src tests
@@ -140,7 +140,7 @@ pre-commit run --all-files
 ### Project Structure
 
 ```
-src/my_agent_framework/
+src/indusagi/
 ├── agent/          # Agent implementations
 ├── core/           # Core functionality
 ├── tools/          # Tool system
@@ -169,7 +169,7 @@ python -m twine check dist/*
 python -m twine upload --repository testpypi dist/*
 
 # Test installation
-pip install --index-url https://test.pypi.org/simple/ my-agent-framework
+pip install --index-url https://test.pypi.org/simple/ indusagi
 ```
 
 ### Publish to PyPI
@@ -189,12 +189,12 @@ git push origin v0.1.0
 
 ```bash
 # Build Docker image
-docker build -t my-agent-framework:latest .
+docker build -t indusagi:latest .
 
 # Run container
 docker run --rm \
   -e OPENAI_API_KEY=your_key \
-  my-agent-framework:latest version
+  indusagi:latest version
 ```
 
 ### Using Docker Compose
@@ -215,7 +215,7 @@ docker-compose down
 ### Create New Tool
 
 ```python
-from my_agent_framework.tools.base import BaseTool, ToolConfig, ToolResult
+from indusagi.tools.base import BaseTool, ToolConfig, ToolResult
 
 class MyTool(BaseTool):
     def __init__(self):
@@ -234,7 +234,7 @@ class MyTool(BaseTool):
 ### Create Custom Agent
 
 ```python
-from my_agent_framework.agent.base import BaseAgent, AgentConfig
+from indusagi.agent.base import BaseAgent, AgentConfig
 
 class MyAgent(BaseAgent):
     def __init__(self, config: AgentConfig):
@@ -255,10 +255,10 @@ class MyAgent(BaseAgent):
 
 ```bash
 # Verify installation
-pip show my-agent-framework
+pip show indusagi
 
 # Reinstall
-pip install --force-reinstall my-agent-framework
+pip install --force-reinstall indusagi
 ```
 
 ### API Key Issues
@@ -296,9 +296,9 @@ pytest --cache-clear
 
 ## Getting Help
 
-- Check [GitHub Issues](https://github.com/yourusername/my-agent-framework/issues)
+- Check [GitHub Issues](https://github.com/yourusername/indusagi/issues)
 - Read [documentation](README.md)
-- Join [discussions](https://github.com/yourusername/my-agent-framework/discussions)
+- Join [discussions](https://github.com/yourusername/indusagi/discussions)
 
 ## Next Steps
 

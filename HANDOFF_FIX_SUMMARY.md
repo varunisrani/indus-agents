@@ -199,11 +199,11 @@ After running the improved agency, verify:
 
 ## Files Modified
 
-1. **src/my_agent_framework/agency.py** (line 212-299)
+1. **src/indusagi/agency.py** (line 212-299)
    - Added processing loop in `process()` method
    - Added handoff detection and continuation logic
 
-2. **src/my_agent_framework/tools/handoff.py** (line 29-66)
+2. **src/indusagi/tools/handoff.py** (line 29-66)
    - Changed to deferred handoff execution
    - Sets `_pending_handoff` instead of immediate execution
 

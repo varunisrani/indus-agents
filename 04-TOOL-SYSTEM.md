@@ -11,7 +11,7 @@ The tool system allows agents to interact with external functions, APIs, and ser
 ### Pattern 1: Simple Function Tool (Easiest)
 
 ```python
-from my_agent_framework.tools import registry
+from indusagi.tools import registry
 
 @registry.register
 def simple_tool(input_text: str) -> str:
@@ -509,7 +509,7 @@ def count_words(text: str) -> str:
 ```python
 # tests/test_custom_tools.py
 import pytest
-from my_agent_framework.tools import registry
+from indusagi.tools import registry
 
 def test_simple_tool():
     """Test simple tool registration and execution."""
@@ -544,7 +544,7 @@ def test_tool_with_optional_params():
 ```python
 # tests/test_agent_tools_integration.py
 import pytest
-from my_agent_framework.agent import Agent
+from indusagi.agent import Agent
 
 @pytest.mark.asyncio
 async def test_agent_uses_calculator():

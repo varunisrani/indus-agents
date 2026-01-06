@@ -223,11 +223,11 @@ class ConversationMemory:
 
 **Commands**:
 ```bash
-my-agent run "prompt"       # Single query
-my-agent interactive        # Chat mode
-my-agent version           # Version info
-my-agent list-tools        # Show available tools
-my-agent test-connection   # Verify API
+indusagi run "prompt"       # Single query
+indusagi interactive        # Chat mode
+indusagi version           # Version info
+indusagi list-tools        # Show available tools
+indusagi test-connection   # Verify API
 ```
 
 **Why Typer + Rich?**
@@ -518,9 +518,9 @@ except APIError as e:
 ## 📦 Package Structure
 
 ```
-my-agent-framework/
+indusagi/
 ├── src/
-│   └── my_agent_framework/
+│   └── indusagi/
 │       ├── __init__.py           # Package exports
 │       ├── agent.py              # Agent class
 │       ├── tools.py              # Tool registry
@@ -545,12 +545,12 @@ my-agent-framework/
 **pyproject.toml**:
 ```toml
 [project]
-name = "my-agent-framework"
+name = "indusagi"
 version = "0.1.0"
 dependencies = ["anthropic", "typer", "rich", "pydantic"]
 
 [project.scripts]
-my-agent = "my_agent_framework.cli:app"
+indusagi = "indusagi.cli:app"
 ```
 
 **__init__.py**:

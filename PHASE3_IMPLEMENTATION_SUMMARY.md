@@ -11,52 +11,52 @@ Successfully implemented Phase 3 of the Agency Swarm Implementation Plan, creati
 
 ### Core Infrastructure (160 lines)
 
-1. **`src/my_agent_framework/tools/base.py`** (110 lines)
+1. **`src/indusagi/tools/base.py`** (110 lines)
    - `ToolContext` class for shared context management
    - `get_tool_context()` function for accessing global context
    - `BaseTool` abstract base class with Pydantic validation
    - `get_schema()` classmethod for OpenAI function calling
 
-2. **`src/my_agent_framework/tools/__init__.py`** (32 lines)
+2. **`src/indusagi/tools/__init__.py`** (32 lines)
    - Package initialization with exports
    - Backward compatibility placeholders for registry/ToolRegistry
 
-3. **`src/my_agent_framework/tools/dev/__init__.py`** (18 lines)
+3. **`src/indusagi/tools/dev/__init__.py`** (18 lines)
    - Development tools package initialization
 
 ### Development Tools (741 lines)
 
-4. **`src/my_agent_framework/tools/dev/bash.py`** (80 lines)
+4. **`src/indusagi/tools/dev/bash.py`** (80 lines)
    - Execute shell commands with timeout and safety
    - Thread-safe execution with lock mechanism
    - Output truncation for large results
    - Timeout handling (5s - 600s range)
 
-5. **`src/my_agent_framework/tools/dev/read.py`** (71 lines)
+5. **`src/indusagi/tools/dev/read.py`** (71 lines)
    - Read files with line numbers (cat -n format)
    - Automatic file tracking in context
    - Offset and limit support for large files
    - UTF-8 and Latin-1 encoding fallback
 
-6. **`src/my_agent_framework/tools/dev/edit.py`** (68 lines)
+6. **`src/indusagi/tools/dev/edit.py`** (68 lines)
    - String-based file editing
    - Precondition: file must be read first
    - Single or multiple occurrence replacement
    - Exact string matching with validation
 
-7. **`src/my_agent_framework/tools/dev/write.py`** (83 lines)
+7. **`src/indusagi/tools/dev/write.py`** (83 lines)
    - Create new files or overwrite existing
    - Precondition: existing files must be read first
    - Automatic directory creation
    - File statistics reporting
 
-8. **`src/my_agent_framework/tools/dev/glob.py`** (243 lines)
+8. **`src/indusagi/tools/dev/glob.py`** (243 lines)
    - File pattern matching (e.g., "**/*.py")
    - Recursive and simple glob patterns
    - .gitignore respect for cleaner results
    - Sorted by modification time (newest first)
 
-9. **`src/my_agent_framework/tools/dev/grep.py`** (196 lines)
+9. **`src/indusagi/tools/dev/grep.py`** (196 lines)
    - Content search using ripgrep
    - Multiple output modes (content, files, count)
    - Regex pattern support with context lines
@@ -223,7 +223,7 @@ ALL TESTS PASSED!
 ## Directory Structure
 
 ```
-src/my_agent_framework/tools/
+src/indusagi/tools/
 ├── __init__.py                 (32 lines)  - Package exports
 ├── base.py                     (110 lines) - BaseTool, ToolContext
 ├── handoff.py                  (92 lines)  - Existing handoff tools
@@ -243,12 +243,12 @@ Total: 901 lines of production code
 
 - **Backward Compatible**: Added `registry` and `ToolRegistry` placeholders
 - **No Breaking Changes**: Existing code continues to work
-- **Import Path**: `from my_agent_framework.tools import Bash, Read, Edit, Write, Glob, Grep`
+- **Import Path**: `from indusagi.tools import Bash, Read, Edit, Write, Glob, Grep`
 
 ## Usage Example
 
 ```python
-from my_agent_framework.tools import Read, Edit, Write, Glob, Grep
+from indusagi.tools import Read, Edit, Write, Glob, Grep
 
 # Read a file
 read_tool = Read(file_path="/path/to/file.py")

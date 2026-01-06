@@ -20,7 +20,7 @@ A production-ready, professional CLI interface has been successfully built for t
 
 ### 2. **setup.py** (Installation Script)
 - **Description**: Makes CLI installable as a package
-- **Entry Point**: `agent-cli` command
+- **Entry Point**: `indusagi` command
 - **Features**: Automatic dependency installation
 
 ### 3. **requirements.txt** (Updated)
@@ -66,7 +66,7 @@ A production-ready, professional CLI interface has been successfully built for t
 
 ### 1. `run` - Single Query Execution
 ```bash
-agent-cli run "prompt" [OPTIONS]
+indusagi run "prompt" [OPTIONS]
 ```
 **Options**:
 - `--model, -m`: Select OpenAI model
@@ -82,7 +82,7 @@ agent-cli run "prompt" [OPTIONS]
 
 ### 2. `interactive` - Chat Mode
 ```bash
-agent-cli interactive [OPTIONS]
+indusagi interactive [OPTIONS]
 ```
 **Features**:
 - Maintains conversation history
@@ -93,7 +93,7 @@ agent-cli interactive [OPTIONS]
 
 ### 3. `version` - Version Information
 ```bash
-agent-cli version
+indusagi version
 ```
 **Displays**:
 - Framework version
@@ -104,7 +104,7 @@ agent-cli version
 
 ### 4. `list-tools` - Tool Registry
 ```bash
-agent-cli list-tools [--detailed]
+indusagi list-tools [--detailed]
 ```
 **Modes**:
 - Simple: Table of tool names and descriptions
@@ -112,7 +112,7 @@ agent-cli list-tools [--detailed]
 
 ### 5. `test-connection` - API Test
 ```bash
-agent-cli test-connection [OPTIONS]
+indusagi test-connection [OPTIONS]
 ```
 **Features**:
 - Validates API key
@@ -123,7 +123,7 @@ agent-cli test-connection [OPTIONS]
 
 ### 6. `list-agents` - Agent Types
 ```bash
-agent-cli list-agents
+indusagi list-agents
 ```
 **Shows**: Pre-configured agent types and their capabilities
 

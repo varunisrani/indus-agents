@@ -154,7 +154,7 @@ PASSES: 4/4 tests ✅
 Users can create tools with a simple decorator:
 
 ```python
-from my_agent_framework import registry
+from indusagi import registry
 
 @registry.register
 def my_tool(param: str) -> str:
@@ -200,9 +200,9 @@ memory.load_from_file("conversation.json")
 
 Professional command-line interface:
 ```bash
-my-agent run "What is 25 * 48?"
-my-agent interactive
-my-agent list-tools
+indusagi run "What is 25 * 48?"
+indusagi interactive
+indusagi list-tools
 ```
 
 ---
@@ -211,7 +211,7 @@ my-agent list-tools
 
 ```
 agent-framework-build-plan/
-├── src/my_agent_framework/
+├── src/indusagi/
 │   ├── __init__.py           # Package exports
 │   ├── agent.py              # Core Agent class (550 lines)
 │   ├── tools.py              # Tool registry (1,177 lines)
@@ -259,7 +259,7 @@ Total Documentation: 2,500+ lines
 ### Example 1: Simple Query
 
 ```python
-from my_agent_framework import Agent
+from indusagi import Agent
 
 agent = Agent("Helper", "Helpful assistant")
 response = agent.process_with_tools(
@@ -297,7 +297,7 @@ response = agent.process_with_tools(
 ### Example 4: Orchestrator
 
 ```python
-from my_agent_framework import create_orchestrator
+from indusagi import create_orchestrator
 
 orchestrator = create_orchestrator()
 response = orchestrator.process("Calculate 25 * 48 and get the current time")
@@ -308,13 +308,13 @@ response = orchestrator.process("Calculate 25 * 48 and get the current time")
 
 ```bash
 # Single query
-my-agent run "What is the date 30 days from now?"
+indusagi run "What is the date 30 days from now?"
 
 # Interactive mode
-my-agent interactive
+indusagi interactive
 
 # List all tools
-my-agent list-tools
+indusagi list-tools
 ```
 
 ---

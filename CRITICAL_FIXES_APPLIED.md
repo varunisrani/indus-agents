@@ -14,7 +14,7 @@ Multiple critical issues have been fixed to make the agency work correctly with 
 - No visual status indicators
 
 ### Solution:
-Updated `src/my_agent_framework/agent.py` to show full todo list on every update with visual indicators:
+Updated `src/indusagi/agent.py` to show full todo list on every update with visual indicators:
 
 ```
 ======================================================================
@@ -85,7 +85,7 @@ Error executing command: [WinError 2] The system cannot find the file specified
 The Bash tool was trying to use `/bin/bash` which doesn't exist on Windows.
 
 ### Solution:
-Updated `src/my_agent_framework/tools/dev/bash.py` to detect platform and use appropriate shell:
+Updated `src/indusagi/tools/dev/bash.py` to detect platform and use appropriate shell:
 
 ```python
 # Platform-specific shell command
@@ -255,7 +255,7 @@ Now complex multi-step tasks can complete without hitting the limit.
 
 ## Files Modified
 
-### 1. `src/my_agent_framework/agent.py`
+### 1. `src/indusagi/agent.py`
 - Added `context` parameter to `__init__()`
 - Updated `process_with_tools()` max_turns default to 30
 - Added one-by-one execution enforcement
@@ -263,13 +263,13 @@ Now complex multi-step tasks can complete without hitting the limit.
 - Enhanced `_log_tool_result()` for bash error display
 - Updated bash logging to show command + description
 
-### 2. `src/my_agent_framework/tools/dev/bash.py`
+### 2. `src/indusagi/tools/dev/bash.py`
 - Added `import sys` for platform detection
 - Added Windows compatibility (cmd.exe vs /bin/bash)
 - Added command validation to detect description-like commands
 - Added helpful error messages for wrong commands
 
-### 3. `src/my_agent_framework/tools/__init__.py`
+### 3. `src/indusagi/tools/__init__.py`
 - Added `context` attribute to `ToolRegistry`
 - Initialize context with `get_tool_context()`
 

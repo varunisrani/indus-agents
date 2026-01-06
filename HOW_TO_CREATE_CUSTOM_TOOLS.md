@@ -9,7 +9,7 @@ This guide shows you how to create your own custom tools that agents can use aut
 ### Step 1: Create Your Tool Function
 
 ```python
-from my_agent_framework import registry
+from indusagi import registry
 
 @registry.register
 def my_tool(param: str) -> str:
@@ -27,7 +27,7 @@ import custom_tools  # This auto-registers all tools!
 ### Step 3: Use It!
 
 ```python
-from my_agent_framework import Agent
+from indusagi import Agent
 
 agent = Agent("MyAgent", "Helpful assistant")
 response = agent.process_with_tools("Use my_tool with value 'test'")
@@ -50,7 +50,7 @@ Your tool function MUST have:
 ### 2. Example: Simple Tool
 
 ```python
-from my_agent_framework import registry
+from indusagi import registry
 
 @registry.register
 def add_numbers(a: int, b: int) -> str:
@@ -151,7 +151,7 @@ def find_max(numbers: str, return_index: bool = False) -> str:
 Create `custom_tools.py`:
 
 ```python
-from my_agent_framework import registry
+from indusagi import registry
 
 @registry.register
 def tool1(param: str) -> str:
@@ -253,7 +253,7 @@ def delete_file(filename: str) -> str:
 **Method 1: Direct execution**
 
 ```python
-from my_agent_framework import registry
+from indusagi import registry
 import custom_tools  # Register your tools
 
 # Test directly
@@ -264,7 +264,7 @@ print(result)
 **Method 2: With agent**
 
 ```python
-from my_agent_framework import Agent
+from indusagi import Agent
 import custom_tools
 
 agent = Agent("TestAgent", "Test assistant")
@@ -287,7 +287,7 @@ print(schemas)  # See OpenAI schema for your tool
 ### 10. Complete Example: Real-World Tool
 
 ```python
-from my_agent_framework import registry
+from indusagi import registry
 from datetime import datetime
 import re
 
@@ -316,7 +316,7 @@ def validate_email(email: str) -> str:
 **Usage:**
 ```python
 import custom_tools
-from my_agent_framework import Agent
+from indusagi import Agent
 
 agent = Agent("EmailBot", "Email validation assistant")
 response = agent.process_with_tools("Is test@example.com a valid email?")
@@ -330,7 +330,7 @@ response = agent.process_with_tools("Is test@example.com a valid email?")
 ### 1. Create `my_custom_tools.py`
 
 ```python
-from my_agent_framework import registry
+from indusagi import registry
 import random
 
 @registry.register
@@ -386,7 +386,7 @@ def flip_coin(count: int = 1) -> str:
 ### 2. Create `test_my_tools.py`
 
 ```python
-from my_agent_framework import Agent
+from indusagi import Agent
 import my_custom_tools  # Auto-registers the tools!
 
 # Create agent

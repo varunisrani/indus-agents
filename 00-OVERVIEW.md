@@ -25,7 +25,7 @@ This folder contains everything you need for a successful live coding session:
 
 ```bash
 # 1. Setup project (30 seconds)
-uv init --package my-agent-framework && cd my-agent-framework
+uv init --package indusagi && cd indusagi
 
 # 2. Add dependencies (30 seconds)
 uv add typer anthropic rich pydantic && uv add --dev pytest pytest-asyncio
@@ -57,8 +57,8 @@ uv pip install -e .
 ### Minimal Viable Framework Components:
 
 ```
-my-agent-framework/
-├── src/my_agent_framework/
+indusagi/
+├── src/indusagi/
 │   ├── __init__.py
 │   ├── agent.py          # Core Agent class
 │   ├── tools.py          # Tool registry & decorators
@@ -145,8 +145,8 @@ By the end of the session, you'll have:
    - Routes between specialized agents
 
 2. **Professional Package** that:
-   - Installs via `pip install my-agent-framework`
-   - Provides CLI: `my-agent run "query"`
+   - Installs via `pip install indusagi`
+   - Provides CLI: `indusagi run "query"`
    - Has tests: `pytest` passes
    - Works in editable mode for development
 

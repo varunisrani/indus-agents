@@ -62,16 +62,16 @@ OPENAI_API_KEY=sk-proj-YOUR_ACTUAL_KEY_HERE
 
 ```bash
 # Check CLI is installed
-my-agent --help
+indusagi --help
 
 # Test API connection
-my-agent test-connection
+indusagi test-connection
 
 # List available tools
-my-agent list-tools
+indusagi list-tools
 
 # Show version
-my-agent version
+indusagi version
 ```
 
 ---
@@ -82,20 +82,20 @@ my-agent version
 
 ```bash
 # Math calculation
-my-agent run "What is 144 divided by 12?"
+indusagi run "What is 144 divided by 12?"
 
 # Time query
-my-agent run "What time is it?"
+indusagi run "What time is it?"
 
 # General query
-my-agent run "Tell me a fun fact about AI"
+indusagi run "Tell me a fun fact about AI"
 ```
 
 ### Interactive Chat Mode
 
 ```bash
 # Start interactive mode
-my-agent interactive
+indusagi interactive
 ```
 
 In interactive mode, try:
@@ -116,7 +116,7 @@ You: /quit
 ### Verbose Mode (See What's Happening)
 
 ```bash
-my-agent run "Calculate 100 / 4" --verbose
+indusagi run "Calculate 100 / 4" --verbose
 ```
 
 This shows:
@@ -170,7 +170,7 @@ python examples/orchestrator_demo.py
 Create a file `test_my_agent.py`:
 
 ```python
-from my_agent_framework import Agent, create_orchestrator
+from indusagi import Agent, create_orchestrator
 
 # Option 1: Single agent
 print("=== Single Agent ===")
@@ -235,13 +235,13 @@ cat .env   # Mac/Linux
 # Should show: OPENAI_API_KEY=sk-proj-...
 ```
 
-### Issue: "Module not found: my_agent_framework"
+### Issue: "Module not found: indusagi"
 
 **Solution:**
 ```bash
 # Verify installation
-pip list | findstr my-agent  # Windows
-pip list | grep my-agent     # Mac/Linux
+pip list | findstr indusagi  # Windows
+pip list | grep indusagi     # Mac/Linux
 
 # Reinstall
 uv pip install -e . --force-reinstall
@@ -252,7 +252,7 @@ uv pip install -e . --force-reinstall
 **Solution:**
 ```bash
 # Make sure API key is set
-my-agent test-connection
+indusagi test-connection
 
 # Run tests with verbose output
 pytest tests/ -v -s
@@ -269,25 +269,25 @@ Run these commands to verify everything works:
 echo $VIRTUAL_ENV  # Should show path to .venv
 
 # 2. Check CLI is installed
-my-agent --help  # Should show help message
+indusagi --help  # Should show help message
 
 # 3. Check API key is configured
-my-agent test-connection  # Should show "✓ API connection successful"
+indusagi test-connection  # Should show "✓ API connection successful"
 
 # 4. List tools
-my-agent list-tools  # Should show 9 tools
+indusagi list-tools  # Should show 9 tools
 
 # 5. List agents
-my-agent list-agents  # Should show 3 agents
+indusagi list-agents  # Should show 3 agents
 
 # 6. Run a test query
-my-agent run "What is 2+2?"  # Should respond with "4"
+indusagi run "What is 2+2?"  # Should respond with "4"
 
 # 7. Run tests
 pytest tests/ -v  # Should show 255 passed
 
 # 8. Check package is installed
-pip show my-agent-framework  # Should show package info
+pip show indusagi  # Should show package info
 ```
 
 ---
@@ -299,7 +299,7 @@ If all verification steps pass, you're ready to use the framework!
 Try:
 ```bash
 # Start interactive mode and chat with the AI
-my-agent interactive
+indusagi interactive
 ```
 
 For more information:
