@@ -6,9 +6,26 @@ from unittest.mock import AsyncMock, MagicMock, Mock
 
 import pytest
 
-from indusagi.agent.base import AgentConfig
-from indusagi.core.config import Config, LLMConfig
-from indusagi.tools.base import BaseTool, ToolConfig, ToolResult
+from indusagi import Agent, AgentConfig
+from indusagi.tools.base import BaseTool
+
+
+# Compatibility classes for legacy test fixtures
+class ToolResult:
+    """Legacy tool result class for backward compatibility with existing tests."""
+    def __init__(self, success: bool, result: Any = None, error: str = None, metadata: Dict[str, Any] = None):
+        self.success = success
+        self.result = result
+        self.error = error
+        self.metadata = metadata or {}
+
+
+class ToolConfig:
+    """Legacy tool config class for backward compatibility with existing tests."""
+    def __init__(self, name: str, description: str, parameters: Dict[str, Any] = None):
+        self.name = name
+        self.description = description
+        self.parameters = parameters or {}
 
 
 # ============================================================================
@@ -29,15 +46,12 @@ def event_loop():
 
 @pytest.fixture
 def sample_config():
-    """Fixture providing a sample configuration."""
-    return Config(
-        openai_api_key="test-key-123456789",
-        default_model="gpt-4",
-        default_temperature=0.7,
+    """Fixture providing a sample configuration (deprecated - use agent_config instead)."""
+    # Config class no longer exists - return AgentConfig instead
+    return AgentConfig(
+        model="gpt-4o",
+        temperature=0.7,
         max_tokens=1000,
-        log_level="INFO",
-        enable_history=True,
-        max_history_length=100,
     )
 
 
@@ -45,19 +59,18 @@ def sample_config():
 def agent_config():
     """Fixture providing a sample agent configuration."""
     return AgentConfig(
-        name="TestAgent",
-        model="gpt-4",
+        model="gpt-4o",
         temperature=0.7,
         max_tokens=1000,
-        system_prompt="You are a helpful test assistant.",
     )
 
 
 @pytest.fixture
 def llm_config():
-    """Fixture providing LLM configuration."""
-    return LLMConfig(
-        model="gpt-4",
+    """Fixture providing LLM configuration (deprecated - use agent_config instead)."""
+    # LLMConfig class no longer exists - return AgentConfig instead
+    return AgentConfig(
+        model="gpt-4o",
         temperature=0.7,
         max_tokens=1000,
         top_p=1.0,
@@ -170,8 +183,13 @@ def mock_openai_client_with_error():
 # Tool Fixtures
 # ============================================================================
 
-class MockCalculatorTool(BaseTool):
-    """Mock calculator tool for testing."""
+class MockCalculatorTool:
+    """Mock calculator tool for testing (legacy pattern)."""
+
+    def __init__(self, config: ToolConfig):
+        self.name = config.name
+        self.description = config.description
+        self.config = config
 
     async def execute(self, **kwargs) -> ToolResult:
         """Execute the calculator tool."""
@@ -207,8 +225,13 @@ class MockCalculatorTool(BaseTool):
         )
 
 
-class MockWeatherTool(BaseTool):
-    """Mock weather tool for testing."""
+class MockWeatherTool:
+    """Mock weather tool for testing (legacy pattern)."""
+
+    def __init__(self, config: ToolConfig):
+        self.name = config.name
+        self.description = config.description
+        self.config = config
 
     async def execute(self, **kwargs) -> ToolResult:
         """Execute the weather tool."""
@@ -229,8 +252,13 @@ class MockWeatherTool(BaseTool):
         )
 
 
-class MockFailingTool(BaseTool):
-    """Mock tool that always fails for testing error handling."""
+class MockFailingTool:
+    """Mock tool that always fails for testing error handling (legacy pattern)."""
+
+    def __init__(self, config: ToolConfig):
+        self.name = config.name
+        self.description = config.description
+        self.config = config
 
     async def execute(self, **kwargs) -> ToolResult:
         """Execute the failing tool."""
@@ -295,9 +323,9 @@ class MockToolRegistry:
 
     def __init__(self):
         """Initialize the tool registry."""
-        self.tools: Dict[str, BaseTool] = {}
+        self.tools: Dict[str, Any] = {}
 
-    def register(self, tool: BaseTool):
+    def register(self, tool: Any):
         """Register a tool."""
         self.tools[tool.name] = tool
 
@@ -306,11 +334,11 @@ class MockToolRegistry:
         if tool_name in self.tools:
             del self.tools[tool_name]
 
-    def get_tool(self, tool_name: str) -> BaseTool:
+    def get_tool(self, tool_name: str) -> Any:
         """Get a tool by name."""
         return self.tools.get(tool_name)
 
-    def list_tools(self) -> List[BaseTool]:
+    def list_tools(self) -> List[Any]:
         """List all registered tools."""
         return list(self.tools.values())
 
@@ -453,9 +481,8 @@ class MockOrchestrator:
 @pytest.fixture
 def orchestrator(agent_config, tool_registry, memory_system):
     """Fixture providing an orchestrator."""
-    from indusagi.core.agent import Agent
-
-    agent = Agent(agent_config)
+    # Agent is already imported at top of file
+    agent = Agent("TestAgent", "You are a helpful test assistant.", config=agent_config)
     return MockOrchestrator(agent, tool_registry, memory_system)
 
 

@@ -5,7 +5,10 @@ from pathlib import Path
 
 import pytest
 
-from indusagi.core.config import Config, LLMConfig
+from indusagi import AgentConfig
+
+# Note: Config and LLMConfig classes no longer exist
+# AgentConfig is the replacement configuration class
 
 
 class TestConfig:
