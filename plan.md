@@ -1,726 +1,490 @@
-# AI Agent Framework Startup Website - Implementation Plan
+# AI Mobile Company Website - Project Plan
 
 ## Project Overview
-Build a modern, professional multi-page website for an AI/ML agent framework startup using vanilla HTML, CSS, and JavaScript. The site will showcase products, features, pricing, documentation, and company information with a cutting-edge tech aesthetic that appeals to developers and enterprise customers.
+Build a modern, professional **multi-page website** for an AI mobile company using pure HTML, CSS, and JavaScript (no React). The website will showcase the company's AI-powered mobile products and services with a clean, tech-forward design.
 
-**Tech Stack:**
-- HTML5 (semantic markup)
-- CSS3 (modern features: Grid, Flexbox, Custom Properties, CSS Animations)
-- Vanilla JavaScript (ES6+, no frameworks)
-- No build tools required - pure static site
-
-**Design Principles:**
-- Futuristic dark theme with gradient accents (AI/tech aesthetic)
-- Glassmorphism and neon glow effects
-- Smooth animations and micro-interactions
-- High contrast for accessibility
-- Mobile-first responsive design
-- Clean typography with excellent readability
-- Performance optimized
-
----
+## Design Philosophy
+- **Modern & Clean**: Minimalist design with strategic use of whitespace
+- **Mobile-First**: Fully responsive across all devices
+- **Professional**: Corporate tech aesthetic with smooth animations
+- **Accessible**: WCAG AA compliant with proper semantic HTML
+- **Fast**: Optimized loading with vanilla JavaScript
 
 ## Folder Structure
-
 ```
-ai-startup/
-├── index.html              # Home/Landing page
-├── about.html              # About/Company page
-├── features.html           # Products/Features page
-├── pricing.html            # Pricing page
-├── docs.html               # Documentation page
-├── contact.html            # Contact page
+ai-mobile-website/
+├── index.html                 # Homepage
+├── products.html              # Products page
+├── about.html                 # About us page
+├── contact.html               # Contact page
 ├── css/
-│   ├── reset.css          # CSS reset/normalize
-│   ├── variables.css      # CSS custom properties (colors, fonts, spacing)
-│   ├── typography.css     # Font definitions and text styles
-│   ├── layout.css         # Grid, flexbox, responsive containers
-│   ├── components.css     # Reusable UI components (buttons, cards, forms)
-│   ├── pages.css          # Page-specific styles
-│   └── animations.css     # Transitions, keyframe animations
+│   ├── variables.css         # CSS variables (colors, fonts, spacing)
+│   ├── reset.css             # CSS reset and base styles
+│   ├── typography.css        # Font styles and heading system
+│   ├── layout.css            # Grid, flexbox, container utilities
+│   ├── components.css        # Buttons, cards, forms, badges
+│   ├── navigation.css        # Header, footer, nav menu
+│   └── pages.css             # Page-specific styles
 ├── js/
-│   ├── main.js            # Main JavaScript functionality
-│   ├── navigation.js      # Mobile menu, active link highlighting
-│   ├── scroll-animations.js # Scroll-triggered animations
-│   ├── pricing-toggle.js  # Monthly/annual pricing toggle
-│   ├── docs-search.js     # Documentation search functionality
-│   └── form-handler.js    # Contact form validation
+│   ├── main.js               # Core JavaScript functionality
+│   ├── navigation.js         # Mobile menu, smooth scroll, active states
+│   ├── animations.js         # Scroll animations, Intersection Observer
+│   └── form-validation.js    # Contact form validation
 ├── assets/
 │   ├── images/
 │   │   ├── hero-bg.jpg
-│   │   ├── features/
-│   │   └── logos/
-│   └── icons/             # SVG icons
-└── README.md              # Setup instructions
+│   │   ├── logo.svg
+│   │   └── product-*.jpg
+│   └── icons/
+│       └── *.svg
+└── README.md
 ```
-
----
 
 ## Page Breakdown
 
-### 1. index.html (Home Page)
-**Purpose:** Main landing page, compelling first impression
+### 1. Homepage (index.html)
+**Purpose**: Create strong first impression, showcase key offerings
 
-**Sections:**
-- **Navigation Bar:** Logo, links to all pages, CTA button ("Get Started Free")
-- **Hero Section:**
-  - Headline: "Build Intelligent Agents That Scale"
-  - Subheadline about autonomous AI capabilities
-  - Primary CTA: "Start Building Free"
-  - Secondary CTA: "Watch Demo"
-  - Animated gradient background with floating particles
-  - Code snippet preview showing agent creation
-- **Trusted By:** Logo carousel of companies using the platform
-- **Key Features:** 6 feature cards with icons
-  - Multi-Agent Orchestration
-  - Natural Language Processing
-  - Real-Time Learning
-  - API Integration
-  - Scalable Infrastructure
-  - Enterprise Security
-- **How It Works:** 3-step process (Define → Deploy → Scale)
-- **Stats Section:** Animated counters (Agents deployed, API calls, Uptime)
-- **Testimonials:** Carousel of customer quotes
-- **CTA Section:** Final call-to-action with gradient background
-- **Footer:** Links, social icons, newsletter signup
+**Sections**:
+- **Hero**: Compelling headline, subheadline, dual CTAs, animated background
+- **Features**: 6 feature cards highlighting AI capabilities
+- **Products Preview**: 3 featured products with "Learn More" links
+- **Stats**: Animated counters (Users, Downloads, Countries, Satisfaction)
+- **Testimonials**: 3 customer testimonials with photos
+- **CTA Banner**: Final call-to-action section
+- **Footer**: Links, social icons, newsletter signup
 
-### 2. about.html (About Page)
-**Purpose:** Company story, mission, team
+**Key Content**:
+- Headline: "Transforming Mobile Experiences with AI"
+- CTAs: "Explore Products" (primary), "Contact Us" (secondary)
 
-**Sections:**
-- **Hero:** "Building the Future of Autonomous AI"
-- **Mission Statement:** Why we exist, what we believe
-- **Our Story:** Timeline of company milestones
-- **Values:** 4 core values with icons
-  - Innovation First
-  - Developer Experience
-  - Transparency
-  - Customer Success
-- **Team Section:** Grid of team members with photos and roles
-- **Investors/Backers:** Logo grid of investors
-- **Careers CTA:** "Join our team"
+### 2. Products Page (products.html)
+**Purpose**: Showcase all AI mobile products in detail
 
-### 3. features.html (Products/Features Page)
-**Purpose:** Detailed product capabilities
+**Sections**:
+- **Page Header**: Title, breadcrumb, brief description
+- **Category Filter**: All, AI Assistant, Productivity, Security, Health
+- **Products Grid**: 8 product cards with:
+  - Product image
+  - Name and category badge
+  - Description
+  - Key features (3-4 bullet points)
+  - Pricing (optional)
+  - "Get Started" CTA
+- **Feature Comparison**: Comparison table of top products
+- **CTA Section**: Newsletter signup for product updates
 
-**Sections:**
-- **Hero:** "Powerful Features for Intelligent Agents"
-- **Feature Categories:** Tabbed interface
-  - **Agent Development:**
-    - Visual agent builder
-    - Code-first SDK
-    - Pre-built templates
-    - Debugging tools
-  - **Orchestration:**
-    - Multi-agent coordination
-    - Workflow automation
-    - Event handling
-    - State management
-  - **Integration:**
-    - REST & GraphQL APIs
-    - Webhook support
-    - Third-party connectors
-    - Custom integrations
-  - **Observability:**
-    - Real-time monitoring
-    - Analytics dashboard
-    - Logging & tracing
-    - Performance metrics
-- **Technical Specs:** System requirements, supported languages
-- **Roadmap:** Public product roadmap with upcoming features
+**Default Products**:
+1. NeuralVoice AI - Voice assistant
+2. SmartLens Pro - AI camera
+3. PredictiveType - Smart keyboard
+4. HealthGuard AI - Health monitoring
+5. NavMind Pro - AI navigation
+6. SecureShield - Mobile security
+7. FocusFlow - Productivity assistant
+8. SleepSense AI - Sleep optimizer
 
-### 4. pricing.html (Pricing Page)
-**Purpose:** Clear pricing plans
+### 3. About Page (about.html)
+**Purpose**: Company story, mission, team, culture
 
-**Sections:**
-- **Hero:** "Simple, Transparent Pricing"
-- **Pricing Toggle:** Monthly/Annual switch (with 20% discount badge)
-- **Pricing Cards (4 tiers):**
-  - **Free:** $0/month
-    - 1 agent
-    - 1,000 API calls/month
-    - Community support
-    - Basic analytics
-  - **Starter:** $29/month
-    - 5 agents
-    - 50,000 API calls/month
-    - Email support
-    - Advanced analytics
-  - **Pro:** $99/month
-    - 25 agents
-    - 500,000 API calls/month
-    - Priority support
-    - Custom integrations
-  - **Enterprise:** Custom pricing
-    - Unlimited agents
-    - Unlimited API calls
-    - 24/7 dedicated support
-    - SLA guarantee
-    - On-premise deployment
-- **Feature Comparison Table:** Side-by-side comparison
-- **FAQ:** Accordion with common pricing questions
-- **Enterprise CTA:** "Contact sales for custom solution"
+**Sections**:
+- **Hero**: Mission statement with background image
+- **Our Story**: Timeline of company milestones
+- **Mission & Values**: 6 core values with icons
+- **Team**: 6-8 team members with photos, names, roles
+- **Company Stats**: Animated counters
+- **Awards & Recognition**: Logo strip of awards
+- **Careers CTA**: "Join Our Team" section
 
-### 5. docs.html (Documentation Page)
-**Purpose:** Developer documentation and resources
+**Team Members** (default):
+- CEO, CTO, Product Lead, Head of AI, Design Director, etc.
 
-**Sections:**
-- **Hero:** "Documentation & Resources"
-- **Search Bar:** Prominent search functionality
-- **Quick Start:** Getting started guide cards
-  - Installation
-  - First Agent
-  - Core Concepts
-  - API Reference
-- **Documentation Navigation:** Two-column layout
-  - **Left Sidebar:** Navigation links (Getting Started, Concepts, APIs, Guides)
-  - **Main Content:** Documentation content with code examples
-- **Code Examples:** Syntax-highlighted code blocks
-- **API Reference:** Detailed API documentation
-- **SDKs:** Tabs for different languages (Python, JavaScript, Go, Rust)
-- **Resources:** Additional links (Tutorials, Blog, Community, Support)
+### 4. Contact Page (contact.html)
+**Purpose**: Lead generation and customer support
 
-### 6. contact.html (Contact Page)
-**Purpose:** Contact form and support options
-
-**Sections:**
-- **Hero:** "Get in Touch"
-- **Contact Options:** 3-column layout
-  - **Sales:** For pricing and enterprise
-  - **Support:** For technical help
-  - **Partnerships:** For collaboration
-- **Contact Form:**
+**Sections**:
+- **Hero**: "Get in Touch" with contact info summary
+- **Contact Form**: 
   - Name (required)
-  - Email (required, validation)
-  - Company
-  - Subject dropdown (General, Sales, Support, Partnership)
-  - Message (required)
+  - Email (required, validated)
+  - Phone (optional)
+  - Subject (dropdown)
+  - Message (required, textarea)
   - Submit button with loading state
-- **Office Locations:** Addresses with map placeholders
-- **Social Links:** GitHub, Twitter, LinkedIn, Discord
+- **Contact Information**:
+  - Email address
+  - Phone number
+  - Office address
+  - Working hours
+- **FAQ Accordion**: 6-8 common questions
+- **Social Media Links**: With icons
+- **Map Placeholder**: Embedded map (iframe)
 
----
+## Design System
 
-## File Breakdown
-
-### HTML Files
-All pages share consistent structure with:
-- Semantic HTML5 elements
-- Responsive navigation with mobile menu
-- Page-specific hero section
-- Main content area
-- Footer with consistent links
-
-### CSS Files
-
-#### `css/reset.css`
-**Purpose:** Normalize browser defaults
-**Content:**
-- Modern CSS reset
-- Consistent base styles
-
-#### `css/variables.css`
-**Purpose:** Design tokens for consistency
-**Content:**
+### Color Palette
 ```css
-:root {
-  /* Colors - AI/Tech dark theme */
-  --color-bg-primary: #030014;
-  --color-bg-secondary: #0a0a1a;
-  --color-bg-card: #121225;
-  --color-bg-glass: rgba(18, 18, 37, 0.8);
-  --color-text-primary: #f0f0f5;
-  --color-text-secondary: #a0a0b8;
-  
-  /* Gradients */
-  --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --gradient-accent: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  --gradient-glow: radial-gradient(circle at center, rgba(102, 126, 234, 0.15) 0%, transparent 70%);
-  
-  /* Accent colors */
-  --color-accent: #667eea;
-  --color-accent-hover: #7c8ff0;
-  --color-secondary: #f093fb;
-  --color-success: #10b981;
-  --color-warning: #f59e0b;
-  
-  /* Spacing scale */
-  --space-xs: 0.25rem;
-  --space-sm: 0.5rem;
-  --space-md: 1rem;
-  --space-lg: 2rem;
-  --space-xl: 4rem;
-  
-  /* Typography */
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
-  
-  /* Effects */
-  --shadow-glow: 0 0 40px rgba(102, 126, 234, 0.3);
-  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
-  --border-glass: 1px solid rgba(255, 255, 255, 0.1);
-  
-  /* Transitions */
-  --transition-fast: 150ms ease;
-  --transition-normal: 300ms ease;
-}
+/* Primary Colors */
+--primary: #2563EB;        /* Royal Blue */
+--primary-dark: #1E40AF;   /* Darker Blue */
+--primary-light: #3B82F6;  /* Lighter Blue */
+
+/* Secondary Colors */
+--secondary: #7C3AED;      /* Purple */
+--secondary-dark: #5B21B6;
+--secondary-light: #8B5CF6;
+
+/* Accent Colors */
+--accent: #06B6D4;         /* Cyan */
+--accent-gradient: linear-gradient(135deg, #2563EB, #7C3AED);
+
+/* Neutral Colors */
+--dark: #0F172A;           /* Navy - Backgrounds */
+--dark-light: #1E293B;     /* Light Navy - Cards */
+--gray: #64748B;           /* Gray - Muted text */
+--light: #F8FAFC;          /* Off-white - Light backgrounds */
+--white: #FFFFFF;          /* White - Cards, text */
+
+/* Semantic Colors */
+--success: #10B981;
+--warning: #F59E0B;
+--error: #EF4444;
 ```
 
-#### `css/typography.css`
-**Purpose:** Font loading and text styles
-**Content:**
-- Google Fonts import (Inter, JetBrains Mono)
-- Heading styles with gradient text option
-- Paragraph and link styles
-- Monospace font for code
-- Responsive font sizes
+### Typography
+```css
+/* Font Families */
+--font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+--font-display: 'Space Grotesk', sans-serif;
 
-#### `css/layout.css`
-**Purpose:** Structural layout systems
-**Content:**
-- Container utility classes
-- CSS Grid for card layouts
-- Flexbox for navigation
-- Responsive breakpoints
-- Section spacing
+/* Font Sizes */
+--text-xs: 0.75rem;   /* 12px */
+--text-sm: 0.875rem;  /* 14px */
+--text-base: 1rem;    /* 16px */
+--text-lg: 1.125rem;  /* 18px */
+--text-xl: 1.25rem;   /* 20px */
+--text-2xl: 1.5rem;   /* 24px */
+--text-3xl: 1.875rem; /* 30px */
+--text-4xl: 2.25rem;  /* 36px */
+--text-5xl: 3rem;     /* 48px */
 
-#### `css/components.css`
-**Purpose:** Reusable UI components
-**Content:**
-- Buttons (primary, secondary, outline, gradient variants)
-- Cards (feature cards, pricing cards, testimonial cards)
-- Form inputs and textareas
-- Badge/tag components
-- Tabs component
-- Accordion component
-- Pricing toggle switch
-- Search bar
-- Code blocks with syntax highlighting
-- Social icon links
-- Mobile menu overlay
+/* Font Weights */
+--font-normal: 400;
+--font-medium: 500;
+--font-semibold: 600;
+--font-bold: 700;
+```
 
-#### `css/pages.css`
-**Purpose:** Page-specific styling
-**Content:**
-- Hero section styles (different variants per page)
-- Feature grids
-- Pricing tables
-- Documentation layout
-- Comparison tables
-- Testimonial carousel
-- Logo carousel
-- Stats counters
-- Timeline component
-- Team grid
+### Spacing System
+```css
+--space-1: 0.25rem;  /* 4px */
+--space-2: 0.5rem;   /* 8px */
+--space-3: 0.75rem;  /* 12px */
+--space-4: 1rem;     /* 16px */
+--space-5: 1.25rem;  /* 20px */
+--space-6: 1.5rem;   /* 24px */
+--space-8: 2rem;     /* 32px */
+--space-10: 2.5rem;  /* 40px */
+--space-12: 3rem;    /* 48px */
+--space-16: 4rem;    /* 64px */
+```
 
-#### `css/animations.css`
-**Purpose:** Animations and transitions
-**Content:**
-- Fade-in animations on scroll
-- Hover effects for cards and buttons
-- Gradient background animations
-- Floating particle animation
-- Glow effects
-- Mobile menu slide-in
-- Staggered list animations
-- Counter animations
+### Components
 
-### JavaScript Files
+#### Buttons
+```css
+/* Primary Button */
+- Background: Gradient (primary to secondary)
+- Text: White
+- Padding: 12px 28px
+- Border radius: 8px
+- Hover: Lift effect, shadow increase
+- Transition: All 0.3s ease
 
-#### `js/main.js`
-**Purpose:** Entry point and initialization
-**Content:**
-- DOM content loaded listener
-- Initialize all modules
-- Global error handling
+/* Secondary Button */
+- Background: Transparent
+- Border: 2px solid primary
+- Text: Primary
+- Hover: Background primary, text white
+```
 
-#### `js/navigation.js`
-**Purpose:** Navigation functionality
-**Content:**
-- Mobile menu toggle
-- Active link highlighting based on current page
-- Smooth scroll for anchor links
-- Sticky header on scroll
+#### Cards
+```css
+- Background: White or dark-light
+- Border radius: 12px
+- Padding: 24px
+- Shadow: Subtle (0 4px 6px rgba(0,0,0,0.1))
+- Hover: Lift effect, shadow increase
+- Transition: All 0.3s ease
+```
 
-#### `js/scroll-animations.js`
-**Purpose:** Scroll-triggered animations
-**Content:**
-- Intersection Observer for fade-in animations
-- Parallax effects for hero sections
-- Stats counter animation
-- Reveal animations for cards
-
-#### `js/pricing-toggle.js`
-**Purpose:** Pricing toggle functionality
-**Content:**
-- Monthly/Annual toggle switch
-- Update pricing display
-- Apply discount calculation
-- Animate price changes
-
-#### `js/docs-search.js`
-**Purpose:** Documentation search
-**Content:**
-- Real-time search filtering
-- Highlight matching terms
-- Navigate search results with keyboard
-- Clear search functionality
-
-#### `js/form-handler.js`
-**Purpose:** Contact form handling
-**Content:**
-- Form validation (email format, required fields)
-- Form submission handling
-- Success/error message display
-- Loading state management
-
----
+#### Form Inputs
+```css
+- Background: White or dark-light
+- Border: 1px solid gray
+- Border radius: 6px
+- Padding: 12px 16px
+- Focus: Border color primary, box-shadow
+- Transition: All 0.2s ease
+```
 
 ## Implementation Steps
 
-### Step 1: Project Setup
-1. Create folder structure as outlined above
-2. Set up empty HTML, CSS, and JS files for all 6 pages
-3. Add placeholder assets (images, icons)
-4. Create README with setup instructions
+### Step 1: Project Setup (30 minutes)
+1. Create folder structure
+2. Set up HTML5 boilerplate for all 4 pages
+3. Create CSS files (variables, reset, typography, layout, components, navigation, pages)
+4. Create JavaScript files (main, navigation, animations, form-validation)
+5. Set up external resources (Google Fonts, Font Awesome CDN)
 
-### Step 2: HTML Structure for All Pages
-1. Build navigation component (shared across all pages)
-2. Build footer component (shared across all pages)
-3. Create each page with unique sections
-4. Add proper meta tags for SEO and social sharing
-5. Include Google Fonts and icon library via CDN
+### Step 2: Base CSS Foundation (45 minutes)
+1. Define CSS variables in variables.css
+2. Add CSS reset in reset.css
+3. Set up typography system in typography.css
+4. Create layout utilities in layout.css (container, grid, flex)
+5. Build component styles in components.css (buttons, cards, forms)
 
-### Step 3: CSS Foundation
-1. Implement `reset.css` with modern CSS reset
-2. Create `variables.css` with AI/tech theme design tokens
-3. Build `typography.css` with fonts and text styles
-4. Implement `layout.css` with containers, grid, flexbox
+### Step 3: Navigation Component (45 minutes)
+1. Create header with logo and navigation menu
+2. Build responsive mobile hamburger menu
+3. Add smooth scroll to anchor links
+4. Implement active state highlighting
+5. Create footer with links and social icons
 
-### Step 4: Component Styling
-1. Build button components (including gradient variants)
-2. Create card components with glassmorphism effect
-3. Style form elements with focus states
-4. Add badge/tag components
-5. Implement tabs component
-6. Build accordion component
-7. Create pricing toggle switch
-8. Style code blocks for documentation
+### Step 4: Homepage Development (2 hours)
+1. Build hero section with gradient background
+2. Create features grid (6 cards)
+3. Build products preview section (3 cards)
+4. Add animated stats counters
+5. Create testimonials section (3 cards)
+6. Build CTA banner
+7. Add scroll-triggered animations
 
-### Step 5: Page-Specific Implementation
-1. **Home Page:** Hero with animated background, feature grid, stats, testimonials
-2. **About Page:** Timeline, team grid, values section
-3. **Features Page:** Tabbed interface, feature categories, technical specs
-4. **Pricing Page:** Pricing cards, toggle, comparison table, FAQ
-5. **Documentation Page:** Search, sidebar navigation, code examples
-6. **Contact Page:** Contact form, contact options, locations
+### Step 5: Products Page (1.5 hours)
+1. Create page header with title
+2. Build category filter with JavaScript
+3. Create product cards grid (8 products)
+4. Add hover effects and interactions
+5. Build comparison table
+6. Add newsletter signup CTA
 
-### Step 6: Animations
-1. Create fade-in animations using CSS keyframes
-2. Add hover effects with glow effects
-3. Implement gradient background animations
-4. Add floating particle effect for hero
-5. Create mobile menu slide-in animation
-6. Build counter animations for stats
+### Step 6: About Page (1.5 hours)
+1. Create hero section with mission
+2. Build company timeline
+3. Create values section with icons
+4. Build team grid with photos
+5. Add animated stats
+6. Create awards section
+7. Add careers CTA
 
-### Step 7: JavaScript Functionality
-1. **Navigation:**
-   - Mobile menu toggle
-   - Active link highlighting
-   - Smooth scroll
-   
-2. **Scroll Animations:**
-   - Intersection Observer for reveals
-   - Parallax effects
-   - Counter animations
-   
-3. **Pricing Toggle:**
-   - Monthly/annual switch
-   - Price updates
-   - Discount calculation
-   
-4. **Documentation Search:**
-   - Real-time filtering
-   - Keyboard navigation
-   
-5. **Form Handling:**
-   - Validation
-   - Submission feedback
-   - Loading states
+### Step 7: Contact Page (1 hour)
+1. Create hero section
+2. Build contact form with validation
+3. Add contact information section
+4. Create FAQ accordion
+5. Add social media links
+6. Embed map placeholder
 
-### Step 8: Responsive Design
-1. Optimize for mobile (320px - 768px)
-2. Optimize for tablet (768px - 1024px)
-3. Optimize for desktop (1024px+)
-4. Ensure touch targets are minimum 44x44px
-5. Test navigation on all devices
+### Step 8: JavaScript Functionality (1.5 hours)
+1. Implement mobile menu toggle
+2. Add smooth scroll behavior
+3. Create Intersection Observer for scroll animations
+4. Build form validation with error messages
+5. Add animated counters for stats
+6. Implement category filter for products
+7. Add FAQ accordion functionality
 
-### Step 9: Performance & Accessibility
-1. Optimize images (compress, WebP format)
-2. Add `alt` text to all images
-3. Ensure color contrast meets WCAG AA
-4. Add `aria-labels` for interactive elements
-5. Implement keyboard navigation
-6. Add focus indicators
-7. Test with screen reader
+### Step 9: Responsive Design (1 hour)
+1. Test and adjust for mobile (320px - 767px)
+2. Test and adjust for tablet (768px - 1023px)
+3. Test and adjust for desktop (1024px+)
+4. Optimize touch interactions
+5. Test on multiple devices/browsers
 
-### Step 10: Testing & Refinement
-1. Test all navigation between pages
-2. Verify responsive behavior
-3. Check cross-browser compatibility
-4. Validate HTML and CSS
-5. Test all interactive elements
-6. Verify animations run smoothly
-7. Check for console errors
+### Step 10: Content & Assets (45 minutes)
+1. Add placeholder images (Lorem Picsum or similar)
+2. Create SVG icons inline
+3. Write compelling copy for all sections
+4. Add realistic testimonials
+5. Ensure consistent tone throughout
 
----
+### Step 11: Testing & Polish (1 hour)
+1. Cross-browser testing (Chrome, Firefox, Safari, Edge)
+2. Device testing (iPhone, Android, tablet, desktop)
+3. Accessibility audit (keyboard navigation, screen readers, ARIA)
+4. Performance optimization (minify, compress images)
+5. Final code cleanup and commenting
+6. Validate HTML and CSS
 
-## Design Specifications
+## Technical Specifications
 
-### Color Palette (AI/Tech Dark Theme)
-- **Backgrounds:** Deep space (#030014, #0a0a1a, #121225)
-- **Text:** Off-white (#f0f0f5) and muted purple-gray (#a0a0b8)
-- **Primary Accent:** Purple-indigo gradient (#667eea → #764ba2)
-- **Secondary Accent:** Pink-coral gradient (#f093fb → #f5576c)
-- **Success:** Green (#10b981)
-- **Warning:** Amber (#f59e0b)
-- **Effects:** Glow effects, glassmorphism overlays
+### HTML Standards
+- Semantic HTML5 elements (header, nav, main, section, article, footer)
+- Proper heading hierarchy (h1 → h2 → h3)
+- ARIA labels for accessibility
+- Alt text for all images
+- Meta tags for SEO and social sharing
+- Structured data markup (JSON-LD)
 
-### Typography
-- **Headings:** Inter, 700 weight, with gradient text option for heroes
-- **Body:** Inter, 400 weight, 1.6 line-height
-- **Code:** JetBrains Mono, 400 weight
-- **Font Sizes:**
-  - H1: 3.5rem (56px) - Hero
-  - H2: 2.5rem (40px) - Section titles
-  - H3: 1.75rem (28px) - Card titles
-  - Body: 1rem (16px)
+### CSS Standards
+- CSS custom properties (variables) for theming
+- Flexbox and Grid for layouts
+- Mobile-first media queries
+- BEM naming convention (block__element--modifier)
+- Smooth transitions (0.2s - 0.3s ease)
+- Minimal use of !important
 
-### Spacing
-- Section padding: 5rem (80px) top/bottom
-- Container max-width: 1280px
-- Grid gap: 2rem (32px)
-- Card padding: 2rem (32px)
+### JavaScript Standards
+- ES6+ syntax (const/let, arrow functions, template literals)
+- Modular code organization
+- Event delegation for dynamic elements
+- No jQuery or frameworks (vanilla JS only)
+- Performance optimized (debounce, throttle, requestAnimationFrame)
+- Error handling with try-catch
 
-### Breakpoints
-- **Mobile:** < 640px (single column)
-- **Tablet:** 640px - 1024px (two columns)
-- **Desktop:** > 1024px (three+ columns)
+### Performance Targets
+- Page load time: < 2 seconds
+- First Contentful Paint: < 1 second
+- Time to Interactive: < 3 seconds
+- Lighthouse score: 90+ across all categories
+- Minimal JavaScript bundle size
 
-### Special Effects
-- **Glassmorphism:** `backdrop-filter: blur(10px)` with semi-transparent backgrounds
-- **Glow:** `box-shadow` with colored shadows
-- **Gradient Borders:** Using `background-origin: border-box`
-- **Floating Animation:** Gentle up/down motion for hero elements
+## Accessibility Features
 
----
+### WCAG AA Compliance
+- Semantic HTML structure
+- ARIA labels and roles
+- Keyboard navigation support (Tab, Enter, Escape)
+- Focus indicators on all interactive elements
+- Skip to content link
+- Proper color contrast (4.5:1 minimum)
+- Alt text for all images
+- Form labels and error messages
+- Resizable text (up to 200% without breaking)
 
-## Interactive Features
+### Screen Reader Support
+- Proper heading hierarchy
+- Descriptive link text
+- ARIA descriptions for icons
+- Form validation announcements
+- Live regions for dynamic content
 
-### Navigation
-- Active page highlighting in nav
-- Mobile hamburger menu with slide-in animation
-- Smooth scroll for anchor links
-- Sticky header with glassmorphism effect
+## Browser Support
+- Chrome/Edge (latest 2 versions)
+- Firefox (latest 2 versions)
+- Safari (latest 2 versions)
+- Mobile Safari iOS 12+
+- Chrome Android
 
-### Hero Sections
-- Animated gradient background
-- Floating particle effect
-- Code snippet typing animation
-- CTA buttons with glow effect on hover
+## Content Defaults
 
-### Cards
-- Hover lift effect (translateY -8px)
-- Glow effect increase on hover
-- Border gradient animation
-- Image/icon zoom on hover
+### Company Information
+- **Name**: NeuralMobile AI
+- **Tagline**: "Intelligent Mobile Solutions for Tomorrow"
+- **Mission**: "Empowering users with AI-driven mobile experiences that enhance productivity, security, and everyday life."
 
-### Pricing Page
-- Monthly/Annual toggle switch
-- Smooth price transition animations
-- Popular plan highlight with glow
-- Feature comparison table
+### Default Copy Tone
+- Professional yet approachable
+- Focus on innovation and technology
+- Emphasize user benefits
+- Action-oriented CTAs
+- Concise and scannable
 
-### Documentation
-- Real-time search filtering
-- Keyboard navigation in search results
-- Active section highlighting in sidebar
-- Code copy buttons
-
-### Forms
-- Real-time validation feedback
-- Floating label effect
-- Success animation on submission
-- Loading state with spinner
-
-### Micro-interactions
-- Button hover states with scale and glow
-- Link underline animations
-- Icon hover effects
-- Focus rings for accessibility
-
----
-
-## Content Guidelines
-
-### Home Page
-- **Hero Headline:** "Build Intelligent Agents That Scale"
-- **Hero Subhead:** "The complete platform for developing, deploying, and managing autonomous AI agents. From prototype to production in minutes."
-- **Features:** Focus on developer experience and scalability
-- **Stats:** Use impressive numbers (10M+ API calls, 99.99% uptime)
-
-### About Page
-- **Mission:** Focus on democratizing AI development
-- **Story:** Founding story, key milestones
-- **Team:** Highlight technical expertise and AI background
-- **Values:** Developer-first, transparency, innovation
-
-### Features Page
-- **Categories:** Organize by user workflow
-- **Technical Specs:** Include system requirements
-- **Roadmap:** Show upcoming features to build excitement
-
-### Pricing Page
-- **Clear Tiers:** Free → Starter → Pro → Enterprise
-- **Feature Comparison:** Make differences clear
-- **FAQ:** Address common questions about pricing
-
-### Documentation Page
-- **Quick Start:** Get developers running in 5 minutes
-- **Code Examples:** Real-world, copy-pasteable code
-- **API Reference:** Complete and accurate
-
-### Contact Page
-- **Multiple Options:** Sales, Support, Partnerships
-- **Clear Expectations:** Response times, what to expect
-
----
+### Placeholder Images
+- Use placeholder services (Lorem Picsum, Unsplash Source)
+- SVG icons created inline
+- Consistent aspect ratios
+- Optimized for web (WebP format when possible)
 
 ## Testing Checklist
 
 ### Functionality
-- [ ] All page links work correctly
-- [ ] Mobile menu opens/closes
-- [ ] Pricing toggle switches prices
-- [ ] Documentation search filters results
-- [ ] Contact form validates correctly
-- [ ] All animations play smoothly
-- [ ] Stats counters animate
+- [ ] All navigation links work correctly
+- [ ] Mobile menu opens/closes properly
+- [ ] Smooth scrolling works on all pages
+- [ ] Forms validate properly
+- [ ] Form submission shows success/error messages
+- [ ] Category filter works on products page
+- [ ] FAQ accordion expands/collapses
+- [ ] Animated counters trigger on scroll
+- [ ] All buttons have hover/active states
 
 ### Responsive Design
-- [ ] Mobile (320px - 640px)
-- [ ] Tablet (641px - 1024px)
-- [ ] Desktop (1025px+)
-- [ ] Touch targets ≥ 44x44px
-- [ ] Text readable without zoom
-- [ ] Navigation works on all devices
-
-### Cross-Browser
-- [ ] Chrome (latest)
-- [ ] Firefox (latest)
-- [ ] Safari (latest)
-- [ ] Edge (latest)
-- [ ] Mobile browsers
+- [ ] Mobile (320px - 767px) layouts work
+- [ ] Tablet (768px - 1023px) layouts work
+- [ ] Desktop (1024px+) layouts work
+- [ ] Images scale properly
+- [ ] Text doesn't overflow
+- [ ] Touch targets are at least 44x44px
 
 ### Accessibility
 - [ ] Keyboard navigation works
-- [ ] Screen reader friendly
-- [ ] Color contrast passes WCAG AA
-- [ ] All images have alt text
-- [ ] Forms have proper labels
+- [ ] Screen reader reads content correctly
+- [ ] Color contrast meets WCAG AA
 - [ ] Focus indicators visible
+- [ ] Alt text present on all images
+- [ ] Form labels are properly associated
+- [ ] ARIA labels on interactive elements
 
 ### Performance
-- [ ] Page loads in < 3 seconds
-- [ ] Images optimized
+- [ ] Page loads in < 2 seconds
 - [ ] No console errors
-- [ ] Animations run at 60fps
-- [ ] No layout shifts
+- [ ] Images are optimized
+- [ ] CSS/JS is minified (production)
+- [ ] Lazy loading implemented for images
 
----
-
-## Dependencies
-
-### External Resources (CDN)
-- **Google Fonts:** Inter, JetBrains Mono
-- **Font Awesome:** 6.x for icons
-- **Optional:** Prism.js for code syntax highlighting in docs
-
-### No Build Tools Required
-- Pure HTML/CSS/JS
-- No npm, webpack, or compilation needed
-- Deploy to any static host
-
----
-
-## Deployment Instructions
-
-1. **Local Testing:**
-   - Open any HTML file directly in browser
-   - Or use local server: `python -m http.server 8000`
-   - Or VS Code Live Server extension
-
-2. **Deployment Options:**
-   - **Netlify:** Drag and drop folder
-   - **Vercel:** Connect repo or deploy via CLI
-   - **GitHub Pages:** Push to repo, enable Pages
-   - **Any static host:** Upload all files
-
-3. **Pre-deployment Checklist:**
-   - Update all placeholder content
-   - Replace placeholder images
-   - Test all page links
-   - Update meta tags for SEO
-   - Add favicon
-   - Set up custom domain (optional)
-
----
-
-## Future Enhancements (Optional)
-
-- Blog section with technical articles
-- Interactive code playground/sandbox
-- Customer case studies
-- Video tutorials and demos
-- Community forum
-- Changelog/release notes
-- Status page
-- Analytics dashboard integration
-- Live chat support widget
-- Dark/light mode toggle
-- Internationalization (i18n)
-
----
+### Cross-Browser
+- [ ] Works in Chrome
+- [ ] Works in Firefox
+- [ ] Works in Safari
+- [ ] Works in Edge
+- [ ] Works on iOS Safari
+- [ ] Works on Chrome Android
 
 ## Success Criteria
-
-✅ Modern, futuristic AI/tech aesthetic
-✅ 6 fully-functional, linked pages
-✅ Responsive across all device sizes
-✅ Smooth animations and micro-interactions
-✅ Accessible (WCAG AA compliant)
-✅ Fast loading and performant
-✅ Clean, maintainable code structure
-✅ Professional pricing tables
-✅ Searchable documentation
-✅ Cross-browser compatible
-✅ No console errors
-✅ Production-ready
-
----
+1. ✅ All 4 pages fully functional and properly linked
+2. ✅ Fully responsive across mobile, tablet, and desktop
+3. ✅ Smooth animations and transitions throughout
+4. ✅ Accessible to keyboard and screen reader users
+5. ✅ Fast loading with optimized assets
+6. ✅ Professional, modern design aesthetic
+7. ✅ Cross-browser compatible
+8. ✅ Contact form with proper validation
+9. ✅ Clean, maintainable, well-commented code
+10. ✅ Ready for production deployment
 
 ## Notes for Developer
+- Keep code clean, semantic, and well-commented
+- Use CSS variables extensively for easy customization
+- Implement progressive enhancement (works without JS, enhanced with JS)
+- Test on real devices when possible
+- Consider adding dark mode toggle as bonus feature
+- Use inline SVGs for icons (no external icon font dependency)
+- All images should use placeholder services
+- Make design easy to customize (colors, fonts, content)
+- Follow mobile-first responsive design approach
+- Prioritize accessibility throughout
 
-- **Design Priority:** Futuristic but professional, appeal to developers
-- **Animations:** Smooth and purposeful, enhance UX without overwhelming
-- **Performance:** Critical for developer-facing site
-- **Accessibility:** Essential for inclusive design
-- **SEO:** Optimize for search engines
-- **Content:** Use realistic AI/tech terminology
-- **Colors:** Purple/pink gradients convey innovation and AI
-- **Glassmorphism:** Use sparingly for emphasis
-- **Code Examples:** Make them realistic and accurate
+## External Resources
+- **Google Fonts**: Inter (400, 500, 600, 700), Space Grotesk (500, 700)
+- **Font Awesome** (CDN): For social media icons
+- **Placeholder Images**: Lorem Picsum (picsum.photos) or Unsplash Source
+- **SVG Icons**: Create custom inline SVGs for feature icons
+
+## Estimated Timeline
+- Step 1: Project Setup - 30 min
+- Step 2: Base CSS - 45 min
+- Step 3: Navigation - 45 min
+- Step 4: Homepage - 2 hours
+- Step 5: Products Page - 1.5 hours
+- Step 6: About Page - 1.5 hours
+- Step 7: Contact Page - 1 hour
+- Step 8: JavaScript - 1.5 hours
+- Step 9: Responsive Design - 1 hour
+- Step 10: Content & Assets - 45 min
+- Step 11: Testing & Polish - 1 hour
+- **Total: ~12-13 hours**
 
 ---
 
-**Ready to build! This plan provides everything needed to create a stunning, professional AI agent framework startup website using pure HTML, CSS, and JavaScript.**
+**Ready to build!** Start with Step 1 and work through each step sequentially. Focus on creating clean, maintainable code that's easy to customize and extend. All design decisions have been made with modern best practices in mind.

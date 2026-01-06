@@ -269,7 +269,7 @@ Be precise, systematic, and always verify your changes.
 def create_development_agency(
     model: str = "glm-4.7",
     reasoning_effort: str = "medium",
-    max_handoffs: int = 15
+    max_handoffs: int = 100
 ) -> Agency:
     """
     Create development agency with intelligent routing using Anthropic provider.
