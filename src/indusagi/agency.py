@@ -9,8 +9,8 @@ from dataclasses import dataclass, field
 from enum import Enum
 import time
 
-from my_agent_framework.agent import Agent
-from my_agent_framework.tool_usage_logger import tool_logger
+from indusagi.agent import Agent
+from indusagi.tool_usage_logger import tool_logger
 
 
 class HandoffType(Enum):

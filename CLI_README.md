@@ -54,7 +54,7 @@ set OPENAI_API_KEY=your-key-here
 
 ### 3. Install CLI (Optional)
 
-For system-wide access to `agent-cli` command:
+For system-wide access to `indusagi` command:
 
 ```bash
 pip install -e .
@@ -66,7 +66,7 @@ pip install -e .
 
 **If installed:**
 ```bash
-agent-cli [COMMAND] [OPTIONS]
+indusagi [COMMAND] [OPTIONS]
 ```
 
 **If not installed:**
@@ -82,19 +82,19 @@ Execute a single query and get a response.
 
 ```bash
 # Basic usage
-agent-cli run "What is Python?"
+indusagi run "What is Python?"
 
 # With specific model
-agent-cli run "Explain quantum computing" --model gpt-4o
+indusagi run "Explain quantum computing" --model gpt-4o
 
 # With temperature control (higher = more creative)
-agent-cli run "Write a poem" --temperature 1.5
+indusagi run "Write a poem" --temperature 1.5
 
 # Disable tools
-agent-cli run "Just chat" --no-tools
+indusagi run "Just chat" --no-tools
 
 # Verbose mode
-agent-cli run "Calculate 25 * 48" --verbose
+indusagi run "Calculate 25 * 48" --verbose
 ```
 
 **Options:**
@@ -109,13 +109,13 @@ Start an interactive chat session with conversation history.
 
 ```bash
 # Start interactive mode
-agent-cli interactive
+indusagi interactive
 
 # With custom settings
-agent-cli interactive --model gpt-4o --temperature 0.3
+indusagi interactive --model gpt-4o --temperature 0.3
 
 # Disable tools in chat
-agent-cli interactive --no-tools
+indusagi interactive --no-tools
 ```
 
 **Special Commands in Chat:**
@@ -136,7 +136,7 @@ agent-cli interactive --no-tools
 Display version information about the framework.
 
 ```bash
-agent-cli version
+indusagi version
 ```
 
 Shows:
@@ -152,10 +152,10 @@ Display all registered tools that agents can use.
 
 ```bash
 # Simple list
-agent-cli list-tools
+indusagi list-tools
 
 # Detailed view with parameters
-agent-cli list-tools --detailed
+indusagi list-tools --detailed
 ```
 
 **Options:**
@@ -168,13 +168,13 @@ Verify that your OpenAI API key works and you can connect.
 
 ```bash
 # Test with default model
-agent-cli test-connection
+indusagi test-connection
 
 # Test with specific model
-agent-cli test-connection --model gpt-4o
+indusagi test-connection --model gpt-4o
 
 # Verbose mode
-agent-cli test-connection --verbose
+indusagi test-connection --verbose
 ```
 
 **Options:**
@@ -186,7 +186,7 @@ agent-cli test-connection --verbose
 Show predefined agent configurations and their capabilities.
 
 ```bash
-agent-cli list-agents
+indusagi list-agents
 ```
 
 ## Examples
@@ -194,7 +194,7 @@ agent-cli list-agents
 ### Example 1: Quick Math
 
 ```bash
-agent-cli run "What is 144 divided by 12?"
+indusagi run "What is 144 divided by 12?"
 ```
 
 The agent will use the calculator tool automatically and provide the answer.
@@ -202,7 +202,7 @@ The agent will use the calculator tool automatically and provide the answer.
 ### Example 2: Interactive Conversation
 
 ```bash
-agent-cli interactive
+indusagi interactive
 ```
 
 ```
@@ -221,7 +221,7 @@ You: /quit
 ### Example 3: Creative Writing
 
 ```bash
-agent-cli run "Write a haiku about coding" --temperature 1.2
+indusagi run "Write a haiku about coding" --temperature 1.2
 ```
 
 Higher temperature produces more creative responses.
@@ -229,7 +229,7 @@ Higher temperature produces more creative responses.
 ### Example 4: Current Time
 
 ```bash
-agent-cli run "What time is it?"
+indusagi run "What time is it?"
 ```
 
 The agent will use the `get_time` tool to provide the current time.
@@ -238,16 +238,16 @@ The agent will use the `get_time` tool to provide the current time.
 
 ```bash
 # Test API connection
-agent-cli test-connection
+indusagi test-connection
 
 # List available tools
-agent-cli list-tools --detailed
+indusagi list-tools --detailed
 
 # Check version
-agent-cli version
+indusagi version
 
 # Try a query
-agent-cli run "Tell me a programming joke" --verbose
+indusagi run "Tell me a programming joke" --verbose
 ```
 
 ## Configuration
@@ -374,7 +374,7 @@ python -c "import typer, rich; print('All packages installed')"
 python -c "import os; print('Set' if os.getenv('OPENAI_API_KEY') else 'Not set')"
 
 # Test connection
-agent-cli test-connection --verbose
+indusagi test-connection --verbose
 ```
 
 ### Module Not Found
@@ -392,7 +392,7 @@ python cli.py version
 ### Piping Input
 
 ```bash
-echo "Explain quantum computing" | agent-cli run -
+echo "Explain quantum computing" | indusagi run -
 ```
 
 ### Batch Processing
@@ -406,7 +406,7 @@ Tell me a joke
 
 # Process each line
 while read query; do
-    agent-cli run "$query"
+    indusagi run "$query"
 done < queries.txt
 ```
 

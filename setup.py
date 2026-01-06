@@ -7,10 +7,10 @@ This makes the CLI installable as a package with a convenient entry point.
 from setuptools import setup, find_packages
 
 setup(
-    name="agent-framework-cli",
-    version="1.0.0",
-    description="Professional CLI interface for indus-agents",
-    author="indus-agents",
+    name="indusagi",
+    version="0.2.0",
+    description="IndusAGI - Modern Agent Framework",
+    author="IndusAGI Team",
     license="MIT",
     py_modules=["cli", "agent", "tools"],
     install_requires=[
@@ -22,7 +22,7 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            "agent-cli=cli:main",
+            "indusagi=cli:main",
         ],
     },
     python_requires=">=3.8",

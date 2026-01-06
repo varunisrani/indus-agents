@@ -2,7 +2,7 @@
 
 import pytest
 
-from indus_agents.tools.base import BaseTool, ToolConfig, ToolResult
+from indusagi.tools.base import BaseTool, ToolConfig, ToolResult
 
 
 class TestToolResult:

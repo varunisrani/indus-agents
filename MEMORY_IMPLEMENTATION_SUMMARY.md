@@ -345,7 +345,7 @@ Potential improvements identified:
 
 1. **Copy core module**:
    ```bash
-   cp memory.py src/my_agent_framework/memory.py
+   cp memory.py src/indusagi/memory.py
    ```
 
 2. **Update `__init__.py`**:

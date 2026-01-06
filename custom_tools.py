@@ -11,7 +11,7 @@ Usage:
     4. The tool becomes immediately available to all agents!
 
 Example:
-    from indus_agents import registry
+    from indusagi import registry
 
     @registry.register
     def my_tool(param: str) -> str:
@@ -19,7 +19,7 @@ Example:
         return param.upper()
 """
 
-from indus_agents import registry
+from indusagi import registry
 from typing import Optional, List
 import random
 import os

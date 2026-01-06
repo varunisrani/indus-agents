@@ -342,7 +342,7 @@ See which agent is using which tool in real-time!
 ## Files Modified
 
 ### Modified:
-- ✅ `src/my_agent_framework/agent.py` - Added real-time logging display
+- ✅ `src/indusagi/agent.py` - Added real-time logging display
 
 ### Created:
 - ✅ `REAL_TIME_TOOL_LOGGING.md` - This documentation

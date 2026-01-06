@@ -118,17 +118,17 @@ test_tools.py:         45 tests (17%)
 ```
 Module                                    Coverage
 ================================================
-src/my_agent_framework/__init__.py        100%
-src/my_agent_framework/agent/__init__.py  100%
-src/my_agent_framework/agent/base.py     100%
-src/my_agent_framework/cli.py            100%
-src/my_agent_framework/core/__init__.py   100%
-src/my_agent_framework/core/agent.py     100%
-src/my_agent_framework/core/config.py     97%
-src/my_agent_framework/tools/__init__.py  100%
-src/my_agent_framework/tools/base.py     100%
-src/my_agent_framework/utils/__init__.py  100%
-src/my_agent_framework/utils/logger.py    37% (low usage in tests)
+src/indusagi/__init__.py        100%
+src/indusagi/agent/__init__.py  100%
+src/indusagi/agent/base.py     100%
+src/indusagi/cli.py            100%
+src/indusagi/core/__init__.py   100%
+src/indusagi/core/agent.py     100%
+src/indusagi/core/config.py     97%
+src/indusagi/tools/__init__.py  100%
+src/indusagi/tools/base.py     100%
+src/indusagi/utils/__init__.py  100%
+src/indusagi/utils/logger.py    37% (low usage in tests)
 ```
 
 ## Test Features
@@ -177,7 +177,7 @@ pytest tests/ -m integration
 
 ### Run with Coverage Report
 ```bash
-pytest tests/ --cov=src/my_agent_framework --cov-report=html
+pytest tests/ --cov=src/indusagi --cov-report=html
 ```
 
 ### Run with Verbose Output

@@ -5,7 +5,7 @@
 ### Setup Commands
 ```bash
 # Create project
-uv init --package my-agent-framework && cd my-agent-framework
+uv init --package indusagi && cd indusagi
 
 # Install dependencies
 uv add anthropic typer rich pydantic && uv add --dev pytest
@@ -14,7 +14,7 @@ uv add anthropic typer rich pydantic && uv add --dev pytest
 uv pip install -e .
 
 # Test CLI
-my-agent --help
+indusagi --help
 ```
 
 ### Development Commands
@@ -32,8 +32,8 @@ ruff check src/ tests/
 uv build
 
 # Run agent
-my-agent run "your query"
-my-agent interactive
+indusagi run "your query"
+indusagi interactive
 ```
 
 ---
@@ -139,7 +139,7 @@ print(tools["greet"]("Alice"))  # Hello, Alice!
 ### Multi-Agent Router (25 lines)
 
 ```python
-from my_agent_framework import Agent
+from indusagi import Agent
 
 agents = {
     "math": Agent("MathBot", "Math specialist"),
@@ -196,7 +196,7 @@ if __name__ == "__main__":
 uv pip install -e .
 
 # Verify
-which my-agent  # Should show path in .venv/bin/
+which indusagi  # Should show path in .venv/bin/
 ```
 
 ---
@@ -229,7 +229,7 @@ load_dotenv()
 
 ---
 
-### Issue 3: "Module not found: my_agent_framework"
+### Issue 3: "Module not found: indusagi"
 
 **Cause**: Python can't find your package
 
@@ -239,11 +239,11 @@ load_dotenv()
 python -c "import sys; print('\n'.join(sys.path))"
 
 # Reinstall
-uv pip uninstall my-agent-framework
+uv pip uninstall indusagi
 uv pip install -e .
 
 # Verify
-python -c "import my_agent_framework; print('OK')"
+python -c "import indusagi; print('OK')"
 ```
 
 ---
@@ -255,7 +255,7 @@ python -c "import my_agent_framework; print('OK')"
 **Solution**:
 ```python
 # Check registered tools
-from my_agent_framework.tools import registry
+from indusagi.tools import registry
 print(registry.list_tools())
 
 # Verify schemas
@@ -375,7 +375,7 @@ return text or "No text in response"
 **Solution**:
 ```bash
 # Verify editable install
-pip show my-agent-framework | grep Location
+pip show indusagi | grep Location
 # Should show your project directory
 
 # Clear Python cache
@@ -489,7 +489,7 @@ def process_with_tools(self, user_input: str, max_turns: int = 5) -> str:
 python
 
 # Import and test
-from my_agent_framework import Agent, registry
+from indusagi import Agent, registry
 
 # Check tools
 print(registry.list_tools())
@@ -605,10 +605,10 @@ git push origin v0.1.0
 uv pip list
 
 # Show package info
-uv pip show my-agent-framework
+uv pip show indusagi
 
 # Uninstall
-uv pip uninstall my-agent-framework
+uv pip uninstall indusagi
 
 # Upgrade dependencies
 uv add anthropic --upgrade
@@ -643,7 +643,7 @@ start htmlcov/index.html  # Windows
 git checkout -b feature/new-tool
 
 # 2. Edit code
-vim src/my_agent_framework/tools.py
+vim src/indusagi/tools.py
 
 # 3. Test changes
 pytest tests/test_tools.py -v
@@ -666,12 +666,12 @@ git push origin feature/new-tool
 When things go wrong, check:
 
 - [ ] API key is set: `echo $ANTHROPIC_API_KEY`
-- [ ] Package installed: `pip show my-agent-framework`
-- [ ] Editable mode: `pip show my-agent-framework | grep Location`
+- [ ] Package installed: `pip show indusagi`
+- [ ] Editable mode: `pip show indusagi | grep Location`
 - [ ] CLI registered: `which my-agent`
-- [ ] Tools registered: `python -c "from my_agent_framework.tools import registry; print(registry.list_tools())"`
+- [ ] Tools registered: `python -c "from indusagi.tools import registry; print(registry.list_tools())"`
 - [ ] Python path: `python -c "import sys; print(sys.path)"`
-- [ ] No syntax errors: `python -m py_compile src/my_agent_framework/*.py`
+- [ ] No syntax errors: `python -m py_compile src/indusagi/*.py`
 - [ ] Tests pass: `pytest tests/ -v`
 
 ---
@@ -707,7 +707,7 @@ uv add anthropic typer rich pydantic
 uv pip install -e .
 
 # Development
-my-agent run "query"
+indusagi run "query"
 pytest tests/ -v
 black src/ tests/
 
@@ -756,7 +756,7 @@ pip install uv
 uv pip install -e .
 
 # 4. Test
-my-agent --help
+indusagi --help
 pytest tests/ -v
 ```
 

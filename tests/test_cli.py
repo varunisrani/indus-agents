@@ -3,7 +3,7 @@
 import pytest
 from typer.testing import CliRunner
 
-from indus_agents.cli import app
+from indusagi.cli import app
 
 # Create a CLI runner for testing
 runner = CliRunner()
@@ -22,7 +22,7 @@ class TestCLIVersion:
 
     def test_version_shows_correct_version(self):
         """Test that version command shows the correct version."""
-        from indus_agents import __version__
+        from indusagi import __version__
 
         result = runner.invoke(app, ["version"])
 
@@ -318,7 +318,7 @@ class TestCLIApp:
 
     def test_app_name(self):
         """Test CLI app has correct name."""
-        assert app.info.name == "my-agent"
+        assert app.info.name == "indusagi"
 
     def test_app_has_help(self):
         """Test CLI app has help text."""
@@ -330,7 +330,7 @@ class TestCLIApp:
         # The app was created with add_completion=False
         # Just verify the app exists and works
         assert app is not None
-        assert app.info.name == "my-agent"
+        assert app.info.name == "indusagi"
 
 
 class TestCLIPerformance:

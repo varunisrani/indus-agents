@@ -9,10 +9,10 @@ from pydantic import BaseModel, Field
 import os
 import time
 import json
-from my_agent_framework.tool_usage_logger import tool_logger
-from my_agent_framework.providers.base import BaseProvider, ProviderResponse, ToolCall
-from my_agent_framework.providers.openai_provider import OpenAIProvider
-from my_agent_framework.providers.anthropic_provider import AnthropicProvider
+from indusagi.tool_usage_logger import tool_logger
+from indusagi.providers.base import BaseProvider, ProviderResponse, ToolCall
+from indusagi.providers.openai_provider import OpenAIProvider
+from indusagi.providers.anthropic_provider import AnthropicProvider
 
 
 class AgentConfig(BaseModel):

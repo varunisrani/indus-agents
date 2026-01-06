@@ -33,7 +33,7 @@ This document provides a detailed, actionable plan to transform indus-agents int
 
 #### 1.1 Create Agent Template Structure
 
-**New Directory: `src/my_agent_framework/templates/`**
+**New Directory: `src/indusagi/templates/`**
 
 ```
 templates/
@@ -48,7 +48,7 @@ templates/
 
 #### 1.2 Template Renderer Implementation
 
-**File: `src/my_agent_framework/templates/renderer.py`**
+**File: `src/indusagi/templates/renderer.py`**
 
 ```python
 import os
@@ -97,7 +97,7 @@ def render_instructions(
 
 #### 1.3 Agent Scaffolder
 
-**File: `src/my_agent_framework/templates/scaffolder.py`**
+**File: `src/indusagi/templates/scaffolder.py`**
 
 ```python
 import os
@@ -164,9 +164,9 @@ This module provides the factory function for creating {class_name} instances.
 import os
 from typing import Optional
 
-from my_agent_framework import Agent, AgentConfig
-from my_agent_framework.templates import render_instructions
-from my_agent_framework.tools.dev import {tools_import}
+from indusagi import Agent, AgentConfig
+from indusagi.templates import render_instructions
+from indusagi.tools.dev import {tools_import}
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -252,7 +252,7 @@ Model Name: {{model}}
 
 #### 1.4 CLI Command for Agent Creation
 
-**Add to: `src/my_agent_framework/cli.py`**
+**Add to: `src/indusagi/cli.py`**
 
 ```python
 @app.command("create-agent")
@@ -263,7 +263,7 @@ def create_agent_cmd(
     description: str = typer.Option("A specialized agent", "--description", "-d"),
 ):
     """Create a new agent from template."""
-    from my_agent_framework.templates.scaffolder import scaffold_agent
+    from indusagi.templates.scaffolder import scaffold_agent
 
     console.print(f"[bold blue]Creating agent: {name}[/bold blue]")
 
@@ -289,7 +289,7 @@ def create_agent_cmd(
 
 #### 2.1 Agency Class Implementation
 
-**New File: `src/my_agent_framework/agency.py`**
+**New File: `src/indusagi/agency.py`**
 
 ```python
 """
@@ -303,7 +303,7 @@ from dataclasses import dataclass, field
 from enum import Enum
 import time
 
-from my_agent_framework.agent import Agent
+from indusagi.agent import Agent
 
 
 class HandoffType(Enum):
@@ -637,7 +637,7 @@ class Agency:
 
 #### 2.2 Handoff Tool
 
-**New File: `src/my_agent_framework/tools/handoff.py`**
+**New File: `src/indusagi/tools/handoff.py`**
 
 ```python
 """
@@ -647,10 +647,10 @@ This tool allows agents to transfer control to other agents
 within an Agency context.
 """
 from typing import Optional, TYPE_CHECKING
-from my_agent_framework.tools import registry
+from indusagi.tools import registry
 
 if TYPE_CHECKING:
-    from my_agent_framework.agency import Agency
+    from indusagi.agency import Agency
 
 # Global agency reference (set at runtime)
 _current_agency: Optional["Agency"] = None
@@ -720,7 +720,7 @@ def handoff_to_agent(
 
 #### 3.1 Base Tool Class
 
-**New File: `src/my_agent_framework/tools/base.py`**
+**New File: `src/indusagi/tools/base.py`**
 
 ```python
 """
@@ -837,7 +837,7 @@ class BaseTool(BaseModel, ABC):
 
 #### 3.2 Bash Tool
 
-**New File: `src/my_agent_framework/tools/dev/bash.py`**
+**New File: `src/indusagi/tools/dev/bash.py`**
 
 ```python
 """
@@ -848,7 +848,7 @@ import os
 import threading
 from typing import Optional, ClassVar
 from pydantic import Field
-from my_agent_framework.tools.base import BaseTool
+from indusagi.tools.base import BaseTool
 
 _bash_lock = threading.Lock()
 _bash_busy = False
@@ -924,7 +924,7 @@ Do NOT use for: reading files (use Read), editing files (use Edit), searching (u
 
 #### 3.3 Read Tool
 
-**New File: `src/my_agent_framework/tools/dev/read.py`**
+**New File: `src/indusagi/tools/dev/read.py`**
 
 ```python
 """
@@ -933,7 +933,7 @@ Read Tool - Read file contents with line numbers.
 import os
 from typing import Optional, ClassVar
 from pydantic import Field
-from my_agent_framework.tools.base import BaseTool, get_tool_context
+from indusagi.tools.base import BaseTool, get_tool_context
 
 
 class Read(BaseTool):
@@ -1002,7 +1002,7 @@ Supports text files, images (displays visually), and Jupyter notebooks."""
 
 #### 3.4 Edit Tool
 
-**New File: `src/my_agent_framework/tools/dev/edit.py`**
+**New File: `src/indusagi/tools/dev/edit.py`**
 
 ```python
 """
@@ -1011,7 +1011,7 @@ Edit Tool - Edit files using string replacement.
 import os
 from typing import ClassVar
 from pydantic import Field
-from my_agent_framework.tools.base import BaseTool, get_tool_context
+from indusagi.tools.base import BaseTool, get_tool_context
 
 
 class Edit(BaseTool):
@@ -1095,7 +1095,7 @@ If old_string appears multiple times, use replace_all or provide more context.""
 
 #### 4.1 Hook Infrastructure
 
-**New File: `src/my_agent_framework/hooks.py`**
+**New File: `src/indusagi/hooks.py`**
 
 ```python
 """
@@ -1253,21 +1253,21 @@ class CompositeHook(AgentHooks):
 
 | File | Purpose |
 |------|---------|
-| `src/my_agent_framework/agency.py` | Agency orchestration class |
-| `src/my_agent_framework/hooks.py` | Hook system for lifecycle events |
-| `src/my_agent_framework/tools/base.py` | BaseTool class (Pydantic-based) |
-| `src/my_agent_framework/tools/handoff.py` | Agent handoff tool |
-| `src/my_agent_framework/tools/dev/bash.py` | Bash command execution |
-| `src/my_agent_framework/tools/dev/read.py` | File reading with line numbers |
-| `src/my_agent_framework/tools/dev/edit.py` | File editing with string replacement |
-| `src/my_agent_framework/tools/dev/write.py` | File creation |
-| `src/my_agent_framework/tools/dev/glob.py` | File pattern matching |
-| `src/my_agent_framework/tools/dev/grep.py` | Content search |
-| `src/my_agent_framework/tools/dev/git.py` | Git operations |
-| `src/my_agent_framework/tools/dev/todo_write.py` | Task management |
-| `src/my_agent_framework/templates/__init__.py` | Template module |
-| `src/my_agent_framework/templates/renderer.py` | Template rendering |
-| `src/my_agent_framework/templates/scaffolder.py` | Agent scaffolding |
+| `src/indusagi/agency.py` | Agency orchestration class |
+| `src/indusagi/hooks.py` | Hook system for lifecycle events |
+| `src/indusagi/tools/base.py` | BaseTool class (Pydantic-based) |
+| `src/indusagi/tools/handoff.py` | Agent handoff tool |
+| `src/indusagi/tools/dev/bash.py` | Bash command execution |
+| `src/indusagi/tools/dev/read.py` | File reading with line numbers |
+| `src/indusagi/tools/dev/edit.py` | File editing with string replacement |
+| `src/indusagi/tools/dev/write.py` | File creation |
+| `src/indusagi/tools/dev/glob.py` | File pattern matching |
+| `src/indusagi/tools/dev/grep.py` | Content search |
+| `src/indusagi/tools/dev/git.py` | Git operations |
+| `src/indusagi/tools/dev/todo_write.py` | Task management |
+| `src/indusagi/templates/__init__.py` | Template module |
+| `src/indusagi/templates/renderer.py` | Template rendering |
+| `src/indusagi/templates/scaffolder.py` | Agent scaffolding |
 
 ---
 
@@ -1275,9 +1275,9 @@ class CompositeHook(AgentHooks):
 
 | File | Changes |
 |------|---------|
-| `src/my_agent_framework/cli.py` | Add `create-agent`, `create-agency` commands |
-| `src/my_agent_framework/agent.py` | Add hooks support, handoff integration |
-| `src/my_agent_framework/__init__.py` | Export new classes (Agency, BaseTool, hooks) |
+| `src/indusagi/cli.py` | Add `create-agent`, `create-agency` commands |
+| `src/indusagi/agent.py` | Add hooks support, handoff integration |
+| `src/indusagi/__init__.py` | Export new classes (Agency, BaseTool, hooks) |
 | `pyproject.toml` | Add pyyaml dependency for config |
 
 ---
@@ -1286,7 +1286,7 @@ class CompositeHook(AgentHooks):
 
 ```python
 # agency.py - Example multi-agent setup
-from my_agent_framework import Agency
+from indusagi import Agency
 from agents.planner_agent import create_planner_agent
 from agents.coder_agent import create_coder_agent
 

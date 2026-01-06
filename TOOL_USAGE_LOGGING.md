@@ -39,7 +39,7 @@ For every tool call, the logger records:
 Logging happens **automatically**! No setup needed. Every tool call is logged.
 
 ```python
-from my_agent_framework import tool_logger
+from indusagi import tool_logger
 
 # Tools are logged automatically as agents use them
 # Nothing to configure!
@@ -191,7 +191,7 @@ You: /export    ← Export to JSON file
 ### Get Statistics
 
 ```python
-from my_agent_framework import tool_logger
+from indusagi import tool_logger
 
 stats = tool_logger.get_statistics()
 
@@ -366,7 +366,7 @@ Goodbye!
 ### Custom Logging
 
 ```python
-from my_agent_framework import tool_logger
+from indusagi import tool_logger
 
 # Manually log a custom event
 tool_logger.log_call(
@@ -409,7 +409,7 @@ tool_logger.export_to_json("session2.json")
 
 ```python
 # test_agent.py
-from my_agent_framework import tool_logger, create_development_agency
+from indusagi import tool_logger, create_development_agency
 
 def test_agent_tool_usage():
     tool_logger.clear()
@@ -433,7 +433,7 @@ def test_agent_tool_usage():
 
 ```python
 # monitor.py
-from my_agent_framework import tool_logger
+from indusagi import tool_logger
 
 stats = tool_logger.get_statistics()
 
@@ -472,14 +472,14 @@ if stats['success_rate'] < 90:
 
 ## Files Added
 
-1. **`src/my_agent_framework/tool_usage_logger.py`** - Core logging implementation
+1. **`src/indusagi/tool_usage_logger.py`** - Core logging implementation
 2. **`TOOL_USAGE_LOGGING.md`** - This documentation
 
 ## Files Modified
 
-1. **`src/my_agent_framework/agent.py`** - Integrated logging into tool execution
-2. **`src/my_agent_framework/agency.py`** - Added terminal commands (/logs, /stats, /export)
-3. **`src/my_agent_framework/__init__.py`** - Exported tool_logger
+1. **`src/indusagi/agent.py`** - Integrated logging into tool execution
+2. **`src/indusagi/agency.py`** - Added terminal commands (/logs, /stats, /export)
+3. **`src/indusagi/__init__.py`** - Exported tool_logger
 
 ---
 

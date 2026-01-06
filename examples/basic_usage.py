@@ -2,9 +2,9 @@
 
 import asyncio
 
-from indus_agents import Agent
-from indus_agents.agent.base import AgentConfig
-from indus_agents.core.config import Config
+from indusagi import Agent
+from indusagi.agent.base import AgentConfig
+from indusagi.core.config import Config
 
 
 async def main():

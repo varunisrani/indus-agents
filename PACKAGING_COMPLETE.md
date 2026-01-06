@@ -17,7 +17,7 @@ The framework is now **publication-ready** with professional documentation, comp
 - ✅ Complete dependency specifications with version constraints
 - ✅ Development dependencies (pytest, black, ruff, mypy, pre-commit, etc.)
 - ✅ Documentation dependencies (mkdocs, mkdocs-material, mkdocstrings)
-- ✅ CLI entry point configured (`my-agent`)
+- ✅ CLI entry point configured (`indusagi`)
 - ✅ Build system properly configured (Hatchling)
 - ✅ All tool configurations (black, ruff, pytest, coverage)
 - ✅ Python 3.9-3.13 support
@@ -40,7 +40,7 @@ dependencies = [
 
 ### 2. Updated Package __init__.py
 
-**File**: `C:\Users\Varun israni\agent-framework-build-plan\src\my_agent_framework\__init__.py`
+**File**: `C:\Users\Varun israni\agent-framework-build-plan\src\indusagi\__init__.py`
 
 **Changes**:
 - ✅ Comprehensive package docstring with examples
@@ -52,7 +52,7 @@ dependencies = [
 
 **Public API**:
 ```python
-from my_agent_framework import (
+from indusagi import (
     Agent, BaseAgent, AgentConfig, Config,
     BaseTool, ToolConfig, ToolResult,
     get_logger, __version__
@@ -206,9 +206,9 @@ from my_agent_framework import (
 ## File Structure
 
 ```
-my-agent-framework/
+indusagi/
 ├── src/
-│   └── my_agent_framework/
+│   └── indusagi/
 │       ├── __init__.py          ✅ Updated with all exports
 │       ├── cli.py
 │       ├── agent/
@@ -264,7 +264,7 @@ python -m build
 python -m twine upload --repository testpypi dist/*
 
 # Test installation
-pip install --index-url https://test.pypi.org/simple/ my-agent-framework
+pip install --index-url https://test.pypi.org/simple/ indusagi
 ```
 
 ### 3. Publish to PyPI
@@ -306,7 +306,7 @@ mypy src                   # Type check
 pytest
 
 # With coverage
-pytest --cov=my_agent_framework --cov-report=html
+pytest --cov=indusagi --cov-report=html
 
 # Specific test
 pytest tests/test_agent/test_base.py -v
@@ -318,7 +318,7 @@ pytest tests/test_agent/test_base.py -v
 
 1. **Update Author Information**:
    - Edit `pyproject.toml`: Replace "Your Name" and email
-   - Edit `src/my_agent_framework/__init__.py`: Update author info
+   - Edit `src/indusagi/__init__.py`: Update author info
    - Update all GitHub URLs to your repository
 
 2. **Test the Package**:
@@ -369,7 +369,7 @@ pytest tests/test_agent/test_base.py -v
 - `LICENSE` - MIT License
 
 ### Package Files
-- `src/my_agent_framework/__init__.py` - Package exports
+- `src/indusagi/__init__.py` - Package exports
 - All module files in `src/`
 
 ## Summary

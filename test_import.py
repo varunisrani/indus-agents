@@ -5,7 +5,7 @@ Simple test to verify the agency framework is working
 print("Testing imports...")
 
 try:
-    from my_agent_framework import Agent, AgentConfig, Agency
+    from indusagi import Agent, AgentConfig, Agency
     print("✅ Import successful!")
     print(f"   - Agent: {Agent}")
     print(f"   - AgentConfig: {AgentConfig}")

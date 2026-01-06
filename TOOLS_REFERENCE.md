@@ -383,7 +383,7 @@ Final Response to User
 All tools are registered in the global `registry`:
 
 ```python
-from my_agent_framework.tools import registry, Bash, Read, Edit, Write, Glob, Grep
+from indusagi.tools import registry, Bash, Read, Edit, Write, Glob, Grep
 
 # Register tools
 registry.register(Bash)
@@ -402,7 +402,7 @@ result = registry.execute("read", file_path="config.py")
 To add your own tools, inherit from `BaseTool`:
 
 ```python
-from my_agent_framework.tools.base import BaseTool
+from indusagi.tools.base import BaseTool
 from typing import ClassVar
 from pydantic import Field
 
@@ -418,7 +418,7 @@ class MyCustomTool(BaseTool):
         return f"Result: {self.param1}, {self.param2}"
 
 # Register it
-from my_agent_framework.tools import registry
+from indusagi.tools import registry
 registry.register(MyCustomTool)
 ```
 

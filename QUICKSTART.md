@@ -130,7 +130,7 @@ You: /quit
 5. **Install globally (optional):**
    ```bash
    pip install -e .
-   agent-cli --help
+   indusagi --help
    ```
 
 ## Common Commands Cheat Sheet

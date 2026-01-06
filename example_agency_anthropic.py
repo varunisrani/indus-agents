@@ -20,9 +20,9 @@ from dotenv import load_dotenv
 # Add src to path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
 
-from my_agent_framework import Agent, AgentConfig, Agency
-from my_agent_framework.tools import handoff_to_agent, set_current_agency, registry
-from my_agent_framework.tools.base import BaseTool
+from indusagi import Agent, AgentConfig, Agency
+from indusagi.tools import handoff_to_agent, set_current_agency, registry
+from indusagi.tools.base import BaseTool
 from pydantic import Field
 from typing import ClassVar
 

@@ -26,7 +26,7 @@ pip install uv
 # Create a virtual environment and install
 uv venv
 source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-uv pip install my-agent-framework
+uv pip install indusagi
 ```
 
 #### Using pip
@@ -37,15 +37,15 @@ python -m venv .venv
 source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 
 # Install the package
-pip install my-agent-framework
+pip install indusagi
 ```
 
 #### Development Installation
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/my-agent-framework.git
-cd my-agent-framework
+git clone https://github.com/yourusername/indusagi.git
+cd indusagi
 
 # Install with development dependencies
 uv pip install -e ".[dev]"
@@ -57,7 +57,7 @@ uv pip install -e ".[dev]"
 
 ```python
 import asyncio
-from my_agent_framework import Agent, AgentConfig
+from indusagi import Agent, AgentConfig
 
 async def main():
     # Create an agent with configuration
@@ -79,7 +79,7 @@ if __name__ == "__main__":
 ### Using Tools
 
 ```python
-from my_agent_framework import Agent, AgentConfig, BaseTool, ToolConfig, ToolResult
+from indusagi import Agent, AgentConfig, BaseTool, ToolConfig, ToolResult
 
 class CalculatorTool(BaseTool):
     def __init__(self):
@@ -142,24 +142,24 @@ The framework includes a powerful CLI for managing agents:
 
 ```bash
 # Show version
-my-agent version
+indusagi version
 
 # Run an agent with a prompt
-my-agent run "Tell me a joke"
+indusagi run "Tell me a joke"
 
 # Run with verbose output
-my-agent run "Explain quantum computing" --verbose
+indusagi run "Explain quantum computing" --verbose
 
 # Show configuration
-my-agent config --show
+indusagi config --show
 ```
 
 ## Project Structure
 
 ```
-my-agent-framework/
+indusagi/
 ├── src/
-│   └── my_agent_framework/
+│   └── indusagi/
 │       ├── __init__.py          # Package exports
 │       ├── cli.py               # Command-line interface
 │       ├── agent/               # Agent implementations
@@ -204,7 +204,7 @@ pre-commit install
 pytest
 
 # Run with coverage
-pytest --cov=my_agent_framework --cov-report=html
+pytest --cov=indusagi --cov-report=html
 
 # Run specific test file
 pytest tests/test_agent/test_base.py
@@ -236,8 +236,8 @@ mypy src
 python -m build
 
 # This creates:
-# - dist/my_agent_framework-0.1.0-py3-none-any.whl
-# - dist/my_agent_framework-0.1.0.tar.gz
+# - dist/indusagi-0.1.0-py3-none-any.whl
+# - dist/indusagi-0.1.0.tar.gz
 ```
 
 ## Architecture
@@ -305,13 +305,13 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guid
 
 - [Quick Reference](QUICK_REFERENCE.md) - Fast lookup for common tasks
 - [Deployment Guide](DEPLOYMENT.md) - Publishing and deployment
-- [API Documentation](https://github.com/yourusername/my-agent-framework/docs) - Full API reference
+- [API Documentation](https://github.com/yourusername/indusagi/docs) - Full API reference
 - [Examples](examples/) - Code examples and tutorials
 
 ## Support
 
-- **Issues**: [GitHub Issues](https://github.com/yourusername/my-agent-framework/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/yourusername/my-agent-framework/discussions)
+- **Issues**: [GitHub Issues](https://github.com/yourusername/indusagi/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/yourusername/indusagi/discussions)
 - **Email**: your.email@example.com
 
 ## License
@@ -330,11 +330,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 If you use this framework in your research, please cite:
 
 ```bibtex
-@software{my_agent_framework,
+@software{indusagi,
   title = {indus-agents: A Modern indus-agents},
   author = {Your Name},
   year = {2025},
-  url = {https://github.com/yourusername/my-agent-framework}
+  url = {https://github.com/yourusername/indusagi}
 }
 ```
 

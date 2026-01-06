@@ -1,7 +1,7 @@
 """
-indus-agents - indus-agents with Multi-Agent Orchestration
+IndusAGI - Modern Agent Framework with Multi-Agent Orchestration
 
-A production-ready indus-agents featuring:
+A production-ready agent framework featuring:
 - OpenAI GPT-4o integration with tool calling
 - Multi-agent orchestration with intelligent routing
 - Conversation memory management
@@ -10,7 +10,7 @@ A production-ready indus-agents featuring:
 - Comprehensive testing (92% coverage)
 
 Quick Start:
-    >>> from my_agent_framework import Agent, create_orchestrator
+    >>> from indusagi import Agent, create_orchestrator
     >>>
     >>> # Single agent
     >>> agent = Agent("Helper", "Helpful assistant")
@@ -25,29 +25,29 @@ Installation:
     pip install -e .
 
 CLI Usage:
-    my-agent run "What is 25 * 48?"
-    my-agent interactive
-    my-agent list-tools
+    indusagi run "What is 25 * 48?"
+    indusagi interactive
+    indusagi list-tools
 
 For more information, see README.md
 """
 
-__version__ = "0.1.0"
-__author__ = "indus-agents Team"
+__version__ = "0.2.0"
+__author__ = "IndusAGI Team"
 __email__ = "contact@example.com"
 __license__ = "MIT"
 
 # Core imports from working implementation files
-from my_agent_framework.agent import Agent, AgentConfig
-from my_agent_framework.tools import registry, ToolRegistry
-from my_agent_framework.orchestrator import MultiAgentOrchestrator, OrchestratorResponse, create_orchestrator
-from my_agent_framework.memory import ConversationMemory, Message
+from indusagi.agent import Agent, AgentConfig
+from indusagi.tools import registry, ToolRegistry
+from indusagi.orchestrator import MultiAgentOrchestrator, OrchestratorResponse, create_orchestrator
+from indusagi.memory import ConversationMemory, Message
 
 # Import Agency after other imports to avoid circular dependencies
-from my_agent_framework.agency import Agency, AgencyResponse, HandoffResult, HandoffType
+from indusagi.agency import Agency, AgencyResponse, HandoffResult, HandoffType
 
 # Import tool usage logger
-from my_agent_framework.tool_usage_logger import tool_logger, ToolUsageLogger
+from indusagi.tool_usage_logger import tool_logger, ToolUsageLogger
 
 # Expose public API
 __all__ = [

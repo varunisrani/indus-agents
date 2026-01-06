@@ -18,6 +18,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Streaming responses
 - Token usage tracking
 
+## [0.2.0] - 2026-01-06
+
+### Changed
+
+**BREAKING CHANGE: Package Renamed to IndusAGI**
+
+- Package renamed from `my-agent-framework` to `indusagi`
+- CLI command changed from `my-agent` to `indusagi`
+- Module imports changed from `my_agent_framework` to `indusagi`
+- Repository URLs updated to varunisrani/indus-agents
+
+**Migration Guide:**
+
+1. Uninstall old package: `pip uninstall my-agent-framework`
+2. Install new package: `pip install indusagi` or `pip install -e .`
+3. Update imports:
+   ```python
+   # Old
+   from my_agent_framework import Agent
+
+   # New
+   from indusagi import Agent
+   ```
+4. Update CLI commands:
+   ```bash
+   # Old: my-agent run "prompt"
+   # New: indusagi run "prompt"
+   ```
+
+All functionality remains unchanged - only the name has changed.
+
 ## [0.1.0] - 2025-01-XX
 
 ### Added
@@ -42,9 +73,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - mypy for type checking
   - pre-commit for git hooks
 - CLI commands:
-  - `my-agent version` - Display version information
-  - `my-agent run` - Run agent with a prompt
-  - `my-agent config` - Manage configuration
+  - `indusagi version` - Display version information
+  - `indusagi run` - Run agent with a prompt
+  - `indusagi config` - Manage configuration
 - Complete documentation:
   - README with installation and usage instructions
   - CONTRIBUTING guidelines
@@ -55,7 +86,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Project Structure
 
-- `src/my_agent_framework/` - Main package
+- `src/indusagi/` - Main package
   - `agent/` - Agent implementations
   - `core/` - Core functionality
   - `tools/` - Tool system
@@ -95,7 +126,7 @@ This project uses [Semantic Versioning](https://semver.org/):
 ### Release Process
 
 1. Update version in `pyproject.toml`
-2. Update version in `src/my_agent_framework/__init__.py`
+2. Update version in `src/indusagi/__init__.py`
 3. Update this CHANGELOG with release date
 4. Create a git tag: `git tag -a v0.1.0 -m "Release v0.1.0"`
 5. Push tag: `git push origin v0.1.0`
@@ -103,9 +134,9 @@ This project uses [Semantic Versioning](https://semver.org/):
 
 ## Links
 
-- [Repository](https://github.com/yourusername/my-agent-framework)
-- [Issue Tracker](https://github.com/yourusername/my-agent-framework/issues)
-- [Documentation](https://github.com/yourusername/my-agent-framework#readme)
+- [Repository](https://github.com/yourusername/indusagi)
+- [Issue Tracker](https://github.com/yourusername/indusagi/issues)
+- [Documentation](https://github.com/yourusername/indusagi#readme)
 
 ---
 

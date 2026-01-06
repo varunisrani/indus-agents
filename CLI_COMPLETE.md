@@ -16,7 +16,7 @@ A **production-ready, professional CLI interface** has been successfully built f
 
 2. **setup.py**
    - Package installation configuration
-   - Entry point: `agent-cli` command
+   - Entry point: `indusagi` command
 
 3. **Updated requirements.txt**
    - Added: `typer>=0.9.0`
@@ -315,13 +315,13 @@ python cli.py [COMMAND]
 ### Option 2: System Installation
 ```bash
 pip install -e .
-agent-cli [COMMAND]
+indusagi [COMMAND]
 ```
 
 ### Option 3: Package Installation
 ```bash
 pip install .
-agent-cli [COMMAND]
+indusagi [COMMAND]
 ```
 
 ## Usage Patterns

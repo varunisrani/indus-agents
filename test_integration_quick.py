@@ -10,9 +10,9 @@ print("=" * 70)
 # Test 1: Import package
 print("\n[1/7] Testing package import...")
 try:
-    import indus_agents
+    import indusagi
     print(f"[OK] Package imported successfully")
-    print(f"  Version: {indus_agents.__version__}")
+    print(f"  Version: {indusagi.__version__}")
 except Exception as e:
     print(f"[FAIL] Failed to import package: {e}")
     exit(1)
@@ -20,7 +20,7 @@ except Exception as e:
 # Test 2: Import core components
 print("\n[2/7] Testing core component imports...")
 try:
-    from indus_agents import (
+    from indusagi import (
         Agent, AgentConfig,
         ToolRegistry, registry,
         MultiAgentOrchestrator, create_orchestrator,
@@ -85,7 +85,7 @@ except Exception as e:
 # Test 7: Test CLI imports
 print("\n[7/7] Testing CLI module...")
 try:
-    from indus_agents import cli
+    from indusagi import cli
     print(f"[OK] CLI module imported successfully")
 except Exception as e:
     print(f"[FAIL] CLI import failed: {e}")
@@ -98,7 +98,7 @@ print("=" * 70)
 print("\n>>> All core components are working correctly!")
 print("\nNext steps:")
 print("  1. Set your OPENAI_API_KEY in .env")
-print("  2. Run: my-agent test-connection")
-print("  3. Try: my-agent run 'What is 25 * 48?'")
-print("  4. Or: my-agent interactive")
+print("  2. Run: indusagi test-connection")
+print("  3. Try: indusagi run 'What is 25 * 48?'")
+print("  4. Or: indusagi interactive")
 print("\n" + "=" * 70)

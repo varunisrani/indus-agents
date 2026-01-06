@@ -6,7 +6,7 @@ Adapted from Agency-Code for indus-agents framework.
 from datetime import datetime
 from typing import List, ClassVar, Literal
 from pydantic import BaseModel, Field
-from my_agent_framework.tools.base import BaseTool
+from indusagi.tools.base import BaseTool
 
 
 class TodoItem(BaseModel):

@@ -8,7 +8,7 @@ The **TodoWrite tool** from Agency-Code has been successfully integrated into yo
 
 ## What Was Added
 
-### 1. **TodoWrite Tool** (`src/my_agent_framework/tools/dev/todo_write.py`)
+### 1. **TodoWrite Tool** (`src/indusagi/tools/dev/todo_write.py`)
 
 A complete task management tool that helps agents:
 - Create structured todo lists
@@ -17,7 +17,7 @@ A complete task management tool that helps agents:
 - Enforce only ONE task in_progress at a time
 - Display organized task status
 
-### 2. **Updated BaseTool Schema Generator** (`src/my_agent_framework/tools/base.py`)
+### 2. **Updated BaseTool Schema Generator** (`src/indusagi/tools/base.py`)
 
 Enhanced the `get_schema()` method to:
 - Handle complex nested types (arrays with items)
@@ -301,13 +301,13 @@ print(result.response)
 ## Files Modified/Created
 
 ### Created:
-- ✅ `src/my_agent_framework/tools/dev/todo_write.py` - TodoWrite tool implementation
+- ✅ `src/indusagi/tools/dev/todo_write.py` - TodoWrite tool implementation
 - ✅ `TODOWRITE_ADDED.md` - This documentation
 
 ### Modified:
-- ✅ `src/my_agent_framework/tools/base.py` - Enhanced schema generation
-- ✅ `src/my_agent_framework/tools/dev/__init__.py` - Export TodoWrite
-- ✅ `src/my_agent_framework/tools/__init__.py` - Export TodoWrite
+- ✅ `src/indusagi/tools/base.py` - Enhanced schema generation
+- ✅ `src/indusagi/tools/dev/__init__.py` - Export TodoWrite
+- ✅ `src/indusagi/tools/__init__.py` - Export TodoWrite
 - ✅ `example_agency.py` - Updated prompts and tool registration
 
 ---

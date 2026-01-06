@@ -62,19 +62,19 @@ pytest tests/ -m "not integration"
 
 ### Run Tests with Coverage
 ```bash
-pytest tests/ --cov=src/my_agent_framework
+pytest tests/ --cov=src/indusagi
 ```
 
 ### Generate HTML Coverage Report
 ```bash
-pytest tests/ --cov=src/my_agent_framework --cov-report=html
+pytest tests/ --cov=src/indusagi --cov-report=html
 ```
 
 Then open `htmlcov/index.html` in your browser.
 
 ### Generate Terminal Coverage Report
 ```bash
-pytest tests/ --cov=src/my_agent_framework --cov-report=term
+pytest tests/ --cov=src/indusagi --cov-report=term
 ```
 
 ## Test Markers
@@ -230,7 +230,7 @@ These tests are designed to run in CI/CD pipelines:
 ```yaml
 # Example GitHub Actions
 - name: Run tests
-  run: pytest tests/ --cov=src/my_agent_framework --cov-report=xml
+  run: pytest tests/ --cov=src/indusagi --cov-report=xml
 
 - name: Upload coverage
   uses: codecov/codecov-action@v3

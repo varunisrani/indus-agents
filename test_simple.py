@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
 
-from my_agent_framework.agent import Agent, AgentConfig
+from indusagi.agent import Agent, AgentConfig
 
 load_dotenv()
 

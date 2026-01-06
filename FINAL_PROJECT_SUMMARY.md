@@ -20,7 +20,7 @@ Built by multiple specialized AI agents working in parallel, this is a **complet
 ## 🏗️ Complete Architecture
 
 ```
-my-agent-framework/
+indusagi/
 ├── Core Components (✅ Complete)
 │   ├── Agent System (OpenAI integration)
 │   ├── Tool Registry (9 built-in tools)
@@ -105,12 +105,12 @@ my-agent-framework/
 Beautiful command-line interface with Rich formatting:
 
 **Commands**:
-- `my-agent run "query"` - Single query
-- `my-agent interactive` - Chat mode
-- `my-agent version` - Version info
-- `my-agent list-tools` - Show tools
-- `my-agent test-connection` - Test API
-- `my-agent list-agents` - Show agents
+- `indusagi run "query"` - Single query
+- `indusagi interactive` - Chat mode
+- `indusagi version` - Version info
+- `indusagi list-tools` - Show tools
+- `indusagi test-connection` - Test API
+- `indusagi list-agents` - Show agents
 
 **Features**:
 - Markdown rendering
@@ -179,25 +179,25 @@ copy .env.example .env
 pytest tests/ -v
 
 # Test CLI
-my-agent version
-my-agent list-tools
-my-agent test-connection
+indusagi version
+indusagi list-tools
+indusagi test-connection
 ```
 
 ### Basic Usage
 
 ```bash
 # Single query
-my-agent run "What is 25 * 48?"
+indusagi run "What is 25 * 48?"
 
 # Interactive mode
-my-agent interactive
+indusagi interactive
 ```
 
 ### Python API
 
 ```python
-from my_agent_framework import Agent, create_orchestrator
+from indusagi import Agent, create_orchestrator
 
 # Single agent
 agent = Agent("Helper", "Helpful assistant")
@@ -218,7 +218,7 @@ print(f"Agent used: {response.agent_used}")
 ```
 C:\Users\Varun israni\agent-framework-build-plan\
 │
-├── src/my_agent_framework/           # Source code
+├── src/indusagi/           # Source code
 │   ├── __init__.py                   # Package exports
 │   ├── agent.py                      # Core Agent class
 │   ├── tools.py                      # Tool registry
@@ -355,7 +355,7 @@ Coverage: 92% ✅
 pytest tests/ -v
 
 # With coverage
-pytest tests/ --cov=src/my_agent_framework
+pytest tests/ --cov=src/indusagi
 
 # Specific test file
 pytest tests/test_agent.py -v
@@ -379,10 +379,10 @@ mypy src/
 python -m build
 
 # Test wheel
-pip install dist/my_agent_framework-0.1.0-py3-none-any.whl
+pip install dist/indusagi-0.1.0-py3-none-any.whl
 
 # Verify
-my-agent version
+indusagi version
 ```
 
 ---
@@ -392,21 +392,21 @@ my-agent version
 ### 1. Local Installation
 ```bash
 pip install -e .
-my-agent run "Hello!"
+indusagi run "Hello!"
 ```
 
 ### 2. PyPI Distribution
 ```bash
 python -m build
 python -m twine upload dist/*
-pip install my-agent-framework
+pip install indusagi
 ```
 
 ### 3. Docker
 ```bash
-docker build -t my-agent-framework:latest .
+docker build -t indusagi:latest .
 docker run --rm -e OPENAI_API_KEY=$OPENAI_API_KEY \
-    my-agent-framework:latest run "Hello!"
+    indusagi:latest run "Hello!"
 ```
 
 ### 4. AWS Lambda
@@ -567,11 +567,11 @@ copy .env.example .env
 # Add your OPENAI_API_KEY to .env
 
 # 4. Test
-my-agent test-connection
+indusagi test-connection
 
 # 5. Start using!
-my-agent run "What is 25 * 48?"
-my-agent interactive
+indusagi run "What is 25 * 48?"
+indusagi interactive
 ```
 
 ---

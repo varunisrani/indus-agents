@@ -2,9 +2,9 @@
 
 import pytest
 
-from indus_agents.agent.base import AgentConfig, BaseAgent
-from indus_agents.core.agent import Agent
-from indus_agents.tools.base import ToolConfig
+from indusagi.agent.base import AgentConfig, BaseAgent
+from indusagi.core.agent import Agent
+from indusagi.tools.base import ToolConfig
 
 
 class TestAgentConfig:

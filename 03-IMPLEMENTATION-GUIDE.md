@@ -37,15 +37,15 @@ python -c "import os; print('✓ API key set' if os.getenv('ANTHROPIC_API_KEY') 
 
 ```bash
 # Create project with UV
-uv init --package my-agent-framework
-cd my-agent-framework
+uv init --package indusagi
+cd indusagi
 
 # Your structure should look like:
-# my-agent-framework/
+# indusagi/
 # ├── pyproject.toml
 # ├── README.md
 # └── src/
-#     └── my_agent_framework/
+#     └── indusagi/
 #         └── __init__.py
 ```
 
@@ -68,7 +68,7 @@ Edit `pyproject.toml` to add:
 
 ```toml
 [project]
-name = "my-agent-framework"
+name = "indusagi"
 version = "0.1.0"
 description = "AI indus-agents with multi-agent orchestration"
 readme = "README.md"
@@ -90,7 +90,7 @@ dev = [
 ]
 
 [project.scripts]
-my-agent = "my_agent_framework.cli:app"
+indusagi = "indusagi.cli:app"
 
 [build-system]
 requires = ["hatchling"]
@@ -116,8 +116,8 @@ target-version = "py39"
 uv pip install -e .
 
 # Test that it worked
-my-agent --help
-# Should show: "Usage: my-agent [OPTIONS] COMMAND [ARGS]..."
+indusagi --help
+# Should show: "Usage: indusagi [OPTIONS] COMMAND [ARGS]..."
 ```
 
 ### 🧪 Test Checkpoint 1
@@ -125,8 +125,8 @@ my-agent --help
 ```bash
 # All these should work:
 uv pip list | grep anthropic  # Should show anthropic package
-my-agent --help               # Should show help (even if empty)
-python -c "import my_agent_framework; print('✓ Package imports')"
+indusagi --help               # Should show help (even if empty)
+python -c "import indusagi; print('✓ Package imports')"
 ```
 
 ✅ **Checkpoint 1 Complete**: Project structure created, dependencies installed, editable mode working
@@ -135,7 +135,7 @@ python -c "import my_agent_framework; print('✓ Package imports')"
 
 ## STEP 2: Core Agent Class (20 minutes)
 
-### Create src/my_agent_framework/agent.py
+### Create src/indusagi/agent.py
 
 ```python
 """
@@ -247,14 +247,14 @@ if __name__ == "__main__":
 
 ```bash
 # Test directly
-python src/my_agent_framework/agent.py
+python src/indusagi/agent.py
 
 # Should output something like:
 # Agent response: Hello, world!
 
 # Test in Python REPL
 python -c "
-from my_agent_framework.agent import Agent
+from indusagi.agent import Agent
 agent = Agent('Test', 'Helper')
 print(agent.process('What is 2+2?'))
 "
@@ -266,7 +266,7 @@ print(agent.process('What is 2+2?'))
 
 ## STEP 3: Tool Registry System (20 minutes)
 
-### Create src/my_agent_framework/tools.py
+### Create src/indusagi/tools.py
 
 ```python
 """
@@ -460,7 +460,7 @@ if __name__ == "__main__":
 
 ```bash
 # Test directly
-python src/my_agent_framework/tools.py
+python src/indusagi/tools.py
 
 # Expected output:
 # Registered tools: ['calculator', 'get_time', 'get_date']
@@ -479,7 +479,7 @@ python src/my_agent_framework/tools.py
 
 ## STEP 4: Agent + Tools Integration (15 minutes)
 
-### Update src/my_agent_framework/agent.py
+### Update src/indusagi/agent.py
 
 Add this method to the `Agent` class:
 
@@ -563,7 +563,7 @@ Create `test_agent_tools.py` in project root:
 
 ```python
 """Quick test script for agent + tools."""
-from my_agent_framework.agent import Agent
+from indusagi.agent import Agent
 
 def test_calculator():
     agent = Agent("MathBot", "Mathematical assistant")
@@ -602,7 +602,7 @@ python test_agent_tools.py
 
 ## STEP 5: Multi-Agent Orchestrator (20 minutes)
 
-### Create src/my_agent_framework/orchestrator.py
+### Create src/indusagi/orchestrator.py
 
 ```python
 """
@@ -757,7 +757,7 @@ if __name__ == "__main__":
 ### 🧪 Test Orchestrator
 
 ```bash
-python src/my_agent_framework/orchestrator.py
+python src/indusagi/orchestrator.py
 
 # Should show:
 # [Orchestrator] Routing to: MathExpert
@@ -772,7 +772,7 @@ python src/my_agent_framework/orchestrator.py
 
 ## STEP 6: CLI Interface (20 minutes)
 
-### Create src/my_agent_framework/cli.py
+### Create src/indusagi/cli.py
 
 ```python
 """
@@ -824,7 +824,7 @@ def run(
     Run a single query through indus-agents.
 
     Example:
-        my-agent run "What is 50 * 2?"
+        indusagi run "What is 50 * 2?"
     """
     if not check_api_key():
         raise typer.Exit(1)
@@ -863,7 +863,7 @@ def interactive(
     Start an interactive chat session.
 
     Example:
-        my-agent interactive
+        indusagi interactive
     """
     if not check_api_key():
         raise typer.Exit(1)
@@ -931,7 +931,7 @@ def version():
     """Show version information."""
     from . import __version__
 
-    console.print(f"\n[bold]my-agent-framework[/bold] v{__version__}")
+    console.print(f"\n[bold]indusagi[/bold] v{__version__}")
     console.print("Python indus-agents with multi-agent orchestration\n")
 
 
@@ -976,7 +976,7 @@ if __name__ == "__main__":
     app()
 ```
 
-### Update src/my_agent_framework/__init__.py
+### Update src/indusagi/__init__.py
 
 ```python
 """
@@ -999,11 +999,11 @@ __all__ = ["Agent", "AgentConfig", "registry", "Orchestrator", "__version__"]
 uv pip install -e .
 
 # Test all commands
-my-agent version
-my-agent list-tools
-my-agent test-connection
-my-agent run "What is 100 divided by 4?"
-my-agent interactive
+indusagi version
+indusagi list-tools
+indusagi test-connection
+indusagi run "What is 100 divided by 4?"
+indusagi interactive
 
 # In interactive mode, try:
 # > What time is it?
@@ -1024,7 +1024,7 @@ my-agent interactive
 ```python
 """Tests for Agent class."""
 import pytest
-from my_agent_framework.agent import Agent, AgentConfig
+from indusagi.agent import Agent, AgentConfig
 
 
 def test_agent_creation():
@@ -1057,7 +1057,7 @@ def test_clear_history():
 ```python
 """Tests for tool system."""
 import pytest
-from my_agent_framework.tools import registry
+from indusagi.tools import registry
 
 
 def test_tool_registration():
@@ -1102,7 +1102,7 @@ def test_calculator_safety():
 ```python
 """Tests for orchestrator."""
 import pytest
-from my_agent_framework.orchestrator import Orchestrator
+from indusagi.orchestrator import Orchestrator
 
 
 def test_orchestrator_creation():
@@ -1144,7 +1144,7 @@ def check_api_key():
 pytest tests/ -v
 
 # Run with coverage
-pytest tests/ -v --cov=src/my_agent_framework --cov-report=term-missing
+pytest tests/ -v --cov=src/indusagi --cov-report=term-missing
 
 # Expected output:
 # tests/test_agent.py::test_agent_creation PASSED
@@ -1189,19 +1189,19 @@ pip install -e .
 export ANTHROPIC_API_KEY="your-key-here"
 
 # Run a query
-my-agent run "What is 50 * 2?"
+indusagi run "What is 50 * 2?"
 
 # Interactive mode
-my-agent interactive
+indusagi interactive
 
 # List available tools
-my-agent list-tools
+indusagi list-tools
 \`\`\`
 
 ## Usage Examples
 
 \`\`\`python
-from my_agent_framework import Agent, Orchestrator
+from indusagi import Agent, Orchestrator
 
 # Single agent
 agent = Agent("Helper", "General assistant")
@@ -1217,11 +1217,11 @@ response = orchestrator.route("What time is it?")
 
 ## CLI Commands
 
-- `my-agent run "query"` - Single query
-- `my-agent interactive` - Interactive chat
-- `my-agent list-tools` - Show available tools
-- `my-agent test-connection` - Test API
-- `my-agent version` - Version info
+- `indusagi run "query"` - Single query
+- `indusagi interactive` - Interactive chat
+- `indusagi list-tools` - Show available tools
+- `indusagi test-connection` - Test API
+- `indusagi version` - Version info
 
 ## Development
 
@@ -1297,8 +1297,8 @@ htmlcov/
 
 ```bash
 # Complete system test
-my-agent test-connection
-my-agent run "What's 144 / 12 and what time is it?"
+indusagi test-connection
+indusagi run "What's 144 / 12 and what time is it?"
 pytest tests/ -v
 
 # Build package
@@ -1306,7 +1306,7 @@ uv build
 
 # Check dist/
 ls dist/
-# Should see: my_agent_framework-0.1.0.tar.gz and .whl file
+# Should see: indusagi-0.1.0.tar.gz and .whl file
 ```
 
 ✅ **Checkpoint 8 Complete**: Fully packaged and documented!

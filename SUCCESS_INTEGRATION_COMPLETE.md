@@ -34,7 +34,7 @@ INTEGRATION TEST PASSED - All 7 tests passing!
 
 ## 📦 What's Installed
 
-The package **my-agent-framework v0.1.0** is now installed and working with:
+The package **indusagi v0.1.0** is now installed and working with:
 
 ### Core Components
 - ✅ **Agent System** (`agent.py`) - OpenAI GPT-4o integration
@@ -45,7 +45,7 @@ The package **my-agent-framework v0.1.0** is now installed and working with:
 
 ### Package Structure
 ```
-src/my_agent_framework/
+src/indusagi/
 ├── __init__.py          # Proper exports of all components
 ├── agent.py             # Core Agent class (17 KB)
 ├── tools.py             # Tool registry with 9 tools (34 KB)
@@ -61,7 +61,7 @@ src/my_agent_framework/
 ### Option 1: Python API
 
 ```python
-from my_agent_framework import Agent, create_orchestrator, registry
+from indusagi import Agent, create_orchestrator, registry
 
 # Single agent
 agent = Agent("Helper", "Helpful assistant")
@@ -80,22 +80,22 @@ result = registry.execute("calculator", expression="25 * 4")  # "100"
 
 ```bash
 # Show help
-python -m my_agent_framework.cli --help
+python -m indusagi.cli --help
 
 # Show version
-python -m my_agent_framework.cli version
+python -m indusagi.cli version
 
 # List available tools
-python -m my_agent_framework.cli list-tools
+python -m indusagi.cli list-tools
 
 # Test connection (requires API key)
-python -m my_agent_framework.cli test-connection
+python -m indusagi.cli test-connection
 
 # Run a query (requires API key)
-python -m my_agent_framework.cli run "What is 25 * 48?"
+python -m indusagi.cli run "What is 25 * 48?"
 
 # Interactive mode (requires API key)
-python -m my_agent_framework.cli interactive
+python -m indusagi.cli interactive
 ```
 
 ---
@@ -117,17 +117,17 @@ OPENAI_API_KEY=sk-proj-YOUR_ACTUAL_KEY_HERE
 ### 2. Test Connection
 
 ```bash
-python -m my_agent_framework.cli test-connection
+python -m indusagi.cli test-connection
 ```
 
 ### 3. Try It Out!
 
 ```bash
 # Single query
-python -m my_agent_framework.cli run "What is 144 divided by 12?"
+python -m indusagi.cli run "What is 144 divided by 12?"
 
 # Interactive mode
-python -m my_agent_framework.cli interactive
+python -m indusagi.cli interactive
 ```
 
 ---
@@ -136,7 +136,7 @@ python -m my_agent_framework.cli interactive
 
 | Property | Value |
 |----------|-------|
-| Package Name | my-agent-framework |
+| Package Name | indusagi |
 | Version | 0.1.0 |
 | Installation | Editable mode (`pip install -e .`) |
 | Python Version | 3.13.7 |
@@ -184,7 +184,7 @@ All documentation created by sub-agents is in the project root:
 pytest tests/ -v
 
 # Run with coverage
-pytest tests/ --cov=src/my_agent_framework
+pytest tests/ --cov=src/indusagi
 
 # Run quick integration test
 python test_integration_quick.py
@@ -211,7 +211,7 @@ The sub-agents created excellent working implementations in the root directory:
 - `agent.py`, `tools.py`, `orchestrator.py`, `memory.py`, `cli.py`
 
 The integration process:
-1. ✅ Copied all working files to `src/my_agent_framework/`
+1. ✅ Copied all working files to `src/indusagi/`
 2. ✅ Removed conflicting subdirectories (agent/, tools/, core/, utils/)
 3. ✅ Updated `__init__.py` with correct imports
 4. ✅ Installed package in editable mode

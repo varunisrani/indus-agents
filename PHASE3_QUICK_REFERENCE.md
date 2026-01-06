@@ -3,7 +3,7 @@
 ## Import
 
 ```python
-from my_agent_framework.tools import (
+from indusagi.tools import (
     BaseTool, ToolContext, get_tool_context,
     Bash, Read, Edit, Write, Glob, Grep
 )
@@ -162,7 +162,7 @@ result = tool.execute()
 ## BaseTool - Create Custom Tools
 
 ```python
-from my_agent_framework.tools.base import BaseTool
+from indusagi.tools.base import BaseTool
 from pydantic import Field
 from typing import ClassVar
 
@@ -193,7 +193,7 @@ schema = MyTool.get_schema()
 ## ToolContext - Shared State
 
 ```python
-from my_agent_framework.tools import get_tool_context
+from indusagi.tools import get_tool_context
 
 # Get global context
 ctx = get_tool_context()
@@ -379,8 +379,8 @@ def test_my_tool():
 
 ## File Locations
 
-- **Base**: `src/my_agent_framework/tools/base.py`
-- **Tools**: `src/my_agent_framework/tools/dev/*.py`
+- **Base**: `src/indusagi/tools/base.py`
+- **Tools**: `src/indusagi/tools/dev/*.py`
 - **Tests**: `test_phase3_tools.py`
 - **Demo**: `demo_phase3_tools.py`
 - **Docs**: This file

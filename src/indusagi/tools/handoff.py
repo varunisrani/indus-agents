@@ -7,8 +7,8 @@ within an Agency context.
 from typing import Optional, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from my_agent_framework.agency import Agency
-    from my_agent_framework.tools import ToolRegistry
+    from indusagi.agency import Agency
+    from indusagi.tools import ToolRegistry
 
 # Global agency reference (set at runtime)
 _current_agency: Optional["Agency"] = None
@@ -53,7 +53,7 @@ def handoff_to_agent(
 
     # Instead of executing handoff immediately, signal that one is requested
     # The Agency.process() loop will handle the actual handoff
-    from my_agent_framework.tools import registry
+    from indusagi.tools import registry
 
     # Store pending handoff information
     registry._pending_handoff = {
@@ -76,8 +76,8 @@ def register_handoff_tool(tool_registry: "ToolRegistry") -> None:
         tool_registry: The ToolRegistry instance to register the tool with
 
     Example:
-        >>> from my_agent_framework.tools import registry
-        >>> from my_agent_framework.tools.handoff import register_handoff_tool
+        >>> from indusagi.tools import registry
+        >>> from indusagi.tools.handoff import register_handoff_tool
         >>> register_handoff_tool(registry)
     """
     global _registered

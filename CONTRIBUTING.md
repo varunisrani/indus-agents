@@ -38,13 +38,13 @@ By participating in this project, you agree to maintain a respectful and inclusi
 
 2. **Clone your fork locally**:
    ```bash
-   git clone https://github.com/yourusername/my-agent-framework.git
-   cd my-agent-framework
+   git clone https://github.com/yourusername/indusagi.git
+   cd indusagi
    ```
 
 3. **Add the upstream repository**:
    ```bash
-   git remote add upstream https://github.com/originalowner/my-agent-framework.git
+   git remote add upstream https://github.com/originalowner/indusagi.git
    ```
 
 4. **Create a virtual environment and install dependencies**:
@@ -206,7 +206,7 @@ We follow [PEP 8](https://peps.python.org/pep-0008/) with some modifications:
 
 4. **Logging**: Use the logger utility, not print statements
    ```python
-   from my_agent_framework.utils.logger import get_logger
+   from indusagi.utils.logger import get_logger
 
    logger = get_logger(__name__)
    logger.info("Operation completed successfully")
@@ -217,7 +217,7 @@ We follow [PEP 8](https://peps.python.org/pep-0008/) with some modifications:
 When adding new features, follow the existing structure:
 
 ```
-src/my_agent_framework/
+src/indusagi/
 ├── agent/          # Agent implementations
 ├── core/           # Core functionality
 ├── tools/          # Tool implementations
@@ -236,7 +236,7 @@ src/my_agent_framework/
 ```python
 # tests/test_agent/test_base.py
 import pytest
-from my_agent_framework.agent.base import BaseAgent, AgentConfig
+from indusagi.agent.base import BaseAgent, AgentConfig
 
 
 class TestAgentConfig:
@@ -272,7 +272,7 @@ class TestBaseAgent:
 pytest
 
 # Run with coverage
-pytest --cov=my_agent_framework --cov-report=html
+pytest --cov=indusagi --cov-report=html
 
 # Run specific test file
 pytest tests/test_agent/test_base.py
@@ -395,7 +395,7 @@ docs: update installation guide
 
 1. **Update version numbers**:
    - `pyproject.toml`
-   - `src/my_agent_framework/__init__.py`
+   - `src/indusagi/__init__.py`
 
 2. **Update CHANGELOG.md**:
    - Move items from "Unreleased" to new version section
@@ -417,8 +417,8 @@ docs: update installation guide
 
 ## Getting Help
 
-- Check existing [issues](https://github.com/yourusername/my-agent-framework/issues)
-- Join our [discussions](https://github.com/yourusername/my-agent-framework/discussions)
+- Check existing [issues](https://github.com/yourusername/indusagi/issues)
+- Join our [discussions](https://github.com/yourusername/indusagi/discussions)
 - Read the documentation
 - Ask questions in pull requests
 
@@ -433,4 +433,4 @@ Thank you for contributing to indus-agents!
 
 ---
 
-**Questions?** Feel free to ask in [GitHub Discussions](https://github.com/yourusername/my-agent-framework/discussions).
+**Questions?** Feel free to ask in [GitHub Discussions](https://github.com/yourusername/indusagi/discussions).

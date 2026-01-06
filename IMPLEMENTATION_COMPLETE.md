@@ -17,9 +17,9 @@ Successfully implemented all 4 phases of the Agency Swarm Integration Plan for t
 
 **Status:** Complete and tested
 **Files Created:**
-- `src/my_agent_framework/templates/__init__.py`
-- `src/my_agent_framework/templates/renderer.py` (45 lines)
-- `src/my_agent_framework/templates/scaffolder.py` (130 lines)
+- `src/indusagi/templates/__init__.py`
+- `src/indusagi/templates/renderer.py` (45 lines)
+- `src/indusagi/templates/scaffolder.py` (130 lines)
 
 **Features Implemented:**
 - Template rendering with placeholder replacement (`{cwd}`, `{platform}`, `{model}`, `{today}`)
@@ -35,8 +35,8 @@ Successfully implemented all 4 phases of the Agency Swarm Integration Plan for t
 
 **Status:** Complete and tested
 **Files Created:**
-- `src/my_agent_framework/agency.py` (342 lines)
-- `src/my_agent_framework/tools/handoff.py` (93 lines)
+- `src/indusagi/agency.py` (342 lines)
+- `src/indusagi/tools/handoff.py` (93 lines)
 
 **Features Implemented:**
 - `Agency` class for multi-agent orchestration
@@ -55,14 +55,14 @@ Successfully implemented all 4 phases of the Agency Swarm Integration Plan for t
 
 **Status:** Complete and tested
 **Files Created:**
-- `src/my_agent_framework/tools/base.py` (110 lines)
-- `src/my_agent_framework/tools/dev/__init__.py`
-- `src/my_agent_framework/tools/dev/bash.py` (80 lines)
-- `src/my_agent_framework/tools/dev/read.py` (71 lines)
-- `src/my_agent_framework/tools/dev/edit.py` (68 lines)
-- `src/my_agent_framework/tools/dev/write.py` (83 lines)
-- `src/my_agent_framework/tools/dev/glob.py` (243 lines)
-- `src/my_agent_framework/tools/dev/grep.py` (196 lines)
+- `src/indusagi/tools/base.py` (110 lines)
+- `src/indusagi/tools/dev/__init__.py`
+- `src/indusagi/tools/dev/bash.py` (80 lines)
+- `src/indusagi/tools/dev/read.py` (71 lines)
+- `src/indusagi/tools/dev/edit.py` (68 lines)
+- `src/indusagi/tools/dev/write.py` (83 lines)
+- `src/indusagi/tools/dev/glob.py` (243 lines)
+- `src/indusagi/tools/dev/grep.py` (196 lines)
 
 **Features Implemented:**
 - `BaseTool` abstract class with Pydantic validation
@@ -86,7 +86,7 @@ Successfully implemented all 4 phases of the Agency Swarm Integration Plan for t
 
 **Status:** Complete and tested
 **Files Created:**
-- `src/my_agent_framework/hooks.py` (148 lines)
+- `src/indusagi/hooks.py` (148 lines)
 
 **Features Implemented:**
 - `RunContext` dataclass for hook execution context
@@ -124,15 +124,15 @@ Successfully implemented all 4 phases of the Agency Swarm Integration Plan for t
 
 ## Files Modified
 
-### `src/my_agent_framework/__init__.py`
+### `src/indusagi/__init__.py`
 - Added Agency, AgencyResponse, HandoffResult, HandoffType exports
 - Maintained backward compatibility with existing exports
 
-### `src/my_agent_framework/cli.py`
+### `src/indusagi/cli.py`
 - Added `create-agent` command for agent scaffolding
-- Fixed imports to use full module paths (`my_agent_framework.agent`)
+- Fixed imports to use full module paths (`indusagi.agent`)
 
-### `src/my_agent_framework/tools/__init__.py`
+### `src/indusagi/tools/__init__.py`
 - Added exports for BaseTool, ToolContext, get_tool_context
 - Added exports for development tools (Bash, Read, Edit, Write, Glob, Grep)
 - Added exports for handoff functions
@@ -143,8 +143,8 @@ Successfully implemented all 4 phases of the Agency Swarm Integration Plan for t
 ### Creating a Development Agency
 
 ```python
-from my_agent_framework import Agent, AgentConfig, Agency
-from my_agent_framework.tools import Bash, Read, Edit, Write, Glob, Grep
+from indusagi import Agent, AgentConfig, Agency
+from indusagi.tools import Bash, Read, Edit, Write, Glob, Grep
 
 # Create agents
 planner = Agent("Planner", "Task planning and coordination")
@@ -168,7 +168,7 @@ agency.terminal_demo()
 ### Using Development Tools
 
 ```python
-from my_agent_framework.tools import Read, Edit, Glob, Grep
+from indusagi.tools import Read, Edit, Glob, Grep
 
 # Find Python files
 glob = Glob(pattern="**/*.py", path="./src")
@@ -193,7 +193,7 @@ result = edit.execute()
 ### Creating New Agents via CLI
 
 ```bash
-my-agent create-agent qa_tester --description "Quality assurance agent" --output ./agents
+indusagi create-agent qa_tester --description "Quality assurance agent" --output ./agents
 ```
 
 ## Test Results

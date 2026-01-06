@@ -4,7 +4,7 @@ Edit Tool - Edit files using string replacement.
 import os
 from typing import ClassVar
 from pydantic import Field
-from my_agent_framework.tools.base import BaseTool, get_tool_context
+from indusagi.tools.base import BaseTool, get_tool_context
 
 
 class Edit(BaseTool):

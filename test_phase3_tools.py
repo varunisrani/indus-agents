@@ -7,7 +7,7 @@ import tempfile
 
 sys.path.insert(0, 'src')
 
-from my_agent_framework.tools import (
+from indusagi.tools import (
     BaseTool, ToolContext, get_tool_context,
     Bash, Read, Edit, Write, Glob, Grep
 )

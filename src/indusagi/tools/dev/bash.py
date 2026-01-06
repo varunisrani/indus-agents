@@ -7,7 +7,7 @@ import sys
 import threading
 from typing import Optional, ClassVar
 from pydantic import Field
-from my_agent_framework.tools.base import BaseTool
+from indusagi.tools.base import BaseTool
 
 _bash_lock = threading.Lock()
 _bash_busy = False

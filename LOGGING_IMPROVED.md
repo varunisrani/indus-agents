@@ -307,7 +307,7 @@ This pattern continues until all tasks are complete!
 ## Files Modified
 
 ### Modified:
-- ✅ `src/my_agent_framework/agent.py`
+- ✅ `src/indusagi/agent.py`
   - Added `_log_tool_usage()` method (72 lines)
   - Added `_log_tool_result()` method (18 lines)
   - Updated `process_with_tools()` to use new logging

@@ -2,9 +2,9 @@
 
 import pytest
 
-from indus_agents import Agent, Config
-from indus_agents.agent.base import AgentConfig
-from indus_agents.tools.base import ToolConfig
+from indusagi import Agent, Config
+from indusagi.agent.base import AgentConfig
+from indusagi.tools.base import ToolConfig
 
 
 @pytest.mark.integration

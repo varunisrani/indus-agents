@@ -12,14 +12,14 @@ This guide covers everything from local testing to production deployment.
 
 ```bash
 # Navigate to project root
-cd my-agent-framework
+cd indusagi
 
 # Install in editable mode (DO THIS ONCE)
 uv pip install -e .
 
 # Verify installation
-pip list | grep my-agent-framework
-my-agent --help
+pip list | grep indusagi
+indusagi --help
 ```
 
 **Why Editable Mode?**
@@ -34,14 +34,14 @@ my-agent --help
 
 ```bash
 # Terminal 1: Edit code
-vim src/my_agent_framework/agent.py
+vim src/indusagi/agent.py
 
 # Terminal 2: Test immediately (no reinstall!)
-my-agent run "test query"
+indusagi run "test query"
 
 # Or test in Python
 python -c "
-from my_agent_framework import Agent
+from indusagi import Agent
 agent = Agent('Test', 'Tester')
 print(agent.process('Hello'))
 "
@@ -62,7 +62,7 @@ print(agent.process('Hello'))
 pytest tests/ -v
 
 # Run with coverage
-pytest tests/ --cov=src/my_agent_framework --cov-report=html
+pytest tests/ --cov=src/indusagi --cov-report=html
 
 # Run specific test file
 pytest tests/test_agent.py -v
@@ -101,7 +101,7 @@ Ensure your `pyproject.toml` is complete:
 
 ```toml
 [project]
-name = "my-agent-framework"
+name = "indusagi"
 version = "0.1.0"
 description = "AI indus-agents with multi-agent orchestration"
 readme = "README.md"
@@ -139,13 +139,13 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/yourusername/my-agent-framework"
-Documentation = "https://github.com/yourusername/my-agent-framework#readme"
-Repository = "https://github.com/yourusername/my-agent-framework"
-Issues = "https://github.com/yourusername/my-agent-framework/issues"
+Homepage = "https://github.com/yourusername/indusagi"
+Documentation = "https://github.com/yourusername/indusagi#readme"
+Repository = "https://github.com/yourusername/indusagi"
+Issues = "https://github.com/yourusername/indusagi/issues"
 
 [project.scripts]
-my-agent = "my_agent_framework.cli:app"
+indusagi = "indusagi.cli:app"
 
 [build-system]
 requires = ["hatchling"]
@@ -184,8 +184,8 @@ python -m build
 # Check dist/ folder
 ls -lh dist/
 # Should see:
-# - my_agent_framework-0.1.0.tar.gz (source distribution)
-# - my_agent_framework-0.1.0-py3-none-any.whl (wheel)
+# - indusagi-0.1.0.tar.gz (source distribution)
+# - indusagi-0.1.0-py3-none-any.whl (wheel)
 ```
 
 ---
@@ -198,15 +198,15 @@ python -m venv test-venv
 source test-venv/bin/activate  # On Windows: test-venv\Scripts\activate
 
 # Install from wheel
-pip install dist/my_agent_framework-0.1.0-py3-none-any.whl
+pip install dist/indusagi-0.1.0-py3-none-any.whl
 
 # Test installation
-my-agent --version
-my-agent list-tools
+indusagi --version
+indusagi list-tools
 
 # Set API key and test
 export ANTHROPIC_API_KEY="your-key"
-my-agent run "What is 2+2?"
+indusagi run "What is 2+2?"
 
 # Cleanup
 deactivate
@@ -245,7 +245,7 @@ pip install twine
 twine upload --repository testpypi dist/*
 
 # Test installation from TestPyPI
-pip install --index-url https://test.pypi.org/simple/ my-agent-framework
+pip install --index-url https://test.pypi.org/simple/ indusagi
 
 # If successful, upload to production PyPI
 twine upload dist/*
@@ -262,7 +262,7 @@ For GitHub-hosted projects:
 gh release create v0.1.0 dist/* --title "v0.1.0" --notes "Initial release"
 
 # Users can install directly from GitHub
-pip install git+https://github.com/yourusername/my-agent-framework.git
+pip install git+https://github.com/yourusername/indusagi.git
 ```
 
 ---
@@ -275,12 +275,12 @@ pip install git+https://github.com/yourusername/my-agent-framework.git
 
 ```bash
 # Install from source
-git clone https://github.com/yourusername/my-agent-framework.git
-cd my-agent-framework
+git clone https://github.com/yourusername/indusagi.git
+cd indusagi
 pip install -e .
 
 # Or install from PyPI
-pip install my-agent-framework
+pip install indusagi
 ```
 
 ---
@@ -315,15 +315,15 @@ CMD ["--help"]
 
 ```bash
 # Build image
-docker build -t my-agent-framework:latest .
+docker build -t indusagi:latest .
 
 # Run container
 docker run -e ANTHROPIC_API_KEY=$ANTHROPIC_API_KEY \
-    my-agent-framework:latest run "What is 2+2?"
+    indusagi:latest run "What is 2+2?"
 
 # Interactive mode
 docker run -it -e ANTHROPIC_API_KEY=$ANTHROPIC_API_KEY \
-    my-agent-framework:latest interactive
+    indusagi:latest interactive
 ```
 
 ---
@@ -336,7 +336,7 @@ docker run -it -e ANTHROPIC_API_KEY=$ANTHROPIC_API_KEY \
 
 ```python
 # lambda_handler.py
-from my_agent_framework import Orchestrator
+from indusagi import Orchestrator
 
 orchestrator = Orchestrator()
 
@@ -356,7 +356,7 @@ def lambda_handler(event, context):
 
 ```bash
 # Package dependencies
-pip install -t package/ my-agent-framework
+pip install -t package/ indusagi
 
 # Create deployment package
 cd package && zip -r ../lambda.zip . && cd ..
@@ -364,7 +364,7 @@ zip -g lambda.zip lambda_handler.py
 
 # Upload to AWS Lambda
 aws lambda create-function \
-    --function-name my-agent-framework \
+    --function-name indusagi \
     --runtime python3.11 \
     --handler lambda_handler.lambda_handler \
     --zip-file fileb://lambda.zip \
@@ -382,7 +382,7 @@ aws lambda create-function \
 ```python
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from my_agent_framework import Orchestrator
+from indusagi import Orchestrator
 import os
 
 app = FastAPI(title="indus-agents API")
@@ -522,7 +522,7 @@ jobs:
 
     - name: Run tests
       run: |
-        pytest tests/ -v --cov=src/my_agent_framework --cov-report=xml
+        pytest tests/ -v --cov=src/indusagi --cov-report=xml
 
     - name: Upload coverage
       uses: codecov/codecov-action@v3
@@ -577,7 +577,7 @@ jobs:
 ### Production Logging
 
 ```python
-# src/my_agent_framework/logging_config.py
+# src/indusagi/logging_config.py
 import logging
 import sys
 from rich.logging import RichHandler
@@ -586,7 +586,7 @@ def setup_logging(level: str = "INFO"):
     """Configure logging for production."""
 
     # Create logger
-    logger = logging.getLogger("my_agent_framework")
+    logger = logging.getLogger("indusagi")
     logger.setLevel(getattr(logging, level.upper()))
 
     # Console handler (for development)
@@ -631,7 +631,7 @@ class Agent:
 ### Metrics & Monitoring
 
 ```python
-# src/my_agent_framework/metrics.py
+# src/indusagi/metrics.py
 from dataclasses import dataclass
 from datetime import datetime
 from typing import Dict
@@ -739,7 +739,7 @@ commit = True
 tag = True
 
 [bumpversion:file:pyproject.toml]
-[bumpversion:file:src/my_agent_framework/__init__.py]
+[bumpversion:file:src/indusagi/__init__.py]
 EOF
 
 # Bump version

@@ -25,8 +25,8 @@ This guide covers building, testing, and deploying indus-agents to various envir
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/my-agent-framework.git
-cd my-agent-framework
+git clone https://github.com/yourusername/indusagi.git
+cd indusagi
 
 # Create and activate virtual environment
 uv venv
@@ -46,7 +46,7 @@ pre-commit install
 pytest
 
 # Run tests with coverage
-pytest --cov=my_agent_framework --cov-report=html
+pytest --cov=indusagi --cov-report=html
 
 # View coverage report
 open htmlcov/index.html  # On macOS
@@ -88,8 +88,8 @@ rm -rf dist/ build/ *.egg-info
 python -m build
 
 # This creates:
-# - dist/my_agent_framework-0.1.0.tar.gz (source distribution)
-# - dist/my_agent_framework-0.1.0-py3-none-any.whl (wheel)
+# - dist/indusagi-0.1.0.tar.gz (source distribution)
+# - dist/indusagi-0.1.0-py3-none-any.whl (wheel)
 ```
 
 ### Verify Build
@@ -102,8 +102,8 @@ ls -lh dist/
 python -m twine check dist/*
 
 # Expected output:
-# Checking dist/my_agent_framework-0.1.0-py3-none-any.whl: PASSED
-# Checking dist/my_agent_framework-0.1.0.tar.gz: PASSED
+# Checking dist/indusagi-0.1.0-py3-none-any.whl: PASSED
+# Checking dist/indusagi-0.1.0.tar.gz: PASSED
 ```
 
 ## Testing the Package
@@ -116,13 +116,13 @@ python -m venv test-env
 source test-env/bin/activate  # On Windows: test-env\Scripts\activate
 
 # Install from wheel
-pip install dist/my_agent_framework-0.1.0-py3-none-any.whl
+pip install dist/indusagi-0.1.0-py3-none-any.whl
 
 # Test the installation
-python -c "from my_agent_framework import Agent, __version__; print(__version__)"
+python -c "from indusagi import Agent, __version__; print(__version__)"
 
 # Test the CLI
-my-agent version
+indusagi version
 
 # Deactivate and cleanup
 deactivate
@@ -140,10 +140,10 @@ Before publishing to the real PyPI, test with TestPyPI:
 python -m twine upload --repository testpypi dist/*
 
 # Install from TestPyPI
-pip install --index-url https://test.pypi.org/simple/ my-agent-framework
+pip install --index-url https://test.pypi.org/simple/ indusagi
 
 # Test the installation
-python -c "from my_agent_framework import Agent, __version__; print(__version__)"
+python -c "from indusagi import Agent, __version__; print(__version__)"
 ```
 
 ## Publishing to PyPI
@@ -185,7 +185,7 @@ Before publishing, ensure:
 - [ ] Type checking passes: `mypy src`
 - [ ] Version is updated in:
   - [ ] `pyproject.toml`
-  - [ ] `src/my_agent_framework/__init__.py`
+  - [ ] `src/indusagi/__init__.py`
 - [ ] CHANGELOG.md is updated with release notes
 - [ ] Documentation is up to date
 - [ ] Git tag is created: `git tag -a v0.1.0 -m "Release v0.1.0"`
@@ -205,8 +205,8 @@ python -m twine check dist/*
 python -m twine upload dist/*
 
 # Verify the upload
-pip install my-agent-framework
-python -c "from my_agent_framework import __version__; print(__version__)"
+pip install indusagi
+python -c "from indusagi import __version__; print(__version__)"
 ```
 
 ### Post-Release
@@ -217,7 +217,7 @@ git tag -a v0.1.0 -m "Release v0.1.0"
 git push origin v0.1.0
 
 # Create GitHub release
-# Go to: https://github.com/yourusername/my-agent-framework/releases/new
+# Go to: https://github.com/yourusername/indusagi/releases/new
 # - Tag: v0.1.0
 # - Title: v0.1.0 - Release Title
 # - Description: Copy from CHANGELOG.md
@@ -272,7 +272,7 @@ version: '3.8'
 services:
   agent:
     build: .
-    image: my-agent-framework:latest
+    image: indusagi:latest
     container_name: my-agent
     env_file:
       - .env
@@ -288,12 +288,12 @@ services:
 
 ```bash
 # Build the Docker image
-docker build -t my-agent-framework:latest .
+docker build -t indusagi:latest .
 
 # Run with docker
 docker run --rm \
   -e OPENAI_API_KEY=your-key \
-  my-agent-framework:latest version
+  indusagi:latest version
 
 # Run with docker-compose
 docker-compose up -d
@@ -396,10 +396,10 @@ api_key = os.getenv("OPENAI_API_KEY")
 
 ```bash
 # Pass individual variables
-docker run -e OPENAI_API_KEY=your_key my-agent-framework:latest
+docker run -e OPENAI_API_KEY=your_key indusagi:latest
 
 # Pass from file
-docker run --env-file .env my-agent-framework:latest
+docker run --env-file .env indusagi:latest
 ```
 
 #### From Kubernetes
@@ -420,7 +420,7 @@ metadata:
 spec:
   containers:
   - name: agent
-    image: my-agent-framework:latest
+    image: indusagi:latest
     envFrom:
     - secretRef:
         name: agent-secrets
@@ -611,7 +611,7 @@ jobs:
           pip install -e ".[dev]"
 
       - name: Run tests
-        run: pytest --cov=my_agent_framework
+        run: pytest --cov=indusagi
 
       - name: Upload coverage
         uses: codecov/codecov-action@v3
@@ -633,31 +633,31 @@ pip install --upgrade build twine
 
 ```bash
 # Verify package structure
-python -m pip show my-agent-framework
+python -m pip show indusagi
 
 # Check installation
-pip list | grep my-agent-framework
+pip list | grep indusagi
 ```
 
 ### Docker Issues
 
 ```bash
 # Rebuild without cache
-docker build --no-cache -t my-agent-framework:latest .
+docker build --no-cache -t indusagi:latest .
 
 # Check logs
 docker logs my-agent
 
 # Interactive debugging
-docker run -it --entrypoint /bin/bash my-agent-framework:latest
+docker run -it --entrypoint /bin/bash indusagi:latest
 ```
 
 ## Support
 
 For deployment issues:
 
-- Check [GitHub Issues](https://github.com/yourusername/my-agent-framework/issues)
-- Review [Documentation](https://github.com/yourusername/my-agent-framework#readme)
+- Check [GitHub Issues](https://github.com/yourusername/indusagi/issues)
+- Review [Documentation](https://github.com/yourusername/indusagi#readme)
 - Contact: your.email@example.com
 
 ---

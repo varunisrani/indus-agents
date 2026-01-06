@@ -40,8 +40,8 @@ from rich.progress import Progress, SpinnerColumn, TextColumn
 from rich import box
 from dotenv import load_dotenv
 
-from my_agent_framework.agent import Agent, AgentConfig
-from my_agent_framework.tools import registry, ToolRegistry
+from indusagi.agent import Agent, AgentConfig
+from indusagi.tools import registry, ToolRegistry
 
 # ============================================================================
 # Application Setup
@@ -784,7 +784,7 @@ def create_agent_cmd(
     description: str = typer.Option("A specialized agent", "--description", "-d"),
 ):
     """Create a new agent from template."""
-    from my_agent_framework.templates.scaffolder import scaffold_agent
+    from indusagi.templates.scaffolder import scaffold_agent
 
     console.print(f"[bold blue]Creating agent: {name}[/bold blue]")
 

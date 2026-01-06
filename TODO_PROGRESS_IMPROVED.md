@@ -269,7 +269,7 @@ Progress: 5 done, 0 in progress, 0 pending
 
 ### Files Modified:
 
-1. **`src/my_agent_framework/agent.py`**
+1. **`src/indusagi/agent.py`**
    - Updated `_log_tool_usage()` method
      - Show full todo list on every update (not just changes)
      - Added visual status indicators (⏳ 🔄 ✅)

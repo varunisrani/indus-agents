@@ -11,7 +11,7 @@ Custom tools let you extend indus-agents with your own functionality. The agent 
 ### 1. Create Your Tool
 
 ```python
-from my_agent_framework import registry
+from indusagi import registry
 
 @registry.register
 def my_tool(param: str) -> str:
@@ -24,7 +24,7 @@ def my_tool(param: str) -> str:
 ```python
 import custom_tools  # Your tools file
 
-from my_agent_framework import Agent
+from indusagi import Agent
 agent = Agent("Bot", "Assistant")
 response = agent.process_with_tools("Use my_tool with 'hello'")
 ```
@@ -88,7 +88,7 @@ Your tool needs:
 ### Template
 
 ```python
-from my_agent_framework import registry
+from indusagi import registry
 
 @registry.register
 def your_tool_name(param1: str, param2: int = 10) -> str:
@@ -204,7 +204,7 @@ def celsius_to_fahrenheit(celsius: float) -> str:
 
 `my_tools.py`:
 ```python
-from my_agent_framework import registry
+from indusagi import registry
 
 @registry.register
 def tool1(param: str) -> str:
@@ -251,7 +251,7 @@ import tools  # Registers all tools from all files
 ### Method 1: Direct Execution
 
 ```python
-from my_agent_framework import registry
+from indusagi import registry
 import my_tools
 
 # Execute directly
@@ -262,7 +262,7 @@ print(result)
 ### Method 2: With Agent
 
 ```python
-from my_agent_framework import Agent
+from indusagi import Agent
 import my_tools
 
 agent = Agent("TestBot", "Test assistant")
@@ -468,10 +468,10 @@ python test_custom_tools_quick.py
 python demo_custom_tools.py
 
 # List all registered tools
-python -c "from my_agent_framework import registry; import custom_tools; print(registry.list_tools())"
+python -c "from indusagi import registry; import custom_tools; print(registry.list_tools())"
 
 # Test a specific tool
-python -c "from my_agent_framework import registry; import custom_tools; print(registry.execute('get_weather', city='Tokyo', unit='celsius'))"
+python -c "from indusagi import registry; import custom_tools; print(registry.execute('get_weather', city='Tokyo', unit='celsius'))"
 ```
 
 ---

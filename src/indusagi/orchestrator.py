@@ -32,8 +32,8 @@ import re
 from datetime import datetime
 
 # Import our existing framework components
-from my_agent_framework.agent import Agent, AgentConfig
-from my_agent_framework.tools import registry
+from indusagi.agent import Agent, AgentConfig
+from indusagi.tools import registry
 
 
 class AgentType(Enum):

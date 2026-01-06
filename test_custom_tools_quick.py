@@ -16,7 +16,7 @@ print("="*70)
 
 # Test 1: Import and registration
 print("\n[Test 1/5] Importing custom tools...")
-from indus_agents import registry
+from indusagi import registry
 
 before_count = len(registry.list_tools())
 print(f"  Tools before import: {before_count}")
