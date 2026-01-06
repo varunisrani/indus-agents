@@ -25,8 +25,8 @@ This guide covers building, testing, and deploying indus-agents to various envir
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/indusagi.git
-cd indusagi
+git clone https://github.com/varunisrani/indus-agents.git
+cd indus-agents
 
 # Create and activate virtual environment
 uv venv
@@ -217,7 +217,7 @@ git tag -a v0.1.0 -m "Release v0.1.0"
 git push origin v0.1.0
 
 # Create GitHub release
-# Go to: https://github.com/yourusername/indusagi/releases/new
+# Go to: https://github.com/varunisrani/indus-agents/releases/new
 # - Tag: v0.1.0
 # - Title: v0.1.0 - Release Title
 # - Description: Copy from CHANGELOG.md
@@ -656,8 +656,8 @@ docker run -it --entrypoint /bin/bash indusagi:latest
 
 For deployment issues:
 
-- Check [GitHub Issues](https://github.com/yourusername/indusagi/issues)
-- Review [Documentation](https://github.com/yourusername/indusagi#readme)
+- Check [GitHub Issues](https://github.com/varunisrani/indus-agents/issues)
+- Review [Documentation](https://github.com/varunisrani/indus-agents#readme)
 - Contact: your.email@example.com
 
 ---

@@ -139,10 +139,10 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/yourusername/indusagi"
-Documentation = "https://github.com/yourusername/indusagi#readme"
-Repository = "https://github.com/yourusername/indusagi"
-Issues = "https://github.com/yourusername/indusagi/issues"
+Homepage = "https://github.com/varunisrani/indus-agents"
+Documentation = "https://github.com/varunisrani/indus-agents#readme"
+Repository = "https://github.com/varunisrani/indus-agents"
+Issues = "https://github.com/varunisrani/indus-agents/issues"
 
 [project.scripts]
 indusagi = "indusagi.cli:app"
@@ -262,7 +262,7 @@ For GitHub-hosted projects:
 gh release create v0.1.0 dist/* --title "v0.1.0" --notes "Initial release"
 
 # Users can install directly from GitHub
-pip install git+https://github.com/yourusername/indusagi.git
+pip install git+https://github.com/varunisrani/indus-agents.git
 ```
 
 ---
@@ -275,7 +275,7 @@ pip install git+https://github.com/yourusername/indusagi.git
 
 ```bash
 # Install from source
-git clone https://github.com/yourusername/indusagi.git
+git clone https://github.com/varunisrani/indus-agents.git
 cd indusagi
 pip install -e .
 

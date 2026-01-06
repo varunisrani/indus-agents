@@ -18,8 +18,8 @@ uv pip install indusagi
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/indusagi.git
-cd indusagi
+git clone https://github.com/varunisrani/indus-agents.git
+cd indus-agents
 
 # Install with development dependencies
 uv venv
@@ -296,9 +296,9 @@ pytest --cache-clear
 
 ## Getting Help
 
-- Check [GitHub Issues](https://github.com/yourusername/indusagi/issues)
+- Check [GitHub Issues](https://github.com/varunisrani/indus-agents/issues)
 - Read [documentation](README.md)
-- Join [discussions](https://github.com/yourusername/indusagi/discussions)
+- Join [discussions](https://github.com/varunisrani/indus-agents/discussions)
 
 ## Next Steps
 

@@ -134,9 +134,9 @@ This project uses [Semantic Versioning](https://semver.org/):
 
 ## Links
 
-- [Repository](https://github.com/yourusername/indusagi)
-- [Issue Tracker](https://github.com/yourusername/indusagi/issues)
-- [Documentation](https://github.com/yourusername/indusagi#readme)
+- [Repository](https://github.com/varunisrani/indus-agents)
+- [Issue Tracker](https://github.com/varunisrani/indus-agents/issues)
+- [Documentation](https://github.com/varunisrani/indus-agents#readme)
 
 ---
 

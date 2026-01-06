@@ -38,8 +38,8 @@ By participating in this project, you agree to maintain a respectful and inclusi
 
 2. **Clone your fork locally**:
    ```bash
-   git clone https://github.com/yourusername/indusagi.git
-   cd indusagi
+   git clone https://github.com/varunisrani/indus-agents.git
+   cd indus-agents
    ```
 
 3. **Add the upstream repository**:
@@ -417,8 +417,8 @@ docs: update installation guide
 
 ## Getting Help
 
-- Check existing [issues](https://github.com/yourusername/indusagi/issues)
-- Join our [discussions](https://github.com/yourusername/indusagi/discussions)
+- Check existing [issues](https://github.com/varunisrani/indus-agents/issues)
+- Join our [discussions](https://github.com/varunisrani/indus-agents/discussions)
 - Read the documentation
 - Ask questions in pull requests
 
@@ -433,4 +433,4 @@ Thank you for contributing to indus-agents!
 
 ---
 
-**Questions?** Feel free to ask in [GitHub Discussions](https://github.com/yourusername/indusagi/discussions).
+**Questions?** Feel free to ask in [GitHub Discussions](https://github.com/varunisrani/indus-agents/discussions).

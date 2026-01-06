@@ -44,8 +44,8 @@ pip install indusagi
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/indusagi.git
-cd indusagi
+git clone https://github.com/varunisrani/indus-agents.git
+cd indus-agents
 
 # Install with development dependencies
 uv pip install -e ".[dev]"
@@ -305,13 +305,13 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guid
 
 - [Quick Reference](QUICK_REFERENCE.md) - Fast lookup for common tasks
 - [Deployment Guide](DEPLOYMENT.md) - Publishing and deployment
-- [API Documentation](https://github.com/yourusername/indusagi/docs) - Full API reference
+- [API Documentation](https://github.com/varunisrani/indus-agents/docs) - Full API reference
 - [Examples](examples/) - Code examples and tutorials
 
 ## Support
 
-- **Issues**: [GitHub Issues](https://github.com/yourusername/indusagi/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/yourusername/indusagi/discussions)
+- **Issues**: [GitHub Issues](https://github.com/varunisrani/indus-agents/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/varunisrani/indus-agents/discussions)
 - **Email**: your.email@example.com
 
 ## License
@@ -334,7 +334,7 @@ If you use this framework in your research, please cite:
   title = {indus-agents: A Modern indus-agents},
   author = {Your Name},
   year = {2025},
-  url = {https://github.com/yourusername/indusagi}
+  url = {https://github.com/varunisrani/indus-agents}
 }
 ```
 
