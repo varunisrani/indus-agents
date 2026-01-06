@@ -3,17 +3,17 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "my-agent-framework"
-version = "0.1.0"
+name = "indusagi"
+version = "0.2.0"
 description = "A modern, extensible indus-agents for building autonomous agents with LLMs"
 readme = "README.md"
 requires-python = ">=3.9"
 license = {text = "MIT"}
 authors = [
-    {name = "Your Name", email = "your.email@example.com"}
+    {name = "IndusAGI Team", email = "team@indusagi.ai"}
 ]
 maintainers = [
-    {name = "Your Name", email = "your.email@example.com"}
+    {name = "IndusAGI Team", email = "team@indusagi.ai"}
 ]
 keywords = [
     "ai",
@@ -75,21 +75,21 @@ docs = [
     "mkdocstrings[python]>=0.24.0,<1.0.0",
 ]
 all = [
-    "my-agent-framework[dev,docs]",
+    "indusagi[dev,docs]",
 ]
 
 [project.scripts]
-my-agent = "my_agent_framework.cli:app"
+indusagi = "indusagi.cli:app"
 
 [project.urls]
-Homepage = "https://github.com/yourusername/my-agent-framework"
-Documentation = "https://github.com/yourusername/my-agent-framework#readme"
-Repository = "https://github.com/yourusername/my-agent-framework"
-Issues = "https://github.com/yourusername/my-agent-framework/issues"
-Changelog = "https://github.com/yourusername/my-agent-framework/blob/main/CHANGELOG.md"
+Homepage = "https://github.com/varunisrani/indus-agents"
+Documentation = "https://github.com/varunisrani/indus-agents#readme"
+Repository = "https://github.com/varunisrani/indus-agents"
+Issues = "https://github.com/varunisrani/indus-agents/issues"
+Changelog = "https://github.com/varunisrani/indus-agents/blob/main/CHANGELOG.md"
 
 [tool.hatchling.build.targets.wheel]
-packages = ["src/my_agent_framework"]
+packages = ["src/indusagi"]
 
 [tool.hatchling.build.targets.sdist]
 include = [
@@ -144,7 +144,7 @@ ignore = [
 
 [tool.pytest.ini_options]
 minversion = "7.0"
-addopts = "-ra -q --strict-markers --cov=my_agent_framework --cov-report=term-missing"
+addopts = "-ra -q --strict-markers --cov=indusagi --cov-report=term-missing"
 testpaths = ["tests"]
 pythonpath = ["src"]
 asyncio_mode = "auto"
