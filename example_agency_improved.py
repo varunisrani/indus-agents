@@ -17,10 +17,10 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 
-from my_agent_framework import Agent, AgentConfig, Agency
-from my_agent_framework.tools import Bash, Read, Edit, Write, Glob, Grep, TodoWrite
-from my_agent_framework.tools import handoff_to_agent, set_current_agency, registry
-from my_agent_framework.hooks import SystemReminderHook, CompositeHook
+from indusagi import Agent, AgentConfig, Agency
+from indusagi.tools import Bash, Read, Edit, Write, Glob, Grep, TodoWrite
+from indusagi.tools import handoff_to_agent, set_current_agency, registry
+from indusagi.hooks import SystemReminderHook, CompositeHook
 
 # ============================================================================
 # Agent Factory Functions (Improved Instructions)

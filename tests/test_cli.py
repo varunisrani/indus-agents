@@ -3,7 +3,7 @@
 import pytest
 from typer.testing import CliRunner
 
-from indus_agents.cli import app
+from indusagi.cli import app
 
 # Create a CLI runner for testing
 runner = CliRunner()
@@ -22,7 +22,7 @@ class TestCLIVersion:
 
     def test_version_shows_correct_version(self):
         """Test that version command shows the correct version."""
-        from indus_agents import __version__
+        from indusagi import __version__
 
         result = runner.invoke(app, ["version"])
 

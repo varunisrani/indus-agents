@@ -5,7 +5,7 @@ import os
 import subprocess
 from typing import Literal, Optional, ClassVar
 from pydantic import Field
-from my_agent_framework.tools.base import BaseTool
+from indusagi.tools.base import BaseTool
 
 
 class Grep(BaseTool):

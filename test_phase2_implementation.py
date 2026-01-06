@@ -16,14 +16,14 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
 # Set dummy API key for testing structure (not making actual API calls)
 os.environ['OPENAI_API_KEY'] = 'test-key-for-structure-verification'
 
-from my_agent_framework import (
+from indusagi import (
     Agency,
     AgencyResponse,
     HandoffResult,
     HandoffType,
     Agent
 )
-from my_agent_framework.tools.handoff import (
+from indusagi.tools.handoff import (
     handoff_to_agent,
     set_current_agency,
     get_current_agency,

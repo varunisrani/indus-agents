@@ -6,9 +6,9 @@ This module provides the factory function for creating DataAnalyst instances.
 import os
 from typing import Optional
 
-from my_agent_framework import Agent, AgentConfig
-from my_agent_framework.templates import render_instructions
-from my_agent_framework.tools.dev import Read, Write, Bash
+from indusagi import Agent, AgentConfig
+from indusagi.templates import render_instructions
+from indusagi.tools.dev import Read, Write, Bash
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 

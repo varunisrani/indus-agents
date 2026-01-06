@@ -6,9 +6,9 @@ from unittest.mock import AsyncMock, MagicMock, Mock
 
 import pytest
 
-from indus_agents.agent.base import AgentConfig
-from indus_agents.core.config import Config, LLMConfig
-from indus_agents.tools.base import BaseTool, ToolConfig, ToolResult
+from indusagi.agent.base import AgentConfig
+from indusagi.core.config import Config, LLMConfig
+from indusagi.tools.base import BaseTool, ToolConfig, ToolResult
 
 
 # ============================================================================
@@ -453,7 +453,7 @@ class MockOrchestrator:
 @pytest.fixture
 def orchestrator(agent_config, tool_registry, memory_system):
     """Fixture providing an orchestrator."""
-    from indus_agents.core.agent import Agent
+    from indusagi.core.agent import Agent
 
     agent = Agent(agent_config)
     return MockOrchestrator(agent, tool_registry, memory_system)

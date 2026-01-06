@@ -5,7 +5,7 @@ import fnmatch
 import os
 from typing import List, Optional, ClassVar
 from pydantic import Field
-from my_agent_framework.tools.base import BaseTool
+from indusagi.tools.base import BaseTool
 
 
 class Glob(BaseTool):

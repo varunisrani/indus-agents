@@ -14,7 +14,7 @@ if not os.getenv("OPENAI_API_KEY"):
     print("ERROR: OPENAI_API_KEY not found!")
     sys.exit(1)
 
-from indus_agents import Agent, registry
+from indusagi import Agent, registry
 import custom_tools
 
 print("="*70)

@@ -16,9 +16,9 @@ from dotenv import load_dotenv
 # Add parent directory to path to import framework
 sys.path.insert(0, str(Path(__file__).parent.parent / 'src'))
 
-from my_agent_framework import Agent, AgentConfig
-from my_agent_framework.tools import Bash, Read, Edit, Write, Glob, Grep, TodoWrite
-from my_agent_framework.tools import registry
+from indusagi import Agent, AgentConfig
+from indusagi.tools import Bash, Read, Edit, Write, Glob, Grep, TodoWrite
+from indusagi.tools import registry
 
 # Load environment variables
 load_dotenv()

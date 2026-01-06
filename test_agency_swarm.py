@@ -16,11 +16,11 @@ from pathlib import Path
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
-from my_agent_framework import Agent, AgentConfig, Agency
-from my_agent_framework.tools import Bash, Read, Edit, Write, Glob, Grep
-from my_agent_framework.tools import get_tool_context, set_current_agency
-from my_agent_framework.templates import scaffold_agent
-from my_agent_framework.hooks import SystemReminderHook, RunContext
+from indusagi import Agent, AgentConfig, Agency
+from indusagi.tools import Bash, Read, Edit, Write, Glob, Grep
+from indusagi.tools import get_tool_context, set_current_agency
+from indusagi.templates import scaffold_agent
+from indusagi.hooks import SystemReminderHook, RunContext
 
 # ============================================================================
 # Test Utilities
@@ -81,7 +81,7 @@ runner = TestRunner()
 
 def test_phase1_template_rendering():
     """Test template rendering with placeholders."""
-    from my_agent_framework.templates.renderer import render_instructions
+    from indusagi.templates.renderer import render_instructions
 
     # Create a test template
     with tempfile.NamedTemporaryFile(mode='w', suffix='.md', delete=False) as f:
@@ -108,7 +108,7 @@ def test_phase1_template_rendering():
 
 def test_phase1_agent_scaffolding():
     """Test agent scaffolding with templates."""
-    from my_agent_framework.templates.scaffolder import to_snake_case, to_class_name
+    from indusagi.templates.scaffolder import to_snake_case, to_class_name
 
     # Test string conversions
     assert to_snake_case("QATester") == "qa_tester", "Snake case conversion failed"
