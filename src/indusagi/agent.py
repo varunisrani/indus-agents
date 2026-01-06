@@ -13,6 +13,7 @@ from indusagi.tool_usage_logger import tool_logger
 from indusagi.providers.base import BaseProvider, ProviderResponse, ToolCall
 from indusagi.providers.openai_provider import OpenAIProvider
 from indusagi.providers.anthropic_provider import AnthropicProvider
+from indusagi.utils.prompt_loader import load_prompt_from_file, is_file_path
 
 
 class AgentConfig(BaseModel):
@@ -183,6 +184,7 @@ class Agent:
         role: str,
         config: Optional[AgentConfig] = None,
         system_prompt: Optional[str] = None,
+        prompt_file: Optional[str] = None,
         context: Optional[Any] = None,
     ) -> None:
         """
@@ -192,11 +194,12 @@ class Agent:
             name: Agent's identifier
             role: Agent's specialized role/purpose
             config: Configuration settings (uses defaults if None)
-            system_prompt: Custom system prompt (auto-generated if None)
+            system_prompt: Custom system prompt string OR path to .md file (auto-generated if None)
+            prompt_file: Explicit path to prompt file (overrides system_prompt if both provided)
             context: Shared context object for tool state (optional)
 
         Raises:
-            ValueError: If required API key not set in environment
+            ValueError: If required API key not set in environment or prompt file not found
         """
         self.name = name
         self.role = role
@@ -210,10 +213,34 @@ class Agent:
         self.provider = self._create_provider(provider_name)
 
         self.messages: List[Dict[str, Any]] = []
-        self.system_prompt = system_prompt or (
-            f"You are {name}, a helpful AI assistant. Your role is: {role}. "
-            "Provide clear, accurate, and helpful responses."
-        )
+
+        # Handle prompt loading with priority: prompt_file > system_prompt (file) > system_prompt (string) > default
+        if prompt_file:
+            # Explicit prompt_file parameter takes highest priority
+            try:
+                self.system_prompt = load_prompt_from_file(prompt_file)
+            except (FileNotFoundError, IOError) as e:
+                raise ValueError(f"Failed to load prompt file: {e}")
+
+        elif system_prompt:
+            # Check if system_prompt is a file path or direct content
+            if is_file_path(system_prompt):
+                try:
+                    self.system_prompt = load_prompt_from_file(system_prompt)
+                except (FileNotFoundError, IOError) as e:
+                    # If file loading fails, treat as direct content (backward compatible)
+                    print(f"Warning: Could not load as file, treating as prompt content: {e}")
+                    self.system_prompt = system_prompt
+            else:
+                # Direct prompt content
+                self.system_prompt = system_prompt
+
+        else:
+            # Default prompt generation
+            self.system_prompt = (
+                f"You are {name}, a helpful AI assistant. Your role is: {role}. "
+                "Provide clear, accurate, and helpful responses."
+            )
 
     def _create_provider(self, provider_name: str) -> BaseProvider:
         """

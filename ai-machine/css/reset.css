@@ -1,8 +1,4 @@
-/* CSS Reset - AI Machine */
-
-*,
-*::before,
-*::after {
+*, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -11,56 +7,33 @@
 html {
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;
-  scroll-behavior: smooth;
 }
 
 body {
-  min-height: 100vh;
-  text-rendering: optimizeSpeed;
-  line-height: var(--leading-normal);
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  color: var(--text-primary);
+  background-color: var(--background);
 }
 
-img,
-picture,
-video,
-canvas,
-svg {
+img, picture, video, canvas, svg {
   display: block;
   max-width: 100%;
   height: auto;
 }
 
-input,
-button,
-textarea,
-select {
+input, button, textarea, select {
   font: inherit;
   color: inherit;
 }
 
-p,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  overflow-wrap: break-word;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-weight: var(--font-bold);
-  line-height: var(--leading-tight);
-}
-
-ul,
-ol {
-  list-style: none;
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
 }
 
 a {
@@ -68,22 +41,23 @@ a {
   color: inherit;
 }
 
-button {
-  border: none;
-  background: none;
-  cursor: pointer;
+ul, ol {
+  list-style: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+p {
+  margin: 0;
 }
 
 table {
   border-collapse: collapse;
-  border-spacing: 0;
-}
-
-pre,
-code,
-kbd,
-samp {
-  font-family: var(--font-mono);
+  width: 100%;
 }
 
 :focus-visible {
@@ -93,22 +67,23 @@ samp {
 
 ::selection {
   background-color: var(--secondary);
-  color: var(--text-inverse);
+  color: var(--primary);
 }
 
-::-webkit-scrollbar {
-  width: 10px;
+code, pre {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
 }
 
-::-webkit-scrollbar-track {
-  background: var(--background-alt);
+pre {
+  background-color: var(--surface-alt);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  overflow-x: auto;
 }
 
-::-webkit-scrollbar-thumb {
-  background: var(--text-tertiary);
-  border-radius: var(--radius-full);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--text-secondary);
+code {
+  background-color: var(--surface-alt);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
 }

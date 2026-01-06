@@ -3,77 +3,116 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="AI Machine press and media - Press releases, media coverage, and brand assets.">
+  <meta name="description" content="AI Machine press releases and media coverage.">
   <title>Press - AI Machine</title>
   <link rel="stylesheet" href="../css/main.css">
 </head>
 <body>
   <header class="navbar">
-    <div class="navbar-container">
-      <a href="../index.html" class="navbar-logo">AI Machine</a>
-      <nav class="navbar-menu hide-mobile">
-        <a href="about-us.html" class="navbar-link">About</a>
-        <a href="press.html" class="navbar-link active">Press</a>
-        <a href="contact.html" class="navbar-link">Contact</a>
-      </nav>
-    </div>
+    <nav class="nav-container">
+      <a href="../index.html" class="logo">AI<span>Machine</span></a>
+      <ul class="nav-menu">
+        <li><a href="products.html">Products</a></li>
+        <li><a href="ai-servers.html">AI Servers</a></li>
+        <li><a href="performance.html">Performance</a></li>
+        <li><a href="case-studies.html">Case Studies</a></li>
+        <li><a href="support.html">Support</a></li>
+      </ul>
+      <button class="mobile-toggle"><span></span><span></span><span></span></button>
+    </nav>
   </header>
 
-  <main id="main-content">
-    <section class="section-lg bg-alt">
-      <div class="container text-center">
-        <h1 class="text-5xl font-bold mb-6">Press & Media</h1>
-        <p class="text-xl text-secondary max-w-3xl mx-auto">
-          Latest news and updates from AI Machine
-        </p>
-      </div>
-    </section>
-
-    <section class="section">
+  <main>
+    <section class="section" style="padding-top: 120px;">
       <div class="container">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div class="card">
-            <div class="badge badge-primary mb-4">Press Release</div>
-            <h3 class="text-xl font-bold mb-2">AI Machine Launches Next-Gen AI Server</h3>
-            <p class="text-secondary mb-4">Revolutionary new infrastructure delivers 10x performance improvement</p>
-            <p class="text-sm text-secondary">January 15, 2024</p>
+        <div class="breadcrumb">
+          <a href="../index.html">Home</a>
+          <span class="breadcrumb-separator">/</span>
+          <a href="about-us.html">About Us</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Press</span>
+        </div>
+
+        <div class="section-header">
+          <h1 class="section-title">Press & Media</h1>
+          <p class="section-subtitle">News and updates from AI Machine</p>
+        </div>
+
+        <div class="grid grid-2">
+          <div class="card animate-on-scroll">
+            <div class="card-header">
+              <h2 class="card-title">AI Machine Series C Funding</h2>
+              <p style="font-size: 0.875rem; color: var(--text-tertiary);">January 20, 2024</p>
+            </div>
+            <div class="card-body">
+              <p>AI Machine announces $100M Series C funding to expand globally and launch new product line.</p>
+            </div>
           </div>
-          <div class="card">
-            <div class="badge badge-primary mb-4">Press Release</div>
-            <h3 class="text-xl font-bold mb-2">AI Machine Raises $100M Series B</h3>
-            <p class="text-secondary mb-4">Funding to accelerate product development and global expansion</p>
-            <p class="text-sm text-secondary">December 1, 2023</p>
-          </div>
-          <div class="card">
-            <div class="badge badge-primary mb-4">News Coverage</div>
-            <h3 class="text-xl font-bold mb-2">Featured in TechCrunch</h3>
-            <p class="text-secondary mb-4">"How AI Machine is Democratizing Access to AI Infrastructure"</p>
-            <p class="text-sm text-secondary">November 20, 2023</p>
-          </div>
-          <div class="card">
-            <div class="badge badge-primary mb-4">Award</div>
-            <h3 class="text-xl font-bold mb-2">Best AI Infrastructure 2024</h3>
-            <p class="text-secondary mb-4">Recognized by AI Industry Awards for innovation and excellence</p>
-            <p class="text-sm text-secondary">October 10, 2023</p>
+
+          <div class="card animate-on-scroll">
+            <div class="card-header">
+              <h2 class="card-title">Industry Recognition</h2>
+              <p style="font-size: 0.875rem; color: var(--text-tertiary);">January 15, 2024</p>
+            </div>
+            <div class="card-body">
+              <p>Named "Most Innovative AI Infrastructure Company" by Tech Innovation Awards 2024.</p>
+            </div>
           </div>
         </div>
 
-        <div class="mt-12 text-center">
-          <h2 class="text-2xl font-bold mb-4">Media Resources</h2>
-          <div class="flex justify-center gap-4">
-            <a href="#" class="btn btn-outline">Download Press Kit</a>
-            <a href="contact.html" class="btn btn-primary">Contact PR Team</a>
-          </div>
+        <div class="text-center mt-8">
+          <a href="contact.html" class="btn btn-primary">Media Kit</a>
         </div>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <div class="container">
-      <div class="footer-bottom">
-        <p>&copy; <span class="current-year"></span> AI Machine. All rights reserved.</p>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="products.html">All Products</a></li>
+          <li><a href="ai-servers.html">AI Servers</a></li>
+          <li><a href="edge-computing.html">Edge Computing</a></li>
+          <li><a href="neural-chips.html">Neural Chips</a></li>
+        </ul>
       </div>
+      <div class="footer-section">
+        <h4>Solutions</h4>
+        <ul>
+          <li><a href="enterprise-solutions.html">Enterprise</a></li>
+          <li><a href="startup-program.html">Startup Program</a></li>
+          <li><a href="case-studies.html">Case Studies</a></li>
+          <li><a href="documentation.html">Documentation</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="support.html">Help Center</a></li>
+          <li><a href="technical-support.html">Technical Support</a></li>
+          <li><a href="documentation.html">Documentation</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about-us.html">About Us</a></li>
+          <li><a href="leadership.html">Leadership</a></li>
+          <li><a href="careers.html">Careers</a></li>
+          <li><a href="press.html">Press</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; <span class="current-year"></span> AI Machine. All rights reserved.</p>
+      <p style="margin-top: 0.5rem;">
+        <a href="privacy-policy.html">Privacy Policy</a> ·
+        <a href="terms-of-service.html">Terms of Service</a> ·
+        <a href="compliance.html">Compliance</a>
+      </p>
     </div>
   </footer>
 

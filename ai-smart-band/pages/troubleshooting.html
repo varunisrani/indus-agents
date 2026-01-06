@@ -3,57 +3,197 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Troubleshooting guide for AI Smart Band common issues.">
   <title>Troubleshooting - AI Smart Band</title>
   <link rel="stylesheet" href="../css/main.css">
 </head>
 <body>
   <header class="navbar">
-    <div class="navbar-container">
-      <a href="../index.html" class="navbar-logo">AI Smart Band</a>
-      <nav class="navbar-menu hide-mobile">
-        <a href="support.html" class="navbar-link active">Support</a>
-      </nav>
-    </div>
+    <nav class="nav-container">
+      <a href="../index.html" class="logo">AI Smart Band</a>
+      <ul class="nav-menu">
+        <li><a href="products.html">Products</a></li>
+        <li><a href="ai-features.html">AI Features</a></li>
+        <li><a href="health-tracking.html">Health</a></li>
+        <li><a href="fitness-features.html">Fitness</a></li>
+        <li><a href="support.html">Support</a></li>
+      </ul>
+      <button class="mobile-toggle"><span></span><span></span><span></span></button>
+    </nav>
   </header>
-  <main class="section">
-    <div class="container max-w-3xl">
-      <h1 class="text-5xl font-bold mb-6 text-center">Troubleshooting</h1>
-      <p class="text-xl text-secondary text-center mb-12">Solutions to common issues</p>
-      <div class="space-y-6">
-        <div class="card">
-          <h3 class="font-bold text-lg mb-2">Band not connecting to phone</h3>
-          <ol class="list-decimal list-inside space-y-1 text-secondary">
-            <li>Make sure Bluetooth is enabled</li>
-            <li>Restart both devices</li>
-            <li>Unpair and repair the band</li>
-            <li>Update the app to latest version</li>
-          </ol>
+
+  <main>
+    <section class="section" style="padding-top: 120px;">
+      <div class="container">
+        <div class="breadcrumb">
+          <a href="../index.html">Home</a>
+          <span class="breadcrumb-separator">/</span>
+          <a href="support.html">Support</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Troubleshooting</span>
         </div>
-        <div class="card">
-          <h3 class="font-bold text-lg mb-2">Battery draining quickly</h3>
-          <ol class="list-decimal list-inside space-y-1 text-secondary">
-            <li>Turn off always-on display</li>
-            <li>Reduce heart rate monitoring frequency</li>
-            <li>Disable unnecessary notifications</li>
-            <li>Check for software updates</li>
-          </ol>
+
+        <div class="section-header">
+          <h1 class="section-title">Troubleshooting</h1>
+          <p class="section-subtitle">Solutions to common issues</p>
         </div>
+
+        <div class="accordion" style="max-width: 800px; margin: 0 auto 3rem;">
+          <div class="card accordion-item">
+            <div class="accordion-header" style="cursor: pointer; padding: 1.5rem;">
+              <h3 style="margin: 0; font-size: 1.125rem;">Band won't charge</h3>
+            </div>
+            <div class="accordion-content" style="display: none; padding: 0 1.5rem 1.5rem;">
+              <p><strong>Solutions:</strong></p>
+              <ol style="padding-left: 1.5rem;">
+                <li>Clean charging contacts on both band and cable</li>
+                <li>Try a different USB port or power adapter</li>
+                <li>Ensure proper alignment of magnetic charger</li>
+                <li>Restart the band by holding the button for 10 seconds</li>
+                <li>If issues persist, contact support</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="card accordion-item">
+            <div class="accordion-header" style="cursor: pointer; padding: 1.5rem;">
+              <h3 style="margin: 0; font-size: 1.125rem;">Can't pair with phone</h3>
+            </div>
+            <div class="accordion-content" style="display: none; padding: 0 1.5rem 1.5rem;">
+              <p><strong>Solutions:</strong></p>
+              <ol style="padding-left: 1.5rem;">
+                <li>Ensure Bluetooth is enabled on your phone</li>
+                <li>Check phone compatibility</li>
+                <li>Restart both phone and band</li>
+                <li>Unpair and forget device, then try pairing again</li>
+                <li>Update the app to latest version</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="card accordion-item">
+            <div class="accordion-header" style="cursor: pointer; padding: 1.5rem;">
+              <h3 style="margin: 0; font-size: 1.125rem;">Inaccurate heart rate readings</h3>
+            </div>
+            <div class="accordion-content" style="display: none; padding: 0 1.5rem 1.5rem;">
+              <p><strong>Solutions:</strong></p>
+              <ol style="padding-left: 1.5rem;">
+                <li>Ensure band is snug but not too tight</li>
+                <li>Wear slightly above wrist bone</li>
+                <li>Clean sensor area with soft cloth</li>
+                <li>Stay still during readings</li>
+                <li>Check if skin is too dry or wet</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="card accordion-item">
+            <div class="accordion-header" style="cursor: pointer; padding: 1.5rem;">
+              <h3 style="margin: 0; font-size: 1.125rem;">Battery drains quickly</h3>
+            </div>
+            <div class="accordion-content" style="display: none; padding: 0 1.5rem 1.5rem;">
+              <p><strong>Solutions:</strong></p>
+              <ol style="padding-left: 1.5rem;">
+                <li>Reduce screen brightness</li>
+                <li>Disable always-on display</li>
+                <li>Reduce notification frequency</li>
+                <li>Turn off continuous heart rate monitoring</li>
+                <li>Check for app updates that may improve battery life</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="card accordion-item">
+            <div class="accordion-header" style="cursor: pointer; padding: 1.5rem;">
+              <h3 style="margin: 0; font-size: 1.125rem;">Band not tracking sleep</h3>
+            </div>
+            <div class="accordion-content" style="display: none; padding: 0 1.5rem 1.5rem;">
+              <p><strong>Solutions:</strong></p>
+              <ol style="padding-left: 1.5rem;">
+                <li>Ensure sleep mode is enabled in app</li>
+                <li>Wear band to bed (not too loose)</li>
+                <li>Check battery level before sleep</li>
+                <li>Sync data in morning to see sleep analysis</li>
+                <li>Make sure band firmware is up to date</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="card accordion-item">
+            <div class="accordion-header" style="cursor: pointer; padding: 1.5rem;">
+              <h3 style="margin: 0; font-size: 1.125rem;">Screen frozen or unresponsive</h3>
+            </div>
+            <div class="accordion-content" style="display: none; padding: 0 1.5rem 1.5rem;">
+              <p><strong>Solutions:</strong></p>
+              <ol style="padding-left: 1.5rem;">
+                <li>Force restart: Hold button for 15 seconds</li>
+                <li>Charge the band for at least 10 minutes</li>
+                <li>Check if band needs firmware update</li>
+                <li>Reset to factory settings as last resort</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
         <div class="card">
-          <h3 class="font-bold text-lg mb-2">Inaccurate step counting</h3>
-          <ol class="list-decimal list-inside space-y-1 text-secondary">
-            <li>Wear the band correctly on your wrist</li>
-            <li>Calibrate stride length in app settings</li>
-            <li>Ensure firmware is up to date</li>
-          </ol>
+          <div class="card-body text-center">
+            <h3 style="margin-bottom: 1rem;">Still Need Help?</h3>
+            <p style="margin-bottom: 2rem;">Our support team is here to assist you with any issues.</p>
+            <a href="contact.html" class="btn btn-primary">Contact Support</a>
+          </div>
         </div>
       </div>
-      <div class="text-center mt-8">
-        <p class="text-secondary mb-4">Still need help?</p>
-        <a href="contact.html" class="btn btn-primary">Contact Support</a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="products.html">All Products</a></li>
+          <li><a href="compare-models.html">Compare Models</a></li>
+          <li><a href="accessories.html">Accessories</a></li>
+          <li><a href="specifications.html">Specifications</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Features</h4>
+        <ul>
+          <li><a href="ai-features.html">AI Features</a></li>
+          <li><a href="health-tracking.html">Health Tracking</a></li>
+          <li><a href="fitness-features.html">Fitness Features</a></li>
+          <li><a href="app-features.html">Mobile App</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="support.html">Help Center</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="troubleshooting.html">Troubleshooting</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about-us.html">About Us</a></li>
+          <li><a href="careers.html">Careers</a></li>
+          <li><a href="press.html">Press</a></li>
+          <li><a href="blog.html">Blog</a></li>
+        </ul>
       </div>
     </div>
-  </main>
-  <footer class="footer"><div class="container"><div class="footer-bottom"><p>&copy; 2024 AI Smart Band</p></div></div></footer>
+    <div class="footer-bottom">
+      <p>&copy; <span class="current-year"></span> AI Smart Band. All rights reserved.</p>
+      <p style="margin-top: 0.5rem;">
+        <a href="privacy-policy.html">Privacy Policy</a> ·
+        <a href="terms-of-service.html">Terms of Service</a>
+      </p>
+    </div>
+  </footer>
+
   <script src="../js/main.js"></script>
 </body>
 </html>

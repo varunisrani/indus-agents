@@ -3,133 +3,212 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Explore AI Machine's complete product portfolio - AI servers, neural chips, edge computing solutions, and enterprise infrastructure.">
-  <meta name="keywords" content="AI products, AI servers, neural chips, edge computing, enterprise AI">
+  <meta name="description" content="AI Machine product portfolio - AI servers, edge computing, and neural chips.">
   <title>Products - AI Machine</title>
   <link rel="stylesheet" href="../css/main.css">
 </head>
 <body>
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-
   <header class="navbar">
-    <div class="navbar-container">
-      <a href="../index.html" class="navbar-logo">AI Machine</a>
-      <nav class="navbar-menu hide-mobile">
-        <a href="products.html" class="navbar-link active">Products</a>
-        <a href="ai-servers.html" class="navbar-link">AI Servers</a>
-        <a href="neural-chips.html" class="navbar-link">Neural Chips</a>
-        <a href="edge-computing.html" class="navbar-link">Edge Computing</a>
-        <a href="case-studies.html" class="navbar-link">Case Studies</a>
-        <a href="contact.html" class="navbar-link">Contact</a>
-      </nav>
-      <div class="flex items-center gap-4">
-        <a href="pricing.html" class="btn btn-primary btn-sm hide-mobile">Get Started</a>
-        <button class="mobile-toggle show-mobile" aria-label="Toggle menu">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
-    </div>
+    <nav class="nav-container">
+      <a href="../index.html" class="logo">AI<span>Machine</span></a>
+      <ul class="nav-menu">
+        <li><a href="products.html">Products</a></li>
+        <li><a href="ai-servers.html">AI Servers</a></li>
+        <li><a href="performance.html">Performance</a></li>
+        <li><a href="case-studies.html">Case Studies</a></li>
+        <li><a href="support.html">Support</a></li>
+      </ul>
+      <button class="mobile-toggle"><span></span><span></span><span></span></button>
+    </nav>
   </header>
 
-  <main id="main-content">
-    <section class="section-lg bg-alt">
-      <div class="container text-center">
-        <h1 class="text-5xl font-bold mb-6">Our Products</h1>
-        <p class="text-xl text-secondary max-w-3xl mx-auto">
-          Complete AI infrastructure solutions for training, inference, and edge deployment
-        </p>
-      </div>
-    </section>
-
-    <section class="section">
+  <main>
+    <section class="section" style="padding-top: 120px;">
       <div class="container">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div class="product-card animate-on-scroll">
-            <div class="product-image">
-              <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary to-primary-light">
-                <div class="text-6xl text-white">🖥️</div>
-              </div>
+        <div class="breadcrumb">
+          <a href="../index.html">Home</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Products</span>
+        </div>
+
+        <div class="section-header">
+          <h1 class="section-title">Our Products</h1>
+          <p class="section-subtitle">Complete AI infrastructure for enterprise workloads</p>
+        </div>
+
+        <div class="grid grid-3" style="margin-bottom: 3rem;">
+          <div class="card animate-on-scroll">
+            <div style="text-align: center; padding: 2rem; background: linear-gradient(135deg, #0A1628 0%, #15263D 100%); border-radius: 0.5rem; margin-bottom: 1.5rem;">
+              <div style="font-size: 5rem;">🖥️</div>
             </div>
-            <div class="product-info">
-              <div class="badge badge-primary mb-2">AI Server</div>
-              <h3 class="product-title">AI Server Pro</h3>
-              <p class="text-secondary mb-4">High-performance training with 8x NVIDIA A100 GPUs</p>
-              <div class="product-price">$24,999</div>
-              <a href="ai-servers.html" class="btn btn-primary w-full">Learn More</a>
+            <div class="card-header">
+              <h3 class="card-title">AI Server Pro X1</h3>
+              <div class="badge badge-primary" style="margin-bottom: 0.5rem;">AI Servers</div>
+            </div>
+            <div class="card-body">
+              <p>8x NVIDIA A100 GPUs, 2TB memory, 100Gbps networking. The ultimate AI training server.</p>
+              <ul style="list-style: none; padding: 0; margin-top: 1rem;">
+                <li style="padding: 0.5rem 0;">✓ 500 TOPS performance</li>
+                <li style="padding: 0.5rem 0;">✓ Liquid cooling ready</li>
+                <li style="padding: 0.5rem 0;">✓ 99.99% uptime SLA</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <a href="ai-servers.html" class="btn btn-primary" style="width: 100%;">Learn More</a>
             </div>
           </div>
 
-          <div class="product-card animate-on-scroll">
-            <div class="product-image">
-              <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-secondary to-blue-600">
-                <div class="text-6xl text-white">🔲</div>
-              </div>
+          <div class="card animate-on-scroll">
+            <div style="text-align: center; padding: 2rem; background: linear-gradient(135deg, #0A1628 0%, #15263D 100%); border-radius: 0.5rem; margin-bottom: 1.5rem;">
+              <div style="font-size: 5rem;">⚡</div>
             </div>
-            <div class="product-info">
-              <div class="badge badge-primary mb-2">Neural Chip</div>
-              <h3 class="product-title">Neural Chip X1</h3>
-              <p class="text-secondary mb-4">256 AI cores with 64GB HBM2e memory</p>
-              <div class="product-price">$2,999</div>
-              <a href="neural-chips.html" class="btn btn-primary w-full">Learn More</a>
+            <div class="card-header">
+              <h3 class="card-title">Edge AI Module</h3>
+              <div class="badge badge-secondary" style="margin-bottom: 0.5rem;">Edge Computing</div>
+            </div>
+            <div class="card-body">
+              <p>Compact edge device with 32GB memory and 15W TDP. Perfect for deploying AI at the edge.</p>
+              <ul style="list-style: none; padding: 0; margin-top: 1rem;">
+                <li style="padding: 0.5rem 0;">✓ 500 TOPS performance</li>
+                <li style="padding: 0.5rem 0;">✓ IP67 rated</li>
+                <li style="padding: 0.5rem 0;">✓ -40°C to 85°C operating</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <a href="edge-computing.html" class="btn btn-primary" style="width: 100%;">Learn More</a>
             </div>
           </div>
 
-          <div class="product-card animate-on-scroll">
-            <div class="product-image">
-              <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-accent to-gray-600">
-                <div class="text-6xl text-white">📡</div>
-              </div>
+          <div class="card animate-on-scroll">
+            <div style="text-align: center; padding: 2rem; background: linear-gradient(135deg, #0A1628 0%, #15263D 100%); border-radius: 0.5rem; margin-bottom: 1.5rem;">
+              <div style="font-size: 5rem;">🧠</div>
             </div>
-            <div class="product-info">
-              <div class="badge badge-primary mb-2">Edge Computing</div>
-              <h3 class="product-title">Edge Server</h3>
-              <p class="text-secondary mb-4">Low-latency inference at the network edge</p>
-              <div class="product-price">$12,999</div>
-              <a href="edge-computing.html" class="btn btn-primary w-full">Learn More</a>
+            <div class="card-header">
+              <h3 class="card-title">NeuralCore N1</h3>
+              <div class="badge badge-success" style="margin-bottom: 0.5rem;">Neural Chips</div>
+            </div>
+            <div class="card-body">
+              <p>Custom AI accelerator with 500 TOPS performance and 75W TDP. Built for speed.</p>
+              <ul style="list-style: none; padding: 0; margin-top: 1rem;">
+                <li style="padding: 0.5rem 0;">✓ 256GB HBM3</li>
+                <li style="padding: 0.5rem 0;">✓ PCIe 5.0</li>
+                <li style="padding: 0.5rem 0;">✓ 5nm process</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <a href="neural-chips.html" class="btn btn-primary" style="width: 100%;">Learn More</a>
             </div>
           </div>
+        </div>
+
+        <div class="section-header">
+          <h2 class="section-title">Product Categories</h2>
+        </div>
+
+        <div class="grid grid-2">
+          <div class="card animate-on-scroll">
+            <div class="card-header">
+              <h3 class="card-title">🖥️ AI Servers</h3>
+            </div>
+            <div class="card-body">
+              <p>High-performance servers optimized for machine learning training and inference. From single-node to large-scale clusters.</p>
+            </div>
+            <div class="card-footer">
+              <a href="ai-servers.html" class="btn btn-outline">Explore Servers</a>
+            </div>
+          </div>
+
+          <div class="card animate-on-scroll">
+            <div class="card-header">
+              <h3 class="card-title">🌐 Edge Computing</h3>
+            </div>
+            <div class="card-body">
+              <p>Deploy AI models where data is generated. Low-latency inference for real-time applications.</p>
+            </div>
+            <div class="card-footer">
+              <a href="edge-computing.html" class="btn btn-outline">Explore Edge</a>
+            </div>
+          </div>
+
+          <div class="card animate-on-scroll">
+            <div class="card-header">
+              <h3 class="card-title">⚡ Neural Chips</h3>
+            </div>
+            <div class="card-body">
+              <p>Custom-designed AI accelerators for maximum performance per watt. Purpose-built for neural networks.</p>
+            </div>
+            <div class="card-footer">
+              <a href="neural-chips.html" class="btn btn-outline">Explore Chips</a>
+            </div>
+          </div>
+
+          <div class="card animate-on-scroll">
+            <div class="card-header">
+              <h3 class="card-title">📊 Performance</h3>
+            </div>
+            <div class="card-body">
+              <p>Benchmarks and performance metrics. See how we compare to competitors.</p>
+            </div>
+            <div class="card-footer">
+              <a href="performance.html" class="btn btn-outline">View Benchmarks</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center mt-8">
+          <a href="compare-products.html" class="btn btn-primary">Compare All Products</a>
+          <a href="contact.html" class="btn btn-outline" style="margin-left: 1rem;">Contact Sales</a>
         </div>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div>
-          <h4 class="footer-title">Products</h4>
-          <div class="footer-links">
-            <a href="products.html" class="footer-link">All Products</a>
-            <a href="ai-servers.html" class="footer-link">AI Servers</a>
-            <a href="neural-chips.html" class="footer-link">Neural Chips</a>
-            <a href="edge-computing.html" class="footer-link">Edge Computing</a>
-          </div>
-        </div>
-        <div>
-          <h4 class="footer-title">Company</h4>
-          <div class="footer-links">
-            <a href="about-us.html" class="footer-link">About Us</a>
-            <a href="careers.html" class="footer-link">Careers</a>
-            <a href="press.html" class="footer-link">Press</a>
-            <a href="contact.html" class="footer-link">Contact</a>
-          </div>
-        </div>
-        <div>
-          <h4 class="footer-title">Support</h4>
-          <div class="footer-links">
-            <a href="support.html" class="footer-link">Help Center</a>
-            <a href="documentation.html" class="footer-link">Documentation</a>
-            <a href="technical-support.html" class="footer-link">Technical Support</a>
-          </div>
-        </div>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="products.html">All Products</a></li>
+          <li><a href="ai-servers.html">AI Servers</a></li>
+          <li><a href="edge-computing.html">Edge Computing</a></li>
+          <li><a href="neural-chips.html">Neural Chips</a></li>
+        </ul>
       </div>
-      <div class="footer-bottom">
-        <p>&copy; <span class="current-year"></span> AI Machine. All rights reserved.</p>
-        <div class="flex justify-center gap-6 mt-4">
-          <a href="privacy-policy.html" class="footer-link">Privacy Policy</a>
-          <a href="terms-of-service.html" class="footer-link">Terms of Service</a>
-        </div>
+      <div class="footer-section">
+        <h4>Solutions</h4>
+        <ul>
+          <li><a href="enterprise-solutions.html">Enterprise</a></li>
+          <li><a href="startup-program.html">Startup Program</a></li>
+          <li><a href="case-studies.html">Case Studies</a></li>
+          <li><a href="documentation.html">Documentation</a></li>
+        </ul>
       </div>
+      <div class="footer-section">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="support.html">Help Center</a></li>
+          <li><a href="technical-support.html">Technical Support</a></li>
+          <li><a href="documentation.html">Documentation</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about-us.html">About Us</a></li>
+          <li><a href="leadership.html">Leadership</a></li>
+          <li><a href="careers.html">Careers</a></li>
+          <li><a href="press.html">Press</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; <span class="current-year"></span> AI Machine. All rights reserved.</p>
+      <p style="margin-top: 0.5rem;">
+        <a href="privacy-policy.html">Privacy Policy</a> ·
+        <a href="terms-of-service.html">Terms of Service</a> ·
+        <a href="compliance.html">Compliance</a>
+      </p>
     </div>
   </footer>
 

@@ -3,151 +3,188 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Frequently asked questions about AI Smart Band. Get answers to common questions about features, compatibility, warranty and more.">
+  <meta name="description" content="Frequently asked questions about AI Smart Band.">
   <title>FAQ - AI Smart Band</title>
   <link rel="stylesheet" href="../css/main.css">
 </head>
 <body>
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-  
   <header class="navbar">
-    <div class="navbar-container">
-      <a href="../index.html" class="navbar-logo">AI Smart Band</a>
-      <nav class="navbar-menu hide-mobile">
-        <a href="products.html" class="navbar-link">Products</a>
-        <a href="ai-features.html" class="navbar-link">AI Features</a>
-        <a href="health-tracking.html" class="navbar-link">Health</a>
-        <a href="fitness-features.html" class="navbar-link">Fitness</a>
-        <a href="compare-models.html" class="navbar-link">Compare</a>
-        <a href="support.html" class="navbar-link">Support</a>
-      </nav>
-      <div class="flex items-center gap-4">
-        <button class="btn btn-primary btn-sm hide-mobile">Shop Now</button>
-        <button class="menu-toggle show-mobile" aria-label="Toggle menu"><span></span><span></span><span></span></button>
-      </div>
-    </div>
+    <nav class="nav-container">
+      <a href="../index.html" class="logo">AI Smart Band</a>
+      <ul class="nav-menu">
+        <li><a href="products.html">Products</a></li>
+        <li><a href="ai-features.html">AI Features</a></li>
+        <li><a href="health-tracking.html">Health</a></li>
+        <li><a href="fitness-features.html">Fitness</a></li>
+        <li><a href="support.html">Support</a></li>
+      </ul>
+      <button class="mobile-toggle"><span></span><span></span><span></span></button>
+    </nav>
   </header>
 
-  <main id="main-content">
-    <section class="section bg-alt">
+  <main>
+    <section class="section" style="padding-top: 120px;">
       <div class="container">
-        <div class="text-center mb-16">
-          <h1 class="text-5xl font-bold mb-6">Frequently Asked Questions</h1>
-          <p class="text-xl text-secondary max-w-2xl mx-auto">Find answers to common questions about AI Smart Band</p>
+        <div class="breadcrumb">
+          <a href="../index.html">Home</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>FAQ</span>
         </div>
-        
-        <div class="max-w-3xl mx-auto">
-          <div class="mb-8">
-            <input type="text" placeholder="Search questions..." class="input">
-          </div>
-          
-          <div class="space-y-4">
-            <div class="card">
-              <button class="faq-toggle w-full flex justify-between items-center py-4" onclick="toggleFaq(this)">
-                <span class="font-semibold text-lg">What is the battery life of AI Smart Band?</span>
-                <span class="text-2xl">+</span>
-              </button>
-              <div class="faq-content hidden pb-4">
-                <p class="text-secondary">The AI Smart Band Pro offers up to 7 days of battery life on a single charge. The Elite model extends this to 14 days, while the Lite version provides up to 5 days. Actual battery life depends on usage patterns and settings.</p>
-              </div>
+
+        <div class="section-header">
+          <h1 class="section-title">Frequently Asked Questions</h1>
+          <p class="section-subtitle">Find answers to common questions about AI Smart Band</p>
+        </div>
+
+        <div class="accordion" style="max-width: 800px; margin: 0 auto;">
+          <div class="card accordion-item">
+            <div class="accordion-header" style="cursor: pointer; padding: 1.5rem;">
+              <h3 style="margin: 0; font-size: 1.125rem;">What is the battery life of the AI Smart Band?</h3>
             </div>
-            
-            <div class="card">
-              <button class="faq-toggle w-full flex justify-between items-center py-4" onclick="toggleFaq(this)">
-                <span class="font-semibold text-lg">Is the band water-resistant?</span>
-                <span class="text-2xl">+</span>
-              </button>
-              <div class="faq-content hidden pb-4">
-                <p class="text-secondary">Yes, all AI Smart Band models are water-resistant. The Pro and Elite models are rated 5ATM, suitable for swimming up to 50 meters. The Lite model is IP68 rated for everyday water exposure.</p>
-              </div>
-            </div>
-            
-            <div class="card">
-              <button class="faq-toggle w-full flex justify-between items-center py-4" onclick="toggleFaq(this)">
-                <span class="font-semibold text-lg">What smartphones are compatible?</span>
-                <span class="text-2xl">+</span>
-              </button>
-              <div class="faq-content hidden pb-4">
-                <p class="text-secondary">AI Smart Band works with iOS 13+ and Android 8.0+. It's compatible with iPhone 6 and newer, and most Android phones including Samsung, Google Pixel, OnePlus, and more.</p>
-              </div>
-            </div>
-            
-            <div class="card">
-              <button class="faq-toggle w-full flex justify-between items-center py-4" onclick="toggleFaq(this)">
-                <span class="font-semibold text-lg">How accurate is the heart rate monitoring?</span>
-                <span class="text-2xl">+</span>
-              </button>
-              <div class="faq-content hidden pb-4">
-                <p class="text-secondary">Our advanced optical heart rate sensor provides medical-grade accuracy with 98% precision compared to ECG machines. It continuously monitors your heart rate 24/7.</p>
-              </div>
-            </div>
-            
-            <div class="card">
-              <button class="faq-toggle w-full flex justify-between items-center py-4" onclick="toggleFaq(this)">
-                <span class="font-semibold text-lg">Can it track sleep stages?</span>
-                <span class="text-2xl">+</span>
-              </button>
-              <div class="faq-content hidden pb-4">
-                <p class="text-secondary">Yes, the AI Smart Band tracks light sleep, deep sleep, and REM sleep stages. It also provides a sleep score and personalized recommendations for better rest.</p>
-              </div>
-            </div>
-            
-            <div class="card">
-              <button class="faq-toggle w-full flex justify-between items-center py-4" onclick="toggleFaq(this)">
-                <span class="font-semibold text-lg">Does it have built-in GPS?</span>
-                <span class="text-2xl">+</span>
-              </button>
-              <div class="faq-content hidden pb-4">
-                <p class="text-secondary">The Elite model features built-in GPS for accurate tracking without your phone. The Pro and Lite models use connected GPS from your smartphone.</p>
-              </div>
-            </div>
-            
-            <div class="card">
-              <button class="faq-toggle w-full flex justify-between items-center py-4" onclick="toggleFaq(this)">
-                <span class="font-semibold text-lg">What's included in the warranty?</span>
-                <span class="text-2xl">+</span>
-              </button>
-              <div class="faq-content hidden pb-4">
-                <p class="text-secondary">All AI Smart Bands come with a 1-year limited warranty covering manufacturing defects. Extended warranty options are available for purchase.</p>
-              </div>
-            </div>
-            
-            <div class="card">
-              <button class="faq-toggle w-full flex justify-between items-center py-4" onclick="toggleFaq(this)">
-                <span class="font-semibold text-lg">How do I set up my device?</span>
-                <span class="text-2xl">+</span>
-              </button>
-              <div class="faq-content hidden pb-4">
-                <p class="text-secondary">Download the AI Smart Band app, create an account, and follow the on-screen pairing instructions. Setup takes less than 5 minutes.</p>
-              </div>
+            <div class="accordion-content" style="display: none; padding: 0 1.5rem 1.5rem;">
+              <p>The AI Smart Band Pro offers up to 7 days of battery life on a single charge, while the Lite version provides up to 14 days. Actual battery life may vary based on usage patterns, settings, and features enabled.</p>
             </div>
           </div>
+
+          <div class="card accordion-item">
+            <div class="accordion-header" style="cursor: pointer; padding: 1.5rem;">
+              <h3 style="margin: 0; font-size: 1.125rem;">Is the AI Smart Band water-resistant?</h3>
+            </div>
+            <div class="accordion-content" style="display: none; padding: 0 1.5rem 1.5rem;">
+              <p>Yes! The Pro model is water-resistant up to 5ATM (50 meters), making it suitable for swimming. The Lite model has an IP68 rating, which protects against dust and water splashes but is not designed for swimming.</p>
+            </div>
+          </div>
+
+          <div class="card accordion-item">
+            <div class="accordion-header" style="cursor: pointer; padding: 1.5rem;">
+              <h3 style="margin: 0; font-size: 1.125rem;">What smartphones are compatible?</h3>
+            </div>
+            <div class="accordion-content" style="display: none; padding: 0 1.5rem 1.5rem;">
+              <p>The AI Smart Band is compatible with both iOS (iPhone 8 and later running iOS 14+) and Android (Android 8.0 and later) devices via our companion app. Bluetooth 5.0 or higher is required.</p>
+            </div>
+          </div>
+
+          <div class="card accordion-item">
+            <div class="accordion-header" style="cursor: pointer; padding: 1.5rem;">
+              <h3 style="margin: 0; font-size: 1.125rem;">How accurate is the heart rate monitoring?</h3>
+            </div>
+            <div class="accordion-content" style="display: none; padding: 0 1.5rem 1.5rem;">
+              <p>Our advanced optical heart rate sensor provides medical-grade accuracy with 98% correlation to ECG measurements. It continuously monitors your heart rate 24/7 and alerts you to any abnormal readings.</p>
+            </div>
+          </div>
+
+          <div class="card accordion-item">
+            <div class="accordion-header" style="cursor: pointer; padding: 1.5rem;">
+              <h3 style="margin: 0; font-size: 1.125rem;">Can it detect sleep apnea?</h3>
+            </div>
+            <div class="accordion-content" style="display: none; padding: 0 1.5rem 1.5rem;">
+              <p>While the AI Smart Band monitors sleep patterns and can detect irregular breathing, it is not a medical device and cannot diagnose sleep apnea. If you suspect you have sleep apnea, please consult a healthcare professional.</p>
+            </div>
+          </div>
+
+          <div class="card accordion-item">
+            <div class="accordion-header" style="cursor: pointer; padding: 1.5rem;">
+              <h3 style="margin: 0; font-size: 1.125rem;">How does stress tracking work?</h3>
+            </div>
+            <div class="accordion-content" style="display: none; padding: 0 1.5rem 1.5rem;">
+              <p>The band uses Heart Rate Variability (HRV) analysis to detect stress levels. When elevated stress is detected, you'll receive notifications and guided breathing exercises to help you relax and manage stress.</p>
+            </div>
+          </div>
+
+          <div class="card accordion-item">
+            <div class="accordion-header" style="cursor: pointer; padding: 1.5rem;">
+              <h3 style="margin: 0; font-size: 1.125rem;">How do I sync my data?</h3>
+            </div>
+            <div class="accordion-content" style="display: none; padding: 0 1.5rem 1.5rem;">
+              <p>Data syncs automatically via Bluetooth when your phone is within range and the companion app is running. You can also manually sync by opening the app and pulling down to refresh.</p>
+            </div>
+          </div>
+
+          <div class="card accordion-item">
+            <div class="accordion-header" style="cursor: pointer; padding: 1.5rem;">
+              <h3 style="margin: 0; font-size: 1.125rem;">Is my health data secure?</h3>
+            </div>
+            <div class="accordion-content" style="display: none; padding: 0 1.5rem 1.5rem;">
+              <p>Absolutely. All data is encrypted end-to-end and stored on secure servers compliant with HIPAA and GDPR regulations. You maintain full control over your data and can delete it at any time.</p>
+            </div>
+          </div>
+
+          <div class="card accordion-item">
+            <div class="accordion-header" style="cursor: pointer; padding: 1.5rem;">
+              <h3 style="margin: 0; font-size: 1.125rem;">What is the warranty period?</h3>
+            </div>
+            <div class="accordion-content" style="display: none; padding: 0 1.5rem 1.5rem;">
+              <p>The AI Smart Band comes with a 1-year limited warranty covering manufacturing defects. Extended warranty options are available for purchase. See our warranty page for full details.</p>
+            </div>
+          </div>
+
+          <div class="card accordion-item">
+            <div class="accordion-header" style="cursor: pointer; padding: 1.5rem;">
+              <h3 style="margin: 0; font-size: 1.125rem;">What is the return policy?</h3>
+            </div>
+            <div class="accordion-content" style="display: none; padding: 0 1.5rem 1.5rem;">
+              <p>We offer a 30-day money-back guarantee. If you're not satisfied with your AI Smart Band, you can return it within 30 days of purchase for a full refund. The product must be in original condition.</p>
+            </div>
+          </div>
         </div>
-        
-        <div class="text-center mt-12">
-          <p class="text-secondary mb-4">Still have questions?</p>
+
+        <div class="text-center mt-8">
+          <p>Can't find what you're looking for?</p>
           <a href="contact.html" class="btn btn-primary">Contact Support</a>
+          <a href="support.html" class="btn btn-outline" style="margin-left: 1rem;">Visit Help Center</a>
         </div>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <div class="container">
-      <div class="footer-bottom"><p>&copy; 2024 AI Smart Band. All rights reserved.</p></div>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="products.html">All Products</a></li>
+          <li><a href="compare-models.html">Compare Models</a></li>
+          <li><a href="accessories.html">Accessories</a></li>
+          <li><a href="specifications.html">Specifications</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Features</h4>
+        <ul>
+          <li><a href="ai-features.html">AI Features</a></li>
+          <li><a href="health-tracking.html">Health Tracking</a></li>
+          <li><a href="fitness-features.html">Fitness Features</a></li>
+          <li><a href="app-features.html">Mobile App</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="support.html">Help Center</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="troubleshooting.html">Troubleshooting</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about-us.html">About Us</a></li>
+          <li><a href="careers.html">Careers</a></li>
+          <li><a href="press.html">Press</a></li>
+          <li><a href="blog.html">Blog</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; <span class="current-year"></span> AI Smart Band. All rights reserved.</p>
+      <p style="margin-top: 0.5rem;">
+        <a href="privacy-policy.html">Privacy Policy</a> ·
+        <a href="terms-of-service.html">Terms of Service</a>
+      </p>
     </div>
   </footer>
 
   <script src="../js/main.js"></script>
-  <script src="../js/navigation.js"></script>
-  <script>
-    function toggleFaq(button) {
-      const content = button.nextElementSibling;
-      const icon = button.querySelector('span:last-child');
-      
-      content.classList.toggle('hidden');
-      icon.textContent = content.classList.contains('hidden') ? '+' : '−';
-    }
-  </script>
 </body>
 </html>

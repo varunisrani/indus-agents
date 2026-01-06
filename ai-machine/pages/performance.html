@@ -3,60 +3,69 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="AI Machine performance benchmarks and metrics - Industry-leading AI infrastructure performance.">
+  <meta name="description" content="Performance benchmarks and metrics for AI Machine products.">
   <title>Performance - AI Machine</title>
   <link rel="stylesheet" href="../css/main.css">
 </head>
 <body>
   <header class="navbar">
-    <div class="navbar-container">
-      <a href="../index.html" class="navbar-logo">AI Machine</a>
-      <nav class="navbar-menu hide-mobile">
-        <a href="products.html" class="navbar-link">Products</a>
-        <a href="performance.html" class="navbar-link active">Performance</a>
-        <a href="case-studies.html" class="navbar-link">Case Studies</a>
-        <a href="contact.html" class="navbar-link">Contact</a>
-      </nav>
-    </div>
+    <nav class="nav-container">
+      <a href="../index.html" class="logo">AI<span>Machine</span></a>
+      <ul class="nav-menu">
+        <li><a href="products.html">Products</a></li>
+        <li><a href="ai-servers.html">AI Servers</a></li>
+        <li><a href="performance.html">Performance</a></li>
+        <li><a href="case-studies.html">Case Studies</a></li>
+        <li><a href="support.html">Support</a></li>
+      </ul>
+      <button class="mobile-toggle"><span></span><span></span><span></span></button>
+    </nav>
   </header>
 
-  <main id="main-content">
-    <section class="section-lg bg-alt">
-      <div class="container text-center">
-        <h1 class="text-5xl font-bold mb-6">Performance</h1>
-        <p class="text-xl text-secondary max-w-3xl mx-auto">
-          Industry-leading benchmarks and real-world performance metrics
-        </p>
-      </div>
-    </section>
-
-    <section class="section">
+  <main>
+    <section class="section" style="padding-top: 120px;">
       <div class="container">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-          <div class="card text-center">
-            <div class="text-5xl font-bold text-secondary mb-2">10x</div>
-            <div class="text-lg font-semibold mb-2">Faster Training</div>
-            <p class="text-secondary">Compared to traditional infrastructure</p>
+        <div class="breadcrumb">
+          <a href="../index.html">Home</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Performance</span>
+        </div>
+
+        <div class="section-header">
+          <h1 class="section-title">Performance Benchmarks</h1>
+          <p class="section-subtitle">Industry-leading metrics and real-world performance</p>
+        </div>
+
+        <div class="grid grid-3" style="margin-bottom: 3rem;">
+          <div class="metric-card animate-on-scroll">
+            <div class="metric-value">10x</div>
+            <div class="metric-label">Faster Training</div>
+            <p style="margin-top: 1rem;">Compared to traditional cloud providers</p>
           </div>
-          <div class="card text-center">
-            <div class="text-5xl font-bold text-secondary mb-2">&lt;10ms</div>
-            <div class="text-lg font-semibold mb-2">Inference Latency</div>
-            <p class="text-secondary">Real-time AI model inference</p>
+
+          <div class="metric-card animate-on-scroll">
+            <div class="metric-value">500</div>
+            <div class="metric-label">TOPS</div>
+            <p style="margin-top: 1rem;">Peak performance per server</p>
           </div>
-          <div class="card text-center">
-            <div class="text-5xl font-bold text-secondary mb-2">99.99%</div>
-            <div class="text-lg font-semibold mb-2">Uptime SLA</div>
-            <p class="text-secondary">Enterprise-grade reliability</p>
+
+          <div class="metric-card animate-on-scroll">
+            <div class="metric-value">60%</div>
+            <div class="metric-label">Cost Savings</div>
+            <p style="margin-top: 1rem;">vs public cloud</p>
           </div>
         </div>
 
-        <div class="bg-alt rounded-2xl p-8">
-          <h2 class="text-3xl font-bold mb-6">Benchmark Results</h2>
-          <div class="overflow-x-auto">
-            <table class="table">
+        <div class="section-header">
+          <h2 class="section-title">Benchmark Results</h2>
+        </div>
+
+        <div class="card" style="margin-bottom: 3rem;">
+          <div class="card-body">
+            <table class="comparison-table">
               <thead>
                 <tr>
-                  <th>Workload</th>
+                  <th>Benchmark</th>
                   <th>AI Machine</th>
                   <th>Competitor A</th>
                   <th>Competitor B</th>
@@ -64,36 +73,88 @@
               </thead>
               <tbody>
                 <tr>
-                  <td>Image Classification</td>
-                  <td class="text-secondary font-bold">1.2ms</td>
-                  <td>2.5ms</td>
-                  <td>3.1ms</td>
+                  <td><strong>MLPerf Training</strong></td>
+                  <td><span class="check">✓</span> 2,450</td>
+                  <td>1,890</td>
+                  <td>1,650</td>
                 </tr>
                 <tr>
-                  <td>NLP Processing</td>
-                  <td class="text-secondary font-bold">8.5ms</td>
-                  <td>15.2ms</td>
-                  <td>18.7ms</td>
+                  <td><strong>MLPerf Inference</strong></td>
+                  <td><span class="check">✓</span> 8,920</td>
+                  <td>6,780</td>
+                  <td>7,120</td>
                 </tr>
                 <tr>
-                  <td>Recommendation Engine</td>
-                  <td class="text-secondary font-bold">5.3ms</td>
-                  <td>9.8ms</td>
-                  <td>11.2ms</td>
+                  <td><strong>ResNet-50 Training</strong></td>
+                  <td><span class="check">✓</span> 45 min</td>
+                  <td>78 min</td>
+                  <td>65 min</td>
+                </tr>
+                <tr>
+                  <td><strong>BERT Training</strong></td>
+                  <td><span class="check">✓</span> 3.2 hrs</td>
+                  <td>5.8 hrs</td>
+                  <td>4.9 hrs</td>
                 </tr>
               </tbody>
             </table>
           </div>
+        </div>
+
+        <div class="text-center mt-8">
+          <a href="products.html" class="btn btn-primary">View Products</a>
+          <a href="case-studies.html" class="btn btn-outline" style="margin-left: 1rem;">See Case Studies</a>
         </div>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <div class="container">
-      <div class="footer-bottom">
-        <p>&copy; <span class="current-year"></span> AI Machine. All rights reserved.</p>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="products.html">All Products</a></li>
+          <li><a href="ai-servers.html">AI Servers</a></li>
+          <li><a href="edge-computing.html">Edge Computing</a></li>
+          <li><a href="neural-chips.html">Neural Chips</a></li>
+        </ul>
       </div>
+      <div class="footer-section">
+        <h4>Solutions</h4>
+        <ul>
+          <li><a href="enterprise-solutions.html">Enterprise</a></li>
+          <li><a href="startup-program.html">Startup Program</a></li>
+          <li><a href="case-studies.html">Case Studies</a></li>
+          <li><a href="documentation.html">Documentation</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="support.html">Help Center</a></li>
+          <li><a href="technical-support.html">Technical Support</a></li>
+          <li><a href="documentation.html">Documentation</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about-us.html">About Us</a></li>
+          <li><a href="leadership.html">Leadership</a></li>
+          <li><a href="careers.html">Careers</a></li>
+          <li><a href="press.html">Press</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; <span class="current-year"></span> AI Machine. All rights reserved.</p>
+      <p style="margin-top: 0.5rem;">
+        <a href="privacy-policy.html">Privacy Policy</a> ·
+        <a href="terms-of-service.html">Terms of Service</a> ·
+        <a href="compliance.html">Compliance</a>
+      </p>
     </div>
   </footer>
 

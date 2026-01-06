@@ -46,6 +46,9 @@ from indusagi.memory import ConversationMemory, Message
 # Import Agency after other imports to avoid circular dependencies
 from indusagi.agency import Agency, AgencyResponse, HandoffResult, HandoffType
 
+# Import utility functions
+from indusagi.utils.prompt_loader import load_prompt_from_file, select_prompt_file, is_file_path
+
 # Import tool usage logger
 from indusagi.tool_usage_logger import tool_logger, ToolUsageLogger
 
@@ -78,6 +81,11 @@ __all__ = [
     "AgencyResponse",
     "HandoffResult",
     "HandoffType",
+
+    # Utilities
+    "load_prompt_from_file",
+    "select_prompt_file",
+    "is_file_path",
 
     # Tool Usage Logging
     "tool_logger",

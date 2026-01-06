@@ -3,93 +3,123 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="AI Machine technical specifications - Detailed hardware and software specifications for all products.">
+  <meta name="description" content="Technical specifications for AI Machine products.">
   <title>Specifications - AI Machine</title>
   <link rel="stylesheet" href="../css/main.css">
 </head>
 <body>
   <header class="navbar">
-    <div class="navbar-container">
-      <a href="../index.html" class="navbar-logo">AI Machine</a>
-      <nav class="navbar-menu hide-mobile">
-        <a href="products.html" class="navbar-link">Products</a>
-        <a href="specifications.html" class="navbar-link active">Specifications</a>
-        <a href="contact.html" class="navbar-link">Contact</a>
-      </nav>
-    </div>
+    <nav class="nav-container">
+      <a href="../index.html" class="logo">AI<span>Machine</span></a>
+      <ul class="nav-menu">
+        <li><a href="products.html">Products</a></li>
+        <li><a href="ai-servers.html">AI Servers</a></li>
+        <li><a href="performance.html">Performance</a></li>
+        <li><a href="case-studies.html">Case Studies</a></li>
+        <li><a href="support.html">Support</a></li>
+      </ul>
+      <button class="mobile-toggle"><span></span><span></span><span></span></button>
+    </nav>
   </header>
 
-  <main id="main-content">
-    <section class="section-lg bg-alt">
-      <div class="container text-center">
-        <h1 class="text-5xl font-bold mb-6">Technical Specifications</h1>
-        <p class="text-xl text-secondary max-w-3xl mx-auto">
-          Detailed specifications for all AI Machine products
-        </p>
-      </div>
-    </section>
-
-    <section class="section">
+  <main>
+    <section class="section" style="padding-top: 120px;">
       <div class="container">
-        <div class="overflow-x-auto">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Specification</th>
-                <th>AI Server Pro</th>
-                <th>AI Server Edge</th>
-                <th>Neural Chip X1</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>CPU</strong></td>
-                <td>64-Core AI Processor</td>
-                <td>32-Core AI Processor</td>
-                <td>N/A</td>
-              </tr>
-              <tr>
-                <td><strong>GPU/AI Cores</strong></td>
-                <td>8x NVIDIA A100 80GB</td>
-                <td>4x NVIDIA A40</td>
-                <td>256 AI Cores</td>
-              </tr>
-              <tr>
-                <td><strong>Memory</strong></td>
-                <td>2TB DDR5 ECC</td>
-                <td>1TB DDR5 ECC</td>
-                <td>64GB HBM2e</td>
-              </tr>
-              <tr>
-                <td><strong>Storage</strong></td>
-                <td>30TB NVMe SSD</td>
-                <td>10TB NVMe SSD</td>
-                <td>N/A</td>
-              </tr>
-              <tr>
-                <td><strong>Power</strong></td>
-                <td>3000W</td>
-                <td>1600W</td>
-                <td>250W TDP</td>
-              </tr>
-              <tr>
-                <td><strong>Form Factor</strong></td>
-                <td>4U Rack</td>
-                <td>2U Rack</td>
-                <td>PCIe Card</td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="breadcrumb">
+          <a href="../index.html">Home</a>
+          <span class="breadcrumb-separator">/</span>
+          <a href="products.html">Products</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Specifications</span>
+        </div>
+
+        <div class="section-header">
+          <h1 class="section-title">Technical Specifications</h1>
+          <p class="section-subtitle">Detailed specs for all AI Machine products</p>
+        </div>
+
+        <div class="card" style="margin-bottom: 3rem;">
+          <div class="card-header">
+            <h2 class="card-title">AI Server Pro X1</h2>
+          </div>
+          <div class="card-body">
+            <div class="grid grid-2">
+              <div>
+                <h3 style="margin-bottom: 1rem;">Compute</h3>
+                <ul style="list-style: none; padding: 0;">
+                  <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--surface-alt);"><strong>Processors:</strong> Dual AMD EPYC 7763</li>
+                  <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--surface-alt);"><strong>GPUs:</strong> 8x NVIDIA A100 80GB</li>
+                  <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--surface-alt);"><strong>Memory:</strong> 2TB DDR4 ECC</li>
+                  <li style="padding: 0.5rem 0;">Storage:</strong> 30TB NVMe SSD</li>
+                </ul>
+              </div>
+              <div>
+                <h3 style="margin-bottom: 1rem;">Networking & Power</h3>
+                <ul style="list-style: none; padding: 0;">
+                  <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--surface-alt);"><strong>Networking:</strong> 100Gbps InfiniBand</li>
+                  <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--surface-alt);"><strong>Power:</strong> 3000W PSU</li>
+                  <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--surface-alt);"><strong>Cooling:</strong> Liquid cooling ready</li>
+                  <li style="padding: 0.5rem 0;">Form Factor:</strong> 4U Rack Mount</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center mt-8">
+          <a href="compare-products.html" class="btn btn-primary">Compare Products</a>
+          <a href="products.html" class="btn btn-outline" style="margin-left: 1rem;">All Products</a>
         </div>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <div class="container">
-      <div class="footer-bottom">
-        <p>&copy; <span class="current-year"></span> AI Machine. All rights reserved.</p>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="products.html">All Products</a></li>
+          <li><a href="ai-servers.html">AI Servers</a></li>
+          <li><a href="edge-computing.html">Edge Computing</a></li>
+          <li><a href="neural-chips.html">Neural Chips</a></li>
+        </ul>
       </div>
+      <div class="footer-section">
+        <h4>Solutions</h4>
+        <ul>
+          <li><a href="enterprise-solutions.html">Enterprise</a></li>
+          <li><a href="startup-program.html">Startup Program</a></li>
+          <li><a href="case-studies.html">Case Studies</a></li>
+          <li><a href="documentation.html">Documentation</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="support.html">Help Center</a></li>
+          <li><a href="technical-support.html">Technical Support</a></li>
+          <li><a href="documentation.html">Documentation</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about-us.html">About Us</a></li>
+          <li><a href="leadership.html">Leadership</a></li>
+          <li><a href="careers.html">Careers</a></li>
+          <li><a href="press.html">Press</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; <span class="current-year"></span> AI Machine. All rights reserved.</p>
+      <p style="margin-top: 0.5rem;">
+        <a href="privacy-policy.html">Privacy Policy</a> ·
+        <a href="terms-of-service.html">Terms of Service</a> ·
+        <a href="compliance.html">Compliance</a>
+      </p>
     </div>
   </footer>
 

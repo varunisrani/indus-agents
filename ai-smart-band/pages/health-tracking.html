@@ -3,160 +3,233 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Comprehensive health tracking with AI Smart Band. Monitor heart rate, blood oxygen, stress levels, sleep patterns and more.">
+  <meta name="description" content="Comprehensive health tracking with AI Smart Band - heart rate, sleep, blood oxygen, stress monitoring and more.">
   <title>Health Tracking - AI Smart Band</title>
   <link rel="stylesheet" href="../css/main.css">
 </head>
 <body>
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-  
   <header class="navbar">
-    <div class="navbar-container">
-      <a href="../index.html" class="navbar-logo">AI Smart Band</a>
-      <nav class="navbar-menu hide-mobile">
-        <a href="products.html" class="navbar-link">Products</a>
-        <a href="ai-features.html" class="navbar-link">AI Features</a>
-        <a href="health-tracking.html" class="navbar-link active">Health</a>
-        <a href="fitness-features.html" class="navbar-link">Fitness</a>
-        <a href="compare-models.html" class="navbar-link">Compare</a>
-        <a href="support.html" class="navbar-link">Support</a>
-      </nav>
-      <div class="flex items-center gap-4">
-        <button class="btn btn-primary btn-sm hide-mobile">Shop Now</button>
-        <button class="menu-toggle show-mobile" aria-label="Toggle menu"><span></span><span></span><span></span></button>
-      </div>
-    </div>
+    <nav class="nav-container">
+      <a href="../index.html" class="logo">AI Smart Band</a>
+      <ul class="nav-menu">
+        <li><a href="products.html">Products</a></li>
+        <li><a href="ai-features.html">AI Features</a></li>
+        <li><a href="health-tracking.html">Health</a></li>
+        <li><a href="fitness-features.html">Fitness</a></li>
+        <li><a href="support.html">Support</a></li>
+      </ul>
+      <button class="mobile-toggle"><span></span><span></span><span></span></button>
+    </nav>
   </header>
 
-  <main id="main-content">
-    <section class="section bg-alt">
+  <main>
+    <section class="section" style="padding-top: 120px;">
       <div class="container">
-        <div class="text-center mb-16">
-          <h1 class="text-5xl font-bold mb-6">Complete Health Monitoring</h1>
-          <p class="text-xl text-secondary max-w-3xl mx-auto">Track every aspect of your health with medical-grade sensors and AI-powered insights</p>
+        <div class="breadcrumb">
+          <a href="../index.html">Home</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Health Tracking</span>
         </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div class="card hover-lift">
-            <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center text-3xl mb-4">❤️</div>
-            <h3 class="text-xl font-bold mb-3">Heart Rate Monitor</h3>
-            <p class="text-secondary mb-4">24/7 continuous heart rate tracking with instant alerts for irregular patterns</p>
-            <a href="heart-rate.html" class="text-primary font-medium">Learn More →</a>
+
+        <div class="section-header">
+          <h1 class="section-title">Comprehensive Health Tracking</h1>
+          <p class="section-subtitle">Monitor every aspect of your health with medical-grade accuracy</p>
+        </div>
+
+        <div class="grid grid-2" style="margin-bottom: 3rem;">
+          <div class="card animate-on-scroll">
+            <div class="card-header">
+              <h3 class="card-title">❤️ Heart Rate Monitoring</h3>
+            </div>
+            <div class="card-body">
+              <p>24/7 continuous heart rate tracking with instant alerts for abnormal readings. Track resting heart rate, heart rate zones during exercise, and detect irregularities.</p>
+              <ul style="list-style: disc; padding-left: 1.5rem; margin-top: 1rem;">
+                <li>Continuous monitoring</li>
+                <li>Resting heart rate trends</li>
+                <li>Heart rate zones</li>
+                <li>Abnormal rhythm alerts</li>
+                <li>HRV analysis</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <a href="heart-rate.html" class="btn btn-outline">Learn More</a>
+            </div>
           </div>
-          
-          <div class="card hover-lift">
-            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center text-3xl mb-4">💧</div>
-            <h3 class="text-xl font-bold mb-3">Blood Oxygen (SpO2)</h3>
-            <p class="text-secondary mb-4">Measure your blood oxygen levels anytime, anywhere for respiratory health insights</p>
-            <a href="blood-oxygen.html" class="text-primary font-medium">Learn More →</a>
+
+          <div class="card animate-on-scroll">
+            <div class="card-header">
+              <h3 class="card-title">💤 Sleep Analysis</h3>
+            </div>
+            <div class="card-body">
+              <p>Advanced sleep tracking that monitors sleep stages, quality, and duration. Get personalized insights to improve your sleep hygiene.</p>
+              <ul style="list-style: disc; padding-left: 1.5rem; margin-top: 1rem;">
+                <li>Sleep stage tracking (REM, Deep, Light)</li>
+                <li>Sleep quality score</li>
+                <li>Sleep duration analysis</li>
+                <li>Weekly/monthly reports</li>
+                <li>Smart wake-up alarm</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <a href="sleep-monitoring.html" class="btn btn-outline">Learn More</a>
+            </div>
           </div>
-          
-          <div class="card hover-lift">
-            <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center text-3xl mb-4">🌙</div>
-            <h3 class="text-xl font-bold mb-3">Sleep Tracking</h3>
-            <p class="text-secondary mb-4">Detailed sleep stages analysis with personalized recommendations for better rest</p>
-            <a href="sleep-monitoring.html" class="text-primary font-medium">Learn More →</a>
+
+          <div class="card animate-on-scroll">
+            <div class="card-header">
+              <h3 class="card-title">🩸 Blood Oxygen (SpO2)</h3>
+            </div>
+            <div class="card-body">
+              <p>Measure your blood oxygen levels to monitor respiratory health and detect potential issues early. Essential for high-altitude activities.</p>
+              <ul style="list-style: disc; padding-left: 1.5rem; margin-top: 1rem;">
+                <li>On-demand SpO2 measurement</li>
+                <li>Continuous monitoring during sleep</li>
+                <li>Altitude tracking</li>
+                <li>Respiratory health insights</li>
+                <li>Trend analysis</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <a href="blood-oxygen.html" class="btn btn-outline">Learn More</a>
+            </div>
           </div>
-          
-          <div class="card hover-lift">
-            <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center text-3xl mb-4">😰</div>
-            <h3 class="text-xl font-bold mb-3">Stress Management</h3>
-            <p class="text-secondary mb-4">Monitor stress levels and get guided breathing exercises to relax</p>
-            <a href="stress-management.html" class="text-primary font-medium">Learn More →</a>
-          </div>
-          
-          <div class="card hover-lift">
-            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center text-3xl mb-4">⚡</div>
-            <h3 class="text-xl font-bold mb-3">Energy Levels</h3>
-            <p class="text-secondary mb-4">Track your energy throughout the day and optimize your activities</p>
-            <a href="ai-features.html" class="text-primary font-medium">Learn More →</a>
-          </div>
-          
-          <div class="card hover-lift">
-            <div class="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center text-3xl mb-4">📊</div>
-            <h3 class="text-xl font-bold mb-3">Health Score</h3>
-            <p class="text-secondary mb-4">Get a comprehensive daily health score based on all your vital metrics</p>
-            <a href="ai-features.html" class="text-primary font-medium">Learn More →</a>
+
+          <div class="card animate-on-scroll">
+            <div class="card-header">
+              <h3 class="card-title">😌 Stress Management</h3>
+            </div>
+            <div class="card-body">
+              <p>AI-powered stress detection using Heart Rate Variability (HRV) analysis. Get guided breathing exercises to reduce stress levels.</p>
+              <ul style="list-style: disc; padding-left: 1.5rem; margin-top: 1rem;">
+                <li>Real-time stress level detection</li>
+                <li>Stress trend tracking</li>
+                <li>Guided breathing exercises</li>
+                <li>Mindfulness reminders</li>
+                <li>Relaxation techniques</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <a href="stress-management.html" class="btn btn-outline">Learn More</a>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
-    
-    <section class="section">
-      <div class="container">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <h2 class="text-4xl font-bold mb-6">Medical-Grade Accuracy</h2>
-            <p class="text-xl text-secondary mb-8">Our sensors are validated against medical equipment to ensure you get accurate, reliable health data you can trust.</p>
-            <div class="space-y-4">
-              <div class="flex items-center gap-4">
-                <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-success text-xl">✓</div>
-                <div>
-                  <h4 class="font-semibold">98% Heart Rate Accuracy</h4>
-                  <p class="text-secondary text-sm">Compared to clinical ECG machines</p>
-                </div>
+
+        <div class="section-header">
+          <h2 class="section-title">Health Score</h2>
+          <p class="section-subtitle">One comprehensive score that reflects your overall health</p>
+        </div>
+
+        <div class="card" style="margin-bottom: 3rem;">
+          <div class="card-body">
+            <div class="grid grid-2">
+              <div>
+                <h3 style="margin-bottom: 1rem;">📊 How It Works</h3>
+                <p>Our AI analyzes multiple health metrics including heart rate variability, sleep quality, activity levels, stress levels, and more to calculate a comprehensive Health Score from 0-100.</p>
+                <p style="margin-top: 1rem;">Track your score over time to see how lifestyle changes impact your overall health and receive personalized recommendations for improvement.</p>
               </div>
-              <div class="flex items-center gap-4">
-                <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-success text-xl">✓</div>
-                <div>
-                  <h4 class="font-semibold">FDA-Cleared Sensors</h4>
-                  <p class="text-secondary text-sm">Meeting strict medical standards</p>
-                </div>
-              </div>
-              <div class="flex items-center gap-4">
-                <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-success text-xl">✓</div>
-                <div>
-                  <h4 class="font-semibold">Continuous Monitoring</h4>
-                  <p class="text-secondary text-sm">24/7 health tracking without interruption</p>
-                </div>
+              <div>
+                <h3 style="margin-bottom: 1rem;">🎯 Factors Measured</h3>
+                <ul style="list-style: disc; padding-left: 1.5rem;">
+                  <li style="margin-bottom: 0.5rem;">Cardiovascular health</li>
+                  <li style="margin-bottom: 0.5rem;">Sleep quality and consistency</li>
+                  <li style="margin-bottom: 0.5rem;">Stress levels and recovery</li>
+                  <li style="margin-bottom: 0.5rem;">Physical activity</li>
+                  <li style="margin-bottom: 0.5rem;">Body composition trends</li>
+                </ul>
               </div>
             </div>
           </div>
-          <div class="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-8">
-            <h3 class="text-2xl font-bold mb-6">Today's Health Summary</h3>
-            <div class="space-y-4">
-              <div>
-                <div class="flex justify-between mb-2">
-                  <span>Heart Health</span>
-                  <span class="font-bold text-success">Excellent</span>
-                </div>
-                <div class="progress-bar"><div class="progress-bar-fill" style="width: 92%"></div></div>
-              </div>
-              <div>
-                <div class="flex justify-between mb-2">
-                  <span>Sleep Quality</span>
-                  <span class="font-bold text-success">Great</span>
-                </div>
-                <div class="progress-bar"><div class="progress-bar-fill" style="width: 85%"></div></div>
-              </div>
-              <div>
-                <div class="flex justify-between mb-2">
-                  <span>Stress Level</span>
-                  <span class="font-bold text-warning">Moderate</span>
-                </div>
-                <div class="progress-bar"><div class="progress-bar-fill" style="width: 45%"></div></div>
-              </div>
-              <div>
-                <div class="flex justify-between mb-2">
-                  <span>Energy</span>
-                  <span class="font-bold text-success">High</span>
-                </div>
-                <div class="progress-bar"><div class="progress-bar-fill" style="width: 78%"></div></div>
-              </div>
+        </div>
+
+        <div class="section-header">
+          <h2 class="section-title">Additional Health Features</h2>
+        </div>
+
+        <div class="grid grid-3">
+          <div class="card animate-on-scroll">
+            <div class="card-header">
+              <h3 class="card-title">🌡️ Body Temperature</h3>
+            </div>
+            <div class="card-body">
+              <p>Continuous skin temperature monitoring to detect fever, illness onset, and ovulation patterns.</p>
             </div>
           </div>
+
+          <div class="card animate-on-scroll">
+            <div class="card-header">
+              <h3 class="card-title">🚶 Step Counting</h3>
+            </div>
+            <div class="card-body">
+              <p>Accurate step counting with distance calculation and calorie burn estimation throughout the day.</p>
+            </div>
+          </div>
+
+          <div class="card animate-on-scroll">
+            <div class="card-header">
+              <h3 class="card-title">🔥 Calorie Tracking</h3>
+            </div>
+            <div class="card-body">
+              <p>Monitor calories burned during exercise and at rest based on your personal metrics and activity.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center mt-8">
+          <a href="products.html" class="btn btn-primary">Start Tracking Today</a>
+          <a href="specifications.html" class="btn btn-outline" style="margin-left: 1rem;">View Sensor Specifications</a>
         </div>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <div class="container">
-      <div class="footer-bottom"><p>&copy; 2024 AI Smart Band. All rights reserved.</p></div>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="products.html">All Products</a></li>
+          <li><a href="compare-models.html">Compare Models</a></li>
+          <li><a href="accessories.html">Accessories</a></li>
+          <li><a href="specifications.html">Specifications</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Features</h4>
+        <ul>
+          <li><a href="ai-features.html">AI Features</a></li>
+          <li><a href="health-tracking.html">Health Tracking</a></li>
+          <li><a href="fitness-features.html">Fitness Features</a></li>
+          <li><a href="app-features.html">Mobile App</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="support.html">Help Center</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="troubleshooting.html">Troubleshooting</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about-us.html">About Us</a></li>
+          <li><a href="careers.html">Careers</a></li>
+          <li><a href="press.html">Press</a></li>
+          <li><a href="blog.html">Blog</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; <span class="current-year"></span> AI Smart Band. All rights reserved.</p>
+      <p style="margin-top: 0.5rem;">
+        <a href="privacy-policy.html">Privacy Policy</a> ·
+        <a href="terms-of-service.html">Terms of Service</a>
+      </p>
     </div>
   </footer>
 
   <script src="../js/main.js"></script>
-  <script src="../js/navigation.js"></script>
 </body>
 </html>
