@@ -24,6 +24,15 @@ from indusagi.tools import Bash, Read, Edit, Write, Glob, Grep, TodoWrite
 from indusagi.tools import handoff_to_agent, set_current_agency, registry
 from indusagi.hooks import SystemReminderHook, CompositeHook
 
+# Rich imports for beautiful terminal output
+from rich.console import Console
+from rich.panel import Panel
+from rich.table import Table
+from rich import box
+
+# Initialize Rich console
+console = Console()
+
 # ============================================================================
 # Agent Factory Functions (Improved Instructions)
 # ============================================================================
@@ -175,6 +184,92 @@ def create_development_agency(
 
 
 # ============================================================================
+# Display Functions (Mini Agent Style)
+# ============================================================================
+
+def print_agency_banner():
+    """Display agency banner in Mini Agent style."""
+    banner_text = "[bold bright_cyan]Indus Agents - Multi-Agent System[/bold bright_cyan]\n\n"
+    banner_text += "[yellow]Dynamic AI-Controlled Routing: Coder <-> Planner[/yellow]\n"
+    banner_text += "[dim]Provider: Anthropic (GLM-4.7 via Z.AI)[/dim]"
+
+    console.print()
+    console.print(Panel(
+        banner_text,
+        box=box.DOUBLE_EDGE,
+        border_style="bright_cyan",
+        padding=(1, 2),
+        width=70,
+    ))
+    console.print()
+
+
+def print_workflow_explanation():
+    """Display workflow explanation."""
+    workflow = """[bold cyan]How it works:[/bold cyan]
+
+  [green]1.[/green] You talk to [bright_blue]Coder[/bright_blue] (entry agent)
+  [green]2.[/green] Coder decides: simple task = handle directly
+  [green]3.[/green]              : complex task = handoff to [bright_blue]Planner[/bright_blue]
+  [green]4.[/green] Planner creates plan.md -> hands back to [bright_blue]Coder[/bright_blue]
+  [green]5.[/green] Coder reads plan.md and implements
+"""
+
+    console.print(Panel(
+        workflow,
+        box=box.ROUNDED,
+        border_style="cyan",
+        padding=(1, 2),
+        width=70,
+    ))
+    console.print()
+
+
+def print_agency_config(agency):
+    """Display agency configuration in table."""
+    config_table = Table.grid(padding=(0, 2))
+    config_table.add_column(style="cyan", justify="left", width=20)
+    config_table.add_column(style="white", justify="left")
+
+    config_table.add_row("Agency:", agency.name)
+    config_table.add_row("Entry Agent:", f"[bright_blue]{agency.entry_agent.name}[/bright_blue] (smart router)")
+    config_table.add_row("Total Agents:", str(len(agency.agents)))
+    config_table.add_row("Provider:", agency.entry_agent.provider.get_provider_name())
+    config_table.add_row("Model:", agency.entry_agent.config.model)
+
+    console.print(Panel(
+        config_table,
+        title="[bright_cyan]Agency Configuration[/bright_cyan]",
+        box=box.ROUNDED,
+        border_style="bright_cyan",
+        padding=(1, 2),
+    ))
+    console.print()
+
+
+def print_example_prompts():
+    """Display example prompts."""
+    examples = """[bold yellow]Simple tasks (Coder handles directly):[/bold yellow]
+  [green]-[/green] "Create a hello world HTML page"
+  [green]-[/green] "Create a simple calculator with HTML/CSS/JS"
+
+[bold yellow]Complex tasks (Coder -> Planner -> Coder):[/bold yellow]
+  [green]-[/green] "Create plan.md for a todo app, then implement it"
+  [green]-[/green] "Plan and build a weather dashboard with API integration"
+  [green]-[/green] "I need a multi-page website. First create plan.md"
+"""
+
+    console.print(Panel(
+        examples,
+        title="[bright_cyan]Example Prompts[/bright_cyan]",
+        box=box.ROUNDED,
+        border_style="yellow",
+        padding=(1, 2),
+    ))
+    console.print()
+
+
+# ============================================================================
 # Main Entry Point
 # ============================================================================
 
@@ -184,28 +279,21 @@ def main():
     """
     # Check for API key
     if not os.getenv("ANTHROPIC_API_KEY"):
-        print("Error: ANTHROPIC_API_KEY not set in environment")
-        print("Please set it in .env file")
+        console.print(Panel(
+            "[red]Error: ANTHROPIC_API_KEY not set in environment[/red]\n\n"
+            "Please set it in .env file",
+            title="[red]Configuration Error[/red]",
+            border_style="red",
+            box=box.ROUNDED,
+        ))
         return
 
-    print("=" * 70)
-    print("  INDUS-AGENTS - Improved Multi-Agent System (Anthropic)")
-    print("  Dynamic AI-Controlled Routing: Coder <-> Planner")
-    print("  Provider: Anthropic (GLM-4.7 via Z.AI)")
-    print("=" * 70)
-    print()
-    print("How it works:")
-    print("  1. You talk to Coder (entry agent)")
-    print("  2. Coder decides: simple task = handle directly")
-    print("  3.              : complex task = handoff to Planner")
-    print("  4. Planner creates plan.md -> hands back to Coder")
-    print("  5. Coder reads plan.md and implements")
-    print()
-    print("=" * 70)
-    print()
+    # Display banner and workflow
+    print_agency_banner()
+    print_workflow_explanation()
 
     # Create agency with GLM-4.7 (via Z.AI Anthropic API)
-    print("Creating development agency...")
+    console.print("[cyan]Creating development agency...[/cyan]")
     agency = create_development_agency(
         model="glm-4.7",  # ✅ GLM-4.7 via Z.AI Anthropic-compatible API
         reasoning_effort="medium",
@@ -213,46 +301,41 @@ def main():
         # max_turns=None uses 1000 as default (increased from 100)
     )
 
-    print(f"Agency: {agency.name}")
-    print(f"Entry Agent: {agency.entry_agent.name} (smart router)")
-    print(f"Agents: {len(agency.agents)} total")
-    print(f"Provider: {agency.entry_agent.provider.get_provider_name()}")
-    print(f"Model: {agency.entry_agent.config.model}")
-    print()
+    # Display configuration
+    print_agency_config(agency)
 
     # Show flows
-    print("Communication Flows:")
+    console.print(Panel(
+        "[bold]Communication Flows:[/bold]",
+        box=box.ROUNDED,
+        border_style="dim",
+    ))
     agency.visualize()
-    print()
+    console.print()
 
-    # Example prompts
-    print("=" * 70)
-    print("EXAMPLE PROMPTS:")
-    print("=" * 70)
-    print()
-    print("Simple tasks (Coder handles directly):")
-    print('  "Create a hello world HTML page"')
-    print('  "Create a simple calculator with HTML/CSS/JS"')
-    print()
-    print("Complex tasks (Coder -> Planner -> Coder):")
-    print('  "Create plan.md for a todo app, then implement it"')
-    print('  "Plan and build a weather dashboard with API integration"')
-    print('  "I need a multi-page website. First create plan.md"')
-    print()
-    print("=" * 70)
-    print()
+    # Show examples
+    print_example_prompts()
 
     # Run terminal demo
-    print("Starting interactive demo...")
-    print("Commands: /quit, /agents, /handoffs, /logs, /stats")
-    print()
+    console.print(Panel(
+        "[cyan]Starting interactive demo...[/cyan]\n\n"
+        "[dim]Commands: /quit, /agents, /handoffs, /logs, /stats[/dim]",
+        box=box.ROUNDED,
+        border_style="green",
+    ))
+    console.print()
 
     try:
         agency.terminal_demo(show_reasoning=False)
     except KeyboardInterrupt:
-        print("\n\nInterrupted by user. Exiting...")
+        console.print("\n\n[yellow]Interrupted by user. Exiting...[/yellow]")
     except Exception as e:
-        print(f"\n\nError: {e}")
+        console.print(Panel(
+            f"[red]{str(e)}[/red]",
+            title="[red]Error[/red]",
+            border_style="red",
+            box=box.ROUNDED,
+        ))
         import traceback
         traceback.print_exc()
 

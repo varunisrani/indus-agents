@@ -150,3 +150,4 @@ Thumbs.db
 *.log
 .uv/
 activity-tracker-agent/.env.local
+Mini-Agent/

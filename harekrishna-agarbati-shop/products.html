@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore our sacred collection of premium agarbati and incense sticks. Traditional, floral, meditation, and premium fragrances available.">
+    <meta name="keywords" content="agarbati, incense, products, sandalwood, rose, nag champa, meditation">
+    <title>Products - HareKrishna Agarbati Shop</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <style>
+        /* Pure CSS Filter System */
+        .filter-btn[data-filter="all"]:checked ~ .products-container .product-card,
+        .filter-btn[data-filter="traditional"]:checked ~ .products-container .product-card[data-category="traditional"],
+        .filter-btn[data-filter="floral"]:checked ~ .products-container .product-card[data-category="floral"],
+        .filter-btn[data-filter="meditation"]:checked ~ .products-container .product-card[data-category="meditation"],
+        .filter-btn[data-filter="premium"]:checked ~ .products-container .product-card[data-category="premium"] {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .filter-btn[data-filter="traditional"]:checked ~ .products-container .product-card:not([data-category="traditional"]),
+        .filter-btn[data-filter="floral"]:checked ~ .products-container .product-card:not([data-category="floral"]),
+        .filter-btn[data-filter="meditation"]:checked ~ .products-container .product-card:not([data-category="meditation"]),
+        .filter-btn[data-filter="premium"]:checked ~ .products-container .product-card:not([data-category="premium"]) {
+            display: none;
+        }
+        
+        .filter-label {
+            cursor: pointer;
+            padding: 10px 25px;
+            border: 2px solid var(--border-color);
+            background: white;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .filter-label:hover {
+            background: var(--gradient);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .filter-btn:checked + .filter-label {
+            background: var(--gradient);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .filter-btn {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🕉️</span>
+                <span>HareKrishna Agarbati</span>
+            </a>
+            
+            <input type="checkbox" id="menu-toggle" class="menu-toggle">
+            <label for="menu-toggle" class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+            
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="products.html" class="nav-link">Products</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <a href="cart.html" class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">3</span>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Products Page Header -->
+    <section class="products-page-header">
+        <div class="container">
+            <h1 class="fade-in">Our Sacred Collection</h1>
+            <p class="fade-in delay-200" style="font-size: 1.2rem; opacity: 0.95;">Discover divine fragrances crafted with devotion</p>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="container">
+            <div class="filter-container">
+                <input type="radio" name="filter" id="filter-all" class="filter-btn" data-filter="all" checked>
+                <label for="filter-all" class="filter-label">All Products</label>
+                
+                <input type="radio" name="filter" id="filter-traditional" class="filter-btn" data-filter="traditional">
+                <label for="filter-traditional" class="filter-label">Traditional</label>
+                
+                <input type="radio" name="filter" id="filter-floral" class="filter-btn" data-filter="floral">
+                <label for="filter-floral" class="filter-label">Floral</label>
+                
+                <input type="radio" name="filter" id="filter-meditation" class="filter-btn" data-filter="meditation">
+                <label for="filter-meditation" class="filter-label">Meditation</label>
+                
+                <input type="radio" name="filter" id="filter-premium" class="filter-btn" data-filter="premium">
+                <label for="filter-premium" class="filter-label">Premium</label>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Grid -->
+    <section class="products-container">
+        <div class="container">
+            <div class="products-grid">
+                <!-- Traditional Products -->
+                <div class="product-card fade-in-up" data-category="traditional">
+                    <a href="product-detail.html">
+                        <img src="https://images.unsplash.com/photo-1602028915047-37269d1a73f7?w=400" alt="Sandalwood Sacred Agarbati" class="product-image">
+                    </a>
+                    <div class="product-info">
+                        <h3 class="product-name">Sandalwood Sacred</h3>
+                        <div class="product-meta">
+                            <span><i class="fas fa-weight-hanging"></i> 250g</span>
+                            <span><i class="fas fa-star"></i> 4.9</span>
+                        </div>
+                        <p class="product-price">₹299</p>
+                        <div class="product-actions">
+                            <button class="btn-cart">Add to Cart</button>
+                            <button class="btn-wishlist"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card fade-in-up delay-100" data-category="traditional">
+                    <a href="product-detail.html">
+                        <img src="https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=400" alt="Nag Champa Classic" class="product-image">
+                    </a>
+                    <div class="product-info">
+                        <h3 class="product-name">Nag Champa Classic</h3>
+                        <div class="product-meta">
+                            <span><i class="fas fa-weight-hanging"></i> 300g</span>
+                            <span><i class="fas fa-star"></i> 5.0</span>
+                        </div>
+                        <p class="product-price">₹349</p>
+                        <div class="product-actions">
+                            <button class="btn-cart">Add to Cart</button>
+                            <button class="btn-wishlist"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card fade-in-up delay-200" data-category="traditional">
+                    <a href="product-detail.html">
+                        <img src="https://images.unsplash.com/photo-1629196911514-cfd8d63074b9?w=400" alt="Patchouli Earth" class="product-image">
+                    </a>
+                    <div class="product-info">
+                        <h3 class="product-name">Patchouli Earth</h3>
+                        <div class="product-meta">
+                            <span><i class="fas fa-weight-hanging"></i> 200g</span>
+                            <span><i class="fas fa-star"></i> 4.7</span>
+                        </div>
+                        <p class="product-price">₹249</p>
+                        <div class="product-actions">
+                            <button class="btn-cart">Add to Cart</button>
+                            <button class="btn-wishlist"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Floral Products -->
+                <div class="product-card fade-in-up delay-300" data-category="floral">
+                    <a href="product-detail.html">
+                        <img src="https://images.unsplash.com/photo-1615485500704-8e99099928b3?w=400" alt="Rose Divine Agarbati" class="product-image">
+                    </a>
+                    <div class="product-info">
+                        <h3 class="product-name">Rose Divine</h3>
+                        <div class="product-meta">
+                            <span><i class="fas fa-weight-hanging"></i> 200g</span>
+                            <span><i class="fas fa-star"></i> 4.8</span>
+                        </div>
+                        <p class="product-price">₹249</p>
+                        <div class="product-actions">
+                            <button class="btn-cart">Add to Cart</button>
+                            <button class="btn-wishlist"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card fade-in-up delay-400" data-category="floral">
+                    <a href="product-detail.html">
+                        <img src="https://images.unsplash.com/photo-1609766856923-7e0a0c06151d?w=400" alt="Jasmine Temple" class="product-image">
+                    </a>
+                    <div class="product-info">
+                        <h3 class="product-name">Jasmine Temple</h3>
+                        <div class="product-meta">
+                            <span><i class="fas fa-weight-hanging"></i> 250g</span>
+                            <span><i class="fas fa-star"></i> 4.9</span>
+                        </div>
+                        <p class="product-price">₹279</p>
+                        <div class="product-actions">
+                            <button class="btn-cart">Add to Cart</button>
+                            <button class="btn-wishlist"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card fade-in-up delay-500" data-category="floral">
+                    <a href="product-detail.html">
+                        <img src="https://images.unsplash.com/photo-1615485500704-8e99099928b3?w=400" alt="Lotus Serenity" class="product-image">
+                    </a>
+                    <div class="product-info">
+                        <h3 class="product-name">Lotus Serenity</h3>
+                        <div class="product-meta">
+                            <span><i class="fas fa-weight-hanging"></i> 250g</span>
+                            <span><i class="fas fa-star"></i> 4.7</span>
+                        </div>
+                        <p class="product-price">₹279</p>
+                        <div class="product-actions">
+                            <button class="btn-cart">Add to Cart</button>
+                            <button class="btn-wishlist"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Meditation Products -->
+                <div class="product-card fade-in-up delay-600" data-category="meditation">
+                    <a href="product-detail.html">
+                        <img src="https://images.unsplash.com/photo-1545459720-aac8509eb02c?w=400" alt="Cedar Meditation" class="product-image">
+                    </a>
+                    <div class="product-info">
+                        <h3 class="product-name">Cedar Meditation</h3>
+                        <div class="product-meta">
+                            <span><i class="fas fa-weight-hanging"></i> 300g</span>
+                            <span><i class="fas fa-star"></i> 4.8</span>
+                        </div>
+                        <p class="product-price">₹329</p>
+                        <div class="product-actions">
+                            <button class="btn-cart">Add to Cart</button>
+                            <button class="btn-wishlist"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card fade-in-up delay-700" data-category="meditation">
+                    <a href="product-detail.html">
+                        <img src="https://images.unsplash.com/photo-1602028915047-37269d1a73f7?w=400" alt="Frankincense Pure" class="product-image">
+                    </a>
+                    <div class="product-info">
+                        <h3 class="product-name">Frankincense Pure</h3>
+                        <div class="product-meta">
+                            <span><i class="fas fa-weight-hanging"></i> 200g</span>
+                            <span><i class="fas fa-star"></i> 4.9</span>
+                        </div>
+                        <p class="product-price">₹399</p>
+                        <div class="product-actions">
+                            <button class="btn-cart">Add to Cart</button>
+                            <button class="btn-wishlist"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card fade-in-up delay-800" data-category="meditation">
+                    <a href="product-detail.html">
+                        <img src="https://images.unsplash.com/photo-1629196911514-cfd8d63074b9?w=400" alt="Lemongrass Calm" class="product-image">
+                    </a>
+                    <div class="product-info">
+                        <h3 class="product-name">Lemongrass Calm</h3>
+                        <div class="product-meta">
+                            <span><i class="fas fa-weight-hanging"></i> 250g</span>
+                            <span><i class="fas fa-star"></i> 4.6</span>
+                        </div>
+                        <p class="product-price">₹259</p>
+                        <div class="product-actions">
+                            <button class="btn-cart">Add to Cart</button>
+                            <button class="btn-wishlist"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Premium Products -->
+                <div class="product-card fade-in-up delay-900" data-category="premium">
+                    <a href="product-detail.html">
+                        <img src="https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=400" alt="Oud Royal" class="product-image">
+                    </a>
+                    <div class="product-info">
+                        <h3 class="product-name">Oud Royal</h3>
+                        <div class="product-meta">
+                            <span><i class="fas fa-weight-hanging"></i> 150g</span>
+                            <span><i class="fas fa-star"></i> 5.0</span>
+                        </div>
+                        <p class="product-price">₹699</p>
+                        <div class="product-actions">
+                            <button class="btn-cart">Add to Cart</button>
+                            <button class="btn-wishlist"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card fade-in-up delay-1000" data-category="premium">
+                    <a href="product-detail.html">
+                        <img src="https://images.unsplash.com/photo-1609766856923-7e0a0c06151d?w=400" alt="Amber Mystique" class="product-image">
+                    </a>
+                    <div class="product-info">
+                        <h3 class="product-name">Amber Mystique</h3>
+                        <div class="product-meta">
+                            <span><i class="fas fa-weight-hanging"></i> 200g</span>
+                            <span><i class="fas fa-star"></i> 4.9</span>
+                        </div>
+                        <p class="product-price">₹599</p>
+                        <div class="product-actions">
+                            <button class="btn-cart">Add to Cart</button>
+                            <button class="btn-wishlist"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card fade-in-up delay-1100" data-category="premium">
+                    <a href="product-detail.html">
+                        <img src="https://images.unsplash.com/photo-1615485500704-8e99099928b3?w=400" alt="Musk Divine" class="product-image">
+                    </a>
+                    <div class="product-info">
+                        <h3 class="product-name">Musk Divine</h3>
+                        <div class="product-meta">
+                            <span><i class="fas fa-weight-hanging"></i> 180g</span>
+                            <span><i class="fas fa-star"></i> 4.8</span>
+                        </div>
+                        <p class="product-price">₹549</p>
+                        <div class="product-actions">
+                            <button class="btn-cart">Add to Cart</button>
+                            <button class="btn-wishlist"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="section newsletter-section">
+        <div class="container">
+            <h2>Get Special Offers</h2>
+            <p>Subscribe to receive exclusive discounts and new product announcements</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Enter your email address" class="newsletter-input" required>
+                <button type="submit" class="newsletter-btn">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <div class="logo" style="margin-bottom: 20px;">
+                        <span class="logo-icon">🕉️</span>
+                        <span style="color: white;">HareKrishna Agarbati</span>
+                    </div>
+                    <p style="color: rgba(255,255,255,0.8);">Bringing divine fragrances to your sacred spaces since 1985. Handcrafted with devotion and love.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="cart.html">Cart</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Categories</h3>
+                    <ul class="footer-links">
+                        <li><a href="products.html">Traditional Scents</a></li>
+                        <li><a href="products.html">Floral Collection</a></li>
+                        <li><a href="products.html">Meditation Series</a></li>
+                        <li><a href="products.html">Premium Range</a></li>
+                        <li><a href="products.html">Gift Sets</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Temple Street, Vrindavan, Mathura - 281121</li>
+                        <li><i class="fas fa-phone"></i> +91 98765 43210</li>
+                        <li><i class="fas fa-envelope"></i> info@harekrishnaagarbati.com</li>
+                        <li><i class="fas fa-clock"></i> Mon - Sat: 9:00 AM - 7:00 PM</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 HareKrishna Agarbati Shop. All rights reserved. | Made with devotion 🙏</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

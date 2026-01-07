@@ -52,6 +52,7 @@ load_dotenv()
 
 # Create custom theme for consistent styling
 custom_theme = Theme({
+    # Existing colors
     "info": "cyan",
     "warning": "yellow",
     "error": "bold red",
@@ -59,6 +60,14 @@ custom_theme = Theme({
     "agent": "bold magenta",
     "user": "bold blue",
     "tool": "bold yellow",
+
+    # Mini Agent inspired colors
+    "banner": "bold bright_cyan",
+    "command": "bright_green",
+    "agent_name": "bold bright_blue",
+    "dim": "dim white",
+    "metadata": "dim cyan",
+    "box_border": "bright_cyan",
 })
 
 # Initialize Rich console with custom theme
@@ -93,17 +102,107 @@ signal.signal(signal.SIGINT, signal_handler)
 
 
 def print_banner():
-    """Display a beautiful welcome banner."""
-    banner = """
-    ╔═══════════════════════════════════════════════════════════════╗
-    ║                                                               ║
-    ║            INDUS-AGENTS - CLI Interface                       ║
-    ║                                                               ║
-    ║              Intelligent Agents Powered by OpenAI             ║
-    ║                                                               ║
-    ╚═══════════════════════════════════════════════════════════════╝
-    """
-    console.print(banner, style="bold cyan")
+    """Display banner in Mini Agent style using Rich Panel."""
+    banner_text = "[bold]Indus Agents - Multi-turn Interactive Session[/bold]"
+
+    console.print()
+    console.print(Panel(
+        banner_text,
+        box=box.DOUBLE_EDGE,
+        style="banner",
+        padding=(0, 1),
+        width=60,
+    ))
+    console.print()
+
+
+def print_session_info(agent, model: str):
+    """Print session information box (Mini Agent style)."""
+    from indusagi.agent import Agent
+
+    history = agent.get_history()
+    tool_count = len(agent.tool_registry.get_all_tools()) if agent.tool_registry else 0
+
+    info_table = Table.grid(padding=(0, 2))
+    info_table.add_column(style="dim", justify="left")
+    info_table.add_column(style="white", justify="left")
+
+    info_table.add_row("Model:", model)
+    info_table.add_row("Workspace:", str(Path.cwd()))
+    info_table.add_row("Message History:", f"{len(history)} messages")
+    info_table.add_row("Available Tools:", f"{tool_count} tools")
+
+    console.print(Panel(
+        info_table,
+        title="[banner]Session Info[/banner]",
+        box=box.ROUNDED,
+        border_style="box_border",
+        padding=(1, 2),
+        width=60,
+    ))
+    console.print()
+    console.print("[dim]Type [command]/help[/command] for commands, [command]/quit[/command] to exit[/dim]")
+    console.print()
+
+
+def print_stats(agent, session_start: datetime):
+    """Print session statistics in Mini Agent style."""
+    duration = datetime.now() - session_start
+    hours, remainder = divmod(int(duration.total_seconds()), 3600)
+    minutes, seconds = divmod(remainder, 60)
+
+    history = agent.get_history()
+    user_msgs = sum(1 for m in history if m.get("role") == "user")
+    assistant_msgs = sum(1 for m in history if m.get("role") == "assistant")
+    tool_msgs = sum(1 for m in history if "tool_calls" in m or m.get("role") == "tool")
+
+    stats_table = Table.grid(padding=(0, 2))
+    stats_table.add_column(style="cyan", justify="left")
+    stats_table.add_column(style="white", justify="left")
+
+    stats_table.add_row("Session Duration:", f"{hours:02d}:{minutes:02d}:{seconds:02d}")
+    stats_table.add_row("Total Messages:", str(len(history)))
+    stats_table.add_row("  - User Messages:", f"[success]{user_msgs}[/success]")
+    stats_table.add_row("  - Assistant Replies:", f"[agent_name]{assistant_msgs}[/agent_name]")
+    stats_table.add_row("  - Tool Calls:", f"[tool]{tool_msgs}[/tool]")
+
+    console.print()
+    console.print(Panel(
+        stats_table,
+        title="[banner]Session Statistics[/banner]",
+        box=box.ROUNDED,
+        border_style="box_border",
+        padding=(1, 2),
+    ))
+    console.print()
+
+
+def print_help_commands():
+    """Print available commands (Mini Agent style)."""
+    help_text = """[bold banner]Available Commands:[/bold banner]
+  [command]/help[/command]      - Show this help message
+  [command]/clear[/command]     - Clear session history
+  [command]/history[/command]   - Show message count
+  [command]/stats[/command]     - Show session statistics
+  [command]/tokens[/command]    - Show token usage
+  [command]/quit[/command]      - Exit program (also: /exit)
+
+[bold banner]Keyboard Shortcuts:[/bold banner]
+  [metadata]Ctrl+C[/metadata]     - Exit gracefully
+  [metadata]Up/Down[/metadata]    - Browse command history
+
+[bold banner]Usage:[/bold banner]
+  - Enter your task directly, the agent will help you complete it
+  - Agent remembers all conversation content in this session
+  - Use [command]/clear[/command] to start a new session
+"""
+    console.print(Panel(
+        help_text,
+        title="[banner]Help[/banner]",
+        box=box.ROUNDED,
+        border_style="box_border",
+        padding=(1, 2),
+    ))
 
 
 def validate_api_key() -> bool:
@@ -276,7 +375,8 @@ def run(
         console.print(Panel(
             f"[user]{prompt}[/user]",
             title="Your Query",
-            border_style="user"
+            border_style="user",
+            box=box.ROUNDED
         ))
         console.print()
 
@@ -365,6 +465,9 @@ def interactive(
         # Create agent
         agent = create_agent_from_options(model, temperature, verbose)
 
+        # Track session start time
+        session_start = datetime.now()
+
         # Welcome message
         welcome_text = (
             "Welcome to [agent]Interactive Chat Mode[/agent]!\n\n"
@@ -379,6 +482,9 @@ def interactive(
         )
         console.print(Panel(welcome_text, border_style="info", title="Getting Started"))
         console.print()
+
+        # Display session info
+        print_session_info(agent, model or agent.config.model)
 
         # Chat loop
         message_count = 0
@@ -436,8 +542,12 @@ def interactive(
                     )
                     continue
 
+                elif user_input.strip().lower() == "/stats":
+                    print_stats(agent, session_start)
+                    continue
+
                 elif user_input.strip().lower() == "/help":
-                    console.print(Panel(welcome_text, border_style="info", title="Help"))
+                    print_help_commands()
                     continue
 
                 # Process regular input
@@ -465,9 +575,13 @@ def interactive(
 
                 message_count += 1
 
+                # Add separator line after each exchange
+                console.print(f"\n[dim]{'-' * 60}[/dim]\n")
+
             except KeyboardInterrupt:
-                console.print("\n\n[warning]Use /quit to exit gracefully[/warning]")
-                continue
+                console.print("\n\n[warning]Interrupted by user[/warning]")
+                print_stats(agent, session_start)
+                break
             except EOFError:
                 console.print("\n\n[success]Goodbye![/success]\n")
                 break
@@ -489,7 +603,7 @@ def version():
     """
     Display version information about indus-agents.
     """
-    version_info = Table(title="indus-agents - Version Info", box=box.DOUBLE)
+    version_info = Table(title="Indus Agents - Version Info", box=box.DOUBLE)
     version_info.add_column("Component", style="cyan", width=20)
     version_info.add_column("Version/Info", style="yellow")
 
@@ -575,7 +689,8 @@ def list_tools(
                     tool_details,
                     title=f"[tool]{tool_name}[/tool]",
                     border_style="tool",
-                    padding=(1, 2)
+                    padding=(1, 2),
+                    box=box.ROUNDED
                 ))
                 console.print()
 
@@ -632,7 +747,8 @@ def test_connection(
     console.print(Panel(
         "[info]Testing connection to OpenAI API...[/info]",
         title="Connection Test",
-        border_style="info"
+        border_style="info",
+        box=box.ROUNDED
     ))
     console.print()
 
@@ -721,7 +837,7 @@ def list_agents():
     Displays pre-configured agent types and their capabilities.
     """
     agents_table = Table(
-        title="Available Agent Configurations",
+        title="Indus Agents - Available Configurations",
         box=box.ROUNDED,
         show_header=True,
         header_style="bold cyan"
@@ -771,7 +887,8 @@ def list_agents():
     console.print(Panel(
         "[info]Note:[/info] All agents have access to the same tool registry.\n"
         "The role and system prompt determine their behavior and focus.",
-        border_style="info"
+        border_style="info",
+        box=box.ROUNDED
     ))
     console.print()
 

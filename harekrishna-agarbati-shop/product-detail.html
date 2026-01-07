@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sandalwood Sacred Agarbati - Premium quality sandalwood incense sticks for meditation and spiritual practices.">
+    <meta name="keywords" content="sandalwood agarbati, incense, meditation, spiritual, premium">
+    <title>Sandalwood Sacred - HareKrishna Agarbati Shop</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <style>
+        /* Pure CSS Tabs */
+        .tab-radio {
+            display: none;
+        }
+        
+        .tab-radio:checked + .tab-header {
+            color: var(--secondary-color);
+            border-bottom-color: var(--secondary-color);
+        }
+        
+        .tab-radio:checked + .tab-header + .tab-content {
+            display: block;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🕉️</span>
+                <span>HareKrishna Agarbati</span>
+            </a>
+            
+            <input type="checkbox" id="menu-toggle" class="menu-toggle">
+            <label for="menu-toggle" class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+            
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="products.html" class="nav-link">Products</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <a href="cart.html" class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">3</span>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <ul class="breadcrumb-list">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-separator"><i class="fas fa-chevron-right"></i></li>
+                <li class="breadcrumb-item"><a href="products.html">Products</a></li>
+                <li class="breadcrumb-separator"><i class="fas fa-chevron-right"></i></li>
+                <li class="breadcrumb-item">Sandalwood Sacred</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Product Detail Section -->
+    <section class="product-detail-section">
+        <div class="container">
+            <div class="product-detail-grid">
+                <!-- Product Gallery -->
+                <div class="product-gallery fade-in-left">
+                    <div class="main-image">
+                        <img src="https://images.unsplash.com/photo-1602028915047-37269d1a73f7?w=800" alt="Sandalwood Sacred Agarbati" id="main-product-image">
+                    </div>
+                    <div class="thumbnail-gallery">
+                        <img src="https://images.unsplash.com/photo-1602028915047-37269d1a73f7?w=200" alt="Sandalwood Agarbati" class="thumbnail active" onclick="document.getElementById('main-product-image').src='https://images.unsplash.com/photo-1602028915047-37269d1a73f7?w=800'">
+                        <img src="https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=200" alt="Sandalwood Pack" class="thumbnail" onclick="document.getElementById('main-product-image').src='https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=800'">
+                        <img src="https://images.unsplash.com/photo-1629196911514-cfd8d63074b9?w=200" alt="Sandalwood Burning" class="thumbnail" onclick="document.getElementById('main-product-image').src='https://images.unsplash.com/photo-1629196911514-cfd8d63074b9?w=800'">
+                        <img src="https://images.unsplash.com/photo-1609766856923-7e0a0c06151d?w=200" alt="Sandalwood Box" class="thumbnail" onclick="document.getElementById('main-product-image').src='https://images.unsplash.com/photo-1609766856923-7e0a0c06151d?w=800'">
+                    </div>
+                </div>
+
+                <!-- Product Details -->
+                <div class="product-details fade-in-right">
+                    <h1>Sandalwood Sacred Agarbati</h1>
+                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+                        <div style="color: var(--accent-color); font-size: 1.2rem;">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span style="color: var(--text-light);">(4.9) | 256 reviews</span>
+                    </div>
+                    <p class="product-price-large">₹299</p>
+                    <p class="product-description">
+                        Experience the divine essence of pure Mysore sandalwood with our Sacred Sandalwood Agarbati. Handcrafted using traditional methods passed down through generations, each stick is infused with the sacred fragrance that has been used in temples and spiritual ceremonies for centuries.
+                    </p>
+                    <p class="product-description">
+                        The rich, woody aroma creates an atmosphere of peace and tranquility, making it perfect for meditation, yoga, or daily worship. Our sandalwood is ethically sourced from sustainable forests in Karnataka, ensuring both quality and environmental responsibility.
+                    </p>
+
+                    <div class="quantity-selector">
+                        <span style="font-weight: 600; color: var(--text-dark);">Quantity:</span>
+                        <button class="quantity-btn" onclick="document.getElementById('quantity').value = Math.max(1, parseInt(document.getElementById('quantity').value) - 1)">-</button>
+                        <input type="number" id="quantity" class="quantity-input" value="1" min="1" max="10">
+                        <button class="quantity-btn" onclick="document.getElementById('quantity').value = Math.min(10, parseInt(document.getElementById('quantity').value) + 1)">+</button>
+                    </div>
+
+                    <div class="product-actions-large">
+                        <button class="btn btn-primary" style="flex: 2; padding: 15px 30px;">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </button>
+                        <button class="btn btn-outline" style="flex: 1; padding: 15px 30px;">
+                            <i class="far fa-heart"></i> Wishlist
+                        </button>
+                    </div>
+
+                    <div style="display: flex; gap: 30px; margin-top: 30px; padding-top: 30px; border-top: 1px solid var(--border-color);">
+                        <div style="text-align: center;">
+                            <i class="fas fa-truck" style="font-size: 1.5rem; color: var(--primary-color); margin-bottom: 10px;"></i>
+                            <p style="font-size: 0.9rem; margin: 0;">Free Shipping</p>
+                            <p style="font-size: 0.8rem; color: var(--text-light);">Above ₹999</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <i class="fas fa-undo" style="font-size: 1.5rem; color: var(--primary-color); margin-bottom: 10px;"></i>
+                            <p style="font-size: 0.9rem; margin: 0;">Easy Returns</p>
+                            <p style="font-size: 0.8rem; color: var(--text-light);">7 Days</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <i class="fas fa-shield-alt" style="font-size: 1.5rem; color: var(--primary-color); margin-bottom: 10px;"></i>
+                            <p style="font-size: 0.9rem; margin: 0;">Secure Payment</p>
+                            <p style="font-size: 0.8rem; color: var(--text-light);">100% Safe</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Tabs -->
+            <div class="product-tabs">
+                <div class="tab-headers">
+                    <input type="radio" name="tab" id="tab-description" class="tab-radio" checked>
+                    <label for="tab-description" class="tab-header">Description</label>
+                    
+                    <input type="radio" name="tab" id="tab-ingredients" class="tab-radio">
+                    <label for="tab-ingredients" class="tab-header">Ingredients</label>
+                    
+                    <input type="radio" name="tab" id="tab-burning" class="tab-radio">
+                    <label for="tab-burning" class="tab-header">Burning Time</label>
+                    
+                    <input type="radio" name="tab" id="tab-origin" class="tab-radio">
+                    <label for="tab-origin" class="tab-header">Origin</label>
+                </div>
+
+                <div class="tab-content" id="content-description">
+                    <h3 style="margin-bottom: 20px;">About Sandalwood Sacred</h3>
+                    <p style="line-height: 1.8; margin-bottom: 15px;">
+                        Our Sandalwood Sacred Agarbati represents the pinnacle of traditional Indian incense craftsmanship. Made from the finest quality Mysore sandalwood (Santalum album), each stick carries the sacred essence that has been revered in Ayurveda and spiritual practices for thousands of years.
+                    </p>
+                    <p style="line-height: 1.8; margin-bottom: 15px;">
+                        The sandalwood used in our agarbati is sourced from sustainable forests in Karnataka, where the trees are allowed to mature naturally for at least 30 years before harvest. This ensures the highest concentration of natural oils and the most authentic fragrance.
+                    </p>
+                    <p style="line-height: 1.8;">
+                        Perfect for daily puja, meditation sessions, or simply creating a peaceful atmosphere in your home. The calming aroma helps reduce stress, improve focus, and promote spiritual well-being.
+                    </p>
+                </div>
+
+                <div class="tab-content" id="content-ingredients">
+                    <h3 style="margin-bottom: 20px;">100% Natural Ingredients</h3>
+                    <ul style="line-height: 2; list-style: disc; padding-left: 20px;">
+                        <li>Pure Mysore Sandalwood (Santalum album) - 60%</li>
+                        <li>Natural Himalayan Herbs - 20%</li>
+                        <li>Sacred Temple Flowers - 10%</li>
+                        <li>Natural Honey (as binder) - 5%</li>
+                        <li>Essential Oils - 5%</li>
+                    </ul>
+                    <p style="margin-top: 20px; padding: 15px; background-color: var(--bg-cream); border-left: 4px solid var(--primary-color);">
+                        <strong>No synthetic fragrances, chemicals, or artificial ingredients. 100% natural and safe for regular use.</strong>
+                    </p>
+                </div>
+
+                <div class="tab-content" id="content-burning">
+                    <h3 style="margin-bottom: 20px;">Burning Information</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                        <div style="padding: 20px; background-color: var(--bg-white); border-radius: 10px; box-shadow: 0 2px 10px var(--shadow);">
+                            <i class="fas fa-clock" style="font-size: 2rem; color: var(--primary-color); margin-bottom: 15px;"></i>
+                            <h4 style="margin-bottom: 10px;">Burn Time</h4>
+                            <p style="font-size: 1.5rem; font-weight: 700; color: var(--secondary-color);">45-50 minutes</p>
+                            <p style="font-size: 0.9rem; color: var(--text-light);">per stick</p>
+                        </div>
+                        <div style="padding: 20px; background-color: var(--bg-white); border-radius: 10px; box-shadow: 0 2px 10px var(--shadow);">
+                            <i class="fas fa-fire" style="font-size: 2rem; color: var(--primary-color); margin-bottom: 15px;"></i>
+                            <h4 style="margin-bottom: 10px;">Sticks per Pack</h4>
+                            <p style="font-size: 1.5rem; font-weight: 700; color: var(--secondary-color);">25 sticks</p>
+                            <p style="font-size: 0.9rem; color: var(--text-light);">approximately</p>
+                        </div>
+                        <div style="padding: 20px; background-color: var(--bg-white); border-radius: 10px; box-shadow: 0 2px 10px var(--shadow);">
+                            <i class="fas fa-ruler" style="font-size: 2rem; color: var(--primary-color); margin-bottom: 15px;"></i>
+                            <h4 style="margin-bottom: 10px;">Stick Length</h4>
+                            <p style="font-size: 1.5rem; font-weight: 700; color: var(--secondary-color);>9 inches</p>
+                            <p style="font-size: 0.9rem; color: var(--text-light);">standard size</p>
+                        </div>
+                    </div>
+                    <p style="margin-top: 20px; padding: 15px; background-color: var(--bg-cream); border-left: 4px solid var(--secondary-color);">
+                        <strong>Tip:</strong> For best results, light the tip of the agarbati, allow it to flame for 2-3 seconds, then gently blow out the flame. Place in a holder on a heat-resistant surface.
+                    </p>
+                </div>
+
+                <div class="tab-content" id="content-origin">
+                    <h3 style="margin-bottom: 20px;">Origin & Craftsmanship</h3>
+                    <p style="line-height: 1.8; margin-bottom: 15px;">
+                        <strong>Source:</strong> Our sandalwood is ethically sourced from sustainable forests in Karnataka, India. We work directly with local farmers who follow traditional harvesting methods.
+                    </p>
+                    <p style="line-height: 1.8; margin-bottom: 15px;">
+                        <strong>Craftsmanship:</strong> Each agarbati is hand-rolled by skilled artisans in Vrindavan using techniques passed down through generations. The entire process, from preparation to packaging, takes 7 days.
+                    </p>
+                    <p style="line-height: 1.8; margin-bottom: 15px;">
+                        <strong>Blessings:</strong> Before packaging, each batch is blessed at the Banke Bihari Temple in Vrindavan, infusing it with divine energy.
+                    </p>
+                    <div style="display: flex; gap: 20px; margin-top: 20px;">
+                        <img src="https://images.unsplash.com/photo-1545459720-aac8509eb02c?w=200" alt="Artisan" style="width: 150px; height: 150px; object-fit: cover; border-radius: 10px;">
+                        <img src="https://images.unsplash.com/photo-1609766856923-7e0a0c06151d?w=200" alt="Temple" style="width: 150px; height: 150px; object-fit: cover; border-radius: 10px;">
+                        <img src="https://images.unsplash.com/photo-1629196911514-cfd8d63074b9?w=200" alt="Sandalwood" style="width: 150px; height: 150px; object-fit: cover; border-radius: 10px;">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Related Products -->
+            <div class="related-products">
+                <div class="section-title">
+                    <h2>You May Also Like</h2>
+                </div>
+                <div class="products-grid">
+                    <div class="product-card fade-in-up">
+                        <a href="product-detail.html">
+                            <img src="https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=400" alt="Nag Champa Classic" class="product-image">
+                        </a>
+                        <div class="product-info">
+                            <h3 class="product-name">Nag Champa Classic</h3>
+                            <p class="product-price">₹349</p>
+                            <div class="product-actions">
+                                <button class="btn-cart">Add to Cart</button>
+                                <button class="btn-wishlist"><i class="far fa-heart"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card fade-in-up delay-200">
+                        <a href="product-detail.html">
+                            <img src="https://images.unsplash.com/photo-1615485500704-8e99099928b3?w=400" alt="Rose Divine" class="product-image">
+                        </a>
+                        <div class="product-info">
+                            <h3 class="product-name">Rose Divine</h3>
+                            <p class="product-price">₹249</p>
+                            <div class="product-actions">
+                                <button class="btn-cart">Add to Cart</button>
+                                <button class="btn-wishlist"><i class="far fa-heart"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card fade-in-up delay-400">
+                        <a href="product-detail.html">
+                            <img src="https://images.unsplash.com/photo-1545459720-aac8509eb02c?w=400" alt="Cedar Meditation" class="product-image">
+                        </a>
+                        <div class="product-info">
+                            <h3 class="product-name">Cedar Meditation</h3>
+                            <p class="product-price">₹329</p>
+                            <div class="product-actions">
+                                <button class="btn-cart">Add to Cart</button>
+                                <button class="btn-wishlist"><i class="far fa-heart"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card fade-in-up delay-600">
+                        <a href="product-detail.html">
+                            <img src="https://images.unsplash.com/photo-1629196911514-cfd8d63074b9?w=400" alt="Patchouli Earth" class="product-image">
+                        </a>
+                        <div class="product-info">
+                            <h3 class="product-name">Patchouli Earth</h3>
+                            <p class="product-price">₹249</p>
+                            <div class="product-actions">
+                                <button class="btn-cart">Add to Cart</button>
+                                <button class="btn-wishlist"><i class="far fa-heart"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <div class="logo" style="margin-bottom: 20px;">
+                        <span class="logo-icon">🕉️</span>
+                        <span style="color: white;">HareKrishna Agarbati</span>
+                    </div>
+                    <p style="color: rgba(255,255,255,0.8);">Bringing divine fragrances to your sacred spaces since 1985. Handcrafted with devotion and love.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="cart.html">Cart</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Categories</h3>
+                    <ul class="footer-links">
+                        <li><a href="products.html">Traditional Scents</a></li>
+                        <li><a href="products.html">Floral Collection</a></li>
+                        <li><a href="products.html">Meditation Series</a></li>
+                        <li><a href="products.html">Premium Range</a></li>
+                        <li><a href="products.html">Gift Sets</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Temple Street, Vrindavan, Mathura - 281121</li>
+                        <li><i class="fas fa-phone"></i> +91 98765 43210</li>
+                        <li><i class="fas fa-envelope"></i> info@harekrishnaagarbati.com</li>
+                        <li><i class="fas fa-clock"></i> Mon - Sat: 9:00 AM - 7:00 PM</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 HareKrishna Agarbati Shop. All rights reserved. | Made with devotion 🙏</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

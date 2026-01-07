@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact HareKrishna Agarbati Shop - Get in touch for queries, orders, or spiritual guidance.">
+    <meta name="keywords" content="contact, agarbati shop, customer support, inquiry">
+    <title>Contact Us - HareKrishna Agarbati Shop</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <style>
+        /* Pure CSS FAQ Accordion */
+        .faq-radio {
+            display: none;
+        }
+        
+        .faq-radio:checked + .faq-question + .faq-answer {
+            max-height: 500px;
+            padding: 0 20px 20px;
+        }
+        
+        .faq-radio:checked + .faq-question .faq-toggle {
+            transform: rotate(45deg);
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            padding: 0 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-toggle {
+            transition: transform 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🕉️</span>
+                <span>HareKrishna Agarbati</span>
+            </a>
+            
+            <input type="checkbox" id="menu-toggle" class="menu-toggle">
+            <label for="menu-toggle" class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+            
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="products.html" class="nav-link">Products</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <a href="cart.html" class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">3</span>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contact Hero -->
+    <section class="contact-hero">
+        <div class="container">
+            <h1 class="fade-in">Get in Touch</h1>
+            <p class="fade-in delay-200" style="font-size: 1.2rem; opacity: 0.95;">We'd love to hear from you. Reach out for queries, orders, or spiritual guidance.</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-grid">
+                <!-- Contact Information -->
+                <div class="contact-info-card fade-in-left">
+                    <h2 style="margin-bottom: 30px; color: var(--secondary-color);">Contact Information</h2>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Our Address</h4>
+                            <p>123 Temple Street, Vrindavan<br>Mathura, Uttar Pradesh - 281121</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Phone Number</h4>
+                            <p>+91 98765 43210<br>+91 98765 43211</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Email Address</h4>
+                            <p>info@harekrishnaagarbati.com<br>support@harekrishnaagarbati.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Business Hours</h4>
+                            <p>Monday - Saturday: 9:00 AM - 7:00 PM<br>Sunday: 10:00 AM - 2:00 PM</p>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 40px; padding-top: 30px; border-top: 1px solid var(--border-color);">
+                        <h4 style="margin-bottom: 20px; color: var(--secondary-color);">Follow Us</h4>
+                        <div class="social-links">
+                            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="contact-form fade-in-right">
+                    <h2 style="margin-bottom: 30px; color: var(--secondary-color);">Send us a Message</h2>
+                    
+                    <form action="#" method="POST">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Full Name *</label>
+                            <input type="text" id="name" name="name" class="form-input" placeholder="Enter your full name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email Address *</label>
+                            <input type="email" id="email" name="email" class="form-input" placeholder="Enter your email address" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" class="form-input" placeholder="Enter your phone number">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject" class="form-label">Subject *</label>
+                            <select id="subject" name="subject" class="form-input" required>
+                                <option value="">Select a subject</option>
+                                <option value="order">Order Inquiry</option>
+                                <option value="product">Product Information</option>
+                                <option value="wholesale">Wholesale Inquiry</option>
+                                <option value="feedback">Feedback</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message" class="form-label">Message *</label>
+                            <textarea id="message" name="message" class="form-textarea" placeholder="Type your message here..." required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 15px;">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section">
+        <div class="container">
+            <div class="map-container">
+                <div style="text-align: center;">
+                    <i class="fas fa-map-marked-alt" style="font-size: 3rem; color: var(--primary-color); margin-bottom: 20px;"></i>
+                    <h3 style="color: var(--secondary-color); margin-bottom: 10px;">Find Us in Vrindavan</h3>
+                    <p>Located in the sacred land of Lord Krishna</p>
+                    <p style="margin-top: 20px; font-size: 0.9rem;">
+                        <i class="fas fa-location-arrow"></i> Google Maps integration would be displayed here
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Frequently Asked Questions</h2>
+                <p>Find answers to common questions about our products and services</p>
+            </div>
+            
+            <div style="max-width: 800px; margin: 0 auto;">
+                <!-- FAQ Item 1 -->
+                <div class="faq-item">
+                    <input type="radio" name="faq" id="faq1" class="faq-radio">
+                    <label for="faq1" class="faq-question">
+                        <span>What makes your agarbati different from others?</span>
+                        <span class="faq-toggle">+</span>
+                    </label>
+                    <div class="faq-answer">
+                        <p>Our agarbati is made using 100% natural ingredients sourced directly from sustainable forests. Each stick is handcrafted by skilled artisans in Vrindavan using traditional methods passed down through generations. We don't use any synthetic fragrances or chemicals, ensuring a pure and authentic spiritual experience.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="faq-item">
+                    <input type="radio" name="faq" id="faq2" class="faq-radio">
+                    <label for="faq2" class="faq-question">
+                        <span>How long does shipping take?</span>
+                        <span class="faq-toggle">+</span>
+                    </label>
+                    <div class="faq-answer">
+                        <p>We deliver across India within 5-7 business days. For metro cities, delivery is typically faster (3-5 days). International shipping takes 10-15 business days. We also offer express shipping options for urgent orders. Free shipping is available on orders above ₹999.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="faq-item">
+                    <input type="radio" name="faq" id="faq3" class="faq-radio">
+                    <label for="faq3" class="faq-question">
+                        <span>Do you offer wholesale pricing?</span>
+                        <span class="faq-toggle">+</span>
+                    </label>
+                    <div class="faq-answer">
+                        <p>Yes, we offer attractive wholesale pricing for bulk orders. If you're a retailer, temple, or organization looking to purchase in bulk, please contact us directly at wholesale@harekrishnaagarbati.com or call us at +91 98765 43210. We provide special discounts and customized packaging for wholesale orders.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="faq-item">
+                    <input type="radio" name="faq" id="faq4" class="faq-radio">
+                    <label for="faq4" class="faq-question">
+                        <span>Are your products cruelty-free and eco-friendly?</span>
+                        <span class="faq-toggle">+</span>
+                    </label>
+                    <div class="faq-answer">
+                        <p>Absolutely! We are committed to environmental sustainability and ethical practices. Our products are 100% vegetarian, cruelty-free, and made with eco-friendly packaging. We source our ingredients from sustainable sources and ensure fair wages for all our artisans.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 5 -->
+                <div class="faq-item">
+                    <input type="radio" name="faq" id="faq5" class="faq-radio">
+                    <label for="faq5" class="faq-question">
+                        <span>What is your return policy?</span>
+                        <span class="faq-toggle">+</span>
+                    </label>
+                    <div class="faq-answer">
+                        <p>We offer a 7-day return policy for unopened and unused products. If you're not satisfied with your purchase, please contact us within 7 days of delivery with your order details. We'll arrange a refund or replacement, subject to our terms and conditions. Customized or wholesale orders are not eligible for returns.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 6 -->
+                <div class="faq-item">
+                    <input type="radio" name="faq" id="faq6" class="faq-radio">
+                    <label for="faq6" class="faq-question">
+                        <span>Can I track my order?</span>
+                        <span class="faq-toggle">+</span>
+                    </label>
+                    <div class="faq-answer">
+                        <p>Yes! Once your order is shipped, you'll receive an email with your tracking number and a link to track your package. You can also log into your account on our website to view your order status and tracking information in real-time.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 7 -->
+                <div class="faq-item">
+                    <input type="radio" name="faq" id="faq7" class="faq-radio">
+                    <label for="faq7" class="faq-question">
+                        <span>Do you ship internationally?</span>
+                        <span class="faq-toggle">+</span>
+                    </label>
+                    <div class="faq-answer">
+                        <p>Yes, we ship to most countries worldwide. International shipping rates and delivery times vary by destination. Please note that customers are responsible for any customs duties or import taxes that may apply. Contact us for specific international shipping inquiries.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 8 -->
+                <div class="faq-item">
+                    <input type="radio" name="faq" id="faq8" class="faq-radio">
+                    <label for="faq8" class="faq-question">
+                        <span>How should I store the agarbati?</span>
+                        <span class="faq-toggle">+</span>
+                    </label>
+                    <div class="faq-answer">
+                        <p>Store your agarbati in a cool, dry place away from direct sunlight and moisture. Keep them in their original packaging or an airtight container to maintain freshness and fragrance. Proper storage can extend the shelf life up to 2 years.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="section newsletter-section">
+        <div class="container">
+            <h2>Stay Connected</h2>
+            <p>Subscribe for updates, exclusive offers, and spiritual insights</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Enter your email address" class="newsletter-input" required>
+                <button type="submit" class="newsletter-btn">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <div class="logo" style="margin-bottom: 20px;">
+                        <span class="logo-icon">🕉️</span>
+                        <span style="color: white;">HareKrishna Agarbati</span>
+                    </div>
+                    <p style="color: rgba(255,255,255,0.8);">Bringing divine fragrances to your sacred spaces since 1985. Handcrafted with devotion and love.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="cart.html">Cart</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Categories</h3>
+                    <ul class="footer-links">
+                        <li><a href="products.html">Traditional Scents</a></li>
+                        <li><a href="products.html">Floral Collection</a></li>
+                        <li><a href="products.html">Meditation Series</a></li>
+                        <li><a href="products.html">Premium Range</a></li>
+                        <li><a href="products.html">Gift Sets</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Temple Street, Vrindavan, Mathura - 281121</li>
+                        <li><i class="fas fa-phone"></i> +91 98765 43210</li>
+                        <li><i class="fas fa-envelope"></i> info@harekrishnaagarbati.com</li>
+                        <li><i class="fas fa-clock"></i> Mon - Sat: 9:00 AM - 7:00 PM</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 HareKrishna Agarbati Shop. All rights reserved. | Made with devotion 🙏</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

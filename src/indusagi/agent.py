@@ -9,11 +9,28 @@ from pydantic import BaseModel, Field
 import os
 import time
 import json
+from rich.console import Console
+from rich.panel import Panel
+from rich.table import Table
+from rich.theme import Theme
+from rich import box
 from indusagi.tool_usage_logger import tool_logger
 from indusagi.providers.base import BaseProvider, ProviderResponse, ToolCall
 from indusagi.providers.openai_provider import OpenAIProvider
 from indusagi.providers.anthropic_provider import AnthropicProvider
 from indusagi.utils.prompt_loader import load_prompt_from_file, is_file_path
+
+# Initialize Rich console with custom theme for styled output
+agent_theme = Theme({
+    "success": "bold green",
+    "error": "bold red",
+    "warning": "yellow",
+    "agent_name": "bold bright_blue",
+    "tool": "bold yellow",
+    "dim": "dim white",
+    "banner": "bold bright_cyan",
+})
+console = Console(theme=agent_theme)
 
 
 class AgentConfig(BaseModel):
@@ -356,7 +373,7 @@ class Agent:
 
             except Exception as e:
                 error_msg = f"Error processing request (attempt {attempt + 1}/{self.config.max_retries}): {str(e)}"
-                print(f"[Agent {self.name}] {error_msg}")
+                console.print(f"[error][Agent {self.name}] {error_msg}[/error]")
 
                 # If last attempt, return error
                 if attempt == self.config.max_retries - 1:
@@ -439,10 +456,10 @@ class Agent:
                 content = response.content
                 tool_calls = response.tool_calls
 
-                # DEBUG: Log finish_reason
-                print(f"\nDEBUG [{self.name}]: finish_reason = {finish_reason}")
-                print(f"DEBUG [{self.name}]: has content = {bool(content)}")
-                print(f"DEBUG [{self.name}]: has tool_calls = {bool(tool_calls)}")
+                # DEBUG: Log finish_reason (optional - uncomment for debugging)
+                # console.print(f"\n[dim]DEBUG [{self.name}]: finish_reason = {finish_reason}[/dim]")
+                # console.print(f"[dim]DEBUG [{self.name}]: has content = {bool(content)}[/dim]")
+                # console.print(f"[dim]DEBUG [{self.name}]: has tool_calls = {bool(tool_calls)}[/dim]")
 
                 # Add assistant message to history (store in OpenAI format)
                 assistant_msg = {
@@ -485,11 +502,17 @@ class Agent:
 
                     # If there are active todos and multiple non-todo tools called, enforce one-by-one
                     if has_active_todos and len(non_todo_calls) > 1:
-                        print(f"\n{'='*70}")
-                        print(f"[{self.name}] WARNING: Attempted to execute {len(non_todo_calls)} tools at once!")
-                        print(f"[{self.name}] Enforcing ONE-BY-ONE execution when todos are active")
-                        print(f"[{self.name}] Only executing the first tool call")
-                        print(f"{'='*70}\n")
+                        console.print()
+                        console.print(Panel(
+                            f"Attempted to execute {len(non_todo_calls)} tools at once!\n"
+                            f"Enforcing ONE-BY-ONE execution when todos are active.\n"
+                            f"Only executing the first tool call.",
+                            title=f"[warning][{self.name}] WARNING[/warning]",
+                            box=box.ROUNDED,
+                            border_style="warning",
+                            padding=(1, 2),
+                        ))
+                        console.print()
 
                         # Determine which to execute vs skip
                         first_non_todo_found = False
@@ -547,22 +570,37 @@ class Agent:
                             error=error_msg
                         )
 
-                        # Display real-time tool usage info
+                        # Display real-time tool usage info with Rich panel
                         status_icon = "[OK]" if success else "[FAIL]"
-                        print(f"\n{'-'*70}")
-                        print(f"TOOL USAGE: {status_icon} {tool_name}")
-                        print(f"{'-'*70}")
-                        print(f"Execution Time: {execution_time:.3f}s")
-                        print(f"Agent: {self.name}")
-                        if error_msg:
-                            print(f"Error: {error_msg}")
+                        status_color = "success" if success else "error"
+
+                        # Create tool usage info table
+                        tool_info = Table.grid(padding=(0, 2))
+                        tool_info.add_column(style="cyan", justify="left")
+                        tool_info.add_column(style="white", justify="left")
+
+                        tool_info.add_row("Execution Time:", f"{execution_time:.3f}s")
+                        tool_info.add_row("Agent:", self.name)
 
                         # Show running statistics
                         stats = tool_logger.get_statistics()
-                        print(f"Session Stats: {stats['total_calls']} calls | "
-                              f"{stats['success_rate']:.1f}% success | "
-                              f"{stats['total_execution_time']:.2f}s total")
-                        print(f"{'-'*70}\n")
+                        tool_info.add_row("Session Stats:",
+                                        f"{stats['total_calls']} calls | "
+                                        f"{stats['success_rate']:.1f}% success | "
+                                        f"{stats['total_execution_time']:.2f}s total")
+
+                        if error_msg:
+                            tool_info.add_row("[error]Error:[/error]", f"[error]{error_msg}[/error]")
+
+                        console.print()
+                        console.print(Panel(
+                            tool_info,
+                            title=f"[{status_color}]TOOL USAGE: {status_icon} {tool_name}[/{status_color}]",
+                            box=box.ROUNDED,
+                            border_style=status_color,
+                            padding=(0, 2),
+                        ))
+                        console.print()
 
                         # Check if this was a handoff - if so, stop processing
                         if tool_name == "handoff_to_agent":
@@ -610,7 +648,7 @@ class Agent:
 
             except Exception as e:
                 error_msg = f"Error in tool calling loop (turn {turn + 1}): {str(e)}"
-                print(f"[Agent {self.name}] {error_msg}")
+                console.print(f"[error][Agent {self.name}] {error_msg}[/error]")
                 return f"I apologize, but I encountered an error: {str(e)}"
 
         # If we've exhausted max turns, ask user to continue
@@ -766,76 +804,85 @@ class Agent:
             completed_count = statuses.count("completed")
             pending_count = statuses.count("pending")
 
+            # Build todo list content
+            todo_lines = []
+            for i, todo in enumerate(todos, 1):
+                priority_emoji = {"high": "!", "medium": "~", "low": "-"}.get(todo.get("priority", "medium"), "~")
+                status = todo.get("status", "pending")
+
+                # Status emoji (ASCII for Windows compatibility)
+                if status == "completed":
+                    status_emoji = "[DONE]"
+                    status_color = "success"
+                elif status == "in_progress":
+                    status_emoji = "[>>]"
+                    status_color = "warning"
+                else:
+                    status_emoji = "[ ]"
+                    status_color = "dim"
+
+                task = todo.get("task", "")
+                todo_lines.append(f"  [{status_color}]{i}. [{priority_emoji}] {status_emoji}[/{status_color}] {task}")
+
+            todo_content = "\n".join(todo_lines)
+
             if completed_count == 0 and in_progress_count == 0:
                 # Initial todo creation
-                print(f"\n{'='*70}")
-                print(f"[{self.name}] Creating todo list with {len(todos)} tasks:")
-                print(f"{'='*70}")
-                for i, todo in enumerate(todos, 1):
-                    priority_emoji = {"high": "!", "medium": "~", "low": "-"}.get(todo.get("priority", "medium"), "~")
-                    status_emoji = "⏳"
-                    print(f"  {i}. [{priority_emoji}] {status_emoji} {todo.get('task')}")
-                print(f"{'='*70}")
+                title = f"[banner][{self.name}] Creating todo list with {len(todos)} tasks[/banner]"
+                progress_line = ""
             else:
-                # Todo update - ALWAYS show full list with progress
-                print(f"\n{'='*70}")
-                print(f"[{self.name}] TODO LIST UPDATE:")
-                print(f"{'='*70}")
-                for i, todo in enumerate(todos, 1):
-                    priority_emoji = {"high": "!", "medium": "~", "low": "-"}.get(todo.get("priority", "medium"), "~")
-                    status = todo.get("status")
+                # Todo update
+                title = f"[banner][{self.name}] TODO LIST UPDATE[/banner]"
+                progress_line = f"\n\n[cyan]Progress:[/cyan] [success]{completed_count} done[/success], [warning]{in_progress_count} in progress[/warning], [dim]{pending_count} pending[/dim]"
 
-                    # Status emoji
-                    if status == "completed":
-                        status_emoji = "✅"
-                    elif status == "in_progress":
-                        status_emoji = "🔄"
-                    else:
-                        status_emoji = "⏳"
-
-                    print(f"  {i}. [{priority_emoji}] {status_emoji} {todo.get('task')}")
-
-                print(f"\nProgress: {completed_count} done, {in_progress_count} in progress, {pending_count} pending")
-                print(f"{'='*70}")
+            console.print()
+            console.print(Panel(
+                todo_content + progress_line,
+                title=title,
+                box=box.DOUBLE_EDGE,
+                border_style="bright_cyan",
+                padding=(1, 2),
+            ))
+            console.print()
 
         elif tool_name == "write":
             file_path = tool_args.get("file_path", "")
-            print(f"[{self.name}] Creating file: {file_path}")
+            console.print(f"[agent_name][{self.name}][/agent_name] Creating file: [cyan]{file_path}[/cyan]")
 
         elif tool_name == "edit":
             file_path = tool_args.get("file_path", "")
-            print(f"[{self.name}] Editing file: {file_path}")
+            console.print(f"[agent_name][{self.name}][/agent_name] Editing file: [cyan]{file_path}[/cyan]")
 
         elif tool_name == "read":
             file_path = tool_args.get("file_path", "")
-            print(f"[{self.name}] Reading file: {file_path}")
+            console.print(f"[agent_name][{self.name}][/agent_name] Reading file: [cyan]{file_path}[/cyan]")
 
         elif tool_name == "bash":
             command = tool_args.get("command", "")
             description = tool_args.get("command_description", "")
             # Show BOTH command and description to debug what's actually being executed
             if description and description != command:
-                print(f"[{self.name}] Running bash: '{command}'")
-                print(f"[{self.name}] Description: {description}")
+                console.print(f"[agent_name][{self.name}][/agent_name] Running bash: [cyan]'{command}'[/cyan]")
+                console.print(f"[agent_name][{self.name}][/agent_name] Description: [dim]{description}[/dim]")
             else:
-                print(f"[{self.name}] Running bash: '{command}'")
+                console.print(f"[agent_name][{self.name}][/agent_name] Running bash: [cyan]'{command}'[/cyan]")
 
         elif tool_name == "glob":
             pattern = tool_args.get("pattern", "")
-            print(f"[{self.name}] Finding files: {pattern}")
+            console.print(f"[agent_name][{self.name}][/agent_name] Finding files: [cyan]{pattern}[/cyan]")
 
         elif tool_name == "grep":
             pattern = tool_args.get("pattern", "")
-            print(f"[{self.name}] Searching for: {pattern}")
+            console.print(f"[agent_name][{self.name}][/agent_name] Searching for: [cyan]{pattern}[/cyan]")
 
         elif tool_name == "handoff_to_agent":
             agent_name = tool_args.get("agent_name", "")
             message = tool_args.get("message", "")
-            print(f"[{self.name}] Handing off to {agent_name}: {message[:60]}...")
+            console.print(f"[agent_name][{self.name}][/agent_name] Handing off to [bright_blue]{agent_name}[/bright_blue]: {message[:60]}...")
 
         else:
             # Default logging for unknown tools
-            print(f"[{self.name}] Using {tool_name}")
+            console.print(f"[agent_name][{self.name}][/agent_name] Using [tool]{tool_name}[/tool]")
 
     def _log_tool_result(self, tool_name: str, result: str) -> None:
         """
@@ -847,27 +894,31 @@ class Agent:
         """
         # Log bash errors (especially validation errors)
         if tool_name == "bash":
-            if "❌ ERROR" in result or "Error" in result:
-                # Show the full error message
-                print(f"\n{'='*70}")
-                print(f"[{self.name}] BASH ERROR:")
-                print(f"{'='*70}")
-                print(result)
-                print(f"{'='*70}\n")
+            if "[X] ERROR" in result or "Error" in result:
+                # Show the full error message in error panel
+                console.print()
+                console.print(Panel(
+                    result,
+                    title=f"[error][{self.name}] BASH ERROR[/error]",
+                    box=box.ROUNDED,
+                    border_style="error",
+                    padding=(1, 2),
+                ))
+                console.print()
             elif "Exit code: 0" in result:
                 # Success - show brief confirmation
-                print(f"[{self.name}] ✅ Command completed successfully")
+                console.print(f"[agent_name][{self.name}][/agent_name] [success][OK][/success] Command completed successfully")
             else:
                 # Show other results
-                print(f"[{self.name}] Result: {result[:200]}")
+                console.print(f"[agent_name][{self.name}][/agent_name] Result: [dim]{result[:200]}[/dim]")
 
         # Only log results for specific tools (not todo_write since we show full list in _log_tool_usage)
         elif tool_name == "write" and "Successfully" in result:
             # Show success message
             if "created" in result:
-                print(f"[{self.name}] ✅ File created successfully")
+                console.print(f"[agent_name][{self.name}][/agent_name] [success][OK][/success] File created successfully")
             elif "overwritten" in result:
-                print(f"[{self.name}] ✅ File updated successfully")
+                console.print(f"[agent_name][{self.name}][/agent_name] [success][OK][/success] File updated successfully")
 
     def __repr__(self) -> str:
         """String representation of Agent."""
