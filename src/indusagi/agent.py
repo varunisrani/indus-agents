@@ -139,7 +139,7 @@ class AgentConfig(BaseModel):
             default_model = "llama-3.3-70b-versatile"
             model_env = "GROQ_MODEL"
         else:
-            default_model = "gpt-4o"
+            default_model = "gpt-5-mini"
             model_env = "OPENAI_MODEL"
 
         return cls(

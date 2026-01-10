@@ -1,306 +1,374 @@
-Project: Oppo AI - Static Company Website
-
-Overview and Objectives
-
-- Build a multi-page static website for "Oppo AI" using only HTML, CSS, and vanilla JavaScript (no frameworks, no build tools required).
-- Pages: index (home), about, products, contact. Responsive, accessible, performant, and easy to maintain.
-
-Acceptance criteria per page (added):
-
-- Each page must include: <title>, meta description, viewport meta, canonical link, H1 element, skip-to-main link, and a footer with contact info.
-- Target WCAG 2.1 AA for accessibility. Visible focus states, semantic HTML, and keyboard operability required.
-- Responsive verified at 360px / 768px / 1024px.
-
-- Contact form/data flow: V1 is static-only. Allowed form options: Formspree/Netlify Forms/StaticForms with documented HTTPS endpoints, or a mailto fallback. Must include a consent checkbox, privacy note, and a simple honeypot for spam mitigation. No client-side secrets or server-side CMS for v1.
-
-- CMS: Removed for v1. Use a static content workflow: store content under /content as JSON or Markdown; an optional small build script may compile content into HTML. No server-side CMS for v1.
-- Deliverables: production-ready static site files that can be deployed to GitHub Pages, Netlify, or any static host.
-
-Success criteria
-
-- Fully functional static site with all pages and navigation.
-- Passes basic accessibility checks (keyboard navigable, semantic markup, ARIA where appropriate, contrast >= WCAG AA when possible).
-- Responsive layout across mobile/tablet/desktop breakpoints.
-- Images optimized with responsive srcset and lazy-loading.
-- Minimal, well-documented code with consistent patterns and comments.
-
-Smart defaults and assumptions
-
-- Design: modern, clean, minimalistic tech/company aesthetic.
-- Typography: system font stack with optional Google Fonts fallback (include instructions to use local font files if needed).
-- Color palette: primary (brand) color, dark/neutral text, light background. Ensure contrast.
-- Navigation: top nav plus mobile hamburger menu.
-- Contact form: static-friendly integration using Formspree or mailto fallback; provide both options.
-- No server-side processing. All interactions run client-side or via third-party APIs.
-
-Folder structure (root)
-
-oppo-ai-site/
-- index.html
-- about.html
-- products.html
-- contact.html
-- 404.html
-- assets/
-  - css/
-    - styles.css           # main stylesheet (BEM conventions)
-    - utilities.css        # small utility helpers (spacing, text, helpers)
-  - js/
-    - main.js              # global behaviors (menu, accessibility helpers, form handling)
-    - products.js          # product page behaviors (filters, modals)
-  - images/
-    - logo.svg
-    - hero/                # hero images in multiple sizes (jpg/webp)
-    - products/            # product images with responsive sizes
-    - team/                # team photo assets
-  - icons/
-    - svg-sprite.svg       # SVG sprites or individual svgs
-- data/
-  - products.json         # structured product data used by products.html (optional)
-- docs/
-  - README.md             # project notes and deployment instructions
-- plan.md                 # this file
-
-File breakdown and descriptions
-
-- index.html
-  - Purpose: homepage introducing Oppo AI, hero, value propositions, featured products, CTA.
-  - Sections: skip-nav link, header (logo + nav), hero, features overview, featured products, customer logos/testimonials, footer.
-
-- about.html
-  - Purpose: company story, mission, team, timeline, careers CTA.
-  - Sections: header, company mission, timeline, team grid (accessible cards), values, footer.
-
-- products.html
-  - Purpose: product catalog with brief descriptions, search/filter, product detail modal (client-side).
-  - Sections: header, product filter/search bar, product grid, accessible product modal, footer.
-  - Data: products.json used to populate the grid (fallback to inline HTML if JS disabled).
-
-- contact.html
-  - Purpose: contact details and contact form (Formspree integration or mailto fallback).
-  - Sections: header, contact info (address, email, phone), contact form, map placeholder (static image or embedded iframe if allowed), footer.
-
-- 404.html
-  - Simple friendly not-found page matching site branding.
-
-- assets/css/styles.css
-  - Layout, typography, color variables, responsive grid, component styles (header, hero, cards, modals, forms).
-  - Use CSS custom properties for theme variables.
-  - BEM class naming for components.
-
-- assets/js/main.js
-  - Mobile menu toggle, focus management, skip link handling, lazy-loading polyfill if needed, form submission handler (with unobtrusive enhancement), storing site-wide constants.
-
-- assets/js/products.js
-  - Load products.json, render grid, implement client-side search and filters, keyboard-accessible product modal.
-
-- data/products.json
-  - Example JSON array of product objects: id, name, shortDescription, longDescription, images (array), features, price (if relevant), tags.
-
-Content outlines (copy placeholders and structure)
-
-- index.html
-  - Title/meta description reflecting Oppo AI branding and hero keywords.
-  - Hero: H1 "Oppo AI — Intelligent Solutions for Modern Businesses"
-  - 3-4 feature cards: "AI Assistants", "Computer Vision", "Predictive Analytics", "Enterprise Integration"
-  - CTA buttons: "Explore Products", "Contact Sales"
-
-- about.html
-  - H1 "About Oppo AI"
-  - Mission statement paragraph
-  - Timeline: founding year, milestones
-  - Team: cards with name, role, short bio, social links (optional)
-
-- products.html
-  - H1 "Products"
-  - Search input (label + accessible description)
-  - Filter chips (category, industry, deployment: cloud/on-prem)
-  - Product cards with image, name, short description, CTA "Learn more" that opens modal or navigates to anchored detail.
-
-- contact.html
-  - H1 "Contact Us"
-  - Contact info block (address, phone, support email)
-  - Contact form fields: name, email (required, type=email), organization (optional), subject, message (required), consent checkbox (privacy), submit button.
-  - Form behavior: client-side validation, unobtrusive ARIA live region for errors/success, sends to Formspree or opens mailto fallback.
-
-Accessibility (WCAG-focused)
-
-- Semantic HTML5 elements: header, nav, main, article, section, footer, form, fieldset/legend when appropriate.
-- Landmark roles and aria-labels where needed.
-- Skip to main content link at top of each page.
-- Keyboard accessibility: all interactive elements focusable and operable with keyboard.
-- Focus styles: visible outline for focus state (do not remove outlines unless replaced with equivalent visible indicator).
-- Color contrast: ensure text/background contrast meets WCAG AA. Provide alternative color suggestions in CSS variables for maintainers.
-- Images: include meaningful alt text; decorative images use empty alt="".
-- Forms: labels explicitly associated with inputs, error messages announced via aria-live="polite".
-- Modals/dialogs: trap focus when open, return focus on close, provide role="dialog" and aria-modal="true".
-- Use aria-hidden on inert content when modal open.
-
-Responsive design
-
-- Mobile-first CSS approach.
-- Breakpoints: small (<=480px), medium (481–768px), large (769–1024px), xlarge (>=1025px). Prefer fluid layouts with max-width containers.
-- Grid system: simple CSS Grid / Flexbox utilities for responsive columns.
-- Nav: collapses to hamburger + accessible toggle on small screens.
-- Images: use srcset and sizes attributes for responsive images; modern formats (webp) with fallbacks.
-
-Performance and best practices
-
-- Minimize HTTP requests: combine sprites, inline critical CSS if needed.
-- Use compressed images (WebP + JPEG fallback), appropriate dimensions, and lazy-loading (loading="lazy").
-- Defer non-critical JS (use defer attribute) and keep JS small and modular.
-- Limit external requests; if using Google Fonts, use font-display:swap and host locally if privacy desired.
-- Use caching headers when deploying; add simple link rel="preconnect" for external domains if used.
-
-Privacy and security basics (static site)
-
-- Do not collect unnecessary PII. Contact form includes consent checkbox and short privacy note.
-- If integrating Formspree or similar, document that third-party services will process form submissions.
-- No client-side secrets. Any API keys must be omitted or proxied by a server (not in scope).
-
-Assets list
-
-- Logo: logo.svg (vector)
-- Favicons: favicon.ico + touch icons (png) in multiple sizes and site manifest (optional)
-- Hero images: hero-320.webp/.jpg, hero-768.webp/.jpg, hero-1280.webp/.jpg
-- Product images: product-<id>-320.webp/.jpg, product-<id>-640.webp/.jpg, product-<id>-1280.webp/.jpg
-- Team photos: avatar-<name>-200.webp/.jpg
-- SVG icons for features and social links (separate SVG files or one sprite)
-- robots.txt and sitemap.xml (optional but recommended for SEO)
-
-SEO and metadata
-
-- Each page: unique title, meta description, canonical link, open graph tags (og:title, og:description, og:image), twitter card tags.
-- Structured data: JSON-LD for Organization on index/about, and Product for product pages (optional).
-
-Implementation steps (ordered, for Coder to execute)
-
-1. Initialize repository and base files
-   - Create project root with folder structure above.
-   - Add index.html, about.html, products.html, contact.html, 404.html with basic HTML skeleton and shared header/footer includes (if not using includes, duplicate consistent header/footer across pages).
-   - Add assets directories and empty placeholder files: css/styles.css, js/main.js, icons/logo.svg, images placeholders.
-   - Deliverable: Project scaffolding committed.
-
-2. Create global HTML template and header/footer
-   - Implement consistent header with logo and nav links (Home, About, Products, Contact) and a skip link.
-   - Implement footer with contact info, social links, small nav.
-   - Ensure semantic markup and ARIA attributes where necessary.
-   - Deliverable: Navigable site header/footer across all pages.
-
-3. Implement responsive CSS base
-   - Add CSS reset/normalize (small), CSS variables for colors/spacing/typography, base typography, anchor/focus styles.
-   - Create layout utilities (container, grid, stack, spacing utilities) in utilities.css.
-   - Deliverable: Base appearances implemented and consistent across pages.
-
-4. Build homepage sections
-   - Implement hero section (responsive image, H1, intro copy, CTA buttons).
-   - Implement features cards and featured products section (use product cards markup or dynamic injection later).
-   - Implement testimonial/logo strip and footer.
-   - Deliverable: Completed home page layout and content placeholders.
-
-5. Build About page
-   - Implement mission, timeline, team grid (cards) with accessible markup.
-   - Implement responsive layouts for team grid.
-   - Deliverable: Completed about page.
-
-6. Build Products page and data
-   - Create data/products.json with product entries (5 sample products as default).
-   - Implement product grid markup and product cards (use progressive enhancement: if JS disabled, show fallback static grid markup or message to enable JS).
-   - Implement client-side products.js to fetch products.json, render cards, implement search/filter, and implement accessible product modal for details.
-   - Deliverable: Interactive product catalog with keyboard-accessible modal.
-
-7. Build Contact page and form handling
-   - Implement form markup with labels and required validation attributes.
-   - Implement JS form handler to post to Formspree (document how to swap endpoint) and show success/error message in aria-live region.
-   - Provide mailto fallback link and instructions in HTML comments.
-   - Deliverable: Working contact form with graceful fallback.
-
-8. Accessibility and ARIA improvements
-   - Add focus trapping in modal, aria-hidden toggling, and ensure all interactive widgets have keyboard support.
-   - Run a11y checks (manual keyboard navigation, Lighthouse a11y audit, axe browser extension recommended).
-   - Deliverable: Accessibility pass for main flows and documented a11y notes in docs/README.md.
-
-9. Performance and optimization
-   - Optimize and add responsive images and srcset, use loading="lazy" where appropriate.
-   - Minify CSS and JS for production (provide minified assets or instruction to minify manually).
-   - Deliverable: Optimized assets and performance notes.
-
-10. Testing and validation
-    - Cross-browser checks: Chrome, Firefox, Safari (mobile), Edge.
-    - Responsive checks at common breakpoints and touch interactions.
-    - Accessibility tests: keyboard only usage, Lighthouse, axe.
-    - Link and HTML validation: run W3C validator for pages.
-    - Deliverable: Test report summary in docs/README.md and fixes applied.
-
-11. Deployment
-    - Add docs/README.md with deployment options: GitHub Pages (push to gh-pages branch or use docs/ folder), Netlify, Vercel static deploy.
-    - Provide robots.txt and sitemap.xml templates.
-    - Deliverable: Deployed static site and deployment instructions.
-
-Testing and validation approach
-
-- Unit/test files: Not applicable for a static site, but test plans are provided.
-- Manual QA checklist:
-  - Navigation works and focus order logical
-  - Header/footer consistent on all pages
-  - Forms validate and provide accessible feedback
-  - Product modal traps focus and is dismissible via Escape key
-  - Images have alt text and responsive srcset
-  - Page load performance reasonable (Lighthouse score >= 80 for Performance)
-  - No console errors in browsers
-- Automated/Tooling recommendations:
-  - Lighthouse (Chrome) for performance/accessibility best-practices
-  - axe DevTools or browser extension for deeper accessibility scanning
-  - WAVE browser extension for visual accessibility issues
-
-Dependencies and prerequisites
-
-- No runtime dependencies. Modern browsers are expected.
-- Optional: Formspree or other static form provider account if form submissions required.
-- Optional: Node.js toolchain only if Coder wants to minify assets locally (not required). Provide guidance on manual minification alternatives.
-
-Coding conventions and patterns
-
-- CSS: BEM naming convention, CSS custom properties, mobile-first, keep components small and reusable.
-- JS: Modular functions, use ES6+, use feature detection and progressive enhancement, attach event listeners with delegation for lists/grids.
-- HTML: semantic markup, descriptive link text, avoid empty anchors.
-- Comments: Add inline comments for non-obvious code and document any 3rd-party endpoints.
-
-Edge cases and robustness
-
-- Products page: gracefully handle products.json fetch failure (show message and provide fallback static content).
-- Form submission: network failure should show clear error and allow retry.
-- Images missing: use CSS background fallback color and alt text for informative fallback.
-
-Deliverables checklist (what completion looks like)
-
-- All pages present and navigable: index.html, about.html, products.html, contact.html, 404.html
-- assets/css/styles.css and assets/css/utilities.css implemented
-- assets/js/main.js and assets/js/products.js implemented
-- data/products.json with sample products
-- assets/images and assets/icons populated with placeholder assets
-- docs/README.md with build, test, and deploy instructions
-- Basic SEO meta tags and social cards included
-- Accessibility checklist completed and documented
-
-Estimated effort guidance (single developer)
-
-- Scaffolding & base CSS: 4–8 hours
-- Homepage & About page: 4–6 hours
-- Products page + JS catalog: 8–12 hours
-- Contact form + integration: 2–4 hours
-- Accessibility fixes & testing: 4–6 hours
-- Optimization & deployment: 2–4 hours
-
-Notes for Coder (non-blocking assumptions)
-
-- Use progressive enhancement: site must remain usable (content and navigation) without JavaScript. Enhanced interactions (modal, dynamic product loading) are optional progressive features.
-- If any external service is added (Formspree, analytics), document it in docs/README.md and include privacy note on contact form.
-
-Next steps for Coder
-
-- Follow the Implementation steps in order. Create small commits per completed section.
-- Run accessibility checks during development (keyboard testing + axe) rather than leaving until the end.
-- Keep code modular and add comments for future maintainers.
-
-End of plan.md
+# Samsung Company Website - Project Plan
+
+## Project Overview
+
+**Project Name:** Samsung Company Website
+**Type:** Multi-page corporate website
+**Tech Stack:** HTML5, CSS3, Vanilla JavaScript (no frameworks)
+**Target Audience:** Consumers, potential employees, business partners, media
+
+---
+
+## Technology Stack
+
+| Layer | Technology | Purpose |
+|-------|-----------|---------|
+| **HTML** | HTML5 with Semantic Elements | Structure and accessibility |
+| **CSS** | CSS3 with CSS Variables | Styling, responsive design, animations |
+| **JavaScript** | Vanilla ES6+ | Interactivity, dynamic content, DOM manipulation |
+| **Icons** | Font Awesome (CDN) or custom SVG icons | UI icons |
+| **Fonts** | Samsung One (custom), sans-serif fallbacks | Typography |
+
+---
+
+## Website Structure & Pages
+
+### 1. Home Page (`index.html`)
+**Purpose:** Main landing page showcasing brand, products, and news
+
+**Sections:**
+- **Header:** Logo, navigation, search, language selector
+- **Hero Banner:** Large promotional slider/carousel with CTAs
+- **Featured Products:** Grid showcasing flagship products (Galaxy, TV, appliances)
+- **Innovation Highlights:** Samsung News, latest technology features
+- **Promotions:** Current deals and offers
+- **Social Proof:** Customer testimonials or awards
+- **Newsletter Signup:** Email subscription form
+- **Footer:** Links, contact info, social media, legal
+
+### 2. Products Page (`products.html`)
+**Purpose:** Comprehensive product catalog organized by category
+
+**Sections:**
+- Category navigation sidebar
+- Product filters (price, features, specs)
+- Product cards with:
+  - Product image
+  - Name and brief description
+  - Key features highlights
+  - "Learn More" and "Buy" buttons
+- Product comparison tool
+- Sort options (popular, new, price)
+
+**Product Categories:**
+- Mobile (Galaxy S, Z Fold, tablets, wearables)
+- TV & Audio (QLED, OLED, soundbars)
+- Home Appliances (refrigerators, washers, air solutions)
+- Computing (Monitors, laptops, SSD)
+- Accessories
+
+### 3. About Page (`about.html`)
+**Purpose:** Company information, history, and brand story
+
+**Sections:**
+- Company overview and mission
+- Brand philosophy ("Do What You Can't")
+- History timeline
+- Leadership team
+- Corporate social responsibility
+- Awards and recognitions
+- Sustainability initiatives
+
+### 4. Support Page (`support.html`)
+**Purpose:** Customer service and technical support hub
+
+**Sections:**
+- Quick links (register product, repair status, software updates)
+- Product category selector for support
+- Searchable knowledge base
+- FAQ section
+- Live chat widget placeholder
+- Contact options (phone, email, community forums)
+- User manuals and downloads
+- Warranty information
+
+### 5. Careers Page (`careers.html`)
+**Purpose:** Recruitment and employer branding
+
+**Sections:**
+- Why work at Samsung (culture, benefits)
+- Life at Samsung (photos, employee stories)
+- Job search/listing interface
+- Department filter
+- Location filter
+- Application process info
+- Internship and graduate programs
+- Employee testimonials
+
+### 6. Contact Page (`contact.html`)
+**Purpose:** Corporate contact and media inquiries
+
+**Sections:**
+- Corporate headquarters address
+- Regional office contacts
+- Media relations contact
+- Investor relations link
+- Product inquiries form
+- General inquiry form
+- Social media links
+- Map integration placeholder
+
+---
+
+## File Structure
+
+```
+samsung-website/
+├── index.html              # Home page
+├── products.html           # Products catalog
+├── about.html              # About company
+├── support.html            # Customer support
+├── careers.html            # Careers/jobs
+├── contact.html            # Contact information
+│
+├── css/
+│   ├── main.css            # Main stylesheet (imports others)
+│   ├── variables.css       # CSS variables (colors, fonts, spacing)
+│   ├── reset.css           # CSS reset/Normalize
+│   ├── header.css          # Header/navigation styles
+│   ├── footer.css          # Footer styles
+│   ├── home.css            # Home page specific styles
+│   ├── products.css        # Products page styles
+│   ├── about.css           # About page styles
+│   ├── support.css         # Support page styles
+│   ├── careers.css         # Careers page styles
+│   ├── contact.css         # Contact page styles
+│   └── components.css      # Reusable components (buttons, cards, forms)
+│
+├── js/
+│   ├── main.js             # Main JavaScript (initialization)
+│   ├── header.js           # Mobile menu, search toggle
+│   ├── carousel.js         # Hero slider functionality
+│   ├── products.js         # Product filtering, pagination
+│   ├── search.js           # Search functionality
+│   ├── forms.js            # Form validation
+│   └── utils.js            # Utility functions
+│
+├── assets/
+│   ├── images/
+│   │   ├── logo/           # Logo variations
+│   │   ├── products/       # Product images
+│   │   ├── hero/           # Hero banner images
+│   │   ├── icons/          # UI icons
+│   │   └── team/           # Team/employee photos
+│   ├── fonts/              # Custom fonts (if offline)
+│   └── videos/             # Background videos, commercials
+│
+└── docs/
+    └── README.md           # Project documentation
+```
+
+---
+
+## Navigation Structure
+
+### Global Header Navigation
+```
+[Logo]  Products  |  Support  |  About  |  Careers  |  Contact  [Search] [Menu]
+```
+
+### Footer Link Structure
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  Products          Support           Company          Connect    │
+│  • Mobile          • Find Support    • About Us       • Facebook │
+│  • TV & Audio      • manuals         • Careers        • Twitter  │
+│  • Computing       • Contact Us      • Investor       • Instagram│
+│  • Appliances      • Service         • Newsroom       • YouTube  │
+│  • Accessories     • Warranty        • CSR            • LinkedIn │
+├─────────────────────────────────────────────────────────────────┤
+│  Samsung © 2024 | Privacy | Terms | Site Map | Accessibility  │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## Design Guidelines
+
+### Color Scheme (Samsung-inspired)
+
+```css
+:root {
+  /* Primary Colors */
+  --samsung-blue: #1428A0;
+  --samsung-blue-dark: #0D1B7C;
+  --samsung-blue-light: #4285F4;
+  
+  /* Neutral Colors */
+  --white: #FFFFFF;
+  --gray-100: #F8F9FA;
+  --gray-200: #E9ECEF;
+  --gray-300: #DEE2E6;
+  --gray-400: #CED4DA;
+  --gray-600: #6C757D;
+  --gray-800: #343A40;
+  --black: #000000;
+  
+  /* Accent Colors */
+  --accent-blue: #2196F3;
+  --success: #28A745;
+  --warning: #FFC107;
+  --error: #DC3545;
+  
+  /* Typography Colors */
+  --text-primary: #1A1A1A;
+  --text-secondary: #5F6368;
+  --text-muted: #80868B;
+  
+  /* Functional */
+  --link-color: #1A73E8;
+  --border-color: #DADCE0;
+}
+```
+
+### Typography
+
+| Element | Font | Size | Weight | Line Height |
+|---------|------|------|--------|-------------|
+| H1 | Samsung One/sans-serif | 48px | 700 | 1.2 |
+| H2 | Samsung One/sans-serif | 36px | 600 | 1.3 |
+| H3 | Samsung One/sans-serif | 24px | 600 | 1.4 |
+| Body | Samsung One/sans-serif | 16px | 400 | 1.6 |
+| Small | Samsung One/sans-serif | 14px | 400 | 1.5 |
+| Button | Samsung One/sans-serif | 14px | 600 | 1.5 |
+
+### Spacing System
+
+```css
+:root {
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  --space-4xl: 96px;
+}
+```
+
+### Component Specifications
+
+**Buttons:**
+- Primary: Blue background, white text, 4px border radius
+- Secondary: White background, blue border, blue text
+- Hover: Slight darken/lift effect, box-shadow
+
+**Cards:**
+- White background, 8px border radius
+- Subtle shadow: 0 2px 8px rgba(0,0,0,0.1)
+- Hover: 0 4px 12px rgba(0,0,0,0.15)
+
+**Forms:**
+- Input padding: 12px 16px
+- Border: 1px solid #DADCE0, 4px border radius
+- Focus state: Blue outline
+
+---
+
+## Implementation Steps
+
+### Phase 1: Foundation
+1. **Create project structure** - Set up folders and initial files
+2. **Create CSS reset and variables** - Define colors, typography, spacing
+3. **Build reusable components** - Buttons, cards, forms, badges
+4. **Create header component** - Logo, navigation, mobile menu
+5. **Create footer component** - Links, social icons, legal
+
+### Phase 2: Home Page
+1. **Build hero section** - Carousel/slider with CTA buttons
+2. **Create product showcase** - Grid layout for featured products
+3. **Add innovation section** - News and highlights
+4. **Implement newsletter signup** - Form with validation
+
+### Phase 3: Products Page
+1. **Build product catalog layout** - Sidebar filters + product grid
+2. **Create product cards** - Image, info, buttons
+3. **Implement filtering** - Category, price, features
+4. **Add sorting functionality** - Popular, new, price
+
+### Phase 4: Additional Pages
+1. **About page** - Company info, timeline, CSR section
+2. **Support page** - Quick links, FAQ accordion, contact options
+3. **Careers page** - Job listings, company benefits
+4. **Contact page** - Forms, maps, contact info
+
+### Phase 5: Interactivity & Polish
+1. **Mobile navigation** - Hamburger menu with slide-out
+2. **Search functionality** - Live search in header
+3. **Form validation** - Contact and job application forms
+4. **Animations** - Smooth transitions, hover effects
+5. **Performance optimization** - Lazy loading images, minification
+
+### Phase 6: Testing & Validation
+1. **Cross-browser testing** - Chrome, Firefox, Safari, Edge
+2. **Mobile testing** - Responsive design verification
+3. **Accessibility audit** - WCAG 2.1 AA compliance
+4. **Performance testing** - Lighthouse audit
+5. **Form testing** - Validation and submission flow
+
+---
+
+## Testing & Validation Approach
+
+### Functional Testing
+- [ ] Navigation links work correctly
+- [ ] Mobile menu toggles properly
+- [ ] Forms validate on submit
+- [ ] Product filters work as expected
+- [ ] Carousel navigation functions
+
+### Responsive Testing
+- [ ] Desktop (1920px, 1440px, 1280px)
+- [ ] Tablet (1024px, 768px)
+- [ ] Mobile (414px, 375px, 320px)
+
+### Performance Testing
+- Image optimization and lazy loading
+- Minified CSS and JS
+- Fast loading targets (<3s on 3G)
+
+### Accessibility Testing
+- Keyboard navigation support
+- ARIA labels where needed
+- Color contrast ratios (4.5:1 minimum)
+- Screen reader compatibility
+
+---
+
+## Dependencies & External Resources
+
+| Resource | Purpose | Usage |
+|----------|---------|-------|
+| Font Awesome | Icons | CDN link in head |
+| Google Fonts | Typography | CDN import or local |
+| Normalize.css | CSS reset | CDN or local |
+| Google Maps | Maps embed | API integration |
+
+---
+
+## Success Criteria
+
+1. **All 6 pages render correctly** across major browsers
+2. **100% responsive design** working on all screen sizes
+3. **Navigation intuitive** with clear visual hierarchy
+4. **Performance score** of 85+ on Lighthouse
+5. **Accessibility score** of 90+ on Lighthouse (WCAG AA)
+6. **Clean, maintainable code** following the plan structure
+
+---
+
+## Notes
+
+- Use semantic HTML5 for accessibility and SEO
+- Implement CSS animations sparingly for performance
+- Consider progressive enhancement approach
+- All images should have alt text
+- Forms should have proper labels and ARIA attributes
+- Use CSS Grid and Flexbox for layouts (no float-based layouts)
+- Mobile-first CSS approach recommended
+
+---
+
+**Plan Created:** Ready for implementation
+**Next Step:** Handoff to Coder for development
