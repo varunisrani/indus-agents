@@ -1,251 +1,143 @@
-# Critic Report: Vivo AI Company Website Project
+Summary
 
-**Status:** BLOCKING - Critical requirement mismatch identified
-**Scope:** Vivo AI company website (multi-page)
-**Date:** 2025-01-06
+- I reviewed plan.md (root) for the Oppo AI static website (lines cited below). The plan is a reasonable high-level start but contains critical gaps, ambiguity, and contradictory requirements that will cause implementation errors, security/privacy exposure, and accessibility failures unless corrected before coding.
 
----
+Findings (ordered by severity)
 
-## Executive Summary
+1) Critical: CMS requirement conflicts with static-only brief
+- Issue: plan.md includes "Implement a content management system (CMS) for easy content updates" but the project brief requires a static multi-page site using only HTML/CSS/JS (no frameworks).
+- Why it matters: A CMS implies server-side components, authentication, secret handling, and deployment complexity that break the static-only constraint and expand scope/security surface.
+- Where observed: plan.md line 19.
+- Mitigation: Either remove CMS from v1 and use a static content workflow (content/*.md or content/*.json + a simple build script) or explicitly scope a third‑party headless CMS integration (and add secret management, OAuth, and privacy controls). Prefer the static workflow for minimal scope and security.
+- Severity: Critical
 
-The plan delivered is for a **HareKrishna Agarbati Shop** website, NOT a **Vivo AI company website** as requested by the user. This is a **critical requirement mismatch** that invalidates the entire plan. The technical approach (pure HTML/CSS, no JavaScript) creates significant functional and accessibility limitations unsuitable for a modern AI company website.
+2) High: Pages list mismatch vs. user brief
+- Issue: User requested pages: index, about, products, contact. plan.md lists Home/Services/Portfolio/Blog/Contact.
+- Why it matters: Implementing the wrong pages wastes developer time and produces a site that doesn't meet the stakeholder's needs.
+- Where observed: plan.md lines 5–9 and folder structure lines 32–42.
+- Mitigation: Update plan.md to require index.html, about.html, products.html, contact.html. Treat services/portfolio/blog as v2 items and explicitly mark them optional.
+- Severity: High
 
-**BLOCKING ISSUE**: The entire plan addresses the wrong project and must be regenerated before any implementation can proceed.
+3) High: Missing acceptance criteria and deliverables per page
+- Issue: The plan lacks precise acceptance criteria (required components, metadata, mobile breakpoints, WCAG target) for each page.
+- Why it matters: Subjective QA will cause rework and missed accessibility/security requirements.
+- Where observed: plan.md pages and implementation steps (lines 5–21), folder structure (lines 32–44).
+- Mitigation: Add a concise checklist per page (see Tests below). Target WCAG 2.1 AA for v1.
+- Severity: High
 
----
+4) Critical: Contact form and PII/data flow undefined
+- Issue: Contact page exists but the plan doesn't define how submissions are handled, where data is stored, retention, or consent.
+- Why it matters: Misconfigured forms can leak PII, violate GDPR/CCPA, or post data to insecure endpoints. Also introduces requirement for backend or third‑party services.
+- Where observed: plan.md lines 8–9, 18–21.
+- Mitigation: For a static site, mandate one of: mailto link, Formspree/Netlify Forms/StaticForms with documented privacy and TLS endpoints, or a serverless function with documented storage. Add spam mitigation (honeypot or reCAPTCHA) and a privacy notice on the contact page.
+- Severity: Critical
 
-## Critical Findings (Severity-Ordered)
+5) High: Accessibility requirements are high-level and incomplete
+- Issue: The plan references Lighthouse/WAVE but lacks concrete success criteria and required accessible patterns (skip link, keyboard navigation, form labels, color contrast, reduced-motion support).
+- Why it matters: Accessibility regressions commonly slip in without explicit acceptance targets; legal/UX risk.
+- Where observed: plan.md line 31.
+- Mitigation: Target WCAG 2.1 AA, require semantic HTML5, visible focus states, aria attributes where appropriate, skip-link, aria-live for form errors, prefers-reduced-motion support, and color contrast >= 4.5:1 for normal text.
+- Severity: High
 
-### 1. **CRITICAL: Wrong Project Scope**
-- **Issue**: Plan describes a traditional incense/agarbati e-commerce shop, not an AI company website
-- **Why it matters**: User explicitly requested "Vivo AI company website with multiple pages"
-- **Evidence**: Plan title (line 1), content focuses on agarbati products, spiritual themes, incense catalog
-- **Impact**: Entire plan is misaligned with user intent; all content, design, and features are wrong
+6) High/Medium: Security & privacy gaps
+- Issue: No CSP guidance, no secrets handling policy, and no documentation of third-party data-sharing or analytics.
+- Why it matters: Inadvertent commit of API keys, insecure form endpoints, or privacy-violating third-party services can create legal and security exposure.
+- Where observed: plan.md testing/security mentions (lines 21, 27–31) are generic.
+- Mitigation: Add a 'Security' section: require HTTPS endpoints, no client-side secrets, implement CSP (or document exceptions), perform a secrets scan, limit third‑party scripts, and select privacy-preserving analytics (or none).
+- Severity: High
 
-### 2. **CRITICAL: No JavaScript Constraint is Fundamentally Flawed for AI Company Site**
-- **Issue**: "NO REACT" interpreted as "NO JavaScript at all" (lines 9, 11, 277-278, 322)
-- **Why it matters**: Modern AI company websites require:
-  - Interactive demos/product showcases
-  - Dynamic animations for AI/tech visualization
-  - Form handling (contact, inquiries, newsletter)
-  - Mobile navigation (CSS checkbox hack is inaccessible)
-  - Smooth scrolling and parallax effects
-- **Tech stack reality**: "NO REACT" ≠ "no JavaScript". Vanilla JS is appropriate and expected
-- **Impact**: Will create a dated, non-functional site that undermines AI company credibility
+7) Medium: Performance and asset strategy missing
+- Issue: No guidance on responsive images (srcset/sizes), modern formats (WebP/AVIF), image compression, lazy-loading policy, or caching strategy.
+- Why it matters: Large assets slow LCP and harm SEO and UX on mobile.
+- Where observed: plan.md responsive/design mentions (lines 17, 32–42) but no specifics.
+- Mitigation: Add image optimization requirements, critical CSS strategy, defer non-critical JS, performance budget (e.g., <=500 KB above-the-fold), and set caching headers on static assets.
+- Severity: Medium
 
-### 3. **HIGH: CSS-Only Interactivity Creates Accessibility & UX Failures**
-- **Issues identified**:
-  - Mobile menu via checkbox hack (line 136, 154, 211) - not keyboard accessible, breaks screen readers
-  - CSS filters using sibling selectors (line 156, 230) - no browser history state, can't bookmark filtered views
-  - Testimonial carousel (line 52, 158) - CSS keyframe animations aren't user-controllable (violates WCAG)
-  - Lightbox with :target (line 157, 174) - janky UX, back button issues, can't open multiple items
-- **Why it matters**: Violates WCAG 2.1 AA; creates exclusionary experience; potential legal liability
-- **Impact**: Site will fail accessibility audits; alienates users with disabilities
+8) Medium: Testing scope is vague
+- Issue: The plan lists "unit/integration/UAT" without defining what to test on a static site, missing accessibility/manual tests, e2e smoke tests, link-checkers, and negative cases.
+- Why it matters: Tests may be skipped or ineffective.
+- Where observed: plan.md lines 27–31.
+- Mitigation: Add concrete tests (see Tests section) and CI steps (Lighthouse/axe, HTML validation, link-check, secrets scan).
+- Severity: Medium
 
-### 4. **HIGH: Missing Core AI Company Website Features**
-- **Missing features that should be in plan**:
-  - Product/service pages for AI solutions (not agarbati products)
-  - Case studies/portfolio section
-  - Team/researchers showcase
-  - Blog/resources section for thought leadership
-  - API documentation or technical specs
-  - Demo/interactive product experiences
-  - Client logos/testimonials from enterprise clients
-  - Careers/jobs section
-  - Privacy policy, terms of service (critical for AI/data companies)
-- **Current plan**: E-commerce cart, checkout, product catalog for physical goods (wrong domain entirely)
-- **Impact**: Delivered site would not serve an AI company's business needs
+9) Medium: Folder structure ambiguity and package.json presence
+- Issue: plan.md includes package.json in folder list, implying tooling; unclear whether build tooling is allowed.
+- Why it matters: Developers may add unnecessary build/deploy complexity or commit node_modules or secrets.
+- Where observed: plan.md lines 32–44.
+- Mitigation: Clarify allowed dev toolchain: permit npm for dev-only tools (linting, image optimization, light build script) but state the final deliverable must be pure static HTML/CSS/JS with no server runtime required.
+- Severity: Medium
 
-### 5. **HIGH: Security & Form Handling Gaps**
-- **Issues**:
-  - Contact form (line 110, 243, 288) has no backend or form submission method specified
-  - Newsletter signup (line 52, 219) - no mention of GDPR consent, data handling, or integration
-  - No CSRF protection strategy
-  - No rate limiting considerations for form submissions
-- **Why it matters**: Forms either don't work or become spam vectors; privacy compliance unclear
-- **Impact**: Non-functional forms or security exposure; GDPR/privacy risks for AI company handling user data
+10) Low/Medium: SEO and metadata omitted
+- Issue: No explicit meta strategy, structured data, sitemap or robots specification.
+- Why it matters: AI companies rely on organic discovery and thought leadership; missing SEO will reduce reach.
+- Where observed: plan.md lacks SEO section.
+- Mitigation: Add required meta tags, Open Graph, JSON-LD for Organization, sitemap.xml generation instruction, and robots.txt.
+- Severity: Low
 
-### 6. **MEDIUM: Performance & Scalability Concerns**
-- **Issues**:
-  - Pure CSS carousel with keyframe animations (line 158) - can't pause/stop, wastes resources
-  - No CDN strategy mentioned (line 292: "minimal external dependencies" is vague)
-  - No image optimization pipeline specified beyond "loading=lazy" (line 293)
-  - CSS-heavy approach may lead to large stylesheets
-- **Why it matters**: AI company site should feel fast, modern, and tech-forward
-- **Impact**: Slower load times, poor Lighthouse scores, undermines brand perception
+Tests (concrete cases to add to plan/CI)
 
-### 7. **MEDIUM: SEO & Discoverability Gaps**
-- **Missing from plan**:
-  - Meta tags strategy (title, description, OG tags for social sharing)
-  - Structured data/schema.org markup (critical for AI companies to appear in rich results)
-  - XML sitemap generation
-  - Robots.txt configuration
-  - Canonical URLs strategy
-- **Why it matters**: AI company needs strong organic search presence
-- **Impact**: Poor search visibility, especially for competitive AI/tech terms
+- Per-page acceptance tests (index.html, about.html, products.html, contact.html):
+  - Files exist, linked in header/footer.
+  - Each page includes: <title>, meta description, viewport meta, and canonical link.
+  - Hero section, main content area with H1, at least one CTA, and footer with contact info.
+  - Responsive verified at 360px / 768px / 1024px / 1440px.
 
-### 8. **MEDIUM: Broken Design Philosophy for AI Company**
-- **Current design**: "Traditional Indian motifs, spiritually-inspired, saffron/orange colors" (lines 14-17)
-- **Why it's wrong**: AI companies need modern, clean, tech-forward aesthetics (e.g., dark mode, gradients, geometric patterns, sans-serif typography)
-- **Impact**: Design would appear incongruent with AI industry expectations, hurt credibility
+- Accessibility (automated + manual):
+  - Run axe-core and fail build on any critical/serious rule.
+  - Manual keyboard-only navigation: focus order, visible focus indicator, skip-to-main link.
+  - Form controls: labels, aria-describedby for errors, error announcements via aria-live.
+  - prefers-reduced-motion: animations disabled when set.
+  - Color contrast checks: >=4.5:1 for normal text.
 
-### 9. **MEDIUM: No State Management or Data Persistence Strategy**
-- **Issues**:
-  - Shopping cart (lines 28-29, 115-124, 247-252) - CSS-only with no storage mechanism
-  - Wishlist (line 96) - no persistence across page loads
-  - Form data - no confirmation or storage
-- **Why it matters**: User interactions are ephemeral; frustrating UX
-- **Impact**: Cart/wishlist features are fundamentally broken; no way to proceed to checkout even if backend existed
+- Security & privacy tests:
+  - Secrets scan: grep for common patterns (API_KEY, SECRET, PASSWORD) and run a simple token regex check.
+  - Confirm form endpoints are HTTPS and documented; no client-side secrets.
+  - CSP meta header present; list any allowed external origins.
+  - Verify third-party scripts flagged and documented with privacy impact.
 
-### 10. **LOW: Incomplete Cross-Browser & Testing Strategy**
-- **Issues**:
-  - Browser support (lines 298-301) doesn't address CSS hack compatibility
-  - Testing phase (lines 261-267) lacks specific test cases for CSS-only edge cases
-  - No mention of progressive enhancement for older browsers
-- **Why it matters**: CSS hacks (checkbox, :target) have inconsistent browser support
-- **Impact**: Site breaks unexpectedly; no graceful degradation
+- Functional tests:
+  - Link-checker to ensure no broken links.
+  - Contact form submission flow using an allowed test endpoint; validate success UX and email delivery to test address.
+  - JS component tests (menu toggle, product listing filters) with basic unit tests if JS exists.
 
----
+- Performance tests:
+  - Lighthouse target: Performance >= 80, Accessibility >= 90 for v1; set higher goals for production.
+  - Core Web Vitals smoke checks under a simulated slow network (LCP, INP, CLS).
+  - Image size budgets and total page weight threshold.
 
-## Security Concerns (Detailed)
+Next steps (1–3 immediate changes for the Coder)
 
-### 1. Form Submission Security
-- No mention of input sanitization on backend (if forms ever connect)
-- No honeypot field strategy for spam prevention
-- No CAPTCHA or rate limiting consideration
-- **Risk**: Contact forms become spam vectors; potential XSS attack surface
+1) Update plan.md to remove or re-scope the CMS requirement (line 19):
+   - Replace with: "V1 will be a pure static site. Content stored under /content as JSON or Markdown; a small build script (optional) may compile content into HTML. No server-side CMS for v1." This is blocking.
 
-### 2. External Dependencies
-- Font Awesome CDN (line 273) - ensure SRI hashes, no compromised versions
-- Google Fonts (line 272) - consider privacy implications (GDPR)
-- Placeholder images from Unsplash (line 326) - not production-ready
-- **Risk**: Supply chain attacks; privacy compliance issues
+2) Align pages with the user brief (lines 5–9):
+   - Replace the current pages list with: index.html, about.html, products.html, contact.html. Mark services/portfolio/blog as v2 items.
+   - Add per-page acceptance checklist (meta tags, hero, CTA, H1 presence, responsive breakpoints, WCAG AA items).
 
-### 3. Data Privacy
-- Newsletter signup requires explicit consent (GDPR, CCPA)
-- Contact forms need privacy policy link
-- No mention of data retention or deletion policies
-- **Risk**: Legal liability; regulatory fines for AI/data company
+3) Add a Contact Form & Security section to plan.md describing allowed handling methods and required controls:
+   - Allowed v1 form options: mailto link (basic), Formspree/Netlify Forms/StaticForms with documented privacy, or a serverless endpoint with TLS.
+   - Require spam mitigation (honeypot or reCAPTCHA), privacy notice link, no client-side secrets, and documented receiver email/retention policy.
 
----
+Blocking items
 
-## Performance Considerations (Detailed)
+- Do not implement pages or components until plan.md is updated to resolve the CMS vs static conflict and contact form data flow. These are blocking because they change architecture and security requirements.
 
-### 1. CSS Animation Performance
-- Keyframe animations (line 158) run continuously, can't be paused
-- No `will-change` or `transform` optimization mentioned
-- `prefers-reduced-motion` media query missing for accessibility
-- **Impact**: Wasted CPU/battery; poor experience for users with motion sensitivity
+Reproduction / verification steps (for QA & coder)
 
-### 2. Image Loading
-- Native lazy loading (line 293) is good but insufficient alone
-- No responsive images (`srcset`, `sizes`) mentioned
-- No image format optimization (WebP/AVIF with fallbacks)
-- **Impact**: Slower load times; poor mobile experience; bandwidth waste
+1) Confirm plan.md changes: pages aligned to index/about/products/contact and CMS replaced with static workflow. If these changes are present, proceed.
+2) Create a feature branch and scaffold the folder structure exactly: index.html, about.html, products.html, contact.html, /styles, /scripts, /images, /content.
+3) Implement a minimal header/footer and verify navigation across all pages.
+4) Implement contact form using an allowed test endpoint (Formspree test) and verify submissions over HTTPS; check that no secrets are committed.
+5) Run automated checks: axe-core (accessibility), Lighthouse (performance), link-checker, and a secrets grep. Fix any critical failures before further feature work.
 
-### 3. Critical Rendering Path
-- No mention of CSS critical splitting
-- Large CSS files may block render
-- No inline critical CSS strategy
-- **Impact**: Delayed First Contentful Paint; poor Lighthouse scores
+Files/lines referenced
 
----
+- plan.md lines referenced: pages (5–9), CMS line (19), implementation steps (16–22), testing (27–31), folder structure (32–44).
 
-## Testing Gaps (Detailed)
+Handoff to Coder (3 concrete edits)
 
-### Missing Test Categories:
+- Edit 1 (plan.md): Replace pages list with the exact deliverables: index.html, about.html, products.html, contact.html; list other pages as v2.
+- Edit 2 (plan.md): Remove CMS line and replace with static content workflow (content/*.md or content/*.json + optional build script). State "No server-side CMS for v1." (blocking).
+- Edit 3 (plan.md): Add a Contact/Form handling section that documents allowed endpoints (Formspree/Netlify/mailto), spam mitigation, privacy notice, and no client-side secrets. Also add WCAG 2.1 AA acceptance criteria and basic SEO metadata requirements.
 
-#### 1. Accessibility Testing
-- Screen reader testing (NVDA, JAWS, VoiceOver)
-- Keyboard-only navigation
-- Color contrast verification (WCAG AA: 4.5:1 for body text)
-- Focus indicator visibility
-
-#### 2. Cross-Browser Testing
-- CSS hack behavior in Firefox vs Chrome vs Safari
-- Mobile browser compatibility (iOS Safari particularly strict with CSS)
-- Edge cases with `:target` behavior
-
-#### 3. Functional Testing
-- Form validation edge cases
-- Cart state persistence (or lack thereof)
-- Mobile menu open/close states
-- Filter interactions and URL state
-
-#### 4. Performance Testing
-- Lighthouse scores target (Performance, Accessibility, Best Practices, SEO)
-- Core Web Vitals (LCP, FID, CLS)
-- Load time on 3G networks
-
-#### 5. Negative Testing
-- What happens when external resources (fonts, icons) fail to load?
-- Broken image links behavior
-- Very long content in cards/grids
-- Small viewport widths (<320px)
-
----
-
-## Recommendations (Prioritized)
-
-### Immediate Actions (Blocking)
-1. **Regenerate entire plan** for Vivo AI company website, not agarbati shop
-2. **Reinterpret "NO REACT"** as "vanilla JavaScript is allowed and recommended"
-3. **Redesign feature set** around AI company needs (solutions, case studies, demos, blog)
-4. **Update design aesthetic** to modern, tech-forward visual identity
-
-### High Priority
-5. **Replace all CSS-only hacks** with accessible JavaScript alternatives:
-   - Use `<button>` with ARIA for mobile menu, not checkbox
-   - Use JavaScript for tabs/accordions to ensure keyboard accessibility
-   - Implement proper carousel with pause/skip controls
-6. **Define form strategy**: Specify form backend (Formspree, Netlify Forms, custom endpoint) with spam protection
-7. **Add SEO section**: Meta tags, structured data, sitemap strategy
-8. **Accessibility audit plan**: WCAG 2.1 AA compliance checklist, screen reader testing
-
-### Medium Priority
-9. **Performance targets**: Lighthouse >90 score, Core Web Vitals passing
-10. **Progressive enhancement**: Ensure site works without JavaScript, enhance with it
-11. **Image optimization pipeline**: Responsive images, modern formats, compression
-12. **Add analytics**: Mention privacy-preserving analytics (e.g., Plausible, Fathom)
-
-### Low Priority
-13. **Browser support matrix**: Test on actual devices, specify fallbacks
-14. **Content strategy**: AI-focused copywriting, case study templates, thought leadership topics
-15. **Deployment strategy**: Static hosting (Netlify, Vercel, GitHub Pages) with CI/CD
-
----
-
-## Next Steps for Coder
-
-**DO NOT proceed with current plan.** It is fundamentally misaligned with requirements.
-
-### Required Actions Before Implementation:
-
-1. **Obtain corrected plan.md** from Planner that addresses:
-   - Correct project: Vivo AI company website (not agarbati shop)
-   - Appropriate feature set for AI company
-   - Vanilla JavaScript allowed (NO REACT constraint ≠ NO JavaScript)
-   - Modern, accessible architecture without CSS hacks
-
-2. **Review new plan for**:
-   - Proper AI company website sections (solutions, case studies, team, blog)
-   - JavaScript-based interactivity (mobile menu, forms, animations)
-   - Accessibility compliance (WCAG 2.1 AA)
-   - Form submission strategy
-   - SEO best practices
-   - Performance targets
-
-3. **Only after plan correction**, implement with:
-   - Semantic HTML5
-   - Modern CSS (Grid, Flexbox, custom properties)
-   - Vanilla JavaScript for interactivity
-   - Progressive enhancement approach
-   - Accessibility-first development
-
----
-
-## Blocker Summary
-
-**Cannot proceed with implementation** until plan matches user's actual request for Vivo AI company website. Current plan is for entirely different project (HareKrishna Agarbati Shop).
-
-**Required correction**: Complete plan regeneration for correct project scope with appropriate technical approach.
+If you want, I can now hand these three change requests directly to the Coder agent.

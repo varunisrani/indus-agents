@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Contact — Oppo AI</title>
+  <meta name="description" content="Contact Oppo AI for sales and support.">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header class="site-header">
+    <div class="container">
+      <a href="index.html" class="logo">Oppo AI</a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <button class="nav-toggle" aria-expanded="false" aria-controls="nav-list">Menu</button>
+        <ul id="nav-list" class="nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main" class="container">
+    <h1>Contact Us</h1>
+    <section class="contact-info">
+      <p>Address: 123 AI Lane, Innovation City</p>
+      <p>Email: <a href="mailto:hello@oppoai.example">hello@oppoai.example</a></p>
+    </section>
+    <section class="contact-form">
+      <form id="contact-form" action="https://formspree.io/f/your-form-id" method="POST">
+        <label for="name">Name</label>
+        <input id="name" name="name" required>
+
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" required>
+
+        <label for="organization">Organization</label>
+        <input id="organization" name="organization">
+
+        <label for="subject">Subject</label>
+        <input id="subject" name="subject">
+
+        <label for="message">Message</label>
+        <textarea id="message" name="message" required></textarea>
+
+        <label class="consent"><input type="checkbox" name="consent" required> I consent to Oppo AI storing my contact information for the purpose of responding. <a href="/privacy.html">Privacy policy</a></label>
+
+        <!-- Honeypot -->
+        <label class="hidden" for="website">Website</label>
+        <input id="website" name="website" class="hidden">
+
+        <button type="submit">Send</button>
+      </form>
+      <div id="form-status" role="status" aria-live="polite"></div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      <p>Contact: <a href="mailto:hello@oppoai.example">hello@oppoai.example</a></p>
+      <p>&copy; Oppo AI</p>
+    </div>
+  </footer>
+  <script src="assets/js/main.js" defer></script>
+</body>
+</html>

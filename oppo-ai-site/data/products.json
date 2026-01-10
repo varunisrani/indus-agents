@@ -1,0 +1,5 @@
+[
+  {"id":1,"name":"Oppo Assistant","shortDescription":"Virtual assistant for support and workflows","images":["assets/images/products/product-1-320.jpg"],"tags":["assistant","nlp"]},
+  {"id":2,"name":"Vision Suite","shortDescription":"Computer vision for inspection","images":["assets/images/products/product-2-320.jpg"],"tags":["vision","cv"]},
+  {"id":3,"name":"Forecast Pro","shortDescription":"Predictive analytics and forecasting","images":["assets/images/products/product-3-320.jpg"],"tags":["analytics","forecasting"]}
+]
