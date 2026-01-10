@@ -13,6 +13,13 @@ class ToolContext:
         self._data: Dict[str, Any] = {}
         self._read_files: set = set()
 
+    def clone(self) -> "ToolContext":
+        """Create a shallow copy so branches can isolate mutable state."""
+        new_ctx = ToolContext()
+        new_ctx._data = dict(self._data)
+        new_ctx._read_files = set(self._read_files)
+        return new_ctx
+
     def get(self, key: str, default: Any = None) -> Any:
         return self._data.get(key, default)
 
@@ -62,7 +69,10 @@ class BaseTool(BaseModel, ABC):
 
     @property
     def context(self) -> ToolContext:
-        """Access shared tool context."""
+        """Access shared (or overridden) tool context."""
+        override = getattr(self, "_context", None)
+        if override is not None:
+            return override
         return _tool_context
 
     @abstractmethod

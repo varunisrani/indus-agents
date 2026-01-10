@@ -8,6 +8,7 @@ from typing import List, Dict, Tuple, Optional, Any, Callable
 from dataclasses import dataclass, field
 from enum import Enum
 import time
+import concurrent.futures as futures
 
 from indusagi.agent import Agent
 from indusagi.tool_usage_logger import tool_logger
@@ -31,6 +32,16 @@ class HandoffResult:
 
 
 @dataclass
+class ParallelResult:
+    """Result of a parallel branch execution."""
+    agent: str
+    response: str
+    processing_time: float
+    success: bool
+    error: Optional[str] = None
+
+
+@dataclass
 class AgencyResponse:
     """Response from agency processing."""
     response: str
@@ -38,6 +49,7 @@ class AgencyResponse:
     handoffs: List[HandoffResult]
     total_time: float
     final_agent: str
+    parallel_results: Optional[List[ParallelResult]] = None
 
 
 class Agency:
@@ -238,6 +250,7 @@ class Agency:
             AgencyResponse with full processing details
         """
         start_time = time.time()
+        root_user_request = user_input
 
         def emit(event: Dict[str, Any]) -> None:
             if event_callback:
@@ -247,6 +260,8 @@ class Agency:
                     pass
         self._handoff_history = []
         agents_used = [self.entry_agent.name]
+        parallel_results: List[ParallelResult] = []
+        tool_list = tools or self.tools
 
         # Add shared context to initial message
         full_input = user_input
@@ -271,7 +286,7 @@ class Agency:
             if use_tools and tools is not None:
                 response = current_agent.process_with_tools(
                     current_message,
-                    tools=tools,
+                    tools=tool_list,
                     tool_executor=tool_executor,
                     max_turns=self.max_turns,
                     on_max_turns_reached=on_max_turns_reached,
@@ -287,22 +302,202 @@ class Agency:
             })
 
             # Check if a handoff was requested via tool execution
-            handoff_target = None
-            handoff_message = None
-
+            handoff_data = None
             if tool_executor and hasattr(tool_executor, '_pending_handoff'):
                 handoff_data = tool_executor._pending_handoff
-                # Check if handoff_data is not None before calling .get()
-                if handoff_data is not None:
-                    handoff_target = handoff_data.get('agent_name')
-                    handoff_message = handoff_data.get('message', '')
-                # Clear the pending handoff
-                tool_executor._pending_handoff = None
+                tool_executor._pending_handoff = None  # clear for next turn
 
             # If no handoff requested, we're done processing
-            if not handoff_target:
+            if not handoff_data:
                 continue_processing = False
                 break
+
+            handoff_mode = handoff_data.get("mode", "single")
+
+            if handoff_mode == "parallel":
+                # Fan-out to multiple agents concurrently
+                raw_targets = handoff_data.get("agent_names", []) or []
+                aggregation_target = handoff_data.get("aggregation_target") or self.entry_agent.name
+                handoff_message = handoff_data.get("message", "")
+                handoff_context = handoff_data.get("context")
+
+                # Validate targets
+                allowed_targets = []
+                for t in raw_targets:
+                    if not self.can_handoff(current_agent.name, t):
+                        emit({
+                            "type": "warning",
+                            "warning": f"Handoff from {current_agent.name} to {t} not allowed",
+                            "from_agent": current_agent.name,
+                            "to_agent": t,
+                        })
+                        continue
+                    target_agent = self._agent_map.get(t)
+                    if not target_agent:
+                        emit({
+                            "type": "warning",
+                            "warning": f"Target agent {t} not found",
+                            "from_agent": current_agent.name,
+                            "to_agent": t,
+                        })
+                        continue
+                    allowed_targets.append(target_agent)
+
+                if not allowed_targets:
+                    continue_processing = False
+                    break
+
+                # Emit parallel start event with clear console logging
+                from rich.console import Console
+                console = Console()
+                console.print(f"\n[bold bright_cyan]╔══════════════════════════════════ PARALLEL EXECUTION START ══════════════════════════════════╗[/bold bright_cyan]")
+                console.print(f"[bright_cyan]║[/bright_cyan] [bold]From Agent:[/bold] {current_agent.name}")
+                console.print(f"[bright_cyan]║[/bright_cyan] [bold]Target Agents:[/bold] {', '.join([a.name for a in allowed_targets])}")
+                console.print(f"[bright_cyan]║[/bright_cyan] [bold]Message:[/bold] {handoff_message[:80]}{'...' if len(handoff_message) > 80 else ''}")
+                console.print(f"[bright_cyan]╚══════════════════════════════════════════════════════════════════════════════════════════════╝[/bright_cyan]\n")
+                emit({"type": "parallel_start", "from_agent": current_agent.name, "targets": [a.name for a in allowed_targets]})
+
+                def build_branch_message() -> str:
+                    msg = f"[Handoff from {current_agent.name}]\n\n{handoff_message}"
+                    if handoff_context:
+                        msg += f"\n\n[Additional Context]\n{handoff_context}"
+                    if self._shared_context:
+                        msg = f"[Shared Context]\n{self._shared_context}\n\n{msg}"
+                    return msg
+
+                branch_message = build_branch_message()
+                active_tools = tool_list
+
+                def run_branch(agent: Agent, branch_executor: Any) -> ParallelResult:
+                    from rich.console import Console
+                    console = Console()
+                    console.print(f"[bright_yellow]▶ Starting parallel branch: [bold]{agent.name}[/bold][/bright_yellow]")
+                    emit({"type": "parallel_branch_start", "agent": agent.name})
+                    start_branch = time.time()
+                    success = True
+                    error = None
+                    try:
+                        branch_response = agent.process_with_tools(
+                            branch_message,
+                            tools=active_tools,
+                            tool_executor=branch_executor,
+                            max_turns=self.max_turns,
+                            on_max_turns_reached=on_max_turns_reached,
+                            event_callback=emit,
+                        )
+                    except Exception as e:  # pragma: no cover - defensive
+                        branch_response = str(e)
+                        success = False
+                        error = str(e)
+                    processing_time = time.time() - start_branch
+                    from rich.console import Console
+                    console = Console()
+                    status_icon = "✓" if success else "✗"
+                    status_color = "green" if success else "red"
+                    console.print(f"[{status_color}]{status_icon} Completed parallel branch: [bold]{agent.name}[/bold] ({processing_time:.2f}s)[/{status_color}]")
+                    emit({
+                        "type": "parallel_branch_end",
+                        "agent": agent.name,
+                        "success": success,
+                        "duration": processing_time,
+                    })
+                    # Clear any nested handoff request from the branch; parallel branches don't cascade handoffs
+                    if hasattr(branch_executor, "_pending_handoff"):
+                        if branch_executor._pending_handoff:
+                            console.print(f"[yellow]WARNING: {agent.name} attempted nested handoff (ignored in parallel mode)[/yellow]")
+                        branch_executor._pending_handoff = None
+                    return ParallelResult(
+                        agent=agent.name,
+                        response=branch_response,
+                        processing_time=processing_time,
+                        success=success,
+                        error=error,
+                    )
+
+                branch_results: List[ParallelResult] = []
+                with futures.ThreadPoolExecutor(max_workers=len(allowed_targets)) as executor_pool:
+                    future_map = {
+                        executor_pool.submit(run_branch, agent, tool_executor.fork(name=f"{agent.name}-branch")): agent.name
+                        for agent in allowed_targets
+                    }
+                    for future in futures.as_completed(future_map):
+                        branch_results.append(future.result())
+
+                parallel_results.extend(branch_results)
+
+                # Print parallel execution summary
+                from rich.console import Console
+                from rich.table import Table
+                console = Console()
+                console.print(f"\n[bold bright_cyan]╔════════════════════════════════ PARALLEL EXECUTION COMPLETE ═════════════════════════════════╗[/bold bright_cyan]")
+                
+                summary_table = Table(show_header=True, header_style="bold bright_cyan", border_style="bright_cyan")
+                summary_table.add_column("Agent", style="bold")
+                summary_table.add_column("Status", justify="center")
+                summary_table.add_column("Duration", justify="right")
+                
+                for r in branch_results:
+                    status = "[green]✓ Success[/green]" if r.success else f"[red]✗ Error: {r.error}[/red]"
+                    summary_table.add_row(r.agent, status, f"{r.processing_time:.2f}s")
+                
+                console.print(summary_table)
+                console.print(f"[bright_cyan]╚══════════════════════════════════════════════════════════════════════════════════════════════╝[/bright_cyan]\n")
+
+                emit({
+                    "type": "parallel_end",
+                    "from_agent": current_agent.name,
+                    "targets": [a.name for a in allowed_targets],
+                    "results": [
+                        {"agent": r.agent, "success": r.success, "duration": r.processing_time}
+                        for r in branch_results
+                    ],
+                })
+
+                # Build aggregation step back to aggregator target (default Coder)
+                aggregator_agent = self._agent_map.get(aggregation_target, self.entry_agent)
+                if current_agent != aggregator_agent and not self.can_handoff(current_agent.name, aggregator_agent.name):
+                    from rich.console import Console
+                    console = Console()
+                    console.print(f"[yellow]WARNING: Handoff from {current_agent.name} to {aggregator_agent.name} not allowed; staying with {current_agent.name}[/yellow]")
+                    emit({
+                        "type": "warning",
+                        "warning": f"Handoff from {current_agent.name} to {aggregator_agent.name} not allowed; staying with {current_agent.name}",
+                        "from_agent": current_agent.name,
+                        "to_agent": aggregator_agent.name,
+                    })
+                    aggregator_agent = current_agent
+
+                summary_lines = [
+                    "[Parallel Results]",
+                    f"- Original request: {root_user_request}",
+                    f"- Handoff message: {handoff_message}",
+                ]
+                for r in branch_results:
+                    status = "OK" if r.success else f"ERROR: {r.error}"
+                    summary_lines.append(f"\nAgent: {r.agent} ({status}, {r.processing_time:.2f}s)\n{r.response}")
+
+                aggregation_prompt = "\n".join(summary_lines)
+                aggregation_prompt += (
+                    "\n\nPlease merge these outputs, resolve conflicts, and decide the next best step. "
+                    "If additional work is needed, continue with tool calls or handoffs."
+                )
+
+                from rich.console import Console
+                console = Console()
+                console.print(f"\n[bold bright_magenta]→ Aggregating results in: [bold]{aggregator_agent.name}[/bold][/bold bright_magenta]\n")
+                
+                emit({"type": "agent_switch", "from_agent": current_agent.name, "to_agent": aggregator_agent.name})
+                current_agent = aggregator_agent
+                current_message = aggregation_prompt
+                agents_used.append(current_agent.name)
+                handoff_count += 1
+                continue_processing = True
+                continue
+
+            # --- Single handoff (existing path) ---
+            handoff_target = handoff_data.get('agent_name')
+            handoff_message = handoff_data.get('message', '')
+            handoff_context = handoff_data.get('context')
 
             # Validate handoff is allowed
             if not self.can_handoff(current_agent.name, handoff_target):
@@ -330,6 +525,8 @@ class Agency:
             # Execute handoff
             # Prepare message for target agent
             current_message = f"[Handoff from {current_agent.name}]\n\n{handoff_message}"
+            if handoff_context:
+                current_message += f"\n\n[Additional Context]\n{handoff_context}"
             if self._shared_context:
                 current_message = f"[Shared Context]\n{self._shared_context}\n\n{current_message}"
 
@@ -345,7 +542,8 @@ class Agency:
             agents_used=agents_used,
             handoffs=self._handoff_history,
             total_time=time.time() - start_time,
-            final_agent=agents_used[-1]
+            final_agent=agents_used[-1],
+            parallel_results=parallel_results if parallel_results else None,
         )
 
     def get_shared_state(self, key: str, default: Any = None) -> Any:

@@ -134,6 +134,7 @@ def create_development_agency(
         name="DevAgency_Anthropic",
         coder_prompt_file=os.path.join(prompt_dir, "coder_instructions.md"),
         planner_prompt_file=os.path.join(prompt_dir, "planner_instructions.md"),
+        critic_prompt_file=os.path.join(prompt_dir, "critic_instructions.md"),
     )
     return create_improved_agency(opts)
 
@@ -167,7 +168,8 @@ def print_workflow_explanation():
   [green]2.[/green] Coder decides: simple task = handle directly
   [green]3.[/green]              : complex task = handoff to [bright_blue]Planner[/bright_blue]
   [green]4.[/green] Planner creates plan.md -> hands back to [bright_blue]Coder[/bright_blue]
-  [green]5.[/green] Coder reads plan.md and implements
+  [green]5.[/green] Optional: Coder can fan out to [bright_blue]Planner[/bright_blue] + [bright_blue]Critic[/bright_blue] in parallel
+  [green]6.[/green] Coder merges parallel outputs and implements
 """
 
     console.print(Panel(
@@ -212,6 +214,9 @@ def print_example_prompts():
   [green]-[/green] "Create plan.md for a todo app, then implement it"
   [green]-[/green] "Plan and build a weather dashboard with API integration"
   [green]-[/green] "I need a multi-page website. First create plan.md"
+[bold yellow]Parallel handoffs (Coder fans out to multiple agents):[/bold yellow]
+  [green]-[/green] "Run Planner + Critic in parallel for a spec and risk list"
+  [green]-[/green] "Ask Planner and Coder to explore two options, then summarize"
 """
 
     console.print(Panel(

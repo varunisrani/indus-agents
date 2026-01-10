@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Modern Todo Application - Organize your tasks efficiently">
+    <title>Todo App - Manage Your Tasks</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>📝 Todo App</h1>
+            <div class="header-actions">
+                <button id="themeToggle" class="btn-icon" aria-label="Toggle dark mode" title="Toggle dark mode">
+                    <span class="icon">🌙</span>
+                </button>
+                <button id="exportBtn" class="btn-icon" aria-label="Export todos" title="Export todos">
+                    <span class="icon">📥</span>
+                </button>
+                <button id="importBtn" class="btn-icon" aria-label="Import todos" title="Import todos">
+                    <span class="icon">📤</span>
+                </button>
+                <input type="file" id="importFile" accept=".json" style="display: none;" aria-label="Import file input">
+            </div>
+        </header>
+
+        <section class="stats-dashboard" aria-label="Statistics">
+            <div class="stat-card">
+                <span class="stat-value" id="totalTodos">0</span>
+                <span class="stat-label">Total</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-value" id="activeTodos">0</span>
+                <span class="stat-label">Active</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-value" id="completedTodos">0</span>
+                <span class="stat-label">Completed</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-value" id="completionRate">0%</span>
+                <span class="stat-label">Rate</span>
+            </div>
+        </section>
+
+        <section class="todo-form-section" aria-label="Add new todo">
+            <form id="todoForm" class="todo-form">
+                <div class="form-row">
+                    <input type="text" id="todoInput" class="todo-input" placeholder="What needs to be done?" aria-label="New todo title" required maxlength="200" autocomplete="off">
+                    <button type="submit" class="btn-primary" aria-label="Add todo">Add</button>
+                </div>
+                <div class="form-row-secondary">
+                    <input type="text" id="todoDescription" class="todo-description-input" placeholder="Description (optional)" aria-label="Todo description" maxlength="500">
+                    <select id="todoCategory" class="todo-select" aria-label="Select category">
+                        <option value="personal">🏠 Personal</option>
+                        <option value="work">💼 Work</option>
+                        <option value="shopping">🛒 Shopping</option>
+                        <option value="health">💪 Health</option>
+                    </select>
+                    <select id="todoPriority" class="todo-select" aria-label="Select priority">
+                        <option value="low">🟢 Low</option>
+                        <option value="medium" selected>🟡 Medium</option>
+                        <option value="high">🔴 High</option>
+                    </select>
+                    <input type="date" id="todoDueDate" class="todo-date" aria-label="Due date">
+                </div>
+            </form>
+        </section>
+
+        <section class="filters-section" aria-label="Filter and search todos">
+            <div class="filter-tabs">
+                <button class="filter-btn active" data-filter="all" aria-label="Show all todos" aria-pressed="true">All</button>
+                <button class="filter-btn" data-filter="active" aria-label="Show active todos" aria-pressed="false">Active</button>
+                <button class="filter-btn" data-filter="completed" aria-label="Show completed todos" aria-pressed="false">Completed</button>
+            </div>
+            <div class="search-sort-row">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="searchInput" class="search-input" placeholder="Search todos..." aria-label="Search todos" maxlength="100">
+                </div>
+                <select id="sortSelect" class="sort-select" aria-label="Sort by">
+                    <option value="date">📅 Sort by Date</option>
+                    <option value="priority">⚡ Sort by Priority</option>
+                    <option value="name">🔤 Sort by Name</option>
+                </select>
+            </div>
+        </section>
+
+        <main class="todo-list-container" aria-label="Todo list">
+            <div id="todoList" class="todo-list" role="list"></div>
+            <div id="emptyState" class="empty-state">
+                <div class="empty-icon">📋</div>
+                <h2>No todos yet</h2>
+                <p>Add your first todo to get started!</p>
+            </div>
+        </main>
+
+        <div id="bulkActionsBar" class="bulk-actions-bar hidden" aria-label="Bulk actions">
+            <span class="selected-count"><span id="selectedCount">0</span> selected</span>
+            <div class="bulk-buttons">
+                <button id="bulkComplete" class="btn-secondary" aria-label="Complete selected">✓ Complete</button>
+                <button id="bulkDelete" class="btn-danger" aria-label="Delete selected">🗑️ Delete</button>
+                <button id="bulkCancel" class="btn-secondary" aria-label="Cancel selection">Cancel</button>
+            </div>
+        </div>
+
+        <div id="toast" class="toast hidden" role="alert" aria-live="polite">
+            <span id="toastMessage"></span>
+        </div>
+
+        <div id="confirmDialog" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+            <div class="modal">
+                <h2 id="confirmTitle">Confirm Action</h2>
+                <p id="confirmMessage"></p>
+                <div class="modal-actions">
+                    <button id="confirmCancel" class="btn-secondary">Cancel</button>
+                    <button id="confirmOk" class="btn-danger">Confirm</button>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>Press <kbd>?</kbd> for keyboard shortcuts</p>
+            <p class="footer-note">💾 Data saved automatically to browser storage</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

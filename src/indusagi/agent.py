@@ -550,7 +550,9 @@ class Agent:
                         if tool_name == "handoff_to_agent":
                             return {
                                 "agent_name": tool_args.get("agent_name"),
+                                "agent_names": tool_args.get("agent_names"),
                                 "message_preview": (tool_args.get("message") or "")[:120],
+                                "aggregation_target": tool_args.get("aggregation_target"),
                             }
                         # default: only include scalar-ish keys
                         trimmed: Dict[str, Any] = {}
@@ -694,7 +696,7 @@ class Agent:
                         ))
                         console.print()
 
-                        # Check if this was a handoff - if so, stop processing
+                        # Check if this was a handoff - if so, stop processing (unless blocked)
                         if tool_name == "handoff_to_agent":
                             # Add tool result
                             tool_messages.append({
@@ -703,10 +705,13 @@ class Agent:
                                 "name": tool_name,
                                 "content": str(result)
                             })
-                            # Stop processing - let Agency handle the handoff
-                            print(f"\nSTOP [Agent {self.name}] Handoff requested - stopping agent processing")
-                            self.messages.extend(tool_messages)
-                            return f"Handoff to {tool_args.get('agent_name', 'unknown')} requested."
+                            # Only stop if handoff was actually scheduled (not blocked)
+                            if "WARNING" not in str(result) and "Error" not in str(result):
+                                # Stop processing - let Agency handle the handoff
+                                print(f"\nSTOP [Agent {self.name}] Handoff requested - stopping agent processing")
+                                self.messages.extend(tool_messages)
+                                return f"Handoff to {tool_args.get('agent_name', 'unknown')} requested."
+                            # If blocked/error, continue processing normally
 
                         # Add tool result to messages
                         tool_messages.append({
@@ -969,8 +974,13 @@ class Agent:
 
         elif tool_name == "handoff_to_agent":
             agent_name = tool_args.get("agent_name", "")
+            agent_names = tool_args.get("agent_names") or []
             message = tool_args.get("message", "")
-            console.print(f"[agent_name][{self.name}][/agent_name] Handing off to [bright_blue]{agent_name}[/bright_blue]: {message[:60]}...")
+            if agent_names:
+                pretty_targets = ", ".join(agent_names)
+                console.print(f"[agent_name][{self.name}][/agent_name] Parallel handoff to [bright_blue]{pretty_targets}[/bright_blue]: {message[:60]}...")
+            else:
+                console.print(f"[agent_name][{self.name}][/agent_name] Handing off to [bright_blue]{agent_name}[/bright_blue]: {message[:60]}...")
 
         else:
             # Default logging for unknown tools

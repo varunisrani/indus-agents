@@ -1,0 +1,73 @@
+body {
+    transition: background-color var(--transition-base), color var(--transition-base);
+}
+
+[data-theme="dark"] body {
+    background-color: var(--background);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .sidebar {
+    background-color: var(--surface);
+    border-color: var(--border);
+}
+
+[data-theme="dark"] .task-form {
+    background-color: var(--surface);
+}
+
+[data-theme="dark"] .task-item {
+    background-color: var(--surface);
+    border-color: var(--border);
+}
+
+[data-theme="dark"] .task-item:hover {
+    border-color: var(--border-focus);
+}
+
+[data-theme="dark"] .stat-card {
+    background-color: var(--surface);
+}
+
+[data-theme="dark"] .task-checkbox {
+    background-color: var(--background);
+    border-color: var(--border);
+}
+
+[data-theme="dark"] .modal-content {
+    background-color: var(--background);
+}
+
+@media (prefers-color-scheme: dark) {
+    body:not([data-theme="light"]) {
+        background-color: var(--background);
+        color: var(--text-primary);
+    }
+    
+    body:not([data-theme="light"]) .sidebar {
+        background-color: var(--surface);
+        border-color: var(--border);
+    }
+    
+    body:not([data-theme="light"]) .task-form {
+        background-color: var(--surface);
+    }
+    
+    body:not([data-theme="light"]) .task-item {
+        background-color: var(--surface);
+        border-color: var(--border);
+    }
+    
+    body:not([data-theme="light"]) .stat-card {
+        background-color: var(--surface);
+    }
+    
+    body:not([data-theme="light"]) .task-checkbox {
+        background-color: var(--background);
+        border-color: var(--border);
+    }
+    
+    body:not([data-theme="light"]) .modal-content {
+        background-color: var(--background);
+    }
+}

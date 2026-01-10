@@ -27,6 +27,7 @@ class ImprovedAgencyOptions:
     name: str = "DevAgency_Anthropic"
     coder_prompt_file: Optional[str] = None
     planner_prompt_file: Optional[str] = None
+    critic_prompt_file: Optional[str] = None
 
 
 def _register_default_tools() -> None:
@@ -45,13 +46,25 @@ def _handoff_schema() -> dict:
         "type": "function",
         "function": {
             "name": "handoff_to_agent",
-            "description": "Hand off the current task to another agent in the agency",
+            "description": (
+                "Hand off the current task to another agent in the agency. "
+                "Use `agent_name` for single handoff or `agent_names` for parallel fan-out. "
+                "Results from parallel branches will be aggregated by the Coder (default) unless "
+                "aggregation_target is specified."
+            ),
             "parameters": {
                 "type": "object",
                 "properties": {
                     "agent_name": {
                         "type": "string",
                         "description": "Name of the agent to hand off to (e.g., 'Planner', 'Coder')",
+                    },
+                    "agent_names": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                        },
+                        "description": "List of agents to hand off to in parallel (e.g., ['Planner', 'Critic'])",
                     },
                     "message": {
                         "type": "string",
@@ -61,8 +74,12 @@ def _handoff_schema() -> dict:
                         "type": "string",
                         "description": "Optional context or additional information",
                     },
+                    "aggregation_target": {
+                        "type": "string",
+                        "description": "Agent to aggregate parallel results (default: 'Coder')",
+                    },
                 },
-                "required": ["agent_name", "message"],
+                "required": ["message"],
             },
         },
     }
@@ -70,7 +87,7 @@ def _handoff_schema() -> dict:
 
 def create_improved_agency(opts: ImprovedAgencyOptions = ImprovedAgencyOptions()) -> Agency:
     """
-    Create the improved Coder <-> Planner agency (same architecture as example scripts).
+    Create the improved Coder <-> Planner (+ Critic) agency (same architecture as example scripts).
 
     Notes:
     - Prompt files are optional. If not provided / not found, Agent falls back to its default prompt.
@@ -104,13 +121,30 @@ def create_improved_agency(opts: ImprovedAgencyOptions = ImprovedAgencyOptions()
     )
     planner.context = registry.context
 
+    critic = Agent(
+        name="Critic",
+        role="Risk and quality reviewer (edge cases, failure modes, test ideas)",
+        config=AgentConfig(
+            model=opts.model,
+            provider=opts.provider,
+            temperature=0.4,
+            max_tokens=8000,
+        ),
+        prompt_file=opts.critic_prompt_file,
+    )
+    critic.context = registry.context
+
     tools = registry.schemas.copy()
     tools.append(_handoff_schema())
 
     agency = Agency(
         entry_agent=coder,
-        agents=[coder, planner],
-        communication_flows=[(coder, planner), (planner, coder)],
+        agents=[coder, planner, critic],
+        communication_flows=[
+            (coder, planner), (planner, coder),
+            (coder, critic), (critic, coder),
+            (planner, critic), (critic, planner),
+        ],
         shared_instructions=None,
         name=opts.name,
         max_handoffs=opts.max_handoffs,
