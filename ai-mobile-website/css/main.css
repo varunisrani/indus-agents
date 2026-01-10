@@ -4,12 +4,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 @import 'variables.css';
-@import 'reset.css';
+@import 'normalize.css';
 @import 'typography.css';
 @import 'layout.css';
 @import 'components.css';
 @import 'navigation.css';
 @import 'animations.css';
+@import 'responsive.css';
 
 /* Global Styles */
 body {

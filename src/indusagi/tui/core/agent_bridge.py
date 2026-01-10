@@ -14,9 +14,23 @@ import os
 import asyncio
 import threading
 import queue
+import json
+import time
 from typing import Optional, Dict, Any, AsyncIterator, List, Callable
 from dataclasses import dataclass
 from enum import Enum
+
+LOG_PATH = r"c:\Users\Varun israni\indus-agents\.cursor\debug.log"
+
+
+def _safe_debug_log(payload: dict) -> None:
+    """Write a single NDJSON line to the debug log, creating the directory if needed."""
+    try:
+        os.makedirs(os.path.dirname(LOG_PATH), exist_ok=True)
+        with open(LOG_PATH, "a", encoding="utf-8") as _dbg_file:
+            _dbg_file.write(json.dumps(payload) + "\n")
+    except Exception:
+        pass
 
 # Load environment variables from .env file
 try:
@@ -30,6 +44,10 @@ from indusagi import Agent, AgentConfig, Agency
 from indusagi.tools import Bash, Read, Edit, Write, Glob, Grep, TodoWrite
 from indusagi.tools import handoff_to_agent, set_current_agency, registry
 from indusagi.memory import ConversationMemory
+from indusagi.presets.improved_anthropic_agency import (
+    ImprovedAgencyOptions,
+    create_improved_agency,
+)
 
 
 class StreamEventType(str, Enum):
@@ -192,116 +210,27 @@ class AgentBridge:
         return agent
 
     def _create_agency(self) -> Agency:
-        """Create multi-agent agency like the example."""
+        """Create multi-agent agency like the example (shared preset)."""
         provider_type = self._get_provider_type()
 
-        # Get prompt file paths (like example_agency_improved_anthropic.py)
+        # Prefer repo prompt files when running from source checkout (matches example scripts).
         current_dir = os.path.dirname(os.path.abspath(__file__))
-        # Navigate to indus-agents root from src/indusagi/tui/core/
         project_root = os.path.abspath(os.path.join(current_dir, "..", "..", "..", ".."))
         prompt_dir = os.path.join(project_root, "example_agency_improved_anthropic_prompts")
 
         coder_prompt_file = os.path.join(prompt_dir, "coder_instructions.md")
         planner_prompt_file = os.path.join(prompt_dir, "planner_instructions.md")
 
-        # Create Coder agent (entry point)
-        coder_config = AgentConfig(
+        opts = ImprovedAgencyOptions(
             model=self.model,
             provider=provider_type,
-            temperature=0.5,
-            max_tokens=8000,
-        )
-
-        # Use prompt_file if exists (like example), otherwise fallback to system_prompt
-        if os.path.exists(coder_prompt_file):
-            coder = Agent(
-                name="Coder",
-                role="Code implementation and execution",
-                config=coder_config,
-                prompt_file=coder_prompt_file  # Like the example
-            )
-        else:
-            coder = Agent(
-                name="Coder",
-                role="Code implementation and execution",
-                config=coder_config,
-                system_prompt=self._get_coder_prompt(),
-            )
-        coder.context = registry.context
-
-        # Create Planner agent
-        planner_config = AgentConfig(
-            model=self.model,
-            provider=provider_type,
-            temperature=0.7,
-            max_tokens=16000,
-        )
-
-        # Use prompt_file if exists (like example), otherwise fallback to system_prompt
-        if os.path.exists(planner_prompt_file):
-            planner = Agent(
-                name="Planner",
-                role="Strategic planning and task breakdown",
-                config=planner_config,
-                prompt_file=planner_prompt_file  # Like the example
-            )
-        else:
-            planner = Agent(
-                name="Planner",
-                role="Strategic planning and task breakdown",
-                config=planner_config,
-                system_prompt=self._get_planner_prompt(),
-            )
-        planner.context = registry.context
-
-        # Get tool schemas with handoff
-        tools = registry.schemas.copy()
-        handoff_schema = {
-            "type": "function",
-            "function": {
-                "name": "handoff_to_agent",
-                "description": "Hand off the current task to another agent",
-                "parameters": {
-                    "type": "object",
-                    "properties": {
-                        "agent_name": {
-                            "type": "string",
-                            "description": "Name of agent to hand off to (Planner or Coder)"
-                        },
-                        "message": {
-                            "type": "string",
-                            "description": "Task description for the target agent"
-                        },
-                        "context": {
-                            "type": "string",
-                            "description": "Additional context"
-                        }
-                    },
-                    "required": ["agent_name", "message"]
-                }
-            }
-        }
-        tools.append(handoff_schema)
-
-        # Create agency (exactly like example_agency_improved_anthropic.py)
-        agency = Agency(
-            entry_agent=coder,  # Coder is entry - it decides when to use Planner
-            agents=[coder, planner],
-            communication_flows=[
-                (coder, planner),    # Coder can handoff to Planner
-                (planner, coder),    # Planner hands back to Coder
-            ],
-            name="DevAgency_TUI",
             max_handoffs=100,
             max_turns=1000,
-            tools=tools,
-            tool_executor=registry
+            name="DevAgency_TUI",
+            coder_prompt_file=coder_prompt_file if os.path.exists(coder_prompt_file) else None,
+            planner_prompt_file=planner_prompt_file if os.path.exists(planner_prompt_file) else None,
         )
-
-        # Set current agency for handoffs
-        set_current_agency(agency)
-
-        return agency
+        return create_improved_agency(opts)
 
     def _get_coder_prompt(self) -> str:
         """Get system prompt for Coder agent - loaded from markdown file."""
@@ -517,28 +446,46 @@ DO NOT USE: todo_write (that's for Coder only, not for you!)"""
         # Queue for thread communication
         result_queue: queue.Queue = queue.Queue()
         stop_event = threading.Event()
+        first_stream_event_logged = False
+
+        #region agent log
+        _safe_debug_log({
+            "sessionId": "debug-session",
+            "runId": "post-fix",
+            "hypothesisId": "H0",
+            "location": "agent_bridge._process_with_agency",
+            "message": "entry",
+            "data": {"message_len": len(message)},
+            "timestamp": int(time.time() * 1000)
+        })
+        #endregion agent log
 
         def run_agency_in_thread():
             """Run agency in background thread and send events to queue."""
             try:
-                # Send start event
-                result_queue.put({"type": "agent_start", "agent": self.agency.entry_agent.name})
-
-                # Process message
+                # Process message with streaming callback
                 result = self.agency.process(
                     message,
                     use_tools=True,
                     tools=self.agency.tools,
-                    tool_executor=self.agency.tool_executor
+                    tool_executor=self.agency.tool_executor,
+                    event_callback=lambda ev: result_queue.put(ev)
                 )
-
-                # Send agents used events
-                if hasattr(result, 'agents_used') and result.agents_used:
-                    for i, agent in enumerate(result.agents_used):
-                        if i == 0:
-                            result_queue.put({"type": "agent_switch", "from_agent": None, "to_agent": agent})
-                        else:
-                            result_queue.put({"type": "agent_switch", "from_agent": result.agents_used[i-1], "to_agent": agent})
+                #region agent log
+                _safe_debug_log({
+                    "sessionId": "debug-session",
+                    "runId": "post-fix",
+                    "hypothesisId": "H2",
+                    "location": "agent_bridge.run_agency_in_thread",
+                    "message": "agency_process_completed",
+                    "data": {
+                        "agents_used": getattr(result, "agents_used", None),
+                        "handoff_count": len(getattr(result, "handoffs", []) or []),
+                        "response_length": len(str(getattr(result, "response", "")) or "")
+                    },
+                    "timestamp": int(time.time() * 1000)
+                })
+                #endregion agent log
 
                 # Extract response
                 if hasattr(result, 'response'):
@@ -547,10 +494,10 @@ DO NOT USE: todo_write (that's for Coder only, not for you!)"""
                     response = str(result)
                 response = str(response) if response else "No response generated."
 
-                # Format response
+                # Format response (match example output style)
                 if hasattr(result, 'final_agent'):
                     agent_name = result.final_agent
-                    formatted_response = f"\n**[{agent_name}]**\n\n{response}"
+                    formatted_response = f"\n[{agent_name}]\n\n{response}"
                 else:
                     formatted_response = response
 
@@ -594,6 +541,19 @@ DO NOT USE: todo_write (that's for Coder only, not for you!)"""
                     if event.get("type") == "memory_add":
                         self.memory.add_message(event["role"], event["content"])
                     else:
+                        if not first_stream_event_logged:
+                            #region agent log
+                            _safe_debug_log({
+                                "sessionId": "debug-session",
+                                "runId": "post-fix",
+                                "hypothesisId": "H3",
+                                "location": "agent_bridge._process_with_agency",
+                                "message": "queue_event_forwarded",
+                                "data": {"event_type": event.get("type")},
+                                "timestamp": int(time.time() * 1000)
+                            })
+                            #endregion agent log
+                            first_stream_event_logged = True
                         yield event
 
                 except queue.Empty:

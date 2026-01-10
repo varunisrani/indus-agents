@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Professional cycling services - repair, maintenance, fitting, and more">
+    <meta name="keywords" content="bike repair, bike maintenance, bike fitting, cycling services">
+    <title>Services - CyclePro</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .service-card {
+            text-align: center;
+            padding: 40px 30px;
+            transition: var(--transition);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .service-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            color: white;
+            font-size: 2.5rem;
+            transition: var(--transition);
+        }
+        
+        .service-card:hover .service-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 40px;
+        }
+        
+        .pricing-table th,
+        .pricing-table td {
+            padding: 20px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .pricing-table th {
+            background: var(--secondary-color);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .pricing-table tr:hover {
+            background-color: var(--light-bg);
+        }
+        
+        .pricing-table .price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .process-step {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+            align-items: flex-start;
+        }
+        
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        
+        .step-content h3 {
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .process-step {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .step-number {
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-bicycle"></i>
+                Cycle<span>Pro</span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="bikes.html" class="nav-link">Bikes</a></li>
+                <li><a href="services.html" class="nav-link active">Services</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero" style="background: linear-gradient(135deg, rgba(0, 78, 137, 0.9), rgba(26, 26, 46, 0.9)), url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920') center/cover; height: 50vh; display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 0 20px;">
+            <div class="hero-content animate-fadeInUp">
+                <h1 style="font-size: 3rem; margin-bottom: 20px; color: white;">Our Services</h1>
+                <p style="font-size: 1.3rem;">Professional cycling services to keep you riding smoothly</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="section-header fade-in">
+                    <h2>What We Offer</h2>
+                    <p>Comprehensive services for all your cycling needs</p>
+                </div>
+                <div class="grid grid-3">
+                    <div class="card service-card fade-in">
+                        <div class="service-icon">
+                            <i class="fas fa-wrench"></i>
+                        </div>
+                        <h3>Bike Repair & Maintenance</h3>
+                        <p style="color: var(--gray); margin: 15px 0;">From basic tune-ups to complete overhauls, our certified technicians keep your bike in perfect condition</p>
+                        <ul style="text-align: left; margin-top: 15px; color: var(--gray);">
+                            <li><i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i>Brake adjustments</li>
+                            <li><i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i>Derailleur tuning</li>
+                            <li><i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i>Wheel truing</li>
+                            <li><i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i>And much more</li>
+                        </ul>
+                    </div>
+
+                    <div class="card service-card fade-in delay-1">
+                        <div class="service-icon">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                        <h3>Professional Bike Fitting</h3>
+                        <p style="color: var(--gray); margin: 15px 0;">Optimize your position for comfort, efficiency, and performance with our professional fitting service</p>
+                        <ul style="text-align: left; margin-top: 15px; color: var(--gray);">
+                            <li><i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i>3D motion capture</li>
+                            <li><i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i>Power analysis</li>
+                            <li><i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i>Custom positioning</li>
+                            <li><i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i>Follow-up adjustments</li>
+                        </ul>
+                    </div>
+
+                    <div class="card service-card fade-in delay-2">
+                        <div class="service-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h3>Custom Bike Builds</h3>
+                        <p style="color: var(--gray); margin: 15px 0;">Build your dream bike with our expert custom build service tailored to your exact specifications</p>
+                        <ul style="text-align: left; margin-top: 15px; color: var(--gray);">
+                            <li><i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i>Frame selection</li>
+                            <li><i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i>Component sourcing</li>
+                            <li><i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i>Professional assembly</li>
+                            <li><i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i>Custom tuning</li>
+                        </ul>
+                    </div>
+
+                    <div class="card service-card fade-in">
+                        <div class="service-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3>Rental Services</h3>
+                        <p style="color: var(--gray); margin: 15px 0;">Explore new trails or test ride different bikes with our flexible rental options</p>
+                        <ul style="text-align: left; margin-top: 15px; color: var(--gray);">
+                            <li><i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i>Hourly & daily rates</li>
+                            <li><i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i>Multi-day discounts</li>
+                            <li><i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i>Helmet included</li>
+                            <li><i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i>Various bike types</li>
+                        </ul>
+                    </div>
+
+                    <div class="card service-card fade-in delay-1">
+                        <div class="service-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Group Rides & Training</h3>
+                        <p style="color: var(--gray); margin: 15px 0;">Join our community rides or improve your skills with our training programs</p>
+                        <ul style="text-align: left; margin-top: 15px; color: var(--gray);">
+                            <li><i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i>Weekly group rides</li>
+                            <li><i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i>Skill clinics</li>
+                            <li><i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i>Training plans</li>
+                            <li><i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i>Coaching sessions</li>
+                        </ul>
+                    </div>
+
+                    <div class="card service-card fade-in delay-2">
+                        <div class="service-icon">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <h3>Trade-In Program</h3>
+                        <p style="color: var(--gray); margin: 15px 0;">Upgrade your ride with our hassle-free trade-in program for used bikes</p>
+                        <ul style="text-align: left; margin-top: 15px; color: var(--gray);">
+                            <li><i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i>Fair market value</li>
+                            <li><i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i>Store credit</li>
+                            <li><i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i>Quick appraisal</li>
+                            <li><i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i>Any brand accepted</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="background-color: var(--light-bg);">
+            <div class="container">
+                <div class="section-header fade-in">
+                    <h2>Service Pricing</h2>
+                    <p>Transparent pricing for all our services</p>
+                </div>
+                <div class="card fade-in" style="padding: 30px;">
+                    <table class="pricing-table">
+                        <thead>
+                            <tr>
+                                <th>Service</th>
+                                <th>Description</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Basic Tune-Up</strong></td>
+                                <td>Brake and derailleur adjustment, chain lubrication, basic safety check</td>
+                                <td class="price">$59</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Standard Tune-Up</strong></td>
+                                <td>Everything in basic plus wheel truing, headset adjustment, cable replacement</td>
+                                <td class="price">$99</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Premium Overhaul</strong></td>
+                                <td>Complete disassembly, deep cleaning, part replacement as needed</td>
+                                <td class="price">$199</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Bike Fitting</strong></td>
+                                <td>Professional fitting with motion analysis and positioning optimization</td>
+                                <td class="price">$149</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Flat Tire Repair</strong></td>
+                                <td>Tube replacement or patch, tire inspection</td>
+                                <td class="price">$15</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Brake Bleed</strong></td>
+                                <td>Hydraulic brake system bleed and adjustment</td>
+                                <td class="price">$35</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Daily Rental</strong></td>
+                                <td>Full day bike rental with helmet included</td>
+                                <td class="price">$45</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="section-header fade-in">
+                    <h2>How It Works</h2>
+                    <p>Simple process to get you back on the road</p>
+                </div>
+                <div style="max-width: 800px; margin: 0 auto;">
+                    <div class="process-step fade-in">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Book Your Service</h3>
+                            <p style="color: var(--gray);">Call us, email, or stop by to schedule your service. We'll find a time that works for you.</p>
+                        </div>
+                    </div>
+                    <div class="process-step fade-in delay-1">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Drop Off Your Bike</h3>
+                            <p style="color: var(--gray);">Bring your bike to our shop. We'll do a quick assessment and confirm the service needed.</p>
+                        </div>
+                    </div>
+                    <div class="process-step fade-in delay-2">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>Expert Service</h3>
+                            <p style="color: var(--gray);">Our certified technicians perform the service with attention to detail and quality.</p>
+                        </div>
+                    </div>
+                    <div class="process-step fade-in delay-3">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h3>Pick Up & Ride</h3>
+                            <p style="color: var(--gray);">We'll notify you when your bike is ready. Pick it up and enjoy your smooth ride!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; text-align: center;">
+            <div class="container">
+                <h2 style="color: white; margin-bottom: 20px;">Ready to Get Started?</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">Book your service today and experience the CyclePro difference</p>
+                <a href="contact.html" class="btn" style="background-color: white; color: var(--primary-color); padding: 15px 40px; font-size: 1.1rem;">Schedule Service Now</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About CyclePro</h3>
+                    <p>Your trusted cycling partner since 2010. We're passionate about helping you find the perfect ride and keeping you rolling smoothly.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="bikes.html">Bikes</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="services.html">Bike Repair</a></li>
+                        <li><a href="services.html">Professional Fitting</a></li>
+                        <li><a href="services.html">Custom Builds</a></li>
+                        <li><a href="services.html">Rentals</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                    <p style="margin-top: 20px;">
+                        <i class="fas fa-map-marker-alt" style="margin-right: 10px;"></i>123 Cycling Lane, Bike City, BC 12345
+                    </p>
+                    <p>
+                        <i class="fas fa-phone" style="margin-right: 10px;"></i>(555) 123-4567
+                    </p>
+                    <p>
+                        <i class="fas fa-envelope" style="margin-right: 10px;"></i>info@cyclepro.com
+                    </p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 CyclePro. All rights reserved. | Designed with <i class="fas fa-heart" style="color: var(--primary-color);"></i> for cyclists</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/navigation.js"></script>
+</body>
+</html>

@@ -12,6 +12,21 @@ from datetime import datetime
 from pathlib import Path
 from typing import Optional, Dict, Any, List
 from dataclasses import dataclass, field
+import json
+import time
+import os
+
+LOG_PATH = r"c:\Users\Varun israni\indus-agents\.cursor\debug.log"
+
+
+def _safe_debug_log(payload: dict) -> None:
+    """Write a single NDJSON line to the debug log, creating the directory if needed."""
+    try:
+        os.makedirs(os.path.dirname(LOG_PATH), exist_ok=True)
+        with open(LOG_PATH, "a", encoding="utf-8") as _dbg_file:
+            _dbg_file.write(json.dumps(payload) + "\n")
+    except Exception:
+        pass
 
 from textual.app import App, ComposeResult
 from textual.binding import Binding
@@ -347,28 +362,79 @@ class IndusApp(App):
             # Process with agent
             if self.agent_bridge:
                 try:
+                    first_token_logged = False
+                    #region agent log
+                    _safe_debug_log({
+                        "sessionId": "debug-session",
+                        "runId": "post-fix",
+                        "hypothesisId": "H0-app",
+                        "location": "tui.IndusApp.send_message",
+                        "message": "stream_start",
+                        "data": {"content_len": len(content)},
+                        "timestamp": int(time.time() * 1000)
+                    })
+                    #endregion agent log
                     # Stream response
                     async for event in self.agent_bridge.stream_response(content):
                         if event["type"] == "token":
                             # Update message content
                             assistant_msg.content += event.get("content", "")
+                            if not first_token_logged:
+                                #region agent log
+                                _safe_debug_log({
+                                    "sessionId": "debug-session",
+                                    "runId": "post-fix",
+                                    "hypothesisId": "H4",
+                                    "location": "tui.IndusApp.send_message",
+                                    "message": "first_token_received",
+                                    "data": {"length": len(event.get("content", ""))},
+                                    "timestamp": int(time.time() * 1000)
+                                })
+                                #endregion agent log
+                                first_token_logged = True
                             self.post_message(StreamingToken(event.get("content", ""), assistant_msg_id))
                         elif event["type"] == "tool_call":
+                            # Update assistant message tool call list so SessionScreen can render it
+                            tool_call_id = event.get("id")
+                            tool_name = event.get("name", "unknown")
+                            tool_args = event.get("arguments", {}) or {}
+                            if tool_call_id:
+                                assistant_msg.tool_calls.append({
+                                    "id": tool_call_id,
+                                    "name": tool_name,
+                                    "arguments": tool_args,
+                                    "status": "running",
+                                    "result": None,
+                                })
                             self.post_message(ToolExecuting(
                                 event["name"],
                                 event.get("arguments", {})
                             ))
+                            # Force a UI refresh tick (SessionScreen will re-render)
+                            self.refresh()
                         elif event["type"] == "tool_result":
+                            tool_call_id = event.get("id")
+                            tool_name = event.get("name", "unknown")
+                            tool_result = event.get("result", "")
+                            tool_success = event.get("success", True)
+                            if tool_call_id:
+                                for tc in assistant_msg.tool_calls:
+                                    if tc.get("id") == tool_call_id:
+                                        tc["status"] = "success" if tool_success else "error"
+                                        tc["result"] = tool_result
+                                        break
                             self.post_message(ToolCompleted(
                                 event["name"],
                                 event.get("result", ""),
                                 event.get("success", True)
                             ))
+                            self.refresh()
                         elif event["type"] == "agent_start":
                             # Show which agent is starting (like terminal_demo)
                             agent = event.get("agent", "Unknown")
                             assistant_msg.content += f"\n[dim]▶ Starting with [{agent}]...[/dim]\n"
                             self.post_message(StreamingToken(f"\n▶ Starting with {agent}...\n", assistant_msg_id))
+                            self.refresh()
                         elif event["type"] == "agent_switch":
                             # Show handoff between agents (like terminal_demo HANDOFF logs)
                             from_agent = event.get("from_agent")
@@ -379,6 +445,7 @@ class IndusApp(App):
                                 log_msg = f"\n[dim]▶ [{to_agent}] is working...[/dim]\n"
                             assistant_msg.content += log_msg
                             self.post_message(StreamingToken(log_msg, assistant_msg_id))
+                            self.refresh()
                         elif event["type"] == "error":
                             # Log error but continue to get error message
                             error_text = str(event.get('error', 'Unknown'))[:100]

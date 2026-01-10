@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About - AI Nexus</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .about-hero {
+      background: var(--gradient-dark);
+      color: white;
+      padding: 100px 20px 80px;
+      text-align: center;
+    }
+    .about-hero h1 { color: white; }
+    .team-card {
+      text-align: center;
+      padding: 30px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: var(--shadow-md);
+      transition: var(--transition);
+    }
+    .team-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-xl);
+    }
+    .team-photo {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 20px;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <nav class="nav-container">
+      <a href="index.html" class="logo"><i class="fas fa-brain"></i> AI Nexus</a>
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="features.html" class="nav-link">Features</a></li>
+        <li><a href="pricing.html" class="nav-link">Pricing</a></li>
+        <li><a href="about.html" class="nav-link active">About</a></li>
+        <li><a href="blog.html" class="nav-link">Blog</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+        <li><a href="#" class="btn btn-primary">Get Started</a></li>
+      </ul>
+      <div class="hamburger"><span></span><span></span><span></span></div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="about-hero">
+      <div class="container">
+        <h1 class="animate-fadeInUp">About AI Nexus</h1>
+        <p style="font-size: 1.2rem; color: rgba(241, 245, 249, 0.8);">Pioneering the future of artificial intelligence</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header fade-in">
+          <h2>Our Mission</h2>
+          <p>Democratizing AI for businesses of all sizes</p>
+        </div>
+        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+          <p style="font-size: 1.1rem; line-height: 1.8;">At AI Nexus, we believe that artificial intelligence should be accessible to everyone, not just tech giants. Our mission is to empower businesses with cutting-edge AI tools that are easy to use, affordable, and scalable. We're building a future where every company can harness the power of AI to drive innovation and growth.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="background-color: var(--light-bg);">
+      <div class="container">
+        <div class="section-header fade-in">
+          <h2>Our Impact</h2>
+        </div>
+        <div class="grid grid-4">
+          <div class="text-center fade-in">
+            <div class="stat-number counter" data-target="10000">0</div>
+            <p>Active Users</p>
+          </div>
+          <div class="text-center fade-in delay-1">
+            <div class="stat-number counter" data-target="50">0</div>
+            <p>Countries</p>
+          </div>
+          <div class="text-center fade-in delay-2">
+            <div class="stat-number counter" data-target="500">0</div>
+            <p>Enterprise Clients</p>
+          </div>
+          <div class="text-center fade-in delay-3">
+            <div class="stat-number counter" data-target="99">0</div>
+            <p>Customer Satisfaction %</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header fade-in">
+          <h2>Our Values</h2>
+        </div>
+        <div class="grid grid-4">
+          <div class="text-center fade-in">
+            <div style="width: 70px; height: 70px; background: var(--gradient-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: white; font-size: 1.8rem;"><i class="fas fa-lightbulb"></i></div>
+            <h3>Innovation</h3>
+            <p>Pushing the boundaries of what's possible with AI</p>
+          </div>
+          <div class="text-center fade-in delay-1">
+            <div style="width: 70px; height: 70px; background: var(--gradient-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: white; font-size: 1.8rem;"><i class="fas fa-eye"></i></div>
+            <h3>Transparency</h3>
+            <p>Open and honest in everything we do</p>
+          </div>
+          <div class="text-center fade-in delay-2">
+            <div style="width: 70px; height: 70px; background: var(--gradient-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: white; font-size: 1.8rem;"><i class="fas fa-users"></i></div>
+            <h3>Customer Success</h3>
+            <p>Your success is our success</p>
+          </div>
+          <div class="text-center fade-in delay-3">
+            <div style="width: 70px; height: 70px; background: var(--gradient-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: white; font-size: 1.8rem;"><i class="fas fa-shield-alt"></i></div>
+            <h3>Security First</h3>
+            <p>Protecting your data is our top priority</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header fade-in">
+          <h2>Meet Our Team</h2>
+          <p>The experts behind AI Nexus</p>
+        </div>
+        <div class="grid grid-4">
+          <div class="team-card fade-in">
+            <img src="https://i.pravatar.cc/200?img=11" alt="Team Member" class="team-photo">
+            <h3>Dr. Sarah Chen</h3>
+            <p style="color: var(--primary-color); font-weight: 600;">CEO & Co-Founder</p>
+            <p style="font-size: 0.9rem;">Former AI researcher at Google. PhD in Machine Learning from Stanford.</p>
+            <div class="social-links" style="justify-content: center; margin-top: 15px;">
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+          </div>
+          <div class="team-card fade-in delay-1">
+            <img src="https://i.pravatar.cc/200?img=12" alt="Team Member" class="team-photo">
+            <h3>Michael Rodriguez</h3>
+            <p style="color: var(--primary-color); font-weight: 600;">CTO & Co-Founder</p>
+            <p style="font-size: 0.9rem;">Ex-Amazon Principal Engineer. 15+ years in AI/ML infrastructure.</p>
+            <div class="social-links" style="justify-content: center; margin-top: 15px;">
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+          <div class="team-card fade-in delay-2">
+            <img src="https://i.pravatar.cc/200?img=13" alt="Team Member" class="team-photo">
+            <h3>Emily Watson</h3>
+            <p style="color: var(--primary-color); font-weight: 600;">VP of Engineering</p>
+            <p style="font-size: 0.9rem;">Former Tech Lead at OpenAI. Expert in scalable ML systems.</p>
+            <div class="social-links" style="justify-content: center; margin-top: 15px;">
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+          </div>
+          <div class="team-card fade-in delay-3">
+            <img src="https://i.pravatar.cc/200?img=14" alt="Team Member" class="team-photo">
+            <h3>David Kim</h3>
+            <p style="color: var(--primary-color); font-weight: 600;">Head of Product</p>
+            <p style="font-size: 0.9rem;">Product leader with 10+ years experience in enterprise SaaS.</p>
+            <div class="social-links" style="justify-content: center; margin-top: 15px;">
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; 2024 AI Nexus. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/animations.js"></script>
+</body>
+</html>

@@ -42,6 +42,10 @@ from dotenv import load_dotenv
 
 from indusagi.agent import Agent, AgentConfig
 from indusagi.tools import registry, ToolRegistry
+from indusagi.presets.improved_anthropic_agency import (
+    ImprovedAgencyOptions,
+    create_improved_agency,
+)
 
 # ============================================================================
 # Application Setup
@@ -238,6 +242,31 @@ def validate_api_key() -> bool:
 
     return True
 
+
+def validate_anthropic_api_key() -> bool:
+    """
+    Validate that Anthropic-compatible API key is configured.
+
+    Used for the improved agency demo (Coder <-> Planner).
+    """
+    api_key = os.getenv("ANTHROPIC_API_KEY")
+
+    if not api_key:
+        console.print(Panel(
+            "[error]Anthropic API key not found![/error]\n\n"
+            "Please set your API key using one of these methods:\n\n"
+            "1. Environment variable:\n"
+            "   [info]export ANTHROPIC_API_KEY='your-key-here'[/info]\n\n"
+            "2. Windows PowerShell:\n"
+            "   [info]$env:ANTHROPIC_API_KEY='your-key-here'[/info]\n\n"
+            "3. .env file in project directory:\n"
+            "   [info]ANTHROPIC_API_KEY=your-key-here[/info]\n",
+            title="API Key Required",
+            border_style="error"
+        ))
+        return False
+
+    return True
 
 def print_error(message: str, title: str = "Error"):
     """Print a formatted error message."""
@@ -964,6 +993,70 @@ def tui(
         raise typer.Exit(1)
     except Exception as e:
         console.print(f"[error]Error launching TUI: {e}[/error]")
+        raise typer.Exit(1)
+
+
+# ============================================================================
+# Improved Agency Demo (Anthropic-compatible)
+# ============================================================================
+
+@app.command("agency-demo")
+def agency_demo(
+    model: str = typer.Option("glm-4.7", "--model", "-m", help="Model to use (e.g., glm-4.7, claude-3-5-sonnet-latest)"),
+    max_handoffs: int = typer.Option(100, "--max-handoffs", help="Maximum number of agent handoffs allowed"),
+    max_turns: int = typer.Option(1000, "--max-turns", help="Maximum tool-calling iterations per agent"),
+    show_reasoning: bool = typer.Option(False, "--show-reasoning", help="Show agent reasoning in the terminal demo"),
+):
+    """
+    Launch the improved multi-agent demo (Coder <-> Planner), like example_agency_improved_anthropic.py.
+
+    This runs the built-in terminal demo and shows handoffs/tools in a Mini-Agent style workflow.
+    """
+    if not validate_anthropic_api_key():
+        raise typer.Exit(1)
+
+    try:
+        # Prefer the repo prompt files when running from source checkout.
+        project_root = Path(__file__).resolve().parents[2]
+        prompt_dir = project_root / "example_agency_improved_anthropic_prompts"
+        coder_prompt = prompt_dir / "coder_instructions.md"
+        planner_prompt = prompt_dir / "planner_instructions.md"
+
+        opts = ImprovedAgencyOptions(
+            model=model,
+            provider="anthropic",
+            max_handoffs=max_handoffs,
+            max_turns=max_turns,
+            name="DevAgency_Anthropic_CLI",
+            coder_prompt_file=str(coder_prompt) if coder_prompt.exists() else None,
+            planner_prompt_file=str(planner_prompt) if planner_prompt.exists() else None,
+        )
+
+        console.print(Panel(
+            "[bold bright_cyan]Indus Agents - Multi-Agent System[/bold bright_cyan]\n\n"
+            "[yellow]Dynamic AI-Controlled Routing: Coder <-> Planner[/yellow]\n"
+            f"[dim]Provider: Anthropic | Model: {model}[/dim]",
+            box=box.DOUBLE_EDGE,
+            border_style="bright_cyan",
+            padding=(1, 2),
+            width=70,
+        ))
+
+        agency = create_improved_agency(opts)
+
+        console.print(Panel(
+            "[bold]Communication Flows:[/bold]\n- Coder -> Planner\n- Planner -> Coder",
+            box=box.ROUNDED,
+            border_style="dim",
+        ))
+        console.print(agency.visualize())
+        console.print()
+
+        agency.terminal_demo(show_reasoning=show_reasoning)
+    except KeyboardInterrupt:
+        console.print("\n\n[warning]Interrupted by user. Exiting...[/warning]\n")
+    except Exception as e:
+        print_error(str(e), "Agency Demo Error")
         raise typer.Exit(1)
 
 

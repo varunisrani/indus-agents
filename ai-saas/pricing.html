@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pricing - AI Nexus</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .pricing-hero {
+      background: var(--gradient-dark);
+      color: white;
+      padding: 100px 20px 80px;
+      text-align: center;
+    }
+    .pricing-hero h1 { color: white; }
+    .pricing-toggle-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin: 40px 0;
+    }
+    .pricing-toggle {
+      width: 60px;
+      height: 32px;
+      background: var(--primary-color);
+      border-radius: 16px;
+      position: relative;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .pricing-toggle::after {
+      content: '';
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      width: 24px;
+      height: 24px;
+      background: white;
+      border-radius: 50%;
+      transition: var(--transition);
+    }
+    .pricing-toggle.active { background: var(--secondary-color); }
+    .pricing-toggle.active::after { left: 32px; }
+    .save-badge {
+      background: var(--success);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin: 60px auto;
+      max-width: 1200px;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <nav class="nav-container">
+      <a href="index.html" class="logo"><i class="fas fa-brain"></i> AI Nexus</a>
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="features.html" class="nav-link">Features</a></li>
+        <li><a href="pricing.html" class="nav-link active">Pricing</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="blog.html" class="nav-link">Blog</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+        <li><a href="#" class="btn btn-primary">Get Started</a></li>
+      </ul>
+      <div class="hamburger"><span></span><span></span><span></span></div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="pricing-hero">
+      <div class="container">
+        <h1 class="animate-fadeInUp">Simple, Transparent Pricing</h1>
+        <p style="font-size: 1.2rem; color: rgba(241, 245, 249, 0.8); margin-bottom: 30px;">Choose the perfect plan for your business needs</p>
+        
+        <div class="pricing-toggle-container animate-fadeInUp delay-1">
+          <span style="font-weight: 600;">Monthly</span>
+          <div class="pricing-toggle" id="billingToggle">
+            <input type="checkbox" class="pricing-toggle-checkbox" style="position: absolute; opacity: 0; width: 100%; height: 100%; cursor: pointer;">
+          </div>
+          <span style="font-weight: 600;">Annual</span>
+          <span class="save-badge">Save 20%</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="pricing-grid">
+          <div class="pricing-card fade-in">
+            <h3>Starter</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 20px;">Perfect for small teams getting started</p>
+            <div class="pricing-price" data-monthly="49" data-annual="39">$49</div>
+            <p class="pricing-period">/month</p>
+            <ul class="pricing-features">
+              <li><i class="fas fa-check"></i> Up to 5 team members</li>
+              <li><i class="fas fa-check"></i> 10,000 API calls/month</li>
+              <li><i class="fas fa-check"></i> Basic AI models</li>
+              <li><i class="fas fa-check"></i> Email support</li>
+              <li><i class="fas fa-check"></i> 5GB storage</li>
+              <li><i class="fas fa-check"></i> Community access</li>
+            </ul>
+            <a href="#" class="btn btn-secondary" style="width: 100%;">Get Started</a>
+          </div>
+
+          <div class="pricing-card featured fade-in delay-1">
+            <div class="pricing-badge">Most Popular</div>
+            <h3>Professional</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 20px;">For growing businesses</p>
+            <div class="pricing-price" data-monthly="149" data-annual="119">$149</div>
+            <p class="pricing-period">/month</p>
+            <ul class="pricing-features">
+              <li><i class="fas fa-check"></i> Up to 20 team members</li>
+              <li><i class="fas fa-check"></i> 100,000 API calls/month</li>
+              <li><i class="fas fa-check"></i> Advanced AI models</li>
+              <li><i class="fas fa-check"></i> Priority support</li>
+              <li><i class="fas fa-check"></i> 50GB storage</li>
+              <li><i class="fas fa-check"></i> Custom integrations</li>
+              <li><i class="fas fa-check"></i> Advanced analytics</li>
+              <li><i class="fas fa-check"></i> API access</li>
+            </ul>
+            <a href="#" class="btn btn-primary" style="width: 100%;">Get Started</a>
+          </div>
+
+          <div class="pricing-card fade-in delay-2">
+            <h3>Enterprise</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 20px;">For large organizations</p>
+            <div class="pricing-price" data-monthly="499" data-annual="399">$499</div>
+            <p class="pricing-period">/month</p>
+            <ul class="pricing-features">
+              <li><i class="fas fa-check"></i> Unlimited team members</li>
+              <li><i class="fas fa-check"></i> Unlimited API calls</li>
+              <li><i class="fas fa-check"></i> Custom AI models</li>
+              <li><i class="fas fa-check"></i> 24/7 dedicated support</li>
+              <li><i class="fas fa-check"></i> Unlimited storage</li>
+              <li><i class="fas fa-check"></i> White-label solution</li>
+              <li><i class="fas fa-check"></i> On-premise deployment</li>
+              <li><i class="fas fa-check"></i> SLA guarantee</li>
+              <li><i class="fas fa-check"></i> Dedicated account manager</li>
+            </ul>
+            <a href="#" class="btn btn-secondary" style="width: 100%;">Contact Sales</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="background-color: var(--light-bg);">
+      <div class="container">
+        <div class="section-header fade-in">
+          <h2>Frequently Asked Questions</h2>
+        </div>
+        <div style="max-width: 800px; margin: 0 auto;">
+          <div class="accordion-item fade-in">
+            <button class="accordion-header">
+              <span>Can I change plans later?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="accordion-content">
+              <div class="accordion-body">Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately, and we'll prorate your billing accordingly.</div>
+            </div>
+          </div>
+          <div class="accordion-item fade-in delay-1">
+            <button class="accordion-header">
+              <span>Is there a free trial?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="accordion-content">
+              <div class="accordion-body">Yes! We offer a 14-day free trial on all plans. No credit card required. You'll have full access to all features during the trial period.</div>
+            </div>
+          </div>
+          <div class="accordion-item fade-in delay-2">
+            <button class="accordion-header">
+              <span>What payment methods do you accept?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="accordion-content">
+              <div class="accordion-body">We accept all major credit cards (Visa, MasterCard, American Express), PayPal, and wire transfers for enterprise customers.</div>
+            </div>
+          </div>
+          <div class="accordion-item fade-in">
+            <button class="accordion-header">
+              <span>Do you offer discounts for nonprofits or education?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="accordion-content">
+              <div class="accordion-body">Yes! We offer special pricing for qualified nonprofits, educational institutions, and open-source projects. Contact our sales team for more information.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="background: var(--gradient-primary); color: white; text-align: center;">
+      <div class="container">
+        <h2 style="color: white; margin-bottom: 20px;">Need a Custom Enterprise Solution?</h2>
+        <p style="font-size: 1.2rem; margin-bottom: 30px;">Let's build a plan tailored to your specific needs</p>
+        <a href="contact.html" class="btn" style="background: white; color: var(--primary-color); padding: 15px 40px;">Contact Sales</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; 2024 AI Nexus. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/pricing.js"></script>
+  <script>
+    document.getElementById('billingToggle').addEventListener('click', function() {
+      this.classList.toggle('active');
+      const checkbox = this.querySelector('input');
+      checkbox.checked = !checkbox.checked;
+      checkbox.dispatchEvent(new Event('change'));
+    });
+  </script>
+</body>
+</html>

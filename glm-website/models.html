@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Compare GLM models and find the right one for your needs">
+  <title>Models - GLM</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/models.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">G</div>
+        GLM
+      </a>
+      <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="pricing.html">Pricing</a></li>
+          <li><a href="models.html" class="active">Models</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="documentation.html">Documentation</a></li>
+          <li><a href="contact.html" class="btn btn-accent header-cta">Get Started</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="models-hero section">
+      <div class="container">
+        <div class="section-header">
+          <h1 class="section-title">Choose Your Model</h1>
+          <p class="section-subtitle">From lightning-fast to maximum capability, find the perfect GLM model for your use case</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="model-cards section">
+      <div class="container">
+        <div class="model-grid">
+          <div class="model-card fade-in" data-model="glm-tiny">
+            <div class="model-icon">⚡</div>
+            <h3 class="model-name">GLM-Tiny</h3>
+            <p class="model-description">Ultra-fast for simple tasks and high-volume applications</p>
+            <div class="specs-grid">
+              <div class="spec-item">
+                <div class="spec-label">Parameters</div>
+                <div class="spec-value">7B</div>
+              </div>
+              <div class="spec-item">
+                <div class="spec-label">Context</div>
+                <div class="spec-value">32K</div>
+              </div>
+              <div class="spec-item">
+                <div class="spec-label">Speed</div>
+                <div class="spec-value">150+ tok/s</div>
+              </div>
+              <div class="spec-item">
+                <div class="spec-label">Input</div>
+                <div class="spec-value">$0.50/1M</div>
+              </div>
+            </div>
+            <a href="pricing.html" class="btn btn-secondary mt-sm">View Pricing</a>
+          </div>
+
+          <div class="model-card fade-in" data-model="glm-base">
+            <div class="model-icon">⚖️</div>
+            <h3 class="model-name">GLM-Base</h3>
+            <p class="model-description">Balanced performance for most everyday tasks</p>
+            <div class="specs-grid">
+              <div class="spec-item">
+                <div class="spec-label">Parameters</div>
+                <div class="spec-value">13B</div>
+              </div>
+              <div class="spec-item">
+                <div class="spec-label">Context</div>
+                <div class="spec-value">128K</div>
+              </div>
+              <div class="spec-item">
+                <div class="spec-label">Speed</div>
+                <div class="spec-value">100+ tok/s</div>
+              </div>
+              <div class="spec-item">
+                <div class="spec-label">Input</div>
+                <div class="spec-value">$1.50/1M</div>
+              </div>
+            </div>
+            <a href="pricing.html" class="btn btn-secondary mt-sm">View Pricing</a>
+          </div>
+
+          <div class="model-card featured fade-in" data-model="glm-pro">
+            <div class="model-icon">🚀</div>
+            <h3 class="model-name">GLM-Pro</h3>
+            <p class="model-description">Advanced reasoning for complex tasks and analysis</p>
+            <div class="specs-grid">
+              <div class="spec-item">
+                <div class="spec-label">Parameters</div>
+                <div class="spec-value">70B</div>
+              </div>
+              <div class="spec-item">
+                <div class="spec-label">Context</div>
+                <div class="spec-value">200K</div>
+              </div>
+              <div class="spec-item">
+                <div class="spec-label">Speed</div>
+                <div class="spec-value">50+ tok/s</div>
+              </div>
+              <div class="spec-item">
+                <div class="spec-label">Input</div>
+                <div class="spec-value">$3.00/1M</div>
+              </div>
+            </div>
+            <a href="pricing.html" class="btn btn-accent mt-sm">View Pricing</a>
+          </div>
+
+          <div class="model-card fade-in" data-model="glm-ultra">
+            <div class="model-icon">🏆</div>
+            <h3 class="model-name">GLM-Ultra</h3>
+            <p class="model-description">Maximum capability for the most demanding tasks</p>
+            <div class="specs-grid">
+              <div class="spec-item">
+                <div class="spec-label">Parameters</div>
+                <div class="spec-value">175B</div>
+              </div>
+              <div class="spec-item">
+                <div class="spec-label">Context</div>
+                <div class="spec-value">200K</div>
+              </div>
+              <div class="spec-item">
+                <div class="spec-label">Speed</div>
+                <div class="spec-value">30+ tok/s</div>
+              </div>
+              <div class="spec-item">
+                <div class="spec-label">Input</div>
+                <div class="spec-value">$8.00/1M</div>
+              </div>
+            </div>
+            <a href="pricing.html" class="btn btn-secondary mt-sm">View Pricing</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="comparison-section section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Model Comparison</h2>
+          <p class="section-subtitle">Compare specifications and capabilities side by side</p>
+        </div>
+
+        <div class="comparison-table-wrapper">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>GLM-Tiny</th>
+                <th>GLM-Base</th>
+                <th>GLM-Pro</th>
+                <th>GLM-Ultra</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Parameters</strong></td>
+                <td>7B</td>
+                <td>13B</td>
+                <td>70B</td>
+                <td>175B</td>
+              </tr>
+              <tr>
+                <td><strong>Context Window</strong></td>
+                <td>32K tokens</td>
+                <td>128K tokens</td>
+                <td>200K tokens</td>
+                <td>200K tokens</td>
+              </tr>
+              <tr>
+                <td><strong>Response Speed</strong></td>
+                <td>150+ tok/s</td>
+                <td>100+ tok/s</td>
+                <td>50+ tok/s</td>
+                <td>30+ tok/s</td>
+              </tr>
+              <tr>
+                <td><strong>Input Price</strong></td>
+                <td>$0.50/1M</td>
+                <td>$1.50/1M</td>
+                <td>$3.00/1M</td>
+                <td>$8.00/1M</td>
+              </tr>
+              <tr>
+                <td><strong>Output Price</strong></td>
+                <td>$1.50/1M</td>
+                <td>$5.00/1M</td>
+                <td>$15.00/1M</td>
+                <td>$25.00/1M</td>
+              </tr>
+              <tr>
+                <td><strong>Coding</strong></td>
+                <td>Basic</td>
+                <td>Good</td>
+                <td>Excellent</td>
+                <td>Expert</td>
+              </tr>
+              <tr>
+                <td><strong>Reasoning</strong></td>
+                <td>Basic</td>
+                <td>Good</td>
+                <td>Advanced</td>
+                <td>Expert</td>
+              </tr>
+              <tr>
+                <td><strong>Creative Writing</strong></td>
+                <td>Basic</td>
+                <td>Good</td>
+                <td>Excellent</td>
+                <td>Expert</td>
+              </tr>
+              <tr>
+                <td><strong>Analysis</strong></td>
+                <td>Limited</td>
+                <td>Good</td>
+                <td>Excellent</td>
+                <td>Expert</td>
+              </tr>
+              <tr>
+                <td><strong>Best For</strong></td>
+                <td>Simple tasks, high volume</td>
+                <td>General purpose</td>
+                <td>Complex tasks</td>
+                <td>Maximum capability</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="performance-section section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Performance Benchmarks</h2>
+          <p class="section-subtitle">See how GLM models perform on industry-standard benchmarks</p>
+        </div>
+
+        <div class="performance-chart" id="performance-chart">
+          <div class="chart-bar">
+            <div class="bar-label">GLM-Tiny</div>
+            <div class="bar-fill" style="width: 65%"></div>
+            <div class="bar-value">65%</div>
+          </div>
+          <div class="chart-bar">
+            <div class="bar-label">GLM-Base</div>
+            <div class="bar-fill" style="width: 78%"></div>
+            <div class="bar-value">78%</div>
+          </div>
+          <div class="chart-bar">
+            <div class="bar-label">GLM-Pro</div>
+            <div class="bar-fill" style="width: 89%"></div>
+            <div class="bar-value">89%</div>
+          </div>
+          <div class="chart-bar">
+            <div class="bar-label">GLM-Ultra</div>
+            <div class="bar-fill" style="width: 96%"></div>
+            <div class="bar-value">96%</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="use-cases section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Recommended Use Cases</h2>
+          <p class="section-subtitle">Find the right model for your specific needs</p>
+        </div>
+
+        <div class="use-cases-grid grid grid-2">
+          <div class="card use-case-card fade-in">
+            <h3>Content Generation</h3>
+            <p><strong>Recommended:</strong> GLM-Pro or GLM-Ultra</p>
+            <p>Blog posts, marketing copy, creative writing, and long-form content requiring creativity and nuance.</p>
+          </div>
+          <div class="card use-case-card fade-in">
+            <h3>Code Generation</h3>
+            <p><strong>Recommended:</strong> GLM-Pro or GLM-Ultra</p>
+            <p>Writing, debugging, and optimizing code. Best for complex programming tasks and architectural decisions.</p>
+          </div>
+          <div class="card use-case-card fade-in">
+            <h3>Customer Support</h3>
+            <p><strong>Recommended:</strong> GLM-Base or GLM-Pro</p>
+            <p>Automated responses, ticket classification, and customer inquiries. Balance speed and accuracy.</p>
+          </div>
+          <div class="card use-case-card fade-in">
+            <h3>Data Analysis</h3>
+            <p><strong>Recommended:</strong> GLM-Pro or GLM-Ultra</p>
+            <p>Analyzing large datasets, generating insights, and complex reasoning tasks.</p>
+          </div>
+          <div class="card use-case-card fade-in">
+            <h3>Chatbots & Assistants</h3>
+            <p><strong>Recommended:</strong> GLM-Base or GLM-Pro</p>
+            <p>Conversational AI, virtual assistants, and interactive applications requiring natural dialogue.</p>
+          </div>
+          <div class="card use-case-card fade-in">
+            <h3>High-Volume Processing</h3>
+            <p><strong>Recommended:</strong> GLM-Tiny</p>
+            <p>Simple classification, tagging, and routing tasks where speed and cost efficiency are paramount.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section section">
+      <div class="container">
+        <div class="cta-content text-center">
+          <h2 class="section-title">Ready to Build with GLM?</h2>
+          <p class="section-subtitle mb-md">Start building powerful AI applications today</p>
+          <div class="cta-buttons">
+            <a href="pricing.html" class="btn btn-accent">Get Started Free</a>
+            <a href="documentation.html" class="btn btn-secondary">Read the Docs</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-grid">
+        <div class="footer-section">
+          <h4 class="footer-title">GLM</h4>
+          <p class="footer-description">The next generation language model for advanced AI applications.</p>
+          <div class="footer-social">
+            <a href="#" class="social-link" aria-label="Twitter">𝕏</a>
+            <a href="#" class="social-link" aria-label="GitHub">⌘</a>
+            <a href="#" class="social-link" aria-label="LinkedIn">in</a>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h4 class="footer-title">Product</h4>
+          <ul class="footer-links">
+            <li><a href="pricing.html">Pricing</a></li>
+            <li><a href="models.html">Models</a></li>
+            <li><a href="documentation.html">Documentation</a></li>
+            <li><a href="#">API Reference</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4 class="footer-title">Company</h4>
+          <ul class="footer-links">
+            <li><a href="about.html">About</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4 class="footer-title">Legal</h4>
+          <ul class="footer-links">
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Cookie Policy</a></li>
+            <li><a href="#">Security</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copyright">&copy; 2025 GLM. All rights reserved.</p>
+        <div class="footer-legal">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Cookies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/navigation.js"></script>
+  <script src="js/models.js"></script>
+</body>
+</html>

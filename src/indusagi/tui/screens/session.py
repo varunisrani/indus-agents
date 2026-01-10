@@ -392,6 +392,20 @@ class SessionScreen(Screen):
 
     # Reactive state
     is_processing: reactive[bool] = reactive(False)
+    _refresh_scheduled: reactive[bool] = reactive(False)
+
+    def _schedule_refresh(self) -> None:
+        """Schedule a single refresh on the next tick (debounced)."""
+        if self._refresh_scheduled:
+            return
+        self._refresh_scheduled = True
+
+        def _do_refresh() -> None:
+            self._refresh_scheduled = False
+            self._refresh_header()
+            self._refresh_messages()
+
+        self.call_later(_do_refresh)
 
     def compose(self) -> ComposeResult:
         """Compose the session screen."""
@@ -482,6 +496,26 @@ class SessionScreen(Screen):
         # Start processing
         self.is_processing = True
         asyncio.create_task(self._process_message(event.value))
+
+    # ========================================================================
+    # App events (streaming + tool events)
+    # ========================================================================
+
+    def on_message_submitted(self, message: Message) -> None:
+        """Refresh UI when the user message is accepted by the app."""
+        self._schedule_refresh()
+
+    def on_streaming_token(self, message: Message) -> None:
+        """Refresh UI during streaming (tokens + agent lifecycle logs are delivered as tokens)."""
+        self._schedule_refresh()
+
+    def on_tool_executing(self, message: Message) -> None:
+        """Refresh UI when a tool starts executing."""
+        self._schedule_refresh()
+
+    def on_tool_completed(self, message: Message) -> None:
+        """Refresh UI when a tool completes."""
+        self._schedule_refresh()
 
     async def _process_message(self, content: str) -> None:
         """Process a message asynchronously."""

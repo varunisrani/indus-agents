@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout - BikeHub</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .checkout-header {
+      background: var(--secondary-color);
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    .checkout-container {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 40px;
+      padding: 60px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .checkout-steps {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 40px;
+      padding: 0 20px;
+    }
+    .step {
+      flex: 1;
+      text-align: center;
+      position: relative;
+    }
+    .step::after {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      width: 100%;
+      height: 2px;
+      background: var(--border-color);
+    }
+    .step:last-child::after {
+      display: none;
+    }
+    .step-number {
+      width: 40px;
+      height: 40px;
+      background: var(--border-color);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 10px;
+      position: relative;
+      z-index: 1;
+    }
+    .step.active .step-number {
+      background: var(--primary-color);
+    }
+    .checkout-form {
+      background: white;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .order-summary {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      height: fit-content;
+      position: sticky;
+      top: 100px;
+    }
+    .order-item {
+      display: flex;
+      gap: 15px;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .order-item img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+    .shipping-option {
+      padding: 15px;
+      border: 2px solid var(--border-color);
+      border-radius: 4px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .shipping-option:hover,
+    .shipping-option.selected {
+      border-color: var(--primary-color);
+      background: rgba(230, 57, 70, 0.05);
+    }
+    @media (max-width: 992px) {
+      .checkout-container {
+        grid-template-columns: 1fr;
+      }
+      .order-summary {
+        position: static;
+      }
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <nav class="nav-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-bicycle"></i>
+        Bike<span>Hub</span>
+      </a>
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="shop.html" class="nav-link">Shop</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="services.html" class="nav-link">Services</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+      <div class="nav-icons">
+        <a href="cart.html" class="nav-icon">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="cart-count">0</span>
+        </a>
+        <div class="hamburger">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <div class="checkout-header">
+      <h1>Checkout</h1>
+    </div>
+
+    <div class="checkout-steps">
+      <div class="step active">
+        <div class="step-number">1</div>
+        <div>Shipping</div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div>Payment</div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div>Review</div>
+      </div>
+    </div>
+
+    <div class="checkout-container">
+      <div class="checkout-form">
+        <form id="checkout-form" data-validate>
+          <h2 style="margin-bottom: 20px;">Contact Information</h2>
+          <div class="form-group">
+            <label>Email Address *</label>
+            <input type="email" name="email" required placeholder="your@email.com">
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" name="phone" placeholder="(555) 123-4567">
+          </div>
+
+          <h2 style="margin: 30px 0 20px;">Shipping Address</h2>
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name *</label>
+              <input type="text" name="firstName" required>
+            </div>
+            <div class="form-group">
+              <label>Last Name *</label>
+              <input type="text" name="lastName" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Address *</label>
+            <input type="text" name="address" required placeholder="Street address">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>City *</label>
+              <input type="text" name="city" required>
+            </div>
+            <div class="form-group">
+              <label>State *</label>
+              <input type="text" name="state" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>ZIP Code *</label>
+              <input type="text" name="zip" required>
+            </div>
+            <div class="form-group">
+              <label>Country *</label>
+              <select name="country" required>
+                <option value="US">United States</option>
+                <option value="CA">Canada</option>
+              </select>
+            </div>
+          </div>
+
+          <h2 style="margin: 30px 0 20px;">Shipping Method</h2>
+          <div class="shipping-option selected" onclick="selectShipping(this, 'standard')">
+            <div style="display: flex; justify-content: space-between;">
+              <strong>Standard Shipping</strong>
+              <span>$19.99</span>
+            </div>
+            <p style="margin: 5px 0 0;">5-7 business days</p>
+          </div>
+          <div class="shipping-option" onclick="selectShipping(this, 'express')">
+            <div style="display: flex; justify-content: space-between;">
+              <strong>Express Shipping</strong>
+              <span>$49.99</span>
+            </div>
+            <p style="margin: 5px 0 0;">2-3 business days</p>
+          </div>
+
+          <h2 style="margin: 30px 0 20px;">Payment Information</h2>
+          <div class="form-group">
+            <label>Card Number *</label>
+            <input type="text" name="cardNumber" required placeholder="1234 5678 9012 3456">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Expiry Date *</label>
+              <input type="text" name="expiry" required placeholder="MM/YY">
+            </div>
+            <div class="form-group">
+              <label>CVV *</label>
+              <input type="text" name="cvv" required placeholder="123">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Name on Card *</label>
+            <input type="text" name="cardName" required>
+          </div>
+
+          <div class="form-group" style="margin-top: 20px;">
+            <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+              <input type="checkbox" required>
+              <span>I agree to the <a href="#" style="color: var(--primary-color);">Terms & Conditions</a></span>
+            </label>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 20px; padding: 15px;">
+            Place Order - $<span id="checkout-total">0.00</span>
+          </button>
+        </form>
+      </div>
+
+      <aside class="order-summary">
+        <h2 style="margin-bottom: 20px;">Order Summary</h2>
+        <div id="checkout-items"></div>
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <span id="summary-subtotal">$0.00</span>
+        </div>
+        <div class="summary-row">
+          <span>Shipping</span>
+          <span id="summary-shipping">$19.99</span>
+        </div>
+        <div class="summary-row">
+          <span>Tax</span>
+          <span id="summary-tax">$0.00</span>
+        </div>
+        <div class="summary-row total">
+          <span>Total</span>
+          <span id="summary-total">$0.00</span>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; 2024 BikeHub. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/cart.js"></script>
+  <script>
+    function selectShipping(element, method) {
+      document.querySelectorAll('.shipping-option').forEach(el => el.classList.remove('selected'));
+      element.classList.add('selected');
+      cart.shippingMethod = method;
+      updateOrderSummary();
+    }
+
+    function updateOrderSummary() {
+      const itemsContainer = document.getElementById('checkout-items');
+      let html = '';
+      cart.items.forEach(item => {
+        html += `
+          <div class="order-item">
+            <img src="${item.image}" alt="${item.name}">
+            <div style="flex: 1;">
+              <h4 style="margin: 0 0 5px;">${item.name}</h4>
+              <p style="margin: 0;">Qty: ${item.quantity}</p>
+            </div>
+            <div style="text-align: right;">
+              <p style="margin: 0; font-weight: 600;">$${(item.price * item.quantity).toFixed(2)}</p>
+            </div>
+          </div>
+        `;
+      });
+      itemsContainer.innerHTML = html;
+
+      const subtotal = cart.getSubtotal();
+      const shipping = cart.getShippingCost();
+      const tax = cart.getTax();
+      const total = cart.getTotal();
+
+      document.getElementById('summary-subtotal').textContent = '$' + subtotal.toFixed(2);
+      document.getElementById('summary-shipping').textContent = '$' + shipping.toFixed(2);
+      document.getElementById('summary-tax').textContent = '$' + tax.toFixed(2);
+      document.getElementById('summary-total').textContent = '$' + total.toFixed(2);
+      document.getElementById('checkout-total').textContent = total.toFixed(2);
+    }
+
+    document.getElementById('checkout-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Order placed successfully! Thank you for your purchase.');
+      cart.clear();
+      window.location.href = 'index.html';
+    });
+
+    if (cart.items.length === 0) {
+      alert('Your cart is empty. Please add items before checkout.');
+      window.location.href = 'shop.html';
+    } else {
+      updateOrderSummary();
+    }
+  </script>
+</body>
+</html>

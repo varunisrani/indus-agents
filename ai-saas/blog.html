@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog - AI Nexus</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .blog-hero {
+      background: var(--gradient-dark);
+      color: white;
+      padding: 100px 20px 80px;
+      text-align: center;
+    }
+    .blog-hero h1 { color: white; }
+    .blog-filters {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 40px 0;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      padding: 10px 20px;
+      background: white;
+      border: 2px solid var(--border-color);
+      border-radius: 30px;
+      cursor: pointer;
+      transition: var(--transition);
+      font-weight: 600;
+    }
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--primary-color);
+      border-color: var(--primary-color);
+      color: white;
+    }
+    .search-bar {
+      max-width: 500px;
+      margin: 0 auto 40px;
+      position: relative;
+    }
+    .search-bar input {
+      width: 100%;
+      padding: 15px 50px 15px 20px;
+      border: 2px solid var(--border-color);
+      border-radius: 30px;
+      font-size: 1rem;
+    }
+    .search-bar i {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-light);
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <nav class="nav-container">
+      <a href="index.html" class="logo"><i class="fas fa-brain"></i> AI Nexus</a>
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="features.html" class="nav-link">Features</a></li>
+        <li><a href="pricing.html" class="nav-link">Pricing</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="blog.html" class="nav-link active">Blog</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+        <li><a href="#" class="btn btn-primary">Get Started</a></li>
+      </ul>
+      <div class="hamburger"><span></span><span></span><span></span></div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="blog-hero">
+      <div class="container">
+        <h1 class="animate-fadeInUp">Insights & Resources</h1>
+        <p style="font-size: 1.2rem; color: rgba(241, 245, 249, 0.8);">Latest AI trends, tutorials, and company updates</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="search-bar">
+          <input type="text" placeholder="Search articles..." id="searchInput">
+          <i class="fas fa-search"></i>
+        </div>
+
+        <div class="blog-filters">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="ai">AI & ML</button>
+          <button class="filter-btn" data-filter="product">Product Updates</button>
+          <button class="filter-btn" data-filter="industry">Industry</button>
+          <button class="filter-btn" data-filter="tutorial">Tutorials</button>
+        </div>
+
+        <div class="grid grid-3" id="blogGrid">
+          <article class="blog-card fade-in" data-category="ai">
+            <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800" alt="AI Article" class="blog-image">
+            <div class="blog-content">
+              <span class="blog-category">AI & ML</span>
+              <h3 class="blog-title">The Future of Large Language Models in Enterprise</h3>
+              <p class="blog-excerpt">Explore how LLMs are transforming business operations and what to expect in the coming years.</p>
+              <div class="blog-meta">
+                <div class="blog-author">
+                  <img src="https://i.pravatar.cc/100?img=11" alt="Author">
+                  <span>Dr. Sarah Chen</span>
+                </div>
+                <span>• 8 min read</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="blog-card fade-in delay-1" data-category="product">
+            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800" alt="Product Update" class="blog-image">
+            <div class="blog-content">
+              <span class="blog-category">Product Updates</span>
+              <h3 class="blog-title">Introducing AI Nexus 2.0: What's New</h3>
+              <p class="blog-excerpt">Discover the latest features and improvements in our biggest release yet.</p>
+              <div class="blog-meta">
+                <div class="blog-author">
+                  <img src="https://i.pravatar.cc/100?img=12" alt="Author">
+                  <span>Michael Rodriguez</span>
+                </div>
+                <span>• 5 min read</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="blog-card fade-in delay-2" data-category="tutorial">
+            <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=800" alt="Tutorial" class="blog-image">
+            <div class="blog-content">
+              <span class="blog-category">Tutorials</span>
+              <h3 class="blog-title">Getting Started with AI Nexus: A Complete Guide</h3>
+              <p class="blog-excerpt">Learn how to set up your first AI workflow in just 10 minutes with this step-by-step tutorial.</p>
+              <div class="blog-meta">
+                <div class="blog-author">
+                  <img src="https://i.pravatar.cc/100?img=13" alt="Author">
+                  <span>Emily Watson</span>
+                </div>
+                <span>• 12 min read</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="blog-card fade-in" data-category="industry">
+            <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800" alt="Industry" class="blog-image">
+            <div class="blog-content">
+              <span class="blog-category">Industry</span>
+              <h3 class="blog-title">AI Trends to Watch in 2024</h3>
+              <p class="blog-excerpt">From multimodal AI to autonomous agents, discover the trends shaping the industry.</p>
+              <div class="blog-meta">
+                <div class="blog-author">
+                  <img src="https://i.pravatar.cc/100?img=14" alt="Author">
+                  <span>David Kim</span>
+                </div>
+                <span>• 6 min read</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="blog-card fade-in delay-1" data-category="ai">
+            <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800" alt="AI Article" class="blog-image">
+            <div class="blog-content">
+              <span class="blog-category">AI & ML</span>
+              <h3 class="blog-title">Understanding Neural Network Architecture</h3>
+              <p class="blog-excerpt">A deep dive into how neural networks work and how to optimize them for your use case.</p>
+              <div class="blog-meta">
+                <div class="blog-author">
+                  <img src="https://i.pravatar.cc/100?img=11" alt="Author">
+                  <span>Dr. Sarah Chen</span>
+                </div>
+                <span>• 10 min read</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="blog-card fade-in delay-2" data-category="product">
+            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800" alt="Product Update" class="blog-image">
+            <div class="blog-content">
+              <span class="blog-category">Product Updates</span>
+              <h3 class="blog-title">New Integration: Salesforce Connector</h3>
+              <p class="blog-excerpt">Seamlessly connect AI Nexus with your Salesforce CRM for enhanced insights.</p>
+              <div class="blog-meta">
+                <div class="blog-author">
+                  <img src="https://i.pravatar.cc/100?img=12" alt="Author">
+                  <span>Michael Rodriguez</span>
+                </div>
+                <span>• 4 min read</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="background: var(--gradient-primary); color: white; text-align: center;">
+      <div class="container">
+        <h2 style="color: white; margin-bottom: 20px;">Stay Updated</h2>
+        <p style="font-size: 1.2rem; margin-bottom: 30px;">Get the latest AI insights delivered to your inbox</p>
+        <form id="newsletter-form" style="max-width: 500px; margin: 0 auto; display: flex; gap: 10px;">
+          <input type="email" placeholder="Enter your email" required style="flex: 1; padding: 15px 20px; border: none; border-radius: 8px; font-size: 1rem;">
+          <button type="submit" class="btn" style="background: white; color: var(--primary-color);">Subscribe</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; 2024 AI Nexus. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/animations.js"></script>
+  <script>
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        
+        const filter = this.dataset.filter;
+        document.querySelectorAll('.blog-card').forEach(card => {
+          if (filter === 'all' || card.dataset.category === filter) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    document.getElementById('searchInput').addEventListener('input', function(e) {
+      const search = e.target.value.toLowerCase();
+      document.querySelectorAll('.blog-card').forEach(card => {
+        const title = card.querySelector('.blog-title').textContent.toLowerCase();
+        const excerpt = card.querySelector('.blog-excerpt').textContent.toLowerCase();
+        if (title.includes(search) || excerpt.includes(search)) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

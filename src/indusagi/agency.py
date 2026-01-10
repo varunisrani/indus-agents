@@ -219,7 +219,8 @@ class Agency:
         use_tools: bool = True,
         tools: Optional[List[Dict[str, Any]]] = None,
         tool_executor: Optional[Any] = None,
-        on_max_turns_reached: Optional[Callable[[], bool]] = None
+        on_max_turns_reached: Optional[Callable[[], bool]] = None,
+        event_callback: Optional[Callable[[Dict[str, Any]], None]] = None,
     ) -> AgencyResponse:
         """
         Process user input through the agency.
@@ -237,6 +238,13 @@ class Agency:
             AgencyResponse with full processing details
         """
         start_time = time.time()
+
+        def emit(event: Dict[str, Any]) -> None:
+            if event_callback:
+                try:
+                    event_callback(event)
+                except Exception:
+                    pass
         self._handoff_history = []
         agents_used = [self.entry_agent.name]
 
@@ -251,6 +259,10 @@ class Agency:
         response = ""
         handoff_count = 0
 
+        # Match terminal_demo style: show "Starting with [Coder]" and then "[Coder] is working"
+        emit({"type": "agent_start", "agent": current_agent.name})
+        emit({"type": "agent_switch", "from_agent": None, "to_agent": current_agent.name})
+
         # Loop until no more handoffs or max reached
         continue_processing = True
 
@@ -262,10 +274,17 @@ class Agency:
                     tools=tools,
                     tool_executor=tool_executor,
                     max_turns=self.max_turns,
-                    on_max_turns_reached=on_max_turns_reached
+                    on_max_turns_reached=on_max_turns_reached,
+                    event_callback=emit,
                 )
             else:
                 response = current_agent.process(current_message)
+            emit({
+                "type": "agent_progress",
+                "agent": current_agent.name,
+                "event": "response_complete",
+                "preview": str(response)[:200]
+            })
 
             # Check if a handoff was requested via tool execution
             handoff_target = None
@@ -273,45 +292,49 @@ class Agency:
 
             if tool_executor and hasattr(tool_executor, '_pending_handoff'):
                 handoff_data = tool_executor._pending_handoff
-                print(f"\nDEBUG: handoff_data = {handoff_data}")  # DEBUG
                 # Check if handoff_data is not None before calling .get()
                 if handoff_data is not None:
                     handoff_target = handoff_data.get('agent_name')
                     handoff_message = handoff_data.get('message', '')
-                    print(f"DEBUG: handoff_target = {handoff_target}")  # DEBUG
                 # Clear the pending handoff
                 tool_executor._pending_handoff = None
 
             # If no handoff requested, we're done processing
             if not handoff_target:
-                print(f"\nDEBUG: No handoff - processing complete")  # DEBUG
                 continue_processing = False
                 break
 
-            print(f"\nDEBUG: Handoff detected to {handoff_target}")  # DEBUG
-
             # Validate handoff is allowed
             if not self.can_handoff(current_agent.name, handoff_target):
-                print(f"\nWARNING: Handoff from {current_agent.name} to {handoff_target} not allowed")
+                emit({
+                    "type": "warning",
+                    "warning": f"Handoff from {current_agent.name} to {handoff_target} not allowed",
+                    "from_agent": current_agent.name,
+                    "to_agent": handoff_target,
+                })
                 continue_processing = False
                 break
 
             # Get target agent
             target_agent = self._agent_map.get(handoff_target)
             if not target_agent:
-                print(f"\nWARNING: Target agent {handoff_target} not found")
+                emit({
+                    "type": "warning",
+                    "warning": f"Target agent {handoff_target} not found",
+                    "from_agent": current_agent.name,
+                    "to_agent": handoff_target,
+                })
                 continue_processing = False
                 break
 
             # Execute handoff
-            print(f"\nHANDOFF: [{current_agent.name}] -> Handing off to [{handoff_target}]...")
-
             # Prepare message for target agent
             current_message = f"[Handoff from {current_agent.name}]\n\n{handoff_message}"
             if self._shared_context:
                 current_message = f"[Shared Context]\n{self._shared_context}\n\n{current_message}"
 
             # Update current agent and continue loop to process with new agent
+            emit({"type": "agent_switch", "from_agent": current_agent.name, "to_agent": target_agent.name})
             current_agent = target_agent
             agents_used.append(current_agent.name)
             handoff_count += 1
@@ -344,47 +367,91 @@ class Agency:
         Args:
             show_reasoning: Whether to show agent reasoning
         """
-        print(f"\n{'='*60}")
-        print(f"  {self.name} - Interactive Demo")
-        print(f"  Agents: {', '.join(self.list_agents())}")
-        print(f"  Entry: {self.entry_agent.name}")
-        print(f"{'='*60}\n")
+        # Rich-based UI for a cleaner, TUI-like demo experience.
+        from rich.console import Console
+        from rich.panel import Panel
+        from rich.table import Table
+        from rich.prompt import Prompt
+        from rich.markdown import Markdown
+        from rich.theme import Theme
+        from rich import box
 
-        print("Commands:")
-        print("  /quit, /exit  - Exit the demo")
-        print("  /agents       - List all agents")
-        print("  /handoffs     - Show allowed handoffs")
-        print("  /clear        - Clear conversation history")
-        print("  /logs         - Show recent tool usage")
-        print("  /stats        - Show tool usage statistics")
-        print("  /export       - Export logs to JSON file")
-        print()
+        theme = Theme({
+            "banner": "bold bright_cyan",
+            "agent_name": "bold bright_blue",
+            "user": "bold blue",
+            "tool": "bold yellow",
+            "success": "bold green",
+            "warning": "yellow",
+            "error": "bold red",
+            "dim": "dim white",
+            "box_border": "bright_cyan",
+        })
+        console = Console(theme=theme)
+
+        agents = self.list_agents()
+        header = (
+            f"[banner]{self.name}[/banner]\n"
+            f"[dim]Multi-Agent Interactive Demo[/dim]\n\n"
+            f"[dim]Agents:[/dim] [agent_name]{', '.join(agents)}[/agent_name]\n"
+            f"[dim]Entry:[/dim] [agent_name]{self.entry_agent.name}[/agent_name]\n"
+            f"[dim]Max handoffs:[/dim] {self.max_handoffs}    [dim]Max turns:[/dim] {self.max_turns}\n"
+        )
+        console.print()
+        console.print(Panel(
+            header,
+            box=box.DOUBLE_EDGE,
+            border_style="box_border",
+            padding=(1, 2),
+            width=80,
+        ))
+
+        commands_md = (
+            "**Commands**\n"
+            "- `/quit`, `/exit`: Exit\n"
+            "- `/agents`: List agents\n"
+            "- `/handoffs`: Show allowed handoffs\n"
+            "- `/clear`: Clear conversation history\n"
+            "- `/logs`: Show recent tool usage\n"
+            "- `/stats`: Tool usage statistics\n"
+            "- `/export`: Export tool logs to JSON\n"
+        )
+        console.print(Panel(Markdown(commands_md), border_style="dim", box=box.ROUNDED, width=80))
+        console.print()
 
         while True:
             try:
-                user_input = input("You: ").strip()
+                user_input = Prompt.ask("[user]You[/user]").strip()
 
                 if not user_input:
                     continue
 
                 if user_input.lower() in ["/quit", "/exit"]:
-                    print("Goodbye!")
+                    console.print("[dim]Goodbye![/dim]")
                     break
 
                 if user_input.lower() == "/agents":
-                    print(f"Agents: {', '.join(self.list_agents())}")
+                    table = Table(box=box.ROUNDED, show_header=True, header_style="bold cyan")
+                    table.add_column("Agents", style="agent_name")
+                    for a in self.list_agents():
+                        table.add_row(a)
+                    console.print(Panel(table, title="[banner]Agents[/banner]", border_style="box_border"))
                     continue
 
                 if user_input.lower() == "/handoffs":
+                    table = Table(box=box.ROUNDED, show_header=True, header_style="bold cyan")
+                    table.add_column("From", style="agent_name", width=16)
+                    table.add_column("Allowed handoffs", style="white")
                     for agent in self.agents:
                         targets = self.get_allowed_handoffs(agent.name)
-                        print(f"  {agent.name} → {targets if targets else '(none)'}")
+                        table.add_row(agent.name, ", ".join(targets) if targets else "(none)")
+                    console.print(Panel(table, title="[banner]Allowed Handoffs[/banner]", border_style="box_border"))
                     continue
 
                 if user_input.lower() == "/clear":
                     for agent in self.agents:
                         agent.clear_history()
-                    print("Conversation history cleared.")
+                    console.print("[success]Conversation history cleared.[/success]")
                     continue
 
                 if user_input.lower() == "/logs":
@@ -408,18 +475,28 @@ class Agency:
                     tool_executor=self.tool_executor
                 )
 
-                print(f"\n[{result.final_agent}]: {result.response}")
-
+                footer = f"[dim]Time:[/dim] {result.total_time:.2f}s"
                 if result.handoffs:
-                    print(f"\n  (Handoffs: {len(result.handoffs)}, Time: {result.total_time:.2f}s)")
+                    footer += f"    [dim]Handoffs:[/dim] {len(result.handoffs)}"
 
-                print()
+                console.print()
+                console.print(Panel(
+                    Markdown(result.response or "*No response generated*"),
+                    title=f"[agent_name]{result.final_agent}[/agent_name]",
+                    subtitle=footer,
+                    border_style="agent_name",
+                    box=box.ROUNDED,
+                    padding=(1, 2),
+                    width=80,
+                ))
+                console.print()
 
             except KeyboardInterrupt:
-                print("\nGoodbye!")
+                console.print("\n[dim]Goodbye![/dim]")
                 break
             except Exception as e:
-                print(f"\n[Error]: {e}\n")
+                console.print(Panel(str(e), title="[error]Error[/error]", border_style="error", box=box.ROUNDED))
+                console.print()
 
     def visualize(self) -> str:
         """

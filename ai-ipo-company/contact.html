@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact AI IPO - Get in touch with our team for IPO consultation and services.">
+    <meta name="keywords" content="contact AI IPO, IPO consultation, AI IPO services">
+    <title>Contact Us - AI IPO</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <a href="index.html" class="logo">
+                        <span class="logo-icon">🚀</span>
+                        <span class="logo-text">AI IPO</span>
+                    </a>
+                    <ul class="nav-menu" id="navMenu">
+                        <li><a href="index.html" class="nav-link">Home</a></li>
+                        <li><a href="about.html" class="nav-link">About</a></li>
+                        <li><a href="services.html" class="nav-link">Services</a></li>
+                        <li><a href="ipo-pipeline.html" class="nav-link">IPO Pipeline</a></li>
+                        <li><a href="contact.html" class="nav-link active">Contact</a></li>
+                    </ul>
+                    <div class="hamburger" id="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">Contact Us</h1>
+            <p class="page-subtitle">Let's start your IPO journey together</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-grid">
+                <!-- Contact Form -->
+                <div class="contact-form-wrapper">
+                    <h2 class="form-title">Send Us a Message</h2>
+                    <p class="form-subtitle">Fill out the form below and we'll get back to you within 24 hours</p>
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Full Name *</label>
+                            <input type="text" id="name" name="name" required placeholder="John Doe">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required placeholder="john@company.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="company">Company Name *</label>
+                            <input type="text" id="company" name="company" required placeholder="Your AI Company">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" placeholder="+1 (555) 123-4567">
+                        </div>
+                        <div class="form-group">
+                            <label for="service">Service Interest *</label>
+                            <select id="service" name="service" required>
+                                <option value="">Select a service</option>
+                                <option value="ipo-preparation">IPO Preparation</option>
+                                <option value="financial-advisory">Financial Advisory</option>
+                                <option value="regulatory-compliance">Regulatory Compliance</option>
+                                <option value="market-positioning">Market Positioning</option>
+                                <option value="investor-relations">Investor Relations</option>
+                                <option value="post-ipo">Post-IPO Support</option>
+                                <option value="full-service">Full IPO Service</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="timeline">Expected IPO Timeline</label>
+                            <select id="timeline" name="timeline">
+                                <option value="">Select timeline</option>
+                                <option value="3-6-months">3-6 months</option>
+                                <option value="6-12-months">6-12 months</option>
+                                <option value="12-18-months">12-18 months</option>
+                                <option value="18-plus-months">18+ months</option>
+                                <option value="exploring">Just exploring</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" rows="5" required placeholder="Tell us about your company and IPO goals..."></textarea>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="newsletter" id="newsletter">
+                                <span>Subscribe to our IPO insights newsletter</span>
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-large btn-full">Send Message</button>
+                    </form>
+                    <div class="form-success" id="formSuccess" style="display: none;">
+                        <div class="success-icon">✓</div>
+                        <h3>Message Sent!</h3>
+                        <p>Thank you for contacting us. Our team will reach out to you within 24 hours.</p>
+                    </div>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="contact-info-wrapper">
+                    <div class="contact-info-card">
+                        <h2 class="info-title">Get in Touch</h2>
+                        <p class="info-subtitle">We're here to help you navigate your IPO journey</p>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">📍</div>
+                            <div class="contact-details">
+                                <h4>Office Address</h4>
+                                <p>123 Financial District<br>New York, NY 10004</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">📞</div>
+                            <div class="contact-details">
+                                <h4>Phone</h4>
+                                <p>+1 (555) 123-4567</p>
+                                <p class="contact-note">Mon-Fri, 9am-6pm EST</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">✉️</div>
+                            <div class="contact-details">
+                                <h4>Email</h4>
+                                <p>info@ai-ipo.com</p>
+                                <p class="contact-note">We respond within 24 hours</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-social">
+                            <h4>Follow Us</h4>
+                            <div class="social-links-large">
+                                <a href="#" class="social-link-large">LinkedIn</a>
+                                <a href="#" class="social-link-large">Twitter</a>
+                                <a href="#" class="social-link-large">Facebook</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Team Contacts -->
+                    <div class="team-contacts">
+                        <h3 class="team-contacts-title">Direct Team Contacts</h3>
+                        <div class="team-contact-item">
+                            <div class="team-contact-avatar">👨‍💼</div>
+                            <div class="team-contact-info">
+                                <h4>David Morrison</h4>
+                                <p>CEO & Founder</p>
+                                <a href="mailto:david@ai-ipo.com" class="team-contact-email">david@ai-ipo.com</a>
+                            </div>
+                        </div>
+                        <div class="team-contact-item">
+                            <div class="team-contact-avatar">👩‍💼</div>
+                            <div class="team-contact-info">
+                                <h4>Jennifer Lee</h4>
+                                <p>Head of AI Research</p>
+                                <a href="mailto:jennifer@ai-ipo.com" class="team-contact-email">jennifer@ai-ipo.com</a>
+                            </div>
+                        </div>
+                        <div class="team-contact-item">
+                            <div class="team-contact-avatar">👨‍💼</div>
+                            <div class="team-contact-info">
+                                <h4>Robert Chen</h4>
+                                <p>CFO</p>
+                                <a href="mailto:robert@ai-ipo.com" class="team-contact-email">robert@ai-ipo.com</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section">
+        <div class="container">
+            <div class="map-wrapper">
+                <h2 class="map-title">Visit Our Office</h2>
+                <div class="map-placeholder">
+                    <div class="map-content">
+                        <div class="map-marker">📍</div>
+                        <h3>AI IPO Headquarters</h3>
+                        <p>123 Financial District, New York, NY 10004</p>
+                        <a href="https://maps.google.com" target="_blank" class="btn btn-secondary">Get Directions</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2 class="newsletter-title">Stay Updated on AI IPO Trends</h2>
+                <p class="newsletter-subtitle">Get weekly insights on AI IPOs, market trends, and exclusive opportunities</p>
+                <form class="newsletter-form" id="newsletterForm">
+                    <div class="newsletter-input-group">
+                        <input type="email" placeholder="Enter your email" required class="newsletter-input">
+                        <button type="submit" class="btn btn-primary">Subscribe</button>
+                    </div>
+                    <p class="newsletter-note">No spam, unsubscribe anytime. Join 5,000+ AI industry leaders.</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Quick Links -->
+    <section class="contact-faq">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Quick Questions?</h2>
+                <p class="section-subtitle">Find quick answers to common questions</p>
+            </div>
+            <div class="faq-quick">
+                <div class="faq-quick-item">
+                    <h3>How quickly do you respond to inquiries?</h3>
+                    <p>We respond to all inquiries within 24 hours during business days.</p>
+                </div>
+                <div class="faq-quick-item">
+                    <h3>Do you offer free initial consultations?</h3>
+                    <p>Yes, we offer a complimentary 30-minute consultation to discuss your IPO goals.</p>
+                </div>
+                <div class="faq-quick-item">
+                    <h3>What information should I prepare?</h3>
+                    <p>Have your company overview, financials, and expected IPO timeline ready for initial discussion.</p>
+                </div>
+                <div class="faq-quick-item">
+                    <h3>Can you work with international companies?</h3>
+                    <p>Yes, we have experience helping AI companies from around the world go public on US exchanges.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">Ready to Transform Your AI Company?</h2>
+                <p class="cta-subtitle">Let's discuss how we can help you achieve IPO success</p>
+                <a href="#contactForm" class="btn btn-primary btn-large">Start the Conversation</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <span class="logo-icon">🚀</span>
+                        <span class="logo-text">AI IPO</span>
+                    </div>
+                    <p class="footer-description">Transforming AI innovation into public success. Your trusted partner for IPO excellence.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">LinkedIn</a>
+                        <a href="#" class="social-link">Twitter</a>
+                        <a href="#" class="social-link">Facebook</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-title">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="ipo-pipeline.html">IPO Pipeline</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-title">Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="services.html">IPO Preparation</a></li>
+                        <li><a href="services.html">Financial Advisory</a></li>
+                        <li><a href="services.html">Regulatory Compliance</a></li>
+                        <li><a href="services.html">Investor Relations</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-title">Contact Info</h4>
+                    <ul class="footer-contact">
+                        <li>📍 123 Financial District, NY 10004</li>
+                        <li>📞 +1 (555) 123-4567</li>
+                        <li>✉️ info@ai-ipo.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 AI IPO. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <button class="back-to-top" id="backToTop">↑</button>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

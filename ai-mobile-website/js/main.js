@@ -9,6 +9,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initialize header scroll effect
     initHeaderScroll();
+
+    // Initialize tabs for solutions page
+    initTabs();
+
+    // Update current year in footer
+    updateCurrentYear();
 });
 
 // Smooth scroll for anchor links
@@ -89,6 +95,44 @@ function throttle(func, limit) {
             setTimeout(() => inThrottle = false, limit);
         }
     };
+}
+
+// Tab functionality for solutions page
+function initTabs() {
+    const tabButtons = document.querySelectorAll('.tab-btn');
+
+    if (tabButtons.length === 0) return;
+
+    tabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const tabId = this.getAttribute('data-tab');
+
+            // Remove active class from all buttons and panes
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('tab-btn--active');
+            });
+            document.querySelectorAll('.tab-pane').forEach(pane => {
+                pane.classList.remove('tab-pane--active');
+            });
+
+            // Add active class to clicked button
+            this.classList.add('tab-btn--active');
+
+            // Show corresponding tab pane
+            const targetPane = document.getElementById(tabId);
+            if (targetPane) {
+                targetPane.classList.add('tab-pane--active');
+            }
+        });
+    });
+}
+
+// Update current year in footer
+function updateCurrentYear() {
+    const yearElement = document.getElementById('currentYear');
+    if (yearElement) {
+        yearElement.textContent = new Date().getFullYear();
+    }
 }
 
 // Export functions for use in other files

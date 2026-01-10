@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop - BikeHub</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .shop-header {
+      background: var(--secondary-color);
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+    }
+    .shop-header h1 {
+      color: white;
+      margin-bottom: 10px;
+    }
+    .shop-container {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 40px;
+      padding: 60px 20px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .sidebar {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      height: fit-content;
+      position: sticky;
+      top: 100px;
+    }
+    .filter-group {
+      margin-bottom: 30px;
+    }
+    .filter-group h3 {
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+    }
+    .filter-option {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+    .filter-option input {
+      margin-right: 10px;
+    }
+    .shop-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      padding: 20px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .results-count {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+    .sort-select {
+      padding: 10px 15px;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 30px;
+    }
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 40px;
+    }
+    .pagination button {
+      padding: 10px 20px;
+      border: 1px solid var(--border-color);
+      background: white;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    .pagination button.active {
+      background: var(--primary-color);
+      color: white;
+      border-color: var(--primary-color);
+    }
+    @media (max-width: 992px) {
+      .shop-container {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <nav class="nav-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-bicycle"></i>
+        Bike<span>Hub</span>
+      </a>
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="shop.html" class="nav-link active">Shop</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="services.html" class="nav-link">Services</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+      <div class="nav-icons">
+        <a href="cart.html" class="nav-icon">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="cart-count">0</span>
+        </a>
+        <div class="hamburger">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <div class="shop-header">
+      <h1>Shop All Bikes</h1>
+      <p>Find your perfect ride from our collection</p>
+    </div>
+
+    <div class="shop-container">
+      <aside class="sidebar">
+        <div class="filter-group">
+          <h3>Categories</h3>
+          <div class="filter-option">
+            <input type="radio" name="category" value="all" class="filter-category" checked>
+            <label>All Bikes</label>
+          </div>
+          <div class="filter-option">
+            <input type="radio" name="category" value="road" class="filter-category">
+            <label>Road Bikes</label>
+          </div>
+          <div class="filter-option">
+            <input type="radio" name="category" value="mountain" class="filter-category">
+            <label>Mountain Bikes</label>
+          </div>
+          <div class="filter-option">
+            <input type="radio" name="category" value="hybrid" class="filter-category">
+            <label>Hybrid Bikes</label>
+          </div>
+          <div class="filter-option">
+            <input type="radio" name="category" value="electric" class="filter-category">
+            <label>Electric Bikes</label>
+          </div>
+          <div class="filter-option">
+            <input type="radio" name="category" value="kids" class="filter-category">
+            <label>Kids Bikes</label>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <h3>Brands</h3>
+          <div class="filter-option">
+            <input type="radio" name="brand" value="all" class="filter-brand" checked>
+            <label>All Brands</label>
+          </div>
+          <div class="filter-option">
+            <input type="radio" name="brand" value="Trek" class="filter-brand">
+            <label>Trek</label>
+          </div>
+          <div class="filter-option">
+            <input type="radio" name="brand" value="Specialized" class="filter-brand">
+            <label>Specialized</label>
+          </div>
+          <div class="filter-option">
+            <input type="radio" name="brand" value="Giant" class="filter-brand">
+            <label>Giant</label>
+          </div>
+          <div class="filter-option">
+            <input type="radio" name="brand" value="Cannondale" class="filter-brand">
+            <label>Cannondale</label>
+          </div>
+        </div>
+      </aside>
+
+      <div class="shop-content">
+        <div class="shop-toolbar">
+          <div class="results-count"><span class="results-count">8</span> products</div>
+          <select class="sort-select">
+            <option value="featured">Featured</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+            <option value="name">Name: A to Z</option>
+            <option value="new">Newest</option>
+          </select>
+        </div>
+
+        <div class="products-grid" id="shop-products">
+        </div>
+
+        <div class="pagination" id="pagination"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>About BikeHub</h3>
+          <p>Your trusted cycling partner since 2015.</p>
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Connect</h3>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 BikeHub. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/products.js"></script>
+  <script>
+    products.loadProducts().then(() => {
+      products.filteredProducts = [...products.products];
+      products.renderProducts(document.getElementById('shop-products'));
+      products.renderPagination();
+    });
+  </script>
+</body>
+</html>

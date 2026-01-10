@@ -23,6 +23,7 @@ from indusagi import Agent, AgentConfig, Agency
 from indusagi.tools import Bash, Read, Edit, Write, Glob, Grep, TodoWrite
 from indusagi.tools import handoff_to_agent, set_current_agency, registry
 from indusagi.hooks import SystemReminderHook, CompositeHook
+from indusagi.presets.improved_anthropic_agency import ImprovedAgencyOptions, create_improved_agency
 
 # Rich imports for beautiful terminal output
 from rich.console import Console
@@ -121,66 +122,20 @@ def create_development_agency(
         max_handoffs: Maximum number of handoffs allowed (default: 100)
         max_turns: Max tool-calling iterations per agent. None uses 1000 (default: None)
     """
-    # Register tools in global registry
-    for tool_class in [Bash, Read, Edit, Write, Glob, Grep, TodoWrite]:
-        registry.register(tool_class)
-
-    # Create agents with Anthropic provider
-    coder = create_coder_agent(model=model, reasoning_effort=reasoning_effort)
-    coder.context = registry.context
-
-    planner = create_planner_agent(model=model, reasoning_effort=reasoning_effort)
-    planner.context = registry.context
-
-    # Get tool schemas and add handoff schema
-    tools = registry.schemas.copy()
-    handoff_schema = {
-        "type": "function",
-        "function": {
-            "name": "handoff_to_agent",
-            "description": "Hand off the current task to another agent in the agency",
-            "parameters": {
-                "type": "object",
-                "properties": {
-                    "agent_name": {
-                        "type": "string",
-                        "description": "Name of the agent to hand off to (e.g., 'Planner', 'Coder')"
-                    },
-                    "message": {
-                        "type": "string",
-                        "description": "Message or task description for the target agent"
-                    },
-                    "context": {
-                        "type": "string",
-                        "description": "Optional context or additional information"
-                    }
-                },
-                "required": ["agent_name", "message"]
-            }
-        }
-    }
-    tools.append(handoff_schema)
-
-    # Create agency with Coder as entry point (receives all user requests)
-    agency = Agency(
-        entry_agent=coder,  # ✅ Coder is entry - it decides when to use Planner
-        agents=[coder, planner],
-        communication_flows=[
-            (coder, planner),    # Coder can handoff to Planner
-            (planner, coder),    # Planner hands back to Coder
-        ],
-        shared_instructions=None,
-        name="DevAgency_Anthropic",
+    # Use shared preset to keep CLI/TUI/examples consistent.
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    prompt_dir = os.path.join(current_dir, "example_agency_improved_anthropic_prompts")
+    opts = ImprovedAgencyOptions(
+        model=model,
+        provider="anthropic",
+        reasoning_effort=reasoning_effort,
         max_handoffs=max_handoffs,
-        max_turns=max_turns,  # ✅ Uses provided max_turns or 1000 if None
-        tools=tools,
-        tool_executor=registry
+        max_turns=max_turns,
+        name="DevAgency_Anthropic",
+        coder_prompt_file=os.path.join(prompt_dir, "coder_instructions.md"),
+        planner_prompt_file=os.path.join(prompt_dir, "planner_instructions.md"),
     )
-
-    # Set current agency for handoff tools
-    set_current_agency(agency)
-
-    return agency
+    return create_improved_agency(opts)
 
 
 # ============================================================================

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Simple, transparent pricing for GLM language models">
+  <title>Pricing - GLM</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/pricing.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">G</div>
+        GLM
+      </a>
+      <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="pricing.html" class="active">Pricing</a></li>
+          <li><a href="models.html">Models</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="documentation.html">Documentation</a></li>
+          <li><a href="contact.html" class="btn btn-accent header-cta">Get Started</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="pricing-hero section">
+      <div class="container">
+        <div class="section-header">
+          <h1 class="section-title">Simple, Transparent Pricing</h1>
+          <p class="section-subtitle">Start free, scale as you grow. No hidden fees, cancel anytime.</p>
+        </div>
+
+        <div class="billing-toggle">
+          <span class="toggle-label">Monthly</span>
+          <div class="toggle-switch" id="billing-toggle" role="switch" aria-checked="false" tabindex="0"></div>
+          <span class="toggle-label">Annual <span class="discount-badge">Save 20%</span></span>
+        </div>
+
+        <div class="pricing-grid">
+          <div class="pricing-card fade-in" data-tier="free">
+            <h3>Free</h3>
+            <p class="tier-description">Perfect for exploring GLM</p>
+            <div class="price">$0<span class="price-period">/month</span></div>
+            <ul class="features-list">
+              <li>50 messages per day</li>
+              <li>32K context window</li>
+              <li>Standard processing speed</li>
+              <li>Community support</li>
+              <li>Basic API access</li>
+              <li>Web interface access</li>
+            </ul>
+            <a href="#" class="btn btn-secondary">Get Started Free</a>
+          </div>
+
+          <div class="pricing-card featured fade-in" data-tier="pro">
+            <h3>Pro</h3>
+            <p class="tier-description">For professionals and teams</p>
+            <div class="price">$20<span class="price-period">/month</span></div>
+            <ul class="features-list">
+              <li>Unlimited messages</li>
+              <li>200K context window</li>
+              <li>Priority processing speed</li>
+              <li>Priority email support</li>
+              <li>Full API access</li>
+              <li>Advanced analytics</li>
+              <li>Team collaboration tools</li>
+              <li>Early access to new features</li>
+            </ul>
+            <a href="#" class="btn btn-accent">Start Pro Trial</a>
+          </div>
+
+          <div class="pricing-card fade-in" data-tier="enterprise">
+            <h3>Enterprise</h3>
+            <p class="tier-description">For large organizations</p>
+            <div class="price">Custom</div>
+            <ul class="features-list">
+              <li>Unlimited everything</li>
+              <li>Custom model fine-tuning</li>
+              <li>Dedicated account manager</li>
+              <li>24/7 phone support</li>
+              <li>Custom integrations</li>
+              <li>SLA guarantee (99.99%)</li>
+              <li>On-premise deployment option</li>
+              <li>Advanced security features</li>
+            </ul>
+            <a href="contact.html" class="btn btn-secondary">Contact Sales</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="calculator-section section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Usage Calculator</h2>
+          <p class="section-subtitle">Estimate your API costs based on expected usage</p>
+        </div>
+
+        <div class="calculator-card card">
+          <div class="calculator-grid">
+            <div class="slider-container">
+              <label for="input-slider">Input Tokens: <span id="input-value">1,000,000</span></label>
+              <input type="range" id="input-slider" min="0" max="10000000" value="1000000" step="100000">
+              <p class="slider-description">Number of tokens you send to the API</p>
+            </div>
+
+            <div class="slider-container">
+              <label for="output-slider">Output Tokens: <span id="output-value">500,000</span></label>
+              <input type="range" id="output-slider" min="0" max="5000000" value="500000" step="50000">
+              <p class="slider-description">Number of tokens the API generates</p>
+            </div>
+          </div>
+
+          <div class="cost-breakdown">
+            <div class="cost-row">
+              <span>Input Cost (1M tokens = $3):</span>
+              <span id="input-cost">$3.00</span>
+            </div>
+            <div class="cost-row">
+              <span>Output Cost (1M tokens = $15):</span>
+              <span id="output-cost">$7.50</span>
+            </div>
+            <div class="cost-row total">
+              <span><strong>Estimated Total:</strong></span>
+              <span id="total-cost"><strong>$10.50</strong></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="api-pricing section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">API Pricing</h2>
+          <p class="section-subtitle">Pay only for what you use with our flexible API pricing</p>
+        </div>
+
+        <div class="api-pricing-table">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Model</th>
+                <th>Input (per 1M tokens)</th>
+                <th>Output (per 1M tokens)</th>
+                <th>Context Window</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>GLM-Tiny</strong><br><small>Fast, efficient</small></td>
+                <td>$0.50</td>
+                <td>$1.50</td>
+                <td>32K</td>
+              </tr>
+              <tr>
+                <td><strong>GLM-Base</strong><br><small>Balanced performance</small></td>
+                <td>$1.50</td>
+                <td>$5.00</td>
+                <td>128K</td>
+              </tr>
+              <tr>
+                <td><strong>GLM-Pro</strong><br><small>Advanced reasoning</small></td>
+                <td>$3.00</td>
+                <td>$15.00</td>
+                <td>200K</td>
+              </tr>
+              <tr>
+                <td><strong>GLM-Ultra</strong><br><small>Maximum capability</small></td>
+                <td>$8.00</td>
+                <td>$25.00</td>
+                <td>200K</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq-section section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Frequently Asked Questions</h2>
+          <p class="section-subtitle">Find answers to common questions about pricing</p>
+        </div>
+
+        <div class="faq-grid">
+          <div class="faq-item card">
+            <h3>What is a token?</h3>
+            <p>Tokens are pieces of words used for processing. Roughly, 1,000 tokens equals about 750 words. You're charged based on the number of tokens in both your input and the model's output.</p>
+          </div>
+          <div class="faq-item card">
+            <h3>Can I change plans anytime?</h3>
+            <p>Yes! You can upgrade or downgrade your plan at any time. When upgrading, you'll be charged the prorated difference. When downgrading, you'll receive credit towards future billing.</p>
+          </div>
+          <div class="faq-item card">
+            <h3>What payment methods do you accept?</h3>
+            <p>We accept all major credit cards (Visa, MasterCard, American Express), PayPal, and wire transfers for Enterprise customers. For annual plans, we also offer invoicing.</p>
+          </div>
+          <div class="faq-item card">
+            <h3>Is there a free trial for Pro?</h3>
+            <p>Yes! New users get a 14-day free trial of the Pro plan. No credit card required. After the trial, you can continue with the Free plan or upgrade to Pro.</p>
+          </div>
+          <div class="faq-item card">
+            <h3>Do you offer discounts for startups or education?</h3>
+            <p>Yes! We offer special pricing for startups and educational institutions. Contact our sales team to learn more about our startup and education programs.</p>
+          </div>
+          <div class="faq-item card">
+            <h3>What's included in Enterprise support?</h3>
+            <p>Enterprise support includes 24/7 phone support, dedicated account manager, custom integrations, SLA guarantees, and priority access to new features and improvements.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section section">
+      <div class="container">
+        <div class="cta-content text-center">
+          <h2 class="section-title">Ready to Get Started?</h2>
+          <p class="section-subtitle mb-md">Start with our free plan or contact sales for enterprise needs</p>
+          <div class="cta-buttons">
+            <a href="#" class="btn btn-accent">Start Free Trial</a>
+            <a href="contact.html" class="btn btn-secondary">Contact Sales</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-grid">
+        <div class="footer-section">
+          <h4 class="footer-title">GLM</h4>
+          <p class="footer-description">The next generation language model for advanced AI applications.</p>
+          <div class="footer-social">
+            <a href="#" class="social-link" aria-label="Twitter">𝕏</a>
+            <a href="#" class="social-link" aria-label="GitHub">⌘</a>
+            <a href="#" class="social-link" aria-label="LinkedIn">in</a>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h4 class="footer-title">Product</h4>
+          <ul class="footer-links">
+            <li><a href="pricing.html">Pricing</a></li>
+            <li><a href="models.html">Models</a></li>
+            <li><a href="documentation.html">Documentation</a></li>
+            <li><a href="#">API Reference</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4 class="footer-title">Company</h4>
+          <ul class="footer-links">
+            <li><a href="about.html">About</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4 class="footer-title">Legal</h4>
+          <ul class="footer-links">
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Cookie Policy</a></li>
+            <li><a href="#">Security</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copyright">&copy; 2025 GLM. All rights reserved.</p>
+        <div class="footer-legal">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Cookies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/navigation.js"></script>
+  <script src="js/pricing.js"></script>
+</body>
+</html>

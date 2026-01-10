@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="BikeHub - Your premium cycling destination. Shop road, mountain, hybrid, and electric bikes from top brands.">
+  <meta name="keywords" content="bikes, bicycle shop, road bikes, mountain bikes, electric bikes, cycling">
+  <title>BikeHub - Premium Bikes & Cycling Gear</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .hero {
+      height: 90vh;
+      background: linear-gradient(135deg, rgba(29, 53, 87, 0.9), rgba(230, 57, 70, 0.8)), 
+                  url('https://images.unsplash.com/photo-1541625602330-2277a4c46182?w=1920') center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      padding: 0 20px;
+    }
+    .hero-content h1 {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      color: white;
+    }
+    .hero-content p {
+      font-size: 1.3rem;
+      margin-bottom: 30px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      color: rgba(255, 255, 255, 0.9);
+    }
+    .category-card {
+      text-align: center;
+      padding: 40px 20px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .category-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+    .category-icon {
+      font-size: 3rem;
+      color: var(--primary-color);
+      margin-bottom: 20px;
+    }
+    .feature-card {
+      text-align: center;
+      padding: 30px;
+    }
+    .feature-icon {
+      width: 80px;
+      height: 80px;
+      background: var(--primary-color);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      color: white;
+      font-size: 2rem;
+    }
+    .testimonial-card {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .newsletter {
+      background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+    }
+    .newsletter h2 {
+      color: white;
+      margin-bottom: 15px;
+    }
+    .newsletter-form {
+      max-width: 500px;
+      margin: 30px auto 0;
+      display: flex;
+      gap: 10px;
+    }
+    .newsletter-form input {
+      flex: 1;
+      padding: 15px 20px;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <nav class="nav-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-bicycle"></i>
+        Bike<span>Hub</span>
+      </a>
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link active">Home</a></li>
+        <li><a href="shop.html" class="nav-link">Shop</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="services.html" class="nav-link">Services</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+      <div class="nav-icons">
+        <a href="shop.html" class="nav-icon" title="Search">
+          <i class="fas fa-search"></i>
+        </a>
+        <a href="cart.html" class="nav-icon" title="Cart">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="cart-count">0</span>
+        </a>
+        <div class="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Find Your Perfect Ride</h1>
+        <p>Discover premium bikes from top brands. Road, mountain, hybrid, and electric bikes for every adventure.</p>
+        <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+          <a href="shop.html" class="btn btn-primary btn-lg">Shop Now</a>
+          <a href="about.html" class="btn btn-secondary btn-lg">Learn More</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header fade-in">
+          <h2>Shop by Category</h2>
+          <p>Find the perfect bike for your riding style</p>
+        </div>
+        <div class="grid grid-4">
+          <div class="category-card fade-in">
+            <div class="category-icon"><i class="fas fa-road"></i></div>
+            <h3>Road Bikes</h3>
+            <p>Speed and performance for the open road</p>
+          </div>
+          <div class="category-card fade-in delay-1">
+            <div class="category-icon"><i class="fas fa-mountain"></i></div>
+            <h3>Mountain Bikes</h3>
+            <p>Conquer any trail with confidence</p>
+          </div>
+          <div class="category-card fade-in delay-2">
+            <div class="category-icon"><i class="fas fa-bicycle"></i></div>
+            <h3>Hybrid Bikes</h3>
+            <p>Versatile comfort for every ride</p>
+          </div>
+          <div class="category-card fade-in delay-3">
+            <div class="category-icon"><i class="fas fa-bolt"></i></div>
+            <h3>Electric Bikes</h3>
+            <p>Power-assisted adventures await</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="background-color: var(--light-bg);">
+      <div class="container">
+        <div class="section-header fade-in">
+          <h2>Featured Products</h2>
+          <p>Our top picks for this season</p>
+        </div>
+        <div class="grid grid-4 products-grid" id="featured-products">
+        </div>
+        <div class="text-center mt-3">
+          <a href="shop.html" class="btn btn-primary">View All Products</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header fade-in">
+          <h2>Why Choose BikeHub</h2>
+          <p>Experience the difference with our premium service</p>
+        </div>
+        <div class="grid grid-4">
+          <div class="feature-card fade-in">
+            <div class="feature-icon"><i class="fas fa-truck"></i></div>
+            <h3>Free Shipping</h3>
+            <p>On orders over $1,000</p>
+          </div>
+          <div class="feature-card fade-in delay-1">
+            <div class="feature-icon"><i class="fas fa-tools"></i></div>
+            <h3>Expert Assembly</h3>
+            <p>Professional bike assembly</p>
+          </div>
+          <div class="feature-card fade-in delay-2">
+            <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+            <h3>Lifetime Warranty</h3>
+            <p>On all frames and forks</p>
+          </div>
+          <div class="feature-card fade-in delay-3">
+            <div class="feature-icon"><i class="fas fa-headset"></i></div>
+            <h3>24/7 Support</h3>
+            <p>Always here to help</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="background-color: var(--light-bg);">
+      <div class="container">
+        <div class="section-header fade-in">
+          <h2>What Our Customers Say</h2>
+          <p>Real reviews from real cyclists</p>
+        </div>
+        <div class="grid grid-3">
+          <div class="testimonial-card fade-in">
+            <div class="rating mb-2">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <p style="font-style: italic; margin-bottom: 15px;">"Best bike shop experience ever! The team helped me find the perfect road bike and their service department is top-notch."</p>
+            <div style="display: flex; align-items: center; gap: 15px;">
+              <img src="https://i.pravatar.cc/100?img=1" alt="Customer" style="width: 50px; height: 50px; border-radius: 50%;">
+              <div>
+                <h4 style="margin: 0;">Michael Chen</h4>
+                <p style="margin: 0; font-size: 0.85rem;">Road Cyclist</p>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card fade-in delay-1">
+            <div class="rating mb-2">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <p style="font-style: italic; margin-bottom: 15px;">"Got my first e-bike here and couldn't be happier. Great selection, fair prices, and amazing customer service."</p>
+            <div style="display: flex; align-items: center; gap: 15px;">
+              <img src="https://i.pravatar.cc/100?img=5" alt="Customer" style="width: 50px; height: 50px; border-radius: 50%;">
+              <div>
+                <h4 style="margin: 0;">Sarah Johnson</h4>
+                <p style="margin: 0; font-size: 0.85rem;">Commuter</p>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card fade-in delay-2">
+            <div class="rating mb-2">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+            </div>
+            <p style="font-style: italic; margin-bottom: 15px;">"Professional fitting service transformed my riding experience. No more pain on long rides!"</p>
+            <div style="display: flex; align-items: center; gap: 15px;">
+              <img src="https://i.pravatar.cc/100?img=3" alt="Customer" style="width: 50px; height: 50px; border-radius: 50%;">
+              <div>
+                <h4 style="margin: 0;">David Martinez</h4>
+                <p style="margin: 0; font-size: 0.85rem;">Triathlete</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="newsletter">
+      <div class="container">
+        <h2>Get 10% Off Your First Order</h2>
+        <p>Subscribe to our newsletter for exclusive deals and cycling tips</p>
+        <form class="newsletter-form" id="newsletter-form">
+          <input type="email" placeholder="Enter your email" required>
+          <button type="submit" class="btn btn-secondary">Subscribe</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>About BikeHub</h3>
+          <p>Your trusted cycling partner since 2015. We're passionate about helping you find the perfect ride.</p>
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Customer Service</h3>
+          <ul class="footer-links">
+            <li><a href="contact.html">Help Center</a></li>
+            <li><a href="contact.html">Shipping Info</a></li>
+            <li><a href="contact.html">Returns</a></li>
+            <li><a href="contact.html">Track Order</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Connect With Us</h3>
+          <div class="social-links">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+          <p style="margin-top: 20px;">
+            <i class="fas fa-map-marker-alt" style="margin-right: 10px;"></i>123 Cycling Lane, Bike City, BC 12345
+          </p>
+          <p>
+            <i class="fas fa-phone" style="margin-right: 10px;"></i>(555) 123-4567
+          </p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 BikeHub. All rights reserved. | Designed with <i class="fas fa-heart" style="color: var(--primary-color);"></i> for cyclists</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/products.js"></script>
+  <script>
+    products.loadProducts().then(() => {
+      const featured = products.products.filter(p => p.featured).slice(0, 4);
+      const container = document.getElementById('featured-products');
+      container.innerHTML = featured.map(p => products.createProductCard(p)).join('');
+    });
+  </script>
+</body>
+</html>

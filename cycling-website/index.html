@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CyclePro - Your premium cycling destination for bikes, services, and accessories">
+    <meta name="keywords" content="cycling, bikes, bicycle shop, bike repair, cycling accessories">
+    <title>CyclePro - Premium Cycling Experience</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-bicycle"></i>
+                Cycle<span>Pro</span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link active">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="bikes.html" class="nav-link">Bikes</a></li>
+                <li><a href="services.html" class="nav-link">Services</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero" style="background: linear-gradient(135deg, rgba(0, 78, 137, 0.9), rgba(26, 26, 46, 0.9)), url('https://images.unsplash.com/photo-1541625602330-2277a4c46182?w=1920') center/cover; height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 0 20px;">
+            <div class="hero-content animate-fadeInUp">
+                <h1 style="font-size: 3.5rem; margin-bottom: 20px; color: white;">Your Journey Starts Here</h1>
+                <p style="font-size: 1.3rem; margin-bottom: 30px; max-width: 700px; margin-left: auto; margin-right: auto;">Discover premium bikes, expert services, and a community passionate about cycling</p>
+                <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                    <a href="bikes.html" class="btn btn-primary">Explore Bikes</a>
+                    <a href="services.html" class="btn btn-secondary" style="border-color: white; color: white;">Our Services</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="section-header fade-in">
+                    <h2>Featured Bikes</h2>
+                    <p>Discover our handpicked selection of premium bicycles</p>
+                </div>
+                <div class="grid grid-3">
+                    <div class="card fade-in">
+                        <img src="https://images.unsplash.com/photo-1485965120184-e220f721d03e?w=800" alt="Road Bike" class="card-image">
+                        <div class="card-content">
+                            <h3 class="card-title">Pro Road Series</h3>
+                            <p class="card-description">Lightweight carbon frame, Shimano Ultegra groupset, perfect for speed enthusiasts</p>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-size: 1.5rem; font-weight: 700; color: var(--primary-color);">$2,499</span>
+                                <a href="bikes.html" class="btn btn-primary">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card fade-in delay-1">
+                        <img src="https://images.unsplash.com/photo-1576435728678-38d01d52e38b?w=800" alt="Mountain Bike" class="card-image">
+                        <div class="card-content">
+                            <h3 class="card-title">Trail Blazer MTB</h3>
+                            <p class="card-description">Full suspension, 29-inch wheels, built for extreme terrain and adventures</p>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-size: 1.5rem; font-weight: 700; color: var(--primary-color);">$3,199</span>
+                                <a href="bikes.html" class="btn btn-primary">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card fade-in delay-2">
+                        <img src="https://images.unsplash.com/photo-1507035895480-2b3156c31fc8?w=800" alt="Hybrid Bike" class="card-image">
+                        <div class="card-content">
+                            <h3 class="card-title">City Commuter</h3>
+                            <p class="card-description">Versatile hybrid design, comfortable upright position, perfect for urban rides</p>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-size: 1.5rem; font-weight: 700; color: var(--primary-color);">$899</span>
+                                <a href="bikes.html" class="btn btn-primary">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="background-color: var(--light-bg);">
+            <div class="container">
+                <div class="section-header fade-in">
+                    <h2>Why Choose CyclePro</h2>
+                    <p>We're more than just a bike shop - we're your cycling partner</p>
+                </div>
+                <div class="grid grid-4">
+                    <div class="text-center fade-in">
+                        <div style="width: 80px; height: 80px; background: var(--primary-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: white; font-size: 2rem;">
+                            <i class="fas fa-award"></i>
+                        </div>
+                        <h3 style="margin-bottom: 10px;">Premium Quality</h3>
+                        <p style="color: var(--gray);">Only the best brands and components for your ride</p>
+                    </div>
+                    <div class="text-center fade-in delay-1">
+                        <div style="width: 80px; height: 80px; background: var(--secondary-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: white; font-size: 2rem;">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h3 style="margin-bottom: 10px;">Expert Service</h3>
+                        <p style="color: var(--gray);">Certified technicians with years of experience</p>
+                    </div>
+                    <div class="text-center fade-in delay-2">
+                        <div style="width: 80px; height: 80px; background: var(--accent-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: white; font-size: 2rem;">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3 style="margin-bottom: 10px;">Community</h3>
+                        <p style="color: var(--gray);">Join group rides and events with fellow cyclists</p>
+                    </div>
+                    <div class="text-center fade-in delay-3">
+                        <div style="width: 80px; height: 80px; background: var(--warning); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: white; font-size: 2rem;">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 style="margin-bottom: 10px;">Warranty</h3>
+                        <p style="color: var(--gray);">Comprehensive coverage on all purchases</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="section-header fade-in">
+                    <h2>What Our Customers Say</h2>
+                    <p>Real experiences from our cycling community</p>
+                </div>
+                <div class="grid grid-3" id="testimonials">
+                    <div class="card fade-in">
+                        <div class="card-content">
+                            <div style="display: flex; gap: 5px; margin-bottom: 15px; color: var(--warning);">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p style="font-style: italic; margin-bottom: 15px;">"Best bike shop in town! The team helped me find the perfect road bike and their service department is top-notch."</p>
+                            <div style="display: flex; align-items: center; gap: 15px;">
+                                <img src="https://i.pravatar.cc/100?img=1" alt="Customer" style="width: 50px; height: 50px; border-radius: 50%;">
+                                <div>
+                                    <h4 style="margin: 0; font-size: 1rem;">Michael Chen</h4>
+                                    <p style="margin: 0; font-size: 0.85rem; color: var(--gray);">Road Cyclist</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card fade-in delay-1">
+                        <div class="card-content">
+                            <div style="display: flex; gap: 5px; margin-bottom: 15px; color: var(--warning);">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p style="font-style: italic; margin-bottom: 15px;">"The group rides are amazing! Made so many friends and improved my cycling skills significantly."</p>
+                            <div style="display: flex; align-items: center; gap: 15px;">
+                                <img src="https://i.pravatar.cc/100?img=5" alt="Customer" style="width: 50px; height: 50px; border-radius: 50%;">
+                                <div>
+                                    <h4 style="margin: 0; font-size: 1rem;">Sarah Johnson</h4>
+                                    <p style="margin: 0; font-size: 0.85rem; color: var(--gray);">Fitness Enthusiast</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card fade-in delay-2">
+                        <div class="card-content">
+                            <div style="display: flex; gap: 5px; margin-bottom: 15px; color: var(--warning);">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <p style="font-style: italic; margin-bottom: 15px;">"Professional fitting service transformed my riding experience. No more pain on long rides!"</p>
+                            <div style="display: flex; align-items: center; gap: 15px;">
+                                <img src="https://i.pravatar.cc/100?img=3" alt="Customer" style="width: 50px; height: 50px; border-radius: 50%;">
+                                <div>
+                                    <h4 style="margin: 0; font-size: 1rem;">David Martinez</h4>
+                                    <p style="margin: 0; font-size: 0.85rem; color: var(--gray);">Triathlete</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; text-align: center;">
+            <div class="container">
+                <h2 style="color: white; margin-bottom: 20px;">Join Our Cycling Community</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">Subscribe to our newsletter for exclusive deals, cycling tips, and upcoming events</p>
+                <form id="newsletter-form" style="max-width: 500px; margin: 0 auto; display: flex; gap: 10px; flex-wrap: wrap;">
+                    <input type="email" placeholder="Enter your email" required style="flex: 1; padding: 15px 20px; border: none; border-radius: var(--border-radius); font-size: 1rem; min-width: 250px;">
+                    <button type="submit" class="btn" style="background-color: var(--dark-bg); color: white; border: none;">Subscribe</button>
+                </form>
+                <p id="newsletter-message" style="margin-top: 15px; font-size: 0.9rem;"></p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About CyclePro</h3>
+                    <p>Your trusted cycling partner since 2010. We're passionate about helping you find the perfect ride and keeping you rolling smoothly.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="bikes.html">Bikes</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="services.html">Bike Repair</a></li>
+                        <li><a href="services.html">Professional Fitting</a></li>
+                        <li><a href="services.html">Custom Builds</a></li>
+                        <li><a href="services.html">Rentals</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                    <p style="margin-top: 20px;">
+                        <i class="fas fa-map-marker-alt" style="margin-right: 10px;"></i>123 Cycling Lane, Bike City, BC 12345
+                    </p>
+                    <p>
+                        <i class="fas fa-phone" style="margin-right: 10px;"></i>(555) 123-4567
+                    </p>
+                    <p>
+                        <i class="fas fa-envelope" style="margin-right: 10px;"></i>info@cyclepro.com
+                    </p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 CyclePro. All rights reserved. | Designed with <i class="fas fa-heart" style="color: var(--primary-color);"></i> for cyclists</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/navigation.js"></script>
+</body>
+</html>

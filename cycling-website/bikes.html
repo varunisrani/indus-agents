@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore our collection of premium bikes - road, mountain, hybrid, electric, and more">
+    <meta name="keywords" content="bikes, bicycles, road bikes, mountain bikes, electric bikes">
+    <title>Our Bikes - CyclePro</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+        
+        .filter-btn {
+            padding: 10px 25px;
+            border: 2px solid var(--secondary-color);
+            background: transparent;
+            color: var(--secondary-color);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--secondary-color);
+            color: white;
+        }
+        
+        .bike-card {
+            display: block;
+        }
+        
+        .bike-card.hidden {
+            display: none;
+        }
+        
+        .bike-specs {
+            display: flex;
+            gap: 15px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+        
+        .spec-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+        
+        .spec-item i {
+            color: var(--primary-color);
+        }
+        
+        .bike-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 15px 0;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: var(--border-radius);
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: scaleIn 0.3s ease;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            background: var(--gray);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        
+        .modal-close:hover {
+            background: var(--error);
+        }
+        
+        .modal-body {
+            padding: 30px;
+        }
+        
+        .modal-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-bicycle"></i>
+                Cycle<span>Pro</span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="bikes.html" class="nav-link active">Bikes</a></li>
+                <li><a href="services.html" class="nav-link">Services</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero" style="background: linear-gradient(135deg, rgba(0, 78, 137, 0.9), rgba(26, 26, 46, 0.9)), url('https://images.unsplash.com/photo-1541625602330-2277a4c46182?w=1920') center/cover; height: 50vh; display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 0 20px;">
+            <div class="hero-content animate-fadeInUp">
+                <h1 style="font-size: 3rem; margin-bottom: 20px; color: white;">Our Bike Collection</h1>
+                <p style="font-size: 1.3rem;">Find your perfect ride from our premium selection</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="filter-buttons fade-in">
+                    <button class="filter-btn active" data-filter="all">All Bikes</button>
+                    <button class="filter-btn" data-filter="road">Road</button>
+                    <button class="filter-btn" data-filter="mountain">Mountain</button>
+                    <button class="filter-btn" data-filter="hybrid">Hybrid</button>
+                    <button class="filter-btn" data-filter="electric">Electric</button>
+                    <button class="filter-btn" data-filter="kids">Kids</button>
+                </div>
+
+                <div class="grid grid-3" id="bikes-grid">
+                    <div class="card bike-card fade-in" data-category="road">
+                        <img src="https://images.unsplash.com/photo-1485965120184-e220f721d03e?w=800" alt="Pro Road Series" class="card-image">
+                        <div class="card-content">
+                            <span style="background: var(--primary-color); color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">ROAD</span>
+                            <h3 class="card-title" style="margin-top: 10px;">Pro Road Series</h3>
+                            <p class="card-description">Ultra-lightweight carbon frame designed for speed and endurance</p>
+                            <div class="bike-specs">
+                                <div class="spec-item"><i class="fas fa-bicycle"></i> Carbon Frame</div>
+                                <div class="spec-item"><i class="fas fa-cog"></i> Shimano Ultegra</div>
+                                <div class="spec-item"><i class="fas fa-tachometer-alt"></i> 22 Speed</div>
+                            </div>
+                            <div class="bike-price">$2,499</div>
+                            <button class="btn btn-primary view-details" data-bike="pro-road">View Details</button>
+                        </div>
+                    </div>
+
+                    <div class="card bike-card fade-in delay-1" data-category="mountain">
+                        <img src="https://images.unsplash.com/photo-1576435728678-38d01d52e38b?w=800" alt="Trail Blazer MTB" class="card-image">
+                        <div class="card-content">
+                            <span style="background: var(--secondary-color); color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">MOUNTAIN</span>
+                            <h3 class="card-title" style="margin-top: 10px;">Trail Blazer MTB</h3>
+                            <p class="card-description">Full suspension mountain bike built for extreme terrain</p>
+                            <div class="bike-specs">
+                                <div class="spec-item"><i class="fas fa-bicycle"></i> Aluminum Frame</div>
+                                <div class="spec-item"><i class="fas fa-cog"></i> SRAM GX</div>
+                                <div class="spec-item"><i class="fas fa-tachometer-alt"></i> 12 Speed</div>
+                            </div>
+                            <div class="bike-price">$3,199</div>
+                            <button class="btn btn-primary view-details" data-bike="trail-blazer">View Details</button>
+                        </div>
+                    </div>
+
+                    <div class="card bike-card fade-in delay-2" data-category="hybrid">
+                        <img src="https://images.unsplash.com/photo-1507035895480-2b3156c31fc8?w=800" alt="City Commuter" class="card-image">
+                        <div class="card-content">
+                            <span style="background: var(--accent-color); color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">HYBRID</span>
+                            <h3 class="card-title" style="margin-top: 10px;">City Commuter</h3>
+                            <p class="card-description">Versatile hybrid bike perfect for urban commuting</p>
+                            <div class="bike-specs">
+                                <div class="spec-item"><i class="fas fa-bicycle"></i> Steel Frame</div>
+                                <div class="spec-item"><i class="fas fa-cog"></i> Shimano Claris</div>
+                                <div class="spec-item"><i class="fas fa-tachometer-alt"></i> 16 Speed</div>
+                            </div>
+                            <div class="bike-price">$899</div>
+                            <button class="btn btn-primary view-details" data-bike="city-commuter">View Details</button>
+                        </div>
+                    </div>
+
+                    <div class="card bike-card fade-in" data-category="electric">
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800" alt="E-Mountain Pro" class="card-image">
+                        <div class="card-content">
+                            <span style="background: var(--success); color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">ELECTRIC</span>
+                            <h3 class="card-title" style="margin-top: 10px;">E-Mountain Pro</h3>
+                            <p class="card-description">Powerful electric mountain bike with 85Nm motor</p>
+                            <div class="bike-specs">
+                                <div class="spec-item"><i class="fas fa-bicycle"></i> Carbon Frame</div>
+                                <div class="spec-item"><i class="fas fa-bolt"></i> 500Wh Battery</div>
+                                <div class="spec-item"><i class="fas fa-tachometer-alt"></i> 28mph</div>
+                            </div>
+                            <div class="bike-price">$5,499</div>
+                            <button class="btn btn-primary view-details" data-bike="e-mountain">View Details</button>
+                        </div>
+                    </div>
+
+                    <div class="card bike-card fade-in delay-1" data-category="road">
+                        <img src="https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?w=800" alt="Endurance Road" class="card-image">
+                        <div class="card-content">
+                            <span style="background: var(--primary-color); color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">ROAD</span>
+                            <h3 class="card-title" style="margin-top: 10px;">Endurance Road</h3>
+                            <p class="card-description">Comfortable road bike for long-distance riding</p>
+                            <div class="bike-specs">
+                                <div class="spec-item"><i class="fas fa-bicycle"></i> Aluminum Frame</div>
+                                <div class="spec-item"><i class="fas fa-cog"></i> Shimano 105</div>
+                                <div class="spec-item"><i class="fas fa-tachometer-alt"></i> 22 Speed</div>
+                            </div>
+                            <div class="bike-price">$1,799</div>
+                            <button class="btn btn-primary view-details" data-bike="endurance-road">View Details</button>
+                        </div>
+                    </div>
+
+                    <div class="card bike-card fade-in delay-2" data-category="kids">
+                        <img src="https://images.unsplash.com/photo-1555952517-2e8e729e0b44?w=800" alt="Junior Mountain" class="card-image">
+                        <div class="card-content">
+                            <span style="background: var(--warning); color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">KIDS</span>
+                            <h3 class="card-title" style="margin-top: 10px;">Junior Mountain</h3>
+                            <p class="card-description">Perfect first mountain bike for young riders</p>
+                            <div class="bike-specs">
+                                <div class="spec-item"><i class="fas fa-bicycle"></i> Aluminum Frame</div>
+                                <div class="spec-item"><i class="fas fa-cog"></i> Shimano Tourney</div>
+                                <div class="spec-item"><i class="fas fa-tachometer-alt"></i> 7 Speed</div>
+                            </div>
+                            <div class="bike-price">$449</div>
+                            <button class="btn btn-primary view-details" data-bike="junior-mountain">View Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="background-color: var(--light-bg);">
+            <div class="container">
+                <div class="section-header fade-in">
+                    <h2>Why Our Bikes Are Special</h2>
+                    <p>Quality, performance, and reliability in every ride</p>
+                </div>
+                <div class="grid grid-3">
+                    <div class="text-center fade-in">
+                        <div style="width: 80px; height: 80px; background: var(--primary-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: white; font-size: 2rem;">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <h3 style="margin-bottom: 10px;">Premium Components</h3>
+                        <p style="color: var(--gray);">Only the best components from trusted brands like Shimano, SRAM, and Fox</p>
+                    </div>
+                    <div class="text-center fade-in delay-1">
+                        <div style="width: 80px; height: 80px; background: var(--secondary-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: white; font-size: 2rem;">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h3 style="margin-bottom: 10px;">Professional Assembly</h3>
+                        <p style="color: var(--gray);">Every bike is professionally assembled and tuned by certified technicians</p>
+                    </div>
+                    <div class="text-center fade-in delay-2">
+                        <div style="width: 80px; height: 80px; background: var(--accent-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: white; font-size: 2rem;">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 style="margin-bottom: 10px;">Lifetime Warranty</h3>
+                        <p style="color: var(--gray);">We stand behind our bikes with comprehensive warranty coverage</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="background: linear-gradient(135deg, var(--secondary-color), var(--primary-color)); color: white; text-align: center;">
+            <div class="container">
+                <h2 style="color: white; margin-bottom: 20px;">Flexible Financing Available</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">Get your dream bike today with affordable monthly payments starting at just $50/month</p>
+                <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                    <a href="contact.html" class="btn" style="background-color: white; color: var(--primary-color);">Learn About Financing</a>
+                    <a href="contact.html" class="btn" style="background-color: var(--dark-bg); color: white; border: none;">Schedule a Test Ride</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="modal" id="bike-modal">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <div class="modal-body">
+                <img src="" alt="" class="modal-image" id="modal-image">
+                <h2 id="modal-title"></h2>
+                <p id="modal-description" style="color: var(--gray); margin-bottom: 20px;"></p>
+                <div id="modal-specs" style="margin-bottom: 20px;"></div>
+                <div id="modal-price" style="font-size: 2rem; font-weight: 700; color: var(--primary-color); margin-bottom: 20px;"></div>
+                <a href="contact.html" class="btn btn-primary">Inquire About This Bike</a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About CyclePro</h3>
+                    <p>Your trusted cycling partner since 2010. We're passionate about helping you find the perfect ride and keeping you rolling smoothly.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="bikes.html">Bikes</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="services.html">Bike Repair</a></li>
+                        <li><a href="services.html">Professional Fitting</a></li>
+                        <li><a href="services.html">Custom Builds</a></li>
+                        <li><a href="services.html">Rentals</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                    <p style="margin-top: 20px;">
+                        <i class="fas fa-map-marker-alt" style="margin-right: 10px;"></i>123 Cycling Lane, Bike City, BC 12345
+                    </p>
+                    <p>
+                        <i class="fas fa-phone" style="margin-right: 10px;"></i>(555) 123-4567
+                    </p>
+                    <p>
+                        <i class="fas fa-envelope" style="margin-right: 10px;"></i>info@cyclepro.com
+                    </p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 CyclePro. All rights reserved. | Designed with <i class="fas fa-heart" style="color: var(--primary-color);"></i> for cyclists</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/navigation.js"></script>
+</body>
+</html>

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart - BikeHub</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .cart-header {
+      background: var(--secondary-color);
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+    }
+    .cart-header h1 {
+      color: white;
+    }
+    .cart-container {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 40px;
+      padding: 60px 20px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .cart-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .cart-table th {
+      background: var(--light-bg);
+      padding: 20px;
+      text-align: left;
+      font-weight: 600;
+    }
+    .cart-table td {
+      padding: 20px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .cart-product {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    .cart-product img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+    .cart-product-info h4 {
+      margin: 0 0 5px;
+      font-size: 1rem;
+    }
+    .cart-product-info p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+    .quantity-selector {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .quantity-selector button {
+      width: 35px;
+      height: 35px;
+      border: 1px solid var(--border-color);
+      background: white;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    .quantity-selector input {
+      width: 60px;
+      text-align: center;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      padding: 8px;
+    }
+    .cart-summary {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      height: fit-content;
+      position: sticky;
+      top: 100px;
+    }
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .summary-row.total {
+      font-size: 1.3rem;
+      font-weight: 700;
+      border-bottom: none;
+      padding-top: 20px;
+      margin-top: 10px;
+    }
+    .empty-cart {
+      text-align: center;
+      padding: 80px 20px;
+    }
+    .empty-cart i {
+      font-size: 5rem;
+      color: var(--text-light);
+      margin-bottom: 20px;
+    }
+    @media (max-width: 992px) {
+      .cart-container {
+        grid-template-columns: 1fr;
+      }
+      .cart-summary {
+        position: static;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <nav class="nav-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-bicycle"></i>
+        Bike<span>Hub</span>
+      </a>
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="shop.html" class="nav-link">Shop</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="services.html" class="nav-link">Services</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+      <div class="nav-icons">
+        <a href="cart.html" class="nav-icon">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="cart-count">0</span>
+        </a>
+        <div class="hamburger">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <div class="cart-header">
+      <h1>Shopping Cart</h1>
+    </div>
+
+    <div class="cart-container">
+      <div class="cart-items" id="cart-items">
+      </div>
+
+      <aside class="cart-summary">
+        <h2>Order Summary</h2>
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <span id="cart-subtotal">$0.00</span>
+        </div>
+        <div class="summary-row">
+          <span>Shipping</span>
+          <span id="cart-shipping">$0.00</span>
+        </div>
+        <div class="summary-row">
+          <span>Tax (8%)</span>
+          <span id="cart-tax">$0.00</span>
+        </div>
+        <div class="summary-row total">
+          <span>Total</span>
+          <span id="cart-total">$0.00</span>
+        </div>
+        <a href="checkout.html" class="btn btn-primary" style="width: 100%; margin-top: 20px;">Proceed to Checkout</a>
+        <a href="shop.html" class="btn btn-outline" style="width: 100%; margin-top: 10px;">Continue Shopping</a>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; 2024 BikeHub. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/cart.js"></script>
+  <script>
+    function renderCart() {
+      const cartItems = document.getElementById('cart-items');
+      const items = cart.items;
+
+      if (items.length === 0) {
+        cartItems.innerHTML = `
+          <div class="empty-cart card">
+            <i class="fas fa-shopping-cart"></i>
+            <h2>Your cart is empty</h2>
+            <p>Add some bikes to get started!</p>
+            <a href="shop.html" class="btn btn-primary" style="margin-top: 20px;">Shop Now</a>
+          </div>
+        `;
+        return;
+      }
+
+      let html = '<table class="cart-table"><thead><tr><th>Product</th><th>Price</th><th>Quantity</th><th>Total</th><th></th></tr></thead><tbody>';
+
+      items.forEach((item, index) => {
+        html += `
+          <tr>
+            <td>
+              <div class="cart-product">
+                <img src="${item.image}" alt="${item.name}">
+                <div class="cart-product-info">
+                  <h4>${item.name}</h4>
+                  <p>${item.brand}</p>
+                  ${item.size ? `<p>Size: ${item.size}</p>` : ''}
+                  ${item.color ? `<p>Color: ${item.color}</p>` : ''}
+                </div>
+              </div>
+            </td>
+            <td>$${item.price.toFixed(2)}</td>
+            <td>
+              <div class="quantity-selector">
+                <button onclick="cart.updateQuantity(${index}, ${item.quantity - 1})">-</button>
+                <input type="number" value="${item.quantity}" min="1" onchange="cart.updateQuantity(${index}, this.value)">
+                <button onclick="cart.updateQuantity(${index}, ${item.quantity + 1})">+</button>
+              </div>
+            </td>
+            <td>$${(item.price * item.quantity).toFixed(2)}</td>
+            <td>
+              <button onclick="cart.removeItem(${index}); renderCart();" style="background: none; border: none; color: var(--danger); cursor: pointer; font-size: 1.2rem;">
+                <i class="fas fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        `;
+      });
+
+      html += '</tbody></table>';
+      cartItems.innerHTML = html;
+      updateSummary();
+    }
+
+    function updateSummary() {
+      document.getElementById('cart-subtotal').textContent = '$' + cart.getSubtotal().toFixed(2);
+      document.getElementById('cart-shipping').textContent = '$' + cart.getShippingCost().toFixed(2);
+      document.getElementById('cart-tax').textContent = '$' + cart.getTax().toFixed(2);
+      document.getElementById('cart-total').textContent = '$' + cart.getTotal().toFixed(2);
+    }
+
+    renderCart();
+  </script>
+</body>
+</html>

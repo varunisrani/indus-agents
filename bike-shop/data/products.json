@@ -1,0 +1,231 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Trek Domane AL 2",
+      "brand": "Trek",
+      "category": "road",
+      "price": 1299.99,
+      "salePrice": null,
+      "description": "Perfect for road rides, races, and fondos",
+      "fullDescription": "Domane AL 2 is a beast of a value for a road bike. It's a lightweight aluminum road bike with a dependable 105 drivetrain and a ride quality that exceeds bikes twice its price. It's the perfect choice for your first road bike or for a high-value upgrade to your current ride.",
+      "specs": {
+        "frame": "Alpha Aluminum",
+        "fork": "Trek Carbon",
+        "gears": "18-speed",
+        "brakes": "Caliper brakes"
+      },
+      "images": [
+        "https://images.unsplash.com/photo-1485965120184-e220f721d03e?w=800",
+        "https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?w=800"
+      ],
+      "sizes": ["S", "M", "L", "XL"],
+      "colors": ["Red", "Blue", "Black"],
+      "stock": 15,
+      "rating": 4.5,
+      "reviewCount": 28,
+      "featured": true,
+      "new": true,
+      "sku": "TREK-DOM-AL2"
+    },
+    {
+      "id": 2,
+      "name": "Specialized Allez",
+      "brand": "Specialized",
+      "category": "road",
+      "price": 999.99,
+      "salePrice": 849.99,
+      "description": "Fast, efficient, and built for performance",
+      "fullDescription": "The Allez is the perfect entry point for faster road riding. With its lightweight aluminum frame and reliable components, it delivers speed and efficiency without breaking the bank.",
+      "specs": {
+        "frame": "E5 Aluminum",
+        "fork": "Carbon",
+        "gears": "16-speed",
+        "brakes": "Dual-pivot brakes"
+      },
+      "images": [
+        "https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?w=800"
+      ],
+      "sizes": ["S", "M", "L"],
+      "colors": ["Black", "White"],
+      "stock": 8,
+      "rating": 4.3,
+      "reviewCount": 19,
+      "featured": true,
+      "new": false,
+      "sku": "SPEC-ALLEZ"
+    },
+    {
+      "id": 3,
+      "name": "Giant Talon 2",
+      "brand": "Giant",
+      "category": "mountain",
+      "price": 799.99,
+      "salePrice": null,
+      "description": "Trail-ready mountain bike for any adventure",
+      "fullDescription": "Built on a lightweight ALUXX aluminum frame, Talon features updated geometry that produces a fast, stable ride on roads and trails. The frame is optimized for 27.5-inch wheels, offering a balance of agility and control.",
+      "specs": {
+        "frame": "ALUXX Aluminum",
+        "fork": "SR Suntour XCT 30",
+        "gears": "21-speed",
+        "brakes": "Disc brakes"
+      },
+      "images": [
+        "https://images.unsplash.com/photo-1576435728678-38d01d52e38b?w=800"
+      ],
+      "sizes": ["S", "M", "L", "XL"],
+      "colors": ["Green", "Blue"],
+      "stock": 12,
+      "rating": 4.6,
+      "reviewCount": 34,
+      "featured": true,
+      "new": false,
+      "sku": "GIANT-TALON2"
+    },
+    {
+      "id": 4,
+      "name": "Cannondale Trail 5",
+      "brand": "Cannondale",
+      "category": "mountain",
+      "price": 649.99,
+      "salePrice": null,
+      "description": "Versatile mountain bike for trails and paths",
+      "fullDescription": "The Trail 5 features a smart-sized wheel platform for the perfect fit and performance. With capable components and reliable construction, this bike is ready for your off-road adventures.",
+      "specs": {
+        "frame": "Trail SL Aluminum",
+        "fork": "SR Suntour XCM",
+        "gears": "20-speed",
+        "brakes": "Hydraulic disc"
+      },
+      "images": [
+        "https://images.unsplash.com/photo-1544191696-102dbdaeeaa0?w=800"
+      ],
+      "sizes": ["S", "M", "L"],
+      "colors": ["Black", "Grey"],
+      "stock": 6,
+      "rating": 4.4,
+      "reviewCount": 21,
+      "featured": false,
+      "new": true,
+      "sku": "CANND-TRAIL5"
+    },
+    {
+      "id": 5,
+      "name": "Trek FX 3",
+      "brand": "Trek",
+      "category": "hybrid",
+      "price": 749.99,
+      "salePrice": null,
+      "description": "Versatile hybrid for fitness and commuting",
+      "fullDescription": "FX 3 is a versatile hybrid bike with a lightweight aluminum frame and performance parts. It's perfect for fitness, commuting, or recreational rides on various surfaces.",
+      "specs": {
+        "frame": "Alpha Aluminum",
+        "fork": "Carbon",
+        "gears": "18-speed",
+        "brakes": "Disc brakes"
+      },
+      "images": [
+        "https://images.unsplash.com/photo-1507035895480-2b3156c31fc8?w=800"
+      ],
+      "sizes": ["S", "M", "L", "XL"],
+      "colors": ["Black", "Blue"],
+      "stock": 20,
+      "rating": 4.7,
+      "reviewCount": 45,
+      "featured": true,
+      "new": false,
+      "sku": "TREK-FX3"
+    },
+    {
+      "id": 6,
+      "name": "Giant Explore E+ 2",
+      "brand": "Giant",
+      "category": "electric",
+      "price": 2499.99,
+      "salePrice": null,
+      "description": "Powerful e-bike for long-distance adventures",
+      "fullDescription": "Explore E+ 2 features a powerful SyncDrive motor and EnergyPak battery for extended range. Perfect for commuting, fitness rides, or weekend adventures.",
+      "specs": {
+        "frame": "ALUXX Aluminum",
+        "motor": "SyncDrive Sport",
+        "battery": "500Wh",
+        "gears": "10-speed"
+      },
+      "images": [
+        "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800"
+      ],
+      "sizes": ["S", "M", "L"],
+      "colors": ["Blue", "Grey"],
+      "stock": 5,
+      "rating": 4.8,
+      "reviewCount": 12,
+      "featured": true,
+      "new": true,
+      "sku": "GIANT-EXPE2"
+    },
+    {
+      "id": 7,
+      "name": "Specialized Turbo Vado 3.0",
+      "brand": "Specialized",
+      "category": "electric",
+      "price": 2999.99,
+      "salePrice": 2699.99,
+      "description": "Premium electric bike for urban commuting",
+      "fullDescription": "The Turbo Vado 3.0 features a custom motor and battery for smooth, quiet power delivery. With integrated lights and rack, it's the ultimate urban commuter.",
+      "specs": {
+        "frame": "E5 Aluminum",
+        "motor": "Specialized 1.2",
+        "battery": "530Wh",
+        "gears": "9-speed"
+      },
+      "images": [
+        "https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=800"
+      ],
+      "sizes": ["S", "M", "L"],
+      "colors": ["Black", "Red"],
+      "stock": 3,
+      "rating": 4.9,
+      "reviewCount": 18,
+      "featured": true,
+      "new": false,
+      "sku": "SPEC-VADO3"
+    },
+    {
+      "id": 8,
+      "name": "Trek Precaliber 20",
+      "brand": "Trek",
+      "category": "kids",
+      "price": 299.99,
+      "salePrice": null,
+      "description": "Perfect first bike for young riders",
+      "fullDescription": "Precaliber 20 is a kid's bike designed for building confidence and skills. With lightweight construction and quality components, it makes learning to ride fun and easy.",
+      "specs": {
+        "frame": "Alpha Aluminum",
+        "wheels": "20-inch",
+        "gears": "6-speed",
+        "brakes": "Rim brakes"
+      },
+      "images": [
+        "https://images.unsplash.com/photo-1555952517-2e8e729e0b44?w=800"
+      ],
+      "sizes": ["20-inch"],
+      "colors": ["Red", "Blue", "Pink"],
+      "stock": 25,
+      "rating": 4.8,
+      "reviewCount": 56,
+      "featured": false,
+      "new": false,
+      "sku": "TREK-PREC20"
+    }
+  ],
+  "categories": [
+    {"id": "road", "name": "Road Bikes", "count": 45},
+    {"id": "mountain", "name": "Mountain Bikes", "count": 38},
+    {"id": "hybrid", "name": "Hybrid Bikes", "count": 22},
+    {"id": "electric", "name": "Electric Bikes", "count": 18},
+    {"id": "kids", "name": "Kids Bikes", "count": 15}
+  ],
+  "brands": [
+    "Trek", "Specialized", "Giant", "Cannondale", "Schwinn", "Huffy"
+  ]
+}

@@ -431,7 +431,8 @@ class Agent:
         tools: Optional[List[Dict[str, Any]]] = None,
         tool_executor: Optional[Any] = None,
         max_turns: Optional[int] = None,
-        on_max_turns_reached: Optional[Callable[[], bool]] = None
+        on_max_turns_reached: Optional[Callable[[], bool]] = None,
+        event_callback: Optional[Callable[[Dict[str, Any]], None]] = None,
     ) -> str:
         """
         Process user input with tool calling support.
@@ -523,6 +524,41 @@ class Agent:
 
                 # Check if tools were called
                 if finish_reason == "tool_calls" and tool_calls:
+                    def emit(event: Dict[str, Any]) -> None:
+                        if event_callback:
+                            try:
+                                event_callback(event)
+                            except Exception:
+                                pass
+
+                    def safe_args(tool_name: str, tool_args: Dict[str, Any]) -> Dict[str, Any]:
+                        """Avoid sending huge payloads (file contents) into UIs/logs."""
+                        if tool_name == "todo_write":
+                            todos = tool_args.get("todos", [])
+                            return {"merge": tool_args.get("merge"), "todo_count": len(todos)}
+                        if tool_name in {"read", "write", "edit"}:
+                            return {
+                                "file_path": tool_args.get("file_path"),
+                                "target_file": tool_args.get("target_file"),
+                            }
+                        if tool_name == "bash":
+                            return {"command": tool_args.get("command")}
+                        if tool_name == "grep":
+                            return {"pattern": tool_args.get("pattern"), "path": tool_args.get("path")}
+                        if tool_name == "glob":
+                            return {"pattern": tool_args.get("pattern")}
+                        if tool_name == "handoff_to_agent":
+                            return {
+                                "agent_name": tool_args.get("agent_name"),
+                                "message_preview": (tool_args.get("message") or "")[:120],
+                            }
+                        # default: only include scalar-ish keys
+                        trimmed: Dict[str, Any] = {}
+                        for k, v in tool_args.items():
+                            if isinstance(v, (str, int, float, bool)) or v is None:
+                                trimmed[k] = v
+                        return trimmed
+
                     # ⚠️ ENFORCE ONE-BY-ONE EXECUTION WHEN TODOS ARE ACTIVE
                     # Check if there are active todos in context
                     todos = self.context.get("todos", []) if self.context else []
@@ -576,6 +612,13 @@ class Agent:
                         tool_name = tool_call.name
                         tool_args = tool_call.arguments  # Already a dict in normalized format
 
+                        emit({
+                            "type": "tool_call",
+                            "id": tool_call.id,
+                            "name": tool_name,
+                            "arguments": safe_args(tool_name, tool_args)
+                        })
+
                         # Format tool usage log
                         self._log_tool_usage(tool_name, tool_args)
 
@@ -599,6 +642,14 @@ class Agent:
                             error_msg = "No tool executor"
 
                         execution_time = time.time() - start_time
+
+                        emit({
+                            "type": "tool_result",
+                            "id": tool_call.id,
+                            "name": tool_name,
+                            "result": (str(result)[:2000] if result is not None else ""),
+                            "success": success
+                        })
 
                         # Log to tool usage logger
                         tool_logger.log_call(

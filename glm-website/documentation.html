@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="GLM API documentation and developer resources">
+  <title>Documentation - GLM</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">G</div>
+        GLM
+      </a>
+      <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="pricing.html">Pricing</a></li>
+          <li><a href="models.html">Models</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="documentation.html" class="active">Documentation</a></li>
+          <li><a href="contact.html" class="btn btn-accent header-cta">Get Started</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="docs-hero section">
+      <div class="container">
+        <div class="section-header">
+          <h1 class="section-title">Documentation</h1>
+          <p class="section-subtitle">Everything you need to integrate GLM into your applications</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="quickstart section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Quick Start</h2>
+          <p class="section-subtitle">Get up and running in minutes</p>
+        </div>
+
+        <div class="quickstart-steps">
+          <div class="step-card card fade-in">
+            <div class="step-number">1</div>
+            <h3>Get Your API Key</h3>
+            <p>Sign up for a free account and generate your API key from the dashboard.</p>
+            <a href="#" class="btn btn-secondary mt-sm">Sign Up</a>
+          </div>
+
+          <div class="step-card card fade-in">
+            <div class="step-number">2</div>
+            <h3>Install the SDK</h3>
+            <p>Install our official SDK for your preferred programming language.</p>
+            <div class="code-block">
+              <code>pip install glm-python</code>
+            </div>
+          </div>
+
+          <div class="step-card card fade-in">
+            <div class="step-number">3</div>
+            <h3>Make Your First Request</h3>
+            <p>Use your API key to make your first completion request.</p>
+            <div class="code-block">
+              <code>import glm<br>client = glm.Client(api_key="your-key")</code>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="api-reference section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">API Reference</h2>
+          <p class="section-subtitle">Complete API documentation for all endpoints</p>
+        </div>
+
+        <div class="api-endpoints">
+          <div class="endpoint-card card fade-in">
+            <div class="endpoint-method">POST</div>
+            <div class="endpoint-path">/v1/completions</div>
+            <h3>Create Completion</h3>
+            <p>Generate text completions using GLM models.</p>
+            <div class="code-example">
+              <pre><code>{
+  "model": "glm-pro",
+  "prompt": "Write a poem about AI",
+  "max_tokens": 100,
+  "temperature": 0.7
+}</code></pre>
+            </div>
+          </div>
+
+          <div class="endpoint-card card fade-in">
+            <div class="endpoint-method">POST</div>
+            <div class="endpoint-path">/v1/chat/completions</div>
+            <h3>Chat Completion</h3>
+            <p>Generate chat responses with conversation context.</p>
+            <div class="code-example">
+              <pre><code>{
+  "model": "glm-pro",
+  "messages": [
+    {"role": "user", "content": "Hello!"}
+  ]
+}</code></pre>
+            </div>
+          </div>
+
+          <div class="endpoint-card card fade-in">
+            <div class="endpoint-method">GET</div>
+            <div class="endpoint-path">/v1/models</div>
+            <h3>List Models</h3>
+            <p>Retrieve a list of available GLM models.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="code-examples section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Code Examples</h2>
+          <p class="section-subtitle">Common use cases and implementations</p>
+        </div>
+
+        <div class="examples-grid grid grid-2">
+          <div class="example-card card fade-in">
+            <h3>Text Completion</h3>
+            <p>Generate text completions with custom parameters</p>
+            <div class="code-block">
+              <pre><code>response = client.completions.create(
+    model="glm-pro",
+    prompt="Explain quantum computing",
+    max_tokens=500,
+    temperature=0.7
+)
+print(response.choices[0].text)</code></pre>
+            </div>
+          </div>
+
+          <div class="example-card card fade-in">
+            <h3>Chat Conversation</h3>
+            <p>Build interactive chat applications</p>
+            <div class="code-block">
+              <pre><code>response = client.chat.completions.create(
+    model="glm-pro",
+    messages=[
+        {"role": "system", 
+         "content": "You are a helpful assistant."},
+        {"role": "user", 
+         "content": "How do I learn Python?"}
+    ]
+)</code></pre>
+            </div>
+          </div>
+
+          <div class="example-card card fade-in">
+            <h3>Streaming Responses</h3>
+            <p>Stream responses in real-time</p>
+            <div class="code-block">
+              <pre><code>stream = client.completions.create(
+    model="glm-pro",
+    prompt="Write a story",
+    stream=True
+)
+
+for chunk in stream:
+    print(chunk.choices[0].text, end="")</code></pre>
+            </div>
+          </div>
+
+          <div class="example-card card fade-in">
+            <h3>Error Handling</h3>
+            <p>Proper error handling and retry logic</p>
+            <div class="code-block">
+              <pre><code>try:
+    response = client.completions.create(
+        model="glm-pro",
+        prompt="Hello"
+    )
+except glm.APIError as e:
+    print(f"API Error: {e}")
+except glm.RateLimitError:
+    print("Rate limit exceeded")</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="rate-limits section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Rate Limits</h2>
+          <p class="section-subtitle">API rate limits by plan</p>
+        </div>
+
+        <div class="rate-limits-table">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Plan</th>
+                <th>Requests/Minute</th>
+                <th>Tokens/Minute</th>
+                <th>Tokens/Day</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Free</strong></td>
+                <td>10</td>
+                <td>40,000</td>
+                <td>150,000</td>
+              </tr>
+              <tr>
+                <td><strong>Pro</strong></td>
+                <td>60</td>
+                <td>300,000</td>
+                <td>Unlimited</td>
+              </tr>
+              <tr>
+                <td><strong>Enterprise</strong></td>
+                <td>Custom</td>
+                <td>Custom</td>
+                <td>Unlimited</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="authentication section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Authentication</h2>
+          <p class="section-subtitle">Secure API authentication methods</p>
+        </div>
+
+        <div class="auth-content card">
+          <h3>API Key Authentication</h3>
+          <p>All API requests require an API key in the Authorization header:</p>
+          <div class="code-block">
+            <pre><code>Authorization: Bearer YOUR_API_KEY</code></pre>
+          </div>
+
+          <h3 class="mt-md">Environment Variables</h3>
+          <p>Store your API key securely in environment variables:</p>
+          <div class="code-block">
+            <pre><code>export GLM_API_KEY="your-api-key-here"</code></pre>
+          </div>
+
+          <div class="security-note mt-md">
+            <strong>⚠️ Security Note:</strong> Never commit API keys to version control or expose them in client-side code.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section section">
+      <div class="container">
+        <div class="cta-content text-center">
+          <h2 class="section-title">Need Help?</h2>
+          <p class="section-subtitle mb-md">Check our support resources or contact our team</p>
+          <div class="cta-buttons">
+            <a href="#" class="btn btn-accent">View Support</a>
+            <a href="contact.html" class="btn btn-secondary">Contact Us</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-grid">
+        <div class="footer-section">
+          <h4 class="footer-title">GLM</h4>
+          <p class="footer-description">The next generation language model for advanced AI applications.</p>
+          <div class="footer-social">
+            <a href="#" class="social-link" aria-label="Twitter">𝕏</a>
+            <a href="#" class="social-link" aria-label="GitHub">⌘</a>
+            <a href="#" class="social-link" aria-label="LinkedIn">in</a>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h4 class="footer-title">Product</h4>
+          <ul class="footer-links">
+            <li><a href="pricing.html">Pricing</a></li>
+            <li><a href="models.html">Models</a></li>
+            <li><a href="documentation.html">Documentation</a></li>
+            <li><a href="#">API Reference</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4 class="footer-title">Company</h4>
+          <ul class="footer-links">
+            <li><a href="about.html">About</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4 class="footer-title">Legal</h4>
+          <ul class="footer-links">
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Cookie Policy</a></li>
+            <li><a href="#">Security</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copyright">&copy; 2025 GLM. All rights reserved.</p>
+        <div class="footer-legal">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Cookies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/navigation.js"></script>
+</body>
+</html>

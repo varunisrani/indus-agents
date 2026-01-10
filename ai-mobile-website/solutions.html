@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Industry-specific AI mobile solutions for healthcare, finance, retail, and manufacturing. See how we transform businesses across sectors.">
+    <title>Solutions - AI Mobile Company</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="nav__logo">
+                    <div class="nav__logo-icon">AI</div>
+                    <span>Mobile</span>
+                </a>
+
+                <ul class="nav__menu" id="navMenu">
+                    <li class="nav__item">
+                        <a href="index.html" class="nav__link">Home</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="about.html" class="nav__link">About</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="services.html" class="nav__link">Services</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="products.html" class="nav__link">Products</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="solutions.html" class="nav__link nav__link--active">Solutions</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="pricing.html" class="nav__link">Pricing</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="contact.html" class="nav__link">Contact</a>
+                    </li>
+                </ul>
+
+                <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="nav__toggle-icon"></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero__content">
+                    <h1 class="hero__title">
+                        <span class="text-gradient">Industry Solutions</span><br>
+                        Powered by AI & Mobile Innovation
+                    </h1>
+                    <p class="hero__subtitle">
+                        Discover how our tailored AI mobile solutions are transforming businesses across healthcare, finance, retail, and manufacturing industries.
+                    </p>
+                    <div class="hero__actions">
+                        <a href="#contact" class="btn btn-primary btn-large">Explore Your Industry</a>
+                        <a href="contact.html" class="btn btn-secondary btn-large">Request Demo</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Industry Tabs Section -->
+        <section class="section bg-card">
+            <div class="container">
+                <div class="section__header">
+                    <h2 class="section__title">Solutions by Industry</h2>
+                    <p class="section__subtitle">Select your industry to see tailored AI mobile solutions</p>
+                </div>
+
+                <!-- Tab Navigation -->
+                <div class="tabs-nav">
+                    <button class="tab-btn tab-btn--active" data-tab="healthcare">
+                        <span class="tab-btn__icon">🏥</span>
+                        <span>Healthcare</span>
+                    </button>
+                    <button class="tab-btn" data-tab="finance">
+                        <span class="tab-btn__icon">💰</span>
+                        <span>Finance</span>
+                    </button>
+                    <button class="tab-btn" data-tab="retail">
+                        <span class="tab-btn__icon">🛒</span>
+                        <span>Retail</span>
+                    </button>
+                    <button class="tab-btn" data-tab="manufacturing">
+                        <span class="tab-btn__icon">🏭</span>
+                        <span>Manufacturing</span>
+                    </button>
+                </div>
+
+                <!-- Tab Content -->
+                <div class="tabs-content">
+                    <!-- Healthcare Tab -->
+                    <div class="tab-pane tab-pane--active" id="healthcare">
+                        <div class="tab-pane__header">
+                            <h3>Healthcare Solutions</h3>
+                            <p>Revolutionizing patient care with AI-powered mobile applications</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="solution-card">
+                                <h4 class="solution-card__title">📋 Patient Monitoring App</h4>
+                                <p class="solution-card__challenge"><strong>Challenge:</strong> Healthcare providers need real-time patient data to make informed decisions.</p>
+                                <p class="solution-card__solution"><strong>Solution:</strong> AI-powered mobile app that continuously monitors vital signs, predicts health deterioration, and alerts medical staff instantly.</p>
+                                <ul class="solution-card__benefits">
+                                    <li>✓ 40% reduction in emergency situations</li>
+                                    <li>✓ Real-time vitals tracking</li>
+                                    <li>✓ Predictive health analytics</li>
+                                    <li>✓ Seamless EHR integration</li>
+                                </ul>
+                                <a href="contact.html" class="btn btn-secondary btn-small">Request Demo</a>
+                            </div>
+
+                            <div class="solution-card">
+                                <h4 class="solution-card__title">💊 Medication Adherence Platform</h4>
+                                <p class="solution-card__challenge"><strong>Challenge:</strong> 50% of patients don't take medications as prescribed, leading to poor outcomes.</p>
+                                <p class="solution-card__solution"><strong>Solution:</strong> Smart mobile app with AI reminders, drug interaction alerts, and adherence tracking for patients and caregivers.</p>
+                                <ul class="solution-card__benefits">
+                                    <li>✓ 85% improvement in adherence</li>
+                                    <li>✓ Automated refill reminders</li>
+                                    <li>✓ Family caregiver access</li>
+                                    <li>✓ HIPAA compliant</li>
+                                </ul>
+                                <a href="contact.html" class="btn btn-secondary btn-small">Request Demo</a>
+                            </div>
+
+                            <div class="solution-card">
+                                <h4 class="solution-card__title">🔬 Diagnostic Assistant</h4>
+                                <p class="solution-card__challenge"><strong>Challenge:</strong> Diagnostic errors affect 12 million patients annually in the US.</p>
+                                <p class="solution-card__solution"><strong>Solution:</strong> AI-powered diagnostic support tool that analyzes symptoms, medical history, and test results to assist physicians.</p>
+                                <ul class="solution-card__benefits">
+                                    <li>✓ 30% improvement in accuracy</li>
+                                    <li>✓ Faster diagnosis time</li>
+                                    <li>✓ Reduced diagnostic errors</li>
+                                    <li>✓ Continuous learning system</li>
+                                </ul>
+                                <a href="contact.html" class="btn btn-secondary btn-small">Request Demo</a>
+                            </div>
+
+                            <div class="solution-card">
+                                <h4 class="solution-card__title">📱 Telemedicine Platform</h4>
+                                <p class="solution-card__challenge"><strong>Challenge:</strong> Limited access to specialists in rural areas and long wait times.</p>
+                                <p class="solution-card__solution"><strong>Solution:</strong> Comprehensive telemedicine app with video consultations, AI triage, and secure messaging.</p>
+                                <ul class="solution-card__benefits">
+                                    <li>✓ 24/7 specialist access</li>
+                                    <li>✓ AI-powered symptom checker</li>
+                                    <li>✓ Reduced hospital visits</li>
+                                    <li>✓ Multi-language support</li>
+                                </ul>
+                                <a href="contact.html" class="btn btn-secondary btn-small">Request Demo</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Finance Tab -->
+                    <div class="tab-pane" id="finance">
+                        <div class="tab-pane__header">
+                            <h3>Finance Solutions</h3>
+                            <p>Transforming financial services with intelligent mobile solutions</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="solution-card">
+                                <h4 class="solution-card__title">🔐 Fraud Detection System</h4>
+                                <p class="solution-card__challenge"><strong>Challenge:</strong> Financial institutions lose billions to fraud annually with traditional detection methods.</p>
+                                <p class="solution-card__solution"><strong>Solution:</strong> Real-time AI fraud detection that analyzes transaction patterns and flags suspicious activity instantly.</p>
+                                <ul class="solution-card__benefits">
+                                    <li>✓ 99% fraud detection accuracy</li>
+                                    <li>✓ Real-time alerts</li>
+                                    <li>✓ Reduced false positives</li>
+                                    <li>✓ Adaptive learning</li>
+                                </ul>
+                                <a href="contact.html" class="btn btn-secondary btn-small">Request Demo</a>
+                            </div>
+
+                            <div class="solution-card">
+                                <h4 class="solution-card__title">📊 Personal Finance Assistant</h4>
+                                <p class="solution-card__challenge"><strong>Challenge:</strong> Consumers struggle with budgeting and financial planning.</p>
+                                <p class="solution-card__solution"><strong>Solution:</strong> AI-powered financial advisor that provides personalized insights, budget tracking, and investment recommendations.</p>
+                                <ul class="solution-card__benefits">
+                                    <li>✓ 30% improvement in savings</li>
+                                    <li>✓ Smart categorization</li>
+                                    <li>✓ Goal-based planning</li>
+                                    <li>✓ Bill payment reminders</li>
+                                </ul>
+                                <a href="contact.html" class="btn btn-secondary btn-small">Request Demo</a>
+                            </div>
+
+                            <div class="solution-card">
+                                <h4 class="solution-card__title">🤖 Trading Bot Platform</h4>
+                                <p class="solution-card__challenge"><strong>Challenge:</strong> Traders need real-time analysis and automated execution capabilities.</p>
+                                <p class="solution-card__solution"><strong>Solution:</strong> Mobile trading platform with AI-powered market analysis, automated trading strategies, and risk management.</p>
+                                <ul class="solution-card__benefits">
+                                    <li>✓ Real-time market analysis</li>
+                                    <li>✓ Custom trading strategies</li>
+                                    <li>✓ Risk assessment tools</li>
+                                    <li>✓ Portfolio optimization</li>
+                                </ul>
+                                <a href="contact.html" class="btn btn-secondary btn-small">Request Demo</a>
+                            </div>
+
+                            <div class="solution-card">
+                                <h4 class="solution-card__title">💼 Loan Processing Automation</h4>
+                                <p class="solution-card__challenge"><strong>Challenge:</strong> Manual loan processing is slow and prone to errors.</p>
+                                <p class="solution-card__solution"><strong>Solution:</strong> AI-powered loan assessment platform that automates document verification and credit scoring.</p>
+                                <ul class="solution-card__benefits">
+                                    <li>✓ 70% faster processing</li>
+                                    <li>✓ Automated verification</li>
+                                    <li>✓ Fair credit scoring</li>
+                                    <li>✓ Compliance tracking</li>
+                                </ul>
+                                <a href="contact.html" class="btn btn-secondary btn-small">Request Demo</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Retail Tab -->
+                    <div class="tab-pane" id="retail">
+                        <div class="tab-pane__header">
+                            <h3>Retail Solutions</h3>
+                            <p>Enhancing customer experience with AI-driven mobile innovation</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="solution-card">
+                                <h4 class="solution-card__title">🛍️ Personalized Shopping App</h4>
+                                <p class="solution-card__challenge"><strong>Challenge:</strong> Retailers struggle to provide personalized experiences at scale.</p>
+                                <p class="solution-card__solution"><strong>Solution:</strong> AI-powered shopping app that delivers personalized recommendations, offers, and experiences based on user behavior.</p>
+                                <ul class="solution-card__benefits">
+                                    <li>✓ 45% increase in conversions</li>
+                                    <li>✓ Personalized recommendations</li>
+                                    <li>✓ Smart search & filters</li>
+                                    <li>✓ Loyalty program integration</li>
+                                </ul>
+                                <a href="contact.html" class="btn btn-secondary btn-small">Request Demo</a>
+                            </div>
+
+                            <div class="solution-card">
+                                <h4 class="solution-card__title">📦 Inventory Management</h4>
+                                <p class="solution-card__challenge"><strong>Challenge:</strong> Stockouts and overstocking cost retailers billions annually.</p>
+                                <p class="solution-card__solution"><strong>Solution:</strong> AI-powered inventory management that predicts demand, optimizes stock levels, and automates reordering.</p>
+                                <ul class="solution-card__benefits">
+                                    <li>✓ 50% reduction in stockouts</li>
+                                    <li>✓ Demand forecasting</li>
+                                    <li>✓ Automated reordering</li>
+                                    <li>✓ Real-time tracking</li>
+                                </ul>
+                                <a href="contact.html" class="btn btn-secondary btn-small">Request Demo</a>
+                            </div>
+
+                            <div class="solution-card">
+                                <h4 class="solution-card__title">🎯 Visual Search & AR</h4>
+                                <p class="solution-card__challenge"><strong>Challenge:</strong> Customers can't always find what they're looking for with text search.</p>
+                                <p class="solution-card__solution"><strong>Solution:</strong> Visual search and AR try-on features that let customers find products and see how they look.</p>
+                                <ul class="solution-card__benefits">
+                                    <li>✓ 60% higher engagement</li>
+                                    <li>✓ Image-based search</li>
+                                    <li>✓ AR virtual try-on</li>
+                                    <li>✓ Size recommendation</li>
+                                </ul>
+                                <a href="contact.html" class="btn btn-secondary btn-small">Request Demo</a>
+                            </div>
+
+                            <div class="solution-card">
+                                <h4 class="solution-card__title">👥 Customer Insights Platform</h4>
+                                <p class="solution-card__challenge"><strong>Challenge:</strong> Understanding customer behavior and preferences across channels.</p>
+                                <p class="solution-card__solution"><strong>Solution:</strong> Unified customer analytics platform that provides actionable insights from all touchpoints.</p>
+                                <ul class="solution-card__benefits">
+                                    <li>✓ 360° customer view</li>
+                                    <li>✓ Behavior prediction</li>
+                                    <li>✓ Campaign optimization</li>
+                                    <li>✓ Real-time analytics</li>
+                                </ul>
+                                <a href="contact.html" class="btn btn-secondary btn-small">Request Demo</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Manufacturing Tab -->
+                    <div class="tab-pane" id="manufacturing">
+                        <div class="tab-pane__header">
+                            <h3>Manufacturing Solutions</h3>
+                            <p>Optimizing operations with AI-powered mobile solutions</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="solution-card">
+                                <h4 class="solution-card__title">⚙️ Predictive Maintenance</h4>
+                                <p class="solution-card__challenge"><strong>Challenge:</strong> Unexpected equipment downtime costs manufacturers millions.</p>
+                                <p class="solution-card__solution"><strong>Solution:</strong> AI-powered predictive maintenance that monitors equipment health and predicts failures before they occur.</p>
+                                <ul class="solution-card__benefits">
+                                    <li>✓ 35% reduction in downtime</li>
+                                    <li>✓ Early fault detection</li>
+                                    <li>✓ Maintenance scheduling</li>
+                                    <li>✓ Cost optimization</li>
+                                </ul>
+                                <a href="contact.html" class="btn btn-secondary btn-small">Request Demo</a>
+                            </div>
+
+                            <div class="solution-card">
+                                <h4 class="solution-card__title">🏭 Quality Control System</h4>
+                                <p class="solution-card__challenge"><strong>Challenge:</strong> Manual quality inspection is slow and inconsistent.</p>
+                                <p class="solution-card__solution"><strong>Solution:</strong> AI-powered visual inspection system that detects defects with computer vision and machine learning.</p>
+                                <ul class="solution-card__benefits">
+                                    <li>✓ 99% defect detection</li>
+                                    <li>✓ Real-time inspection</li>
+                                    <li>✓ Reduced waste</li>
+                                    <li>✓ Consistent quality</li>
+                                </ul>
+                                <a href="contact.html" class="btn btn-secondary btn-small">Request Demo</a>
+                            </div>
+
+                            <div class="solution-card">
+                                <h4 class="solution-card__title">📋 Worker Safety Monitor</h4>
+                                <p class="solution-card__challenge"><strong>Challenge:</strong> Ensuring worker safety and compliance in hazardous environments.</p>
+                                <p class="solution-card__solution"><strong>Solution:</strong> Mobile safety platform with AI-powered hazard detection, compliance tracking, and emergency response.</p>
+                                <ul class="solution-card__benefits">
+                                    <li>✓ Real-time safety alerts</li>
+                                    <li>✓ Compliance tracking</li>
+                                    <li>✓ Emergency response</li>
+                                    <li>✓ Safety analytics</li>
+                                </ul>
+                                <a href="contact.html" class="btn btn-secondary btn-small">Request Demo</a>
+                            </div>
+
+                            <div class="solution-card">
+                                <h4 class="solution-card__title">📊 Production Optimization</h4>
+                                <p class="solution-card__challenge"><strong>Challenge:</strong> Maximizing production efficiency while minimizing costs.</p>
+                                <p class="solution-card__solution"><strong>Solution:</strong> AI-driven production optimization that analyzes processes and suggests improvements in real-time.</p>
+                                <ul class="solution-card__benefits">
+                                    <li>✓ 25% efficiency gain</li>
+                                    <li>✓ Bottleneck identification</li>
+                                    <li>✓ Resource optimization</li>
+                                    <li>✓ Real-time adjustments</li>
+                                </ul>
+                                <a href="contact.html" class="btn btn-secondary btn-small">Request Demo</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Success Metrics -->
+        <section class="section">
+            <div class="container">
+                <div class="section__header">
+                    <h2 class="section__title">Proven Results Across Industries</h2>
+                    <p class="section__subtitle">Measurable impact from our AI mobile solutions</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card animate-on-scroll">
+                        <div class="stat-card__number" data-target="500">0</div>
+                        <div class="stat-card__label">Enterprise Clients</div>
+                    </div>
+                    <div class="stat-card animate-on-scroll">
+                        <div class="stat-card__number" data-target="98">0</div>
+                        <div class="stat-card__label">Client Satisfaction %</div>
+                    </div>
+                    <div class="stat-card animate-on-scroll">
+                        <div class="stat-card__number" data-target="40">0</div>
+                        <div class="stat-card__label">Average ROI Increase %</div>
+                    </div>
+                    <div class="stat-card animate-on-scroll">
+                        <div class="stat-card__number" data-target="15">0</div>
+                        <div class="stat-card__label">Industries Served</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Case Study CTA -->
+        <section class="section bg-card">
+            <div class="container">
+                <div class="case-study-cta">
+                    <h2>See Our Success Stories</h2>
+                    <p>Explore detailed case studies of how we've helped businesses transform their operations with AI mobile solutions.</p>
+                    <div class="case-study-cta__actions">
+                        <a href="contact.html" class="btn btn-primary">Request Case Study</a>
+                        <a href="contact.html" class="btn btn-secondary">Schedule Consultation</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="section bg-gradient">
+            <div class="container">
+                <div class="cta-section text-center">
+                    <h2 class="cta-section__title">Ready to Transform Your Industry?</h2>
+                    <p class="cta-section__description">
+                        Let's discuss how our AI mobile solutions can address your specific industry challenges.
+                    </p>
+                    <div class="cta-section__actions">
+                        <a href="contact.html" class="btn btn-primary btn-large">Get Started Today</a>
+                        <a href="pricing.html" class="btn btn-secondary btn-large">View Pricing</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__brand">
+                    <div class="nav__logo-icon">AI</div>
+                    <h3>AI Mobile</h3>
+                    <p>Transforming businesses with intelligent mobile solutions.</p>
+                </div>
+
+                <div class="footer__links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="products.html">Products</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer__links">
+                    <h4>Solutions</h4>
+                    <ul>
+                        <li><a href="solutions.html#healthcare">Healthcare</a></li>
+                        <li><a href="solutions.html#finance">Finance</a></li>
+                        <li><a href="solutions.html#retail">Retail</a></li>
+                        <li><a href="solutions.html#manufacturing">Manufacturing</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer__links">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="contact.html">Get in Touch</a></li>
+                        <li><a href="contact.html">Request Demo</a></li>
+                        <li><a href="contact.html">Support</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer__bottom">
+                <p>&copy; <span id="currentYear"></span> AI Mobile. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/navigation.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

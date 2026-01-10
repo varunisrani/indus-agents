@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Features - AI Nexus</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .features-hero {
+      background: var(--gradient-dark);
+      color: white;
+      padding: 100px 20px 80px;
+      text-align: center;
+    }
+    .features-hero h1 { color: white; }
+    .feature-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 40px 0;
+      flex-wrap: wrap;
+    }
+    .feature-tab {
+      padding: 12px 24px;
+      background: transparent;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: var(--transition);
+      font-weight: 600;
+    }
+    .feature-tab:hover,
+    .feature-tab.active {
+      background: var(--primary-color);
+      border-color: var(--primary-color);
+    }
+    .feature-detail {
+      display: none;
+    }
+    .feature-detail.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <nav class="nav-container">
+      <a href="index.html" class="logo"><i class="fas fa-brain"></i> AI Nexus</a>
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="features.html" class="nav-link active">Features</a></li>
+        <li><a href="pricing.html" class="nav-link">Pricing</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="blog.html" class="nav-link">Blog</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+        <li><a href="#" class="btn btn-primary">Get Started</a></li>
+      </ul>
+      <div class="hamburger"><span></span><span></span><span></span></div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="features-hero">
+      <div class="container">
+        <h1 class="animate-fadeInUp">Powerful AI Features</h1>
+        <p style="font-size: 1.2rem; color: rgba(241, 245, 249, 0.8); margin-bottom: 30px;">Explore our comprehensive suite of AI-powered capabilities</p>
+        
+        <div class="feature-tabs animate-fadeInUp delay-1">
+          <button class="feature-tab active" data-tab="core">Core AI</button>
+          <button class="feature-tab" data-tab="automation">Automation</button>
+          <button class="feature-tab" data-tab="analytics">Analytics</button>
+          <button class="feature-tab" data-tab="integration">Integration</button>
+          <button class="feature-tab" data-tab="security">Security</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div id="core" class="feature-detail active">
+          <div class="section-header fade-in">
+            <h2>Core AI Capabilities</h2>
+            <p>Advanced artificial intelligence features powered by state-of-the-art models</p>
+          </div>
+          <div class="grid grid-2">
+            <div class="feature-card fade-in">
+              <div class="feature-icon"><i class="fas fa-brain"></i></div>
+              <h3>Machine Learning Models</h3>
+              <p>Access pre-trained models for classification, regression, clustering, and more. Deploy custom models trained on your data.</p>
+            </div>
+            <div class="feature-card fade-in delay-1">
+              <div class="feature-icon"><i class="fas fa-comments"></i></div>
+              <h3>Natural Language Processing</h3>
+              <p>Sentiment analysis, entity extraction, text classification, and language translation with enterprise-grade accuracy.</p>
+            </div>
+            <div class="feature-card fade-in">
+              <div class="feature-icon"><i class="fas fa-image"></i></div>
+              <h3>Computer Vision</h3>
+              <p>Object detection, image classification, facial recognition, and OCR for document processing workflows.</p>
+            </div>
+            <div class="feature-card fade-in delay-1">
+              <div class="feature-icon"><i class="fas fa-chart-network"></i></div>
+              <h3>Neural Networks</h3>
+              <p>Deep learning capabilities including CNNs, RNNs, and transformers for complex pattern recognition.</p>
+            </div>
+          </div>
+        </div>
+
+        <div id="automation" class="feature-detail">
+          <div class="section-header fade-in">
+            <h2>Intelligent Automation</h2>
+            <p>Automate complex workflows with AI-powered decision making</p>
+          </div>
+          <div class="grid grid-3">
+            <div class="feature-card fade-in">
+              <div class="feature-icon"><i class="fas fa-cogs"></i></div>
+              <h3>Workflow Automation</h3>
+              <p>Create intelligent workflows that adapt and learn from data patterns</p>
+            </div>
+            <div class="feature-card fade-in delay-1">
+              <div class="feature-icon"><i class="fas fa-robot"></i></div>
+              <h3>RPA Integration</h3>
+              <p>Combine AI with robotic process automation for end-to-end automation</p>
+            </div>
+            <div class="feature-card fade-in delay-2">
+              <div class="feature-icon"><i class="fas fa-project-diagram"></i></div>
+              <h3>Decision Engines</h3>
+              <p>AI-powered decision making for complex business scenarios</p>
+            </div>
+          </div>
+        </div>
+
+        <div id="analytics" class="feature-detail">
+          <div class="section-header fade-in">
+            <h2>Advanced Analytics</h2>
+            <p>Gain deep insights with predictive and prescriptive analytics</p>
+          </div>
+          <div class="grid grid-2">
+            <div class="feature-card fade-in">
+              <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+              <h3>Predictive Analytics</h3>
+              <p>Forecast trends and outcomes with machine learning models</p>
+            </div>
+            <div class="feature-card fade-in delay-1">
+              <div class="feature-icon"><i class="fas fa-lightbulb"></i></div>
+              <h3>Prescriptive Insights</h3>
+              <p>Get actionable recommendations based on data analysis</p>
+            </div>
+          </div>
+        </div>
+
+        <div id="integration" class="feature-detail">
+          <div class="section-header fade-in">
+            <h2>Seamless Integration</h2>
+            <p>Connect with your existing tools and data sources</p>
+          </div>
+          <div class="grid grid-3">
+            <div class="feature-card fade-in">
+              <div class="feature-icon"><i class="fas fa-plug"></i></div>
+              <h3>API Access</h3>
+              <p>RESTful APIs for seamless integration with any system</p>
+            </div>
+            <div class="feature-card fade-in delay-1">
+              <div class="feature-icon"><i class="fas fa-database"></i></div>
+              <h3>Data Connectors</h3>
+              <p>One-click connections to popular databases and SaaS platforms</p>
+            </div>
+            <div class="feature-card fade-in delay-2">
+              <div class="feature-icon"><i class="fas fa-code"></i></div>
+              <h3>SDK Libraries</h3>
+              <p>Official SDKs for Python, JavaScript, Java, and more</p>
+            </div>
+          </div>
+        </div>
+
+        <div id="security" class="feature-detail">
+          <div class="section-header fade-in">
+            <h2>Enterprise Security</h2>
+            <p>Bank-grade security and compliance certifications</p>
+          </div>
+          <div class="grid grid-2">
+            <div class="feature-card fade-in">
+              <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+              <h3>Data Encryption</h3>
+              <p>AES-256 encryption at rest and in transit</p>
+            </div>
+            <div class="feature-card fade-in delay-1">
+              <div class="feature-icon"><i class="fas fa-certificate"></i></div>
+              <h3>Compliance</h3>
+              <p>SOC 2 Type II, GDPR, HIPAA compliant infrastructure</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; 2024 AI Nexus. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/animations.js"></script>
+  <script>
+    document.querySelectorAll('.feature-tab').forEach(tab => {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.feature-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.feature-detail').forEach(d => d.classList.remove('active'));
+        
+        this.classList.add('active');
+        document.getElementById(this.dataset.tab).classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
