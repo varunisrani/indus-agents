@@ -1,0 +1,40 @@
+# robots.txt for vivoai.com
+
+User-agent: *
+Allow: /
+
+# Disallow specific directories if needed
+# Disallow: /private/
+# Disallow: /admin/
+
+# Sitemap
+Sitemap: https://www.vivoai.com/sitemap.xml
+
+# Crawl-delay (optional, polite crawling)
+Crawl-delay: 1
+
+# Disallow specific file types
+Disallow: /*.json$
+Disallow: /*.log$
+
+# Allow common assets
+Allow: /css/
+Allow: /js/
+Allow: /images/
+
+# Popular search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# Disallow bot traffic analytics (optional)
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /

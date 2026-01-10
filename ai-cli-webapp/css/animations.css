@@ -1,0 +1,520 @@
+/* Animations and Transitions */
+
+/* ==================== */
+/* Keyframe Animations */
+/* ==================== */
+
+/* Pulse Animation */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* Spin Animation */
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Slide In Animation */
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Slide Out Animation */
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Fade Out Animation */
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+/* Scale In Animation */
+@keyframes scaleIn {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Typing Animation */
+@keyframes typing {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+/* Blink Animation */
+@keyframes blink {
+    0%, 50% {
+        opacity: 1;
+    }
+    51%, 100% {
+        opacity: 0;
+    }
+}
+
+/* Loading Dots */
+@keyframes loadingDots {
+    0%, 20% {
+        content: '.';
+    }
+    40% {
+        content: '..';
+    }
+    60%, 100% {
+        content: '...';
+    }
+}
+
+/* Progress Bar Animation */
+@keyframes progress {
+    from {
+        width: 0%;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+/* Bounce Animation */
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Shake Animation */
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    10%, 30%, 50%, 70%, 90% {
+        transform: translateX(-5px);
+    }
+    20%, 40%, 60%, 80% {
+        transform: translateX(5px);
+    }
+}
+
+/* ==================== */
+/* Animation Classes */
+/* ==================== */
+
+/* Fade Animations */
+.fade-in {
+    animation: fadeIn var(--transition-normal) ease-in;
+}
+
+.fade-out {
+    animation: fadeOut var(--transition-normal) ease-out;
+}
+
+/* Slide Animations */
+.slide-in {
+    animation: slideIn var(--transition-normal) ease-out;
+}
+
+.slide-out {
+    animation: slideOut var(--transition-normal) ease-in;
+}
+
+/* Scale Animation */
+.scale-in {
+    animation: scaleIn var(--transition-normal) ease-out;
+}
+
+/* Pulse Animation */
+.pulse {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* Spin Animation */
+.spin {
+    animation: spin 1s linear infinite;
+}
+
+/* Blink Animation */
+.blink {
+    animation: blink 1s step-end infinite;
+}
+
+/* Bounce Animation */
+.bounce {
+    animation: bounce 0.5s ease-in-out;
+}
+
+/* Shake Animation */
+.shake {
+    animation: shake 0.5s ease-in-out;
+}
+
+/* ==================== */
+/* Cursor Animation */
+/* ==================== */
+.terminal-input::caret,
+.terminal-input::selection {
+    animation: blink 1s step-end infinite;
+}
+
+/* Custom Cursor */
+.custom-cursor {
+    display: inline-block;
+    width: 8px;
+    height: 16px;
+    background: var(--accent-green);
+    animation: blink 1s step-end infinite;
+    vertical-align: middle;
+}
+
+/* ==================== */
+/* Loading States */
+/* ==================== */
+
+/* Loading Spinner */
+.loading-spinner {
+    animation: spin 1s linear infinite;
+}
+
+/* Loading Dots */
+.loading-dots::after {
+    content: '.';
+    animation: loadingDots 1.5s steps(4, end) infinite;
+}
+
+/* Progress Bar Animation */
+.progress-bar.animated .progress-fill {
+    animation: progress 3s ease-in-out;
+}
+
+/* ==================== */
+/* Transition Classes */
+/* ==================== */
+
+/* Fast Transitions */
+.transition-fast {
+    transition: all var(--transition-fast);
+}
+
+/* Normal Transitions */
+.transition-normal {
+    transition: all var(--transition-normal);
+}
+
+/* Slow Transitions */
+.transition-slow {
+    transition: all var(--transition-slow);
+}
+
+/* ==================== */
+/* Hover Effects */
+/* ==================== */
+
+/* Hover Lift */
+.hover-lift {
+    transition: transform var(--transition-fast);
+}
+
+.hover-lift:hover {
+    transform: translateY(-2px);
+}
+
+/* Hover Scale */
+.hover-scale {
+    transition: transform var(--transition-fast);
+}
+
+.hover-scale:hover {
+    transform: scale(1.05);
+}
+
+/* Hover Glow */
+.hover-glow {
+    transition: box-shadow var(--transition-fast);
+}
+
+.hover-glow:hover {
+    box-shadow: 0 0 10px var(--accent-blue);
+}
+
+/* Hover Brightness */
+.hover-bright {
+    transition: filter var(--transition-fast);
+}
+
+.hover-bright:hover {
+    filter: brightness(1.2);
+}
+
+/* ==================== */
+/* Status Animations */
+/* ==================== */
+
+/* Success Animation */
+.status-success {
+    animation: scaleIn 0.3s ease-out;
+    border-color: var(--accent-green);
+}
+
+/* Error Animation */
+.status-error {
+    animation: shake 0.5s ease-in-out;
+    border-color: var(--accent-red);
+}
+
+/* Warning Animation */
+.status-warning {
+    animation: pulse 1s ease-in-out infinite;
+    border-color: var(--accent-yellow);
+}
+
+/* Processing Animation */
+.status-processing {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* ==================== */
+/* Typing Effect */
+/* ==================== */
+.typing-effect {
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid var(--accent-green);
+    animation: typing 3s steps(40, end), blink 0.75s step-end infinite;
+}
+
+/* ==================== */
+/* Ripple Effect */
+/* ==================== */
+.ripple {
+    position: relative;
+    overflow: hidden;
+}
+
+.ripple::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.ripple:active::after {
+    width: 300px;
+    height: 300px;
+}
+
+/* ==================== */
+/* Scroll Animations */
+/* ==================== */
+
+/* Smooth Scroll */
+.smooth-scroll {
+    scroll-behavior: smooth;
+}
+
+/* Scroll Reveal */
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s, transform 0.6s;
+}
+
+.scroll-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ==================== */
+/* Reduced Motion Support */
+/* ==================== */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ==================== */
+/* Specific Component Animations */
+/* ==================== */
+
+/* Toast Animation */
+.toast {
+    animation: slideIn 0.3s ease-out, scaleIn 0.3s ease-out;
+}
+
+.toast.removing {
+    animation: fadeOut 0.3s ease-out, slideOut 0.3s ease-in;
+}
+
+/* Modal Animation */
+.modal-overlay {
+    animation: fadeIn 0.2s ease-out;
+}
+
+.modal-content {
+    animation: scaleIn 0.3s ease-out;
+}
+
+/* Autocomplete Animation */
+.autocomplete-dropdown {
+    animation: slideIn 0.2s ease-out, fadeIn 0.2s ease-out;
+}
+
+/* Command Output Animation */
+.output-line {
+    animation: fadeIn 0.2s ease-out;
+}
+
+/* Welcome Animation */
+.welcome-message {
+    animation: fadeIn 0.5s ease-out, scaleIn 0.5s ease-out;
+}
+
+/* Theme Switch Animation */
+.terminal-window {
+    transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+/* ==================== */
+/* Performance Optimization */
+/* ==================== */
+
+/* GPU Acceleration */
+.gpu-accelerated {
+    transform: translateZ(0);
+    will-change: transform;
+}
+
+/* Smooth Font Rendering */
+.smooth-font {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+/* Optimize Images */
+.optimized-image {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+}
+
+/* ==================== */
+/* Animation Delays */
+/* ==================== */
+.animation-delay-100 {
+    animation-delay: 100ms;
+}
+
+.animation-delay-200 {
+    animation-delay: 200ms;
+}
+
+.animation-delay-300 {
+    animation-delay: 300ms;
+}
+
+.animation-delay-500 {
+    animation-delay: 500ms;
+}
+
+/* ==================== */
+/* Staggered Animations */
+/* ==================== */
+.stagger-item:nth-child(1) {
+    animation-delay: 0ms;
+}
+
+.stagger-item:nth-child(2) {
+    animation-delay: 50ms;
+}
+
+.stagger-item:nth-child(3) {
+    animation-delay: 100ms;
+}
+
+.stagger-item:nth-child(4) {
+    animation-delay: 150ms;
+}
+
+.stagger-item:nth-child(5) {
+    animation-delay: 200ms;
+}
+
+/* ==================== */
+/* Infinite Animations */
+/* ==================== */
+
+/* Infinite Pulse */
+.infinite-pulse {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* Infinite Spin */
+.infinite-spin {
+    animation: spin 1s linear infinite;
+}
+
+/* Infinite Bounce */
+.infinite-bounce {
+    animation: bounce 1s ease-in-out infinite;
+}

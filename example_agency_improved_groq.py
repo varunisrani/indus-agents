@@ -47,8 +47,8 @@ def create_planner_agent(model: str = "llama-3.3-70b-versatile", reasoning_effor
     config = AgentConfig(
         model=model,
         provider="groq",
-        temperature=0.7,
-        max_tokens=8000,  # Groq has token limits
+        temperature=1,
+        max_tokens=16000,  # Increased for comprehensive plan generation
     )
 
     # Get the directory containing this script
@@ -60,7 +60,7 @@ def create_planner_agent(model: str = "llama-3.3-70b-versatile", reasoning_effor
         name="Planner",
         role="Strategic planning and task breakdown specialist",
         config=config,
-        prompt_file=prompt_file  # Load from .md file
+        prompt_file=prompt_file  # ✅ Load from .md file
     )
 
     return agent
@@ -76,8 +76,8 @@ def create_coder_agent(model: str = "llama-3.3-70b-versatile", reasoning_effort:
     config = AgentConfig(
         model=model,
         provider="groq",
-        temperature=0.5,
-        max_tokens=8000,  # Groq has token limits
+        temperature=1,
+        max_tokens=8000,  # Increased for complex implementations
     )
 
     # Get the directory containing this script
@@ -89,7 +89,36 @@ def create_coder_agent(model: str = "llama-3.3-70b-versatile", reasoning_effort:
         name="Coder",
         role="Code implementation and execution",
         config=config,
-        prompt_file=prompt_file  # Load from .md file
+        prompt_file=prompt_file  # ✅ Load from .md file
+    )
+
+    return agent
+
+
+def create_critic_agent(model: str = "llama-3.3-70b-versatile", reasoning_effort: str = "medium") -> Agent:
+    """
+    Critic Agent - Risk, QA, and review specialist for plans and code.
+    Uses Groq provider for ultra-fast inference.
+
+    Loads prompt from markdown file for better maintainability.
+    """
+    config = AgentConfig(
+        model=model,
+        provider="groq",
+        temperature=1,
+        max_tokens=8000,  # For comprehensive risk analysis
+    )
+
+    # Get the directory containing this script
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    prompt_dir = os.path.join(current_dir, "example_agency_improved_groq_prompts")
+    prompt_file = os.path.join(prompt_dir, "critic_instructions.md")
+
+    agent = Agent(
+        name="Critic",
+        role="Risk and quality reviewer (edge cases, failure modes, test ideas)",
+        config=config,
+        prompt_file=prompt_file  # ✅ Load from .md file
     )
 
     return agent
@@ -103,7 +132,9 @@ def create_development_agency(
     model: str = "llama-3.3-70b-versatile",
     reasoning_effort: str = "medium",
     max_handoffs: int = 100,
-    max_turns: Optional[int] = None
+    max_turns: Optional[int] = None,
+    use_thread_pool: bool = False,
+    thread_response_timeout: float = 600.0,
 ) -> Agency:
     """
     Create development agency with intelligent routing using Groq provider.
@@ -120,67 +151,28 @@ def create_development_agency(
         reasoning_effort: Reasoning effort level (default: "medium")
         max_handoffs: Maximum number of handoffs allowed (default: 100)
         max_turns: Max tool-calling iterations per agent. None uses 1000 (default: None)
+        use_thread_pool: Run each agent in isolated thread with separate resources (default: False)
+        thread_response_timeout: Timeout for thread responses in seconds (default: 600.0)
     """
-    # Register tools in global registry
-    for tool_class in [Bash, Read, Edit, Write, Glob, Grep, TodoWrite]:
-        registry.register(tool_class)
-
-    # Create agents with Groq provider
-    coder = create_coder_agent(model=model, reasoning_effort=reasoning_effort)
-    coder.context = registry.context
-
-    planner = create_planner_agent(model=model, reasoning_effort=reasoning_effort)
-    planner.context = registry.context
-
-    # Get tool schemas and add handoff schema
-    tools = registry.schemas.copy()
-    handoff_schema = {
-        "type": "function",
-        "function": {
-            "name": "handoff_to_agent",
-            "description": "Hand off the current task to another agent in the agency",
-            "parameters": {
-                "type": "object",
-                "properties": {
-                    "agent_name": {
-                        "type": "string",
-                        "description": "Name of the agent to hand off to (e.g., 'Planner', 'Coder')"
-                    },
-                    "message": {
-                        "type": "string",
-                        "description": "Message or task description for the target agent"
-                    },
-                    "context": {
-                        "type": "string",
-                        "description": "Optional context or additional information"
-                    }
-                },
-                "required": ["agent_name", "message"]
-            }
-        }
-    }
-    tools.append(handoff_schema)
-
-    # Create agency with Coder as entry point (receives all user requests)
-    agency = Agency(
-        entry_agent=coder,  # Coder is entry - it decides when to use Planner
-        agents=[coder, planner],
-        communication_flows=[
-            (coder, planner),    # Coder can handoff to Planner
-            (planner, coder),    # Planner hands back to Coder
-        ],
-        shared_instructions=None,
-        name="DevAgency_Groq",
+    # Use shared preset to keep CLI/TUI/examples consistent
+    from indusagi.presets.improved_anthropic_agency import ImprovedAgencyOptions, create_improved_agency
+    
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    prompt_dir = os.path.join(current_dir, "example_agency_improved_groq_prompts")
+    opts = ImprovedAgencyOptions(
+        model=model,
+        provider="groq",
+        reasoning_effort=reasoning_effort,
         max_handoffs=max_handoffs,
-        max_turns=max_turns,  # Uses provided max_turns or 1000 if None
-        tools=tools,
-        tool_executor=registry
+        max_turns=max_turns,
+        name="DevAgency_Groq",
+        coder_prompt_file=os.path.join(prompt_dir, "coder_instructions.md"),
+        planner_prompt_file=os.path.join(prompt_dir, "planner_instructions.md"),
+        critic_prompt_file=os.path.join(prompt_dir, "critic_instructions.md"),
+        use_thread_pool=use_thread_pool,
+        thread_response_timeout=thread_response_timeout,
     )
-
-    # Set current agency for handoff tools
-    set_current_agency(agency)
-
-    return agency
+    return create_improved_agency(opts)
 
 
 # ============================================================================
@@ -212,7 +204,8 @@ def print_workflow_explanation():
   [green]2.[/green] Coder decides: simple task = handle directly
   [green]3.[/green]              : complex task = handoff to [bright_blue]Planner[/bright_blue]
   [green]4.[/green] Planner creates plan.md -> hands back to [bright_blue]Coder[/bright_blue]
-  [green]5.[/green] Coder reads plan.md and implements
+  [green]5.[/green] Optional: Coder can fan out to [bright_blue]Planner[/bright_blue] + [bright_blue]Critic[/bright_blue] in parallel
+  [green]6.[/green] Coder merges parallel outputs and implements
 """
 
     console.print(Panel(
@@ -257,6 +250,9 @@ def print_example_prompts():
   [green]-[/green] "Create plan.md for a todo app, then implement it"
   [green]-[/green] "Plan and build a weather dashboard with API integration"
   [green]-[/green] "I need a multi-page website. First create plan.md"
+[bold yellow]Parallel handoffs (Coder fans out to multiple agents):[/bold yellow]
+  [green]-[/green] "Run Planner + Critic in parallel for a spec and risk list"
+  [green]-[/green] "Ask Planner and Coder to explore two options, then summarize"
 """
 
     console.print(Panel(
@@ -290,6 +286,21 @@ def main():
         ))
         return
 
+    import argparse
+    parser = argparse.ArgumentParser(description="Improved Agency Demo (Groq)")
+    parser.add_argument(
+        "--thread-pool",
+        action="store_true",
+        help="Run each agent in an isolated worker thread with separate resources",
+    )
+    parser.add_argument(
+        "--thread-timeout",
+        type=float,
+        default=600.0,
+        help="Seconds to wait for a threaded agent response before timing out",
+    )
+    args = parser.parse_args()
+
     # Display banner and workflow
     print_agency_banner()
     print_workflow_explanation()
@@ -299,7 +310,9 @@ def main():
     agency = create_development_agency(
         model="llama-3.3-70b-versatile",  # Fast and capable model on Groq
         reasoning_effort="medium",
-        max_handoffs=100
+        max_handoffs=100,
+        use_thread_pool=args.thread_pool,
+        thread_response_timeout=args.thread_timeout,
         # max_turns=None uses 1000 as default (increased from 100)
     )
 
@@ -340,6 +353,8 @@ def main():
         ))
         import traceback
         traceback.print_exc()
+    finally:
+        agency.shutdown()
 
 
 if __name__ == "__main__":

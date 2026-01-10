@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explore Vivo AI's cutting-edge research in artificial intelligence, machine learning, and innovation. Read our latest publications and insights.">
+  <title>Research & Innovation - Vivo AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <style>
+    .page-hero { background: var(--gradient-primary); color: white; padding: 120px 0 var(--space-16); text-align: center; }
+    .page-hero h1 { color: white; margin-bottom: var(--space-4); }
+    .page-hero-subtitle { font-size: var(--text-xl); color: rgba(255, 255, 255, 0.9); }
+    .research-section { padding: var(--space-20) 0; }
+    .research-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-8); }
+    .research-card { background: var(--bg-primary); border-radius: var(--radius-xl); padding: var(--space-6); box-shadow: var(--shadow-md); transition: all var(--transition-base); border: 1px solid var(--border-color); }
+    .research-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-xl); }
+    .research-icon { font-size: 3rem; margin-bottom: var(--space-4); }
+    .research-card h3 { color: var(--primary-color); margin-bottom: var(--space-3); }
+    .research-card p { color: var(--text-secondary); line-height: 1.6; margin-bottom: var(--space-4); }
+    .pub-card { background: var(--bg-primary); border-radius: var(--radius-xl); padding: var(--space-6); box-shadow: var(--shadow-md); border: 1px solid var(--border-color); }
+    .pub-card h4 { color: var(--text-primary); margin-bottom: var(--space-2); }
+    .pub-meta { color: var(--text-muted); font-size: var(--text-sm); margin-bottom: var(--space-3); }
+    .pub-abstract { color: var(--text-secondary); line-height: 1.6; margin-bottom: var(--space-4); }
+    @media (max-width: 1024px) { .research-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 768px) { .research-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">V</div>
+        <span>Vivo AI</span>
+      </a>
+      
+      <nav>
+        <button class="mobile-toggle" aria-label="Toggle navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <ul class="nav-menu">
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="products.html" class="nav-link">Products</a></li>
+          <li><a href="research.html" class="nav-link active">Research</a></li>
+          <li><a href="careers.html" class="nav-link">Careers</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+      
+      <div class="header-cta">
+        <a href="contact.html" class="btn btn-primary">Get Started</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="page-hero">
+      <div class="container">
+        <h1>Research & Innovation</h1>
+        <p class="page-hero-subtitle">Pushing the boundaries of AI technology</p>
+      </div>
+    </section>
+
+    <section class="research-section">
+      <div class="container">
+        <div class="section-title">
+          <h2>Research Areas</h2>
+          <p>Exploring the frontiers of artificial intelligence</p>
+        </div>
+
+        <div class="research-grid">
+          <div class="research-card">
+            <div class="research-icon">🧠</div>
+            <h3>Deep Learning</h3>
+            <p>Advancing neural network architectures for improved learning efficiency and performance.</p>
+            <a href="#" class="btn btn-primary">Explore Research</a>
+          </div>
+
+          <div class="research-card">
+            <div class="research-icon">💬</div>
+            <h3>Natural Language</h3>
+            <p>Building next-generation language models for human-computer interaction.</p>
+            <a href="#" class="btn btn-primary">Explore Research</a>
+          </div>
+
+          <div class="research-card">
+            <div class="research-icon">👁️</div>
+            <h3>Computer Vision</h3>
+            <p>Developing advanced visual recognition systems for real-world applications.</p>
+            <a href="#" class="btn btn-primary">Explore Research</a>
+          </div>
+
+          <div class="research-card">
+            <div class="research-icon">🤖</div>
+            <h3>Reinforcement Learning</h3>
+            <p>Creating intelligent agents that learn through interaction with environments.</p>
+            <a href="#" class="btn btn-primary">Explore Research</a>
+          </div>
+
+          <div class="research-card">
+            <div class="research-icon">🔒</div>
+            <h3>AI Safety</h3>
+            <p>Ensuring AI systems are safe, ethical, and aligned with human values.</p>
+            <a href="#" class="btn btn-primary">Explore Research</a>
+          </div>
+
+          <div class="research-card">
+            <div class="research-icon">⚡</div>
+            <h3>Efficient AI</h3>
+            <p>Optimizing AI models for faster inference and reduced computational cost.</p>
+            <a href="#" class="btn btn-primary">Explore Research</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-secondary">
+      <div class="container">
+        <div class="section-title">
+          <h2>Featured Publications</h2>
+          <p>Latest research from our team</p>
+        </div>
+
+        <div style="display: grid; gap: var(--space-6); max-width: 900px; margin: 0 auto;">
+          <div class="pub-card">
+            <h4>Advancing Transformer Architecture for Long-Form Text Understanding</h4>
+            <div class="pub-meta">Chen et al. • NeurIPS 2024</div>
+            <p class="pub-abstract">We present a novel attention mechanism that enables efficient processing of documents up to 1M tokens while maintaining high accuracy.</p>
+            <a href="#" class="btn btn-primary">Read Paper</a>
+          </div>
+
+          <div class="pub-card">
+            <h4>Self-Supervised Learning for Medical Image Analysis</h4>
+            <div class="pub-meta">Williams et al. • CVPR 2024</div>
+            <p class="pub-abstract">A new approach to leveraging unlabeled medical data for improved diagnostic accuracy with limited labeled examples.</p>
+            <a href="#" class="btn btn-primary">Read Paper</a>
+          </div>
+
+          <div class="pub-card">
+            <h4>Ethical AI Framework for Enterprise Deployments</h4>
+            <div class="pub-meta">Rodriguez et al. • AAAI 2024</div>
+            <p class="pub-abstract">Comprehensive guidelines for developing and deploying AI systems responsibly in enterprise environments.</p>
+            <a href="#" class="btn btn-primary">Read Paper</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section" style="background: var(--gradient-dark); color: white; padding: var(--space-20) 0; text-align: center;">
+      <div class="container">
+        <h2 style="color: white; margin-bottom: var(--space-4);">Stay Updated</h2>
+        <p style="color: rgba(255,255,255,0.9); font-size: var(--text-lg); max-width: 600px; margin: 0 auto var(--space-8);">Subscribe to our research newsletter</p>
+        <form style="display: flex; gap: var(--space-4); justify-content: center; max-width: 500px; margin: 0 auto;">
+          <input type="email" placeholder="Enter your email" style="flex: 1; padding: var(--space-4); border-radius: var(--radius-lg); border: none; font-size: var(--text-base);">
+          <button type="submit" class="btn btn-primary">Subscribe</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-brand">
+        <div class="logo">
+          <div class="logo-icon">V</div>
+          <span>Vivo AI</span>
+        </div>
+        <p>Pioneering the future of artificial intelligence. We build enterprise-grade AI solutions that transform businesses worldwide.</p>
+      </div>
+      
+      <div class="footer-column">
+        <h4 class="footer-title">Products</h4>
+        <ul class="footer-links">
+          <li><a href="products.html">All Solutions</a></li>
+          <li><a href="products.html">Vivo Intelligence</a></li>
+          <li><a href="products.html">Vivo Voice</a></li>
+          <li><a href="products.html">Vivo Vision</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h4 class="footer-title">Company</h4>
+        <ul class="footer-links">
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="careers.html">Careers</a></li>
+          <li><a href="research.html">Research</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h4 class="footer-title">Legal</h4>
+        <ul class="footer-links">
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Service</a></li>
+          <li><a href="contact.html">Support</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <div class="footer-bottom-content">
+        <p>&copy; 2025 Vivo AI. All rights reserved.</p>
+        <div class="social-links">
+          <a href="#" class="social-link" aria-label="Twitter">𝕏</a>
+          <a href="#" class="social-link" aria-label="LinkedIn">in</a>
+          <a href="#" class="social-link" aria-label="GitHub">⚡</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/navigation.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

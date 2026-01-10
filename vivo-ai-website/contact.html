@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Get in touch with Vivo AI. Contact our team for sales, support, partnerships, or general inquiries.">
+  <title>Contact Us - Vivo AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <style>
+    .page-hero { background: var(--gradient-primary); color: white; padding: 120px 0 var(--space-16); text-align: center; }
+    .page-hero h1 { color: white; margin-bottom: var(--space-4); }
+    .page-hero-subtitle { font-size: var(--text-xl); color: rgba(255, 255, 255, 0.9); }
+    .contact-section { padding: var(--space-20) 0; }
+    .contact-grid { display: grid; grid-template-columns: 2fr 1fr; gap: var(--space-12); }
+    .contact-form { background: var(--bg-primary); padding: var(--space-8); border-radius: var(--radius-xl); box-shadow: var(--shadow-lg); }
+    .form-group { margin-bottom: var(--space-6); }
+    .form-group label { display: block; font-weight: 600; margin-bottom: var(--space-2); color: var(--text-primary); }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: var(--space-4); border: 2px solid var(--border-color); border-radius: var(--radius-lg); font-size: var(--text-base); font-family: var(--font-body); transition: border-color var(--transition-base); }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--primary-color); }
+    .contact-info { display: flex; flex-direction: column; gap: var(--space-6); }
+    .info-card { background: var(--bg-primary); padding: var(--space-6); border-radius: var(--radius-xl); box-shadow: var(--shadow-md); border: 1px solid var(--border-color); }
+    .info-card h4 { color: var(--primary-color); margin-bottom: var(--space-3); }
+    .info-card p { color: var(--text-secondary); margin-bottom: var(--space-2); }
+    .info-card a { color: var(--primary-color); }
+    @media (max-width: 1024px) { .contact-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 768px) { .contact-form { padding: var(--space-6); } }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">V</div>
+        <span>Vivo AI</span>
+      </a>
+      
+      <nav>
+        <button class="mobile-toggle" aria-label="Toggle navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <ul class="nav-menu">
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="products.html" class="nav-link">Products</a></li>
+          <li><a href="research.html" class="nav-link">Research</a></li>
+          <li><a href="careers.html" class="nav-link">Careers</a></li>
+          <li><a href="contact.html" class="nav-link active">Contact</a></li>
+        </ul>
+      </nav>
+      
+      <div class="header-cta">
+        <a href="contact.html" class="btn btn-primary">Get Started</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="page-hero">
+      <div class="container">
+        <h1>Get in Touch</h1>
+        <p class="page-hero-subtitle">We'd love to hear from you</p>
+      </div>
+    </section>
+
+    <section class="contact-section">
+      <div class="container">
+        <div class="contact-grid">
+          <div class="contact-form">
+            <h2 style="margin-bottom: var(--space-6);">Send us a message</h2>
+            <form id="contactForm">
+              <div class="form-group">
+                <label for="name">Name *</label>
+                <input type="text" id="name" name="name" required placeholder="Your full name">
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" id="email" name="email" required placeholder="your@email.com">
+              </div>
+
+              <div class="form-group">
+                <label for="company">Company</label>
+                <input type="text" id="company" name="company" placeholder="Your company name">
+              </div>
+
+              <div class="form-group">
+                <label for="subject">Subject *</label>
+                <select id="subject" name="subject" required>
+                  <option value="">Select a subject</option>
+                  <option value="sales">Sales Inquiry</option>
+                  <option value="support">Technical Support</option>
+                  <option value="partnership">Partnership</option>
+                  <option value="careers">Careers</option>
+                  <option value="press">Press & Media</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="message">Message *</label>
+                <textarea id="message" name="message" rows="6" required placeholder="How can we help you?"></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">Send Message</button>
+            </form>
+            <div id="formSuccess" style="display: none; margin-top: var(--space-6); padding: var(--space-4); background: var(--success); color: white; border-radius: var(--radius-lg); text-align: center;">
+              Thank you! We'll get back to you within 24 hours.
+            </div>
+          </div>
+
+          <div class="contact-info">
+            <div class="info-card">
+              <h4>📧 Email</h4>
+              <p><a href="mailto:contact@vivoai.com">contact@vivoai.com</a></p>
+              <p><a href="mailto:sales@vivoai.com">sales@vivoai.com</a></p>
+              <p><a href="mailto:support@vivoai.com">support@vivoai.com</a></p>
+            </div>
+
+            <div class="info-card">
+              <h4>📞 Phone</h4>
+              <p><a href="tel:+15551234567">+1 (555) 123-4567</a></p>
+              <p style="font-size: var(--text-sm); margin-top: var(--space-2);">Mon-Fri 9AM-6PM PST</p>
+            </div>
+
+            <div class="info-card">
+              <h4>📍 Office</h4>
+              <p>123 AI Boulevard<br>San Francisco, CA 94102<br>United States</p>
+            </div>
+
+            <div class="info-card">
+              <h4>🌐 Social</h4>
+              <p><a href="#">Twitter</a> • <a href="#">LinkedIn</a></p>
+              <p><a href="#">GitHub</a> • <a href="#">YouTube</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-secondary">
+      <div class="container" style="text-align: center; max-width: 800px;">
+        <h2 style="margin-bottom: var(--space-4);">Ready to get started?</h2>
+        <p style="font-size: var(--text-lg); color: var(--text-secondary); margin-bottom: var(--space-8);">
+          Schedule a demo with our team and see how Vivo AI can transform your business
+        </p>
+        <a href="#" class="btn btn-primary btn-lg">Schedule Demo</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-brand">
+        <div class="logo">
+          <div class="logo-icon">V</div>
+          <span>Vivo AI</span>
+        </div>
+        <p>Pioneering the future of artificial intelligence. We build enterprise-grade AI solutions that transform businesses worldwide.</p>
+      </div>
+      
+      <div class="footer-column">
+        <h4 class="footer-title">Products</h4>
+        <ul class="footer-links">
+          <li><a href="products.html">All Solutions</a></li>
+          <li><a href="products.html">Vivo Intelligence</a></li>
+          <li><a href="products.html">Vivo Voice</a></li>
+          <li><a href="products.html">Vivo Vision</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h4 class="footer-title">Company</h4>
+        <ul class="footer-links">
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="careers.html">Careers</a></li>
+          <li><a href="research.html">Research</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h4 class="footer-title">Legal</h4>
+        <ul class="footer-links">
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Service</a></li>
+          <li><a href="contact.html">Support</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <div class="footer-bottom-content">
+        <p>&copy; 2025 Vivo AI. All rights reserved.</p>
+        <div class="social-links">
+          <a href="#" class="social-link" aria-label="Twitter">𝕏</a>
+          <a href="#" class="social-link" aria-label="LinkedIn">in</a>
+          <a href="#" class="social-link" aria-label="GitHub">⚡</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/navigation.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      document.getElementById('formSuccess').style.display = 'block';
+      this.reset();
+      setTimeout(function() {
+        document.getElementById('formSuccess').style.display = 'none';
+      }, 5000);
+    });
+  </script>
+</body>
+</html>

@@ -4,6 +4,7 @@ Agency - Multi-Agent Orchestration System
 Provides Agency Swarm-like orchestration for indus-agents.
 """
 import os
+import uuid
 from typing import List, Dict, Tuple, Optional, Any, Callable
 from dataclasses import dataclass, field
 from enum import Enum
@@ -12,6 +13,8 @@ import concurrent.futures as futures
 
 from indusagi.agent import Agent
 from indusagi.tool_usage_logger import tool_logger
+from indusagi.handoff_queue import HandoffQueue, HandoffMessage
+from indusagi.isolated_agent import IsolatedAgent
 
 
 class HandoffType(Enum):
@@ -86,6 +89,8 @@ class Agency:
         max_turns: Optional[int] = 100,
         tools: Optional[List[Dict[str, Any]]] = None,
         tool_executor: Optional[Any] = None,
+        use_thread_pool: bool = False,
+        thread_response_timeout: float = 600.0,
     ):
         """
         Initialize an Agency.
@@ -108,6 +113,8 @@ class Agency:
         self.max_turns = 1000 if max_turns is None else max_turns
         self.tools = tools or []
         self.tool_executor = tool_executor
+        self.use_thread_pool = use_thread_pool
+        self.thread_response_timeout = thread_response_timeout
 
         # Build agent registry
         self.agents = agents or [entry_agent]
@@ -132,6 +139,158 @@ class Agency:
 
         # Handoff history for current request
         self._handoff_history: List[HandoffResult] = []
+
+        # Thread-pool mode helpers
+        self.handoff_queue: Optional[HandoffQueue] = None
+        self._isolated_agents: Dict[str, IsolatedAgent] = {}
+        if self.use_thread_pool:
+            self._initialize_thread_pool()
+
+    def _initialize_thread_pool(self) -> None:
+        """Spin up isolated agent threads and their shared handoff queue."""
+        self.handoff_queue = HandoffQueue()
+        self.handoff_queue.register_agent("coordinator")
+        for agent in self.agents:
+            self.handoff_queue.register_agent(agent.name)
+            isolated = IsolatedAgent(
+                agent,
+                self.handoff_queue,
+                max_turns=self.max_turns,
+                tools=self.tools,  # Pass full tools list including handoff_to_agent
+            )
+            self._isolated_agents[agent.name] = isolated
+            isolated.start()
+
+    def shutdown(self) -> None:
+        """Gracefully stop agent threads (only relevant in thread-pool mode)."""
+        if not self.use_thread_pool or not self.handoff_queue:
+            return
+
+        for agent in self.agents:
+            shutdown_message = HandoffMessage(
+                type="shutdown",
+                from_agent="coordinator",
+                to_agent=agent.name,
+                content="shutdown",
+                message_id=str(uuid.uuid4()),
+            )
+            self.handoff_queue.send_to_agent(shutdown_message)
+
+        for isolated in self._isolated_agents.values():
+            isolated.join(timeout=2.0)
+
+    def _run_agent_threadpool_call(
+        self,
+        agent: Agent,
+        message: str,
+        emit: Callable[[dict], None],
+    ) -> Tuple[str, bool, Optional[str], float, Optional[Dict[str, Any]]]:
+        """Dispatch work to an isolated agent thread and wait for the result."""
+        if not self.handoff_queue:
+            raise RuntimeError("Thread pool not initialized")
+        isolated = self._isolated_agents.get(agent.name)
+        if not isolated:
+            raise ValueError(f"No isolated agent for {agent.name}")
+
+        isolated.event_callback = emit
+        message_id = str(uuid.uuid4())
+        self.handoff_queue.register_response_waiter(message_id)
+        task = HandoffMessage(
+            type="task",
+            from_agent="coordinator",
+            to_agent=agent.name,
+            content=message,
+            message_id=message_id,
+            reply_to="coordinator",
+        )
+        self.handoff_queue.send_to_agent(task)
+
+        response_msg = self.handoff_queue.wait_for_response(
+            message_id, timeout=self.thread_response_timeout
+        )
+        if response_msg is None:
+            raise TimeoutError(
+                f"Timed out waiting for agent '{agent.name}' response in thread pool mode"
+            )
+
+        payload = response_msg.content or {}
+        response_text = payload.get("response", "")
+        success = payload.get("success", True)
+        error = payload.get("error")
+        processing_time = float(payload.get("processing_time", 0.0))
+        pending_handoff = payload.get("pending_handoff")
+
+        return response_text, success, error, processing_time, pending_handoff
+
+    def _run_parallel_threadpool(
+        self,
+        targets: List[Agent],
+        message: str,
+        emit: Callable[[dict], None],
+    ) -> Tuple[List[ParallelResult], List[Tuple[str, Dict[str, Any]]]]:
+        """
+        Send the same message to several agents concurrently and gather results.
+
+        Returns:
+            branch_results: List of ParallelResult with status per agent.
+            pending_handoffs: List of (agent_name, handoff_dict) for unexpected handoffs.
+        """
+        if not self.handoff_queue:
+            raise RuntimeError("Thread pool not initialized")
+
+        pending_ids: List[Tuple[str, Agent]] = []
+        for agent in targets:
+            isolated = self._isolated_agents.get(agent.name)
+            if not isolated:
+                continue
+            isolated.event_callback = emit
+            message_id = str(uuid.uuid4())
+            self.handoff_queue.register_response_waiter(message_id)
+            task = HandoffMessage(
+                type="task",
+                from_agent="coordinator",
+                to_agent=agent.name,
+                content=message,
+                message_id=message_id,
+                reply_to="coordinator",
+            )
+            self.handoff_queue.send_to_agent(task)
+            pending_ids.append((message_id, agent))
+
+        branch_results: List[ParallelResult] = []
+        pending_handoffs: List[Tuple[str, Dict[str, Any]]] = []
+        for message_id, agent in pending_ids:
+            response_msg = self.handoff_queue.wait_for_response(
+                message_id, timeout=self.thread_response_timeout
+            )
+            if response_msg is None:
+                branch_results.append(
+                    ParallelResult(
+                        agent=agent.name,
+                        response="[Timeout]",
+                        processing_time=self.thread_response_timeout,
+                        success=False,
+                        error="Timeout waiting for response",
+                    )
+                )
+                continue
+
+            payload = response_msg.content or {}
+            pending = payload.get("pending_handoff")
+            if pending:
+                pending_handoffs.append((agent.name, pending))
+
+            branch_results.append(
+                ParallelResult(
+                    agent=agent.name,
+                    response=payload.get("response", ""),
+                    processing_time=float(payload.get("processing_time", 0.0)),
+                    success=payload.get("success", True),
+                    error=payload.get("error"),
+                )
+            )
+
+        return branch_results, pending_handoffs
 
     def get_agent(self, name: str) -> Optional[Agent]:
         """Get an agent by name."""
@@ -283,29 +442,35 @@ class Agency:
 
         while continue_processing and handoff_count < self.max_handoffs:
             # Process with current agent
-            if use_tools and tools is not None:
-                response = current_agent.process_with_tools(
+            handoff_data = None
+            if self.use_thread_pool:
+                response, _, _, _, handoff_data = self._run_agent_threadpool_call(
+                    current_agent,
                     current_message,
-                    tools=tool_list,
-                    tool_executor=tool_executor,
-                    max_turns=self.max_turns,
-                    on_max_turns_reached=on_max_turns_reached,
-                    event_callback=emit,
+                    emit,
                 )
             else:
-                response = current_agent.process(current_message)
+                if use_tools and tools is not None:
+                    response = current_agent.process_with_tools(
+                        current_message,
+                        tools=tool_list,
+                        tool_executor=tool_executor,
+                        max_turns=self.max_turns,
+                        on_max_turns_reached=on_max_turns_reached,
+                        event_callback=emit,
+                    )
+                else:
+                    response = current_agent.process(current_message)
+                if tool_executor and hasattr(tool_executor, "_pending_handoff"):
+                    handoff_data = tool_executor._pending_handoff
+                    tool_executor._pending_handoff = None  # clear for next turn
+
             emit({
                 "type": "agent_progress",
                 "agent": current_agent.name,
                 "event": "response_complete",
                 "preview": str(response)[:200]
             })
-
-            # Check if a handoff was requested via tool execution
-            handoff_data = None
-            if tool_executor and hasattr(tool_executor, '_pending_handoff'):
-                handoff_data = tool_executor._pending_handoff
-                tool_executor._pending_handoff = None  # clear for next turn
 
             # If no handoff requested, we're done processing
             if not handoff_data:
@@ -367,61 +532,77 @@ class Agency:
 
                 branch_message = build_branch_message()
                 active_tools = tool_list
-
-                def run_branch(agent: Agent, branch_executor: Any) -> ParallelResult:
-                    from rich.console import Console
-                    console = Console()
-                    console.print(f"[bright_yellow]▶ Starting parallel branch: [bold]{agent.name}[/bold][/bright_yellow]")
-                    emit({"type": "parallel_branch_start", "agent": agent.name})
-                    start_branch = time.time()
-                    success = True
-                    error = None
-                    try:
-                        branch_response = agent.process_with_tools(
-                            branch_message,
-                            tools=active_tools,
-                            tool_executor=branch_executor,
-                            max_turns=self.max_turns,
-                            on_max_turns_reached=on_max_turns_reached,
-                            event_callback=emit,
-                        )
-                    except Exception as e:  # pragma: no cover - defensive
-                        branch_response = str(e)
-                        success = False
-                        error = str(e)
-                    processing_time = time.time() - start_branch
-                    from rich.console import Console
-                    console = Console()
-                    status_icon = "✓" if success else "✗"
-                    status_color = "green" if success else "red"
-                    console.print(f"[{status_color}]{status_icon} Completed parallel branch: [bold]{agent.name}[/bold] ({processing_time:.2f}s)[/{status_color}]")
-                    emit({
-                        "type": "parallel_branch_end",
-                        "agent": agent.name,
-                        "success": success,
-                        "duration": processing_time,
-                    })
-                    # Clear any nested handoff request from the branch; parallel branches don't cascade handoffs
-                    if hasattr(branch_executor, "_pending_handoff"):
-                        if branch_executor._pending_handoff:
-                            console.print(f"[yellow]WARNING: {agent.name} attempted nested handoff (ignored in parallel mode)[/yellow]")
-                        branch_executor._pending_handoff = None
-                    return ParallelResult(
-                        agent=agent.name,
-                        response=branch_response,
-                        processing_time=processing_time,
-                        success=success,
-                        error=error,
-                    )
-
                 branch_results: List[ParallelResult] = []
-                with futures.ThreadPoolExecutor(max_workers=len(allowed_targets)) as executor_pool:
-                    future_map = {
-                        executor_pool.submit(run_branch, agent, tool_executor.fork(name=f"{agent.name}-branch")): agent.name
-                        for agent in allowed_targets
-                    }
-                    for future in futures.as_completed(future_map):
-                        branch_results.append(future.result())
+
+                if self.use_thread_pool:
+                    branch_results, pending_handoffs = self._run_parallel_threadpool(
+                        allowed_targets,
+                        branch_message,
+                        emit,
+                    )
+                    from rich.console import Console
+                    console = Console()
+                    for agent_name, pending in pending_handoffs:
+                        console.print(f"[yellow]WARNING: {agent_name} attempted nested handoff (ignored in parallel mode)[/yellow]")
+                        emit({
+                            "type": "warning",
+                            "warning": f"{agent_name} attempted nested handoff (ignored in parallel mode)",
+                            "from_agent": agent_name,
+                        })
+                else:
+                    def run_branch(agent: Agent, branch_executor: Any) -> ParallelResult:
+                        from rich.console import Console
+                        console = Console()
+                        console.print(f"[bright_yellow]▶ Starting parallel branch: [bold]{agent.name}[/bold][/bright_yellow]")
+                        emit({"type": "parallel_branch_start", "agent": agent.name})
+                        start_branch = time.time()
+                        success = True
+                        error = None
+                        try:
+                            branch_response = agent.process_with_tools(
+                                branch_message,
+                                tools=active_tools,
+                                tool_executor=branch_executor,
+                                max_turns=self.max_turns,
+                                on_max_turns_reached=on_max_turns_reached,
+                                event_callback=emit,
+                            )
+                        except Exception as e:  # pragma: no cover - defensive
+                            branch_response = str(e)
+                            success = False
+                            error = str(e)
+                        processing_time = time.time() - start_branch
+                        from rich.console import Console
+                        console = Console()
+                        status_icon = "✓" if success else "✗"
+                        status_color = "green" if success else "red"
+                        console.print(f"[{status_color}]{status_icon} Completed parallel branch: [bold]{agent.name}[/bold] ({processing_time:.2f}s)[/{status_color}]")
+                        emit({
+                            "type": "parallel_branch_end",
+                            "agent": agent.name,
+                            "success": success,
+                            "duration": processing_time,
+                        })
+                        # Clear any nested handoff request from the branch; parallel branches don't cascade handoffs
+                        if hasattr(branch_executor, "_pending_handoff"):
+                            if branch_executor._pending_handoff:
+                                console.print(f"[yellow]WARNING: {agent.name} attempted nested handoff (ignored in parallel mode)[/yellow]")
+                            branch_executor._pending_handoff = None
+                        return ParallelResult(
+                            agent=agent.name,
+                            response=branch_response,
+                            processing_time=processing_time,
+                            success=success,
+                            error=error,
+                        )
+
+                    with futures.ThreadPoolExecutor(max_workers=len(allowed_targets)) as executor_pool:
+                        future_map = {
+                            executor_pool.submit(run_branch, agent, tool_executor.fork(name=f"{agent.name}-branch")): agent.name
+                            for agent in allowed_targets
+                        }
+                        for future in futures.as_completed(future_map):
+                            branch_results.append(future.result())
 
                 parallel_results.extend(branch_results)
 

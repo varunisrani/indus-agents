@@ -28,6 +28,8 @@ class ImprovedAgencyOptions:
     coder_prompt_file: Optional[str] = None
     planner_prompt_file: Optional[str] = None
     critic_prompt_file: Optional[str] = None
+    use_thread_pool: bool = False
+    thread_response_timeout: float = 600.0
 
 
 def _register_default_tools() -> None:
@@ -101,7 +103,7 @@ def create_improved_agency(opts: ImprovedAgencyOptions = ImprovedAgencyOptions()
         config=AgentConfig(
             model=opts.model,
             provider=opts.provider,
-            temperature=0.5,
+            temperature=1,
             max_tokens=8000,
         ),
         prompt_file=opts.coder_prompt_file,
@@ -114,7 +116,7 @@ def create_improved_agency(opts: ImprovedAgencyOptions = ImprovedAgencyOptions()
         config=AgentConfig(
             model=opts.model,
             provider=opts.provider,
-            temperature=0.7,
+            temperature=1,
             max_tokens=16000,
         ),
         prompt_file=opts.planner_prompt_file,
@@ -127,7 +129,7 @@ def create_improved_agency(opts: ImprovedAgencyOptions = ImprovedAgencyOptions()
         config=AgentConfig(
             model=opts.model,
             provider=opts.provider,
-            temperature=0.4,
+            temperature=1,
             max_tokens=8000,
         ),
         prompt_file=opts.critic_prompt_file,
@@ -151,6 +153,8 @@ def create_improved_agency(opts: ImprovedAgencyOptions = ImprovedAgencyOptions()
         max_turns=opts.max_turns,
         tools=tools,
         tool_executor=registry,
+        use_thread_pool=opts.use_thread_pool,
+        thread_response_timeout=opts.thread_response_timeout,
     )
 
     set_current_agency(agency)

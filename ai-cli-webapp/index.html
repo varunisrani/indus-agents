@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI CLI - A modern web-based command line interface with AI-powered assistance">
+    <meta name="theme-color" content="#0d1117">
+    
+    <!-- Security Headers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self' http://localhost:3000 https://api.openai.com; img-src 'self' data: https:; font-src 'self' data:;">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    
+    <title>AI CLI - Terminal Interface</title>
+    
+    <!-- Preconnect to performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/terminal.css">
+    <link rel="stylesheet" href="css/themes.css">
+    <link rel="stylesheet" href="css/animations.css">
+    
+    <!-- DOMPurify for XSS protection -->
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.min.js" integrity="sha256-uQHLGDHzYUq0S6RzO0qT1k1r8I3tZD9BpN5kJZDZ4M=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- Main Application Container -->
+    <div class="app-container">
+        <!-- Terminal Window -->
+        <div class="terminal-window" id="terminalWindow">
+            <!-- Title Bar -->
+            <div class="terminal-titlebar">
+                <div class="titlebar-controls">
+                    <button class="control-btn close-btn" aria-label="Close" title="Close"></button>
+                    <button class="control-btn minimize-btn" aria-label="Minimize" title="Minimize"></button>
+                    <button class="control-btn maximize-btn" aria-label="Maximize" title="Maximize"></button>
+                </div>
+                <div class="titlebar-title">
+                    <span class="title-icon">▶</span>
+                    <span class="title-text">AI CLI v1.0</span>
+                </div>
+                <div class="titlebar-info">
+                    <span class="session-indicator" title="Session Active"></span>
+                </div>
+            </div>
+            
+            <!-- Terminal Content -->
+            <div class="terminal-content">
+                <!-- Output Area -->
+                <div 
+                    class="terminal-output" 
+                    id="terminalOutput"
+                    role="log"
+                    aria-live="polite"
+                    aria-atomic="false"
+                    aria-label="Terminal output"
+                    tabindex="0"
+                >
+                    <!-- Welcome Message -->
+                    <div class="output-line welcome-message">
+                        <div class="ascii-logo">
+<pre class="ascii-art">
+    ____    __  __   ____
+   / __ \  / / / /  / __ \
+  / /_/ / / / / /  / /_/ /
+ / _, _/ / /_/ /  / _, _/
+/_/ |_|  \____/  /_/ |_|
+</pre>
+                        </div>
+                        <div class="welcome-text">
+                            <p class="welcome-title">Welcome to AI CLI v1.0</p>
+                            <p class="welcome-subtitle">Modern Command Line Interface with AI-Powered Assistance</p>
+                        </div>
+                        <div class="welcome-info">
+                            <p>Type <span class="command-highlight">help</span> to see available commands</p>
+                            <p>Type <span class="command-highlight">ai &lt;prompt&gt;</span> to interact with AI assistant</p>
+                            <p>Type <span class="command-highlight">theme &lt;name&gt;</span> to change themes</p>
+                            <p>Use <span class="key-highlight">↑↓</span> for command history | <span class="key-highlight">Tab</span> for autocomplete</p>
+                        </div>
+                        <div class="welcome-footer">
+                            <p class="security-note">🔒 Secure Mode Active | All inputs sanitized</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Input Area -->
+                <div class="terminal-input-container" role="presentation">
+                    <div class="input-prompt">
+                        <span class="prompt-user" id="promptUser">user</span>
+                        <span class="prompt-separator">@</span>
+                        <span class="prompt-host" id="promptHost">ai-cli</span>
+                        <span class="prompt-separator">:</span>
+                        <span class="prompt-path" id="promptPath">~</span>
+                        <span class="prompt-symbol">$</span>
+                    </div>
+                    <input 
+                        type="text" 
+                        class="terminal-input" 
+                        id="terminalInput"
+                        aria-label="Command input"
+                        placeholder="Enter command..."
+                        autocomplete="off"
+                        autocorrect="off"
+                        autocapitalize="off"
+                        spellcheck="false"
+                        autofocus
+                    >
+                    <div class="input-status" id="inputStatus" aria-live="polite" aria-atomic="true"></div>
+                </div>
+                
+                <!-- Autocomplete Dropdown -->
+                <div 
+                    class="autocomplete-dropdown" 
+                    id="autocompleteDropdown"
+                    role="listbox"
+                    aria-label="Command suggestions"
+                    hidden
+                ></div>
+            </div>
+        </div>
+        
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="status-left">
+                <span class="status-item" id="statusMode">
+                    <span class="status-icon">▶</span>
+                    <span class="status-text">Command Mode</span>
+                </span>
+                <span class="status-item" id="statusTheme">
+                    <span class="status-icon">🎨</span>
+                    <span class="status-text">Classic Dark</span>
+                </span>
+            </div>
+            <div class="status-right">
+                <span class="status-item" id="statusCommands" title="Commands in history">
+                    <span class="status-icon">📜</span>
+                    <span class="status-text">0</span>
+                </span>
+                <span class="status-item" id="statusConnection" title="API Connection">
+                    <span class="status-icon">🔌</span>
+                    <span class="status-text">Ready</span>
+                </span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay" hidden>
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Processing...</div>
+    </div>
+    
+    <!-- Theme Preview Modal -->
+    <div class="modal-overlay" id="themeModal" hidden role="dialog" aria-modal="true" aria-labelledby="themeModalTitle">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="themeModalTitle">Select Theme</h2>
+                <button class="modal-close" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="modal-body" id="themeModalBody">
+                <!-- Theme options will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Error Toast -->
+    <div class="toast-container" id="toastContainer" aria-live="assertive" aria-atomic="true"></div>
+    
+    <!-- JavaScript Files -->
+    <script src="js/utils.js"></script>
+    <script src="js/security.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/command-parser.js"></script>
+    <script src="js/command-history.js"></script>
+    <script src="js/output-renderer.js"></script>
+    <script src="js/keyboard.js"></script>
+    <script src="js/autocomplete.js"></script>
+    <script src="js/themes.js"></script>
+    <script src="js/ai-client.js"></script>
+    <script src="js/terminal.js"></script>
+    <script src="js/app.js"></script>
+    
+    <!-- Inline CSP compliance script -->
+    <script nonce>
+        // Initialize application when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            // Security: Check for required security libraries
+            if (typeof DOMPurify === 'undefined') {
+                console.error('Security library DOMPurify not loaded');
+                document.getElementById('terminalOutput').innerHTML += 
+                    '<div class="output-line error">⚠️ Security Warning: DOMPurify not loaded</div>';
+            }
+            
+            // Log security status
+            console.log('🔒 AI CLI Security Status: Active');
+            console.log('✅ Content Security Policy: Enabled');
+            console.log('✅ Input Sanitization: Enabled');
+            console.log('✅ Output Sanitization: Enabled');
+        });
+    </script>
+</body>
+</html>

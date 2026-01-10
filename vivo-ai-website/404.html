@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Page not found - Vivo AI">
+  <title>404 - Page Not Found | Vivo AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <style>
+    .error-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: var(--gradient-dark);
+      color: white;
+      padding: var(--space-8);
+    }
+    .error-content {
+      max-width: 600px;
+    }
+    .error-code {
+      font-size: 120px;
+      font-weight: 800;
+      line-height: 1;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: var(--space-4);
+    }
+    .error-title {
+      font-size: var(--text-4xl);
+      font-weight: 700;
+      margin-bottom: var(--space-4);
+      color: white;
+    }
+    .error-message {
+      font-size: var(--text-lg);
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: var(--space-8);
+      line-height: 1.6;
+    }
+    .error-actions {
+      display: flex;
+      gap: var(--space-4);
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .error-links {
+      margin-top: var(--space-12);
+    }
+    .error-links h4 {
+      color: white;
+      margin-bottom: var(--space-4);
+    }
+    .quick-links {
+      display: flex;
+      gap: var(--space-4);
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .quick-links a {
+      color: rgba(255, 255, 255, 0.8);
+      padding: var(--space-2) var(--space-4);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: var(--radius-lg);
+      transition: all var(--transition-base);
+    }
+    .quick-links a:hover {
+      color: white;
+      border-color: var(--primary-light);
+      background: rgba(37, 99, 235, 0.2);
+    }
+    @media (max-width: 768px) {
+      .error-code {
+        font-size: 80px;
+      }
+      .error-title {
+        font-size: var(--text-3xl);
+      }
+      .error-actions {
+        flex-direction: column;
+      }
+      .error-actions .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="error-page">
+    <div class="error-content">
+      <div class="error-code">404</div>
+      <h1 class="error-title">Page Not Found</h1>
+      <p class="error-message">
+        Sorry, we couldn't find the page you're looking for. The page may have been moved, deleted, or there might be a typo in the URL.
+      </p>
+      
+      <div class="error-actions">
+        <a href="index.html" class="btn btn-primary btn-lg">Go to Homepage</a>
+        <a href="contact.html" class="btn btn-secondary btn-lg">Contact Us</a>
+      </div>
+
+      <div class="error-links">
+        <h4>Quick Links</h4>
+        <div class="quick-links">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="products.html">Products</a>
+          <a href="research.html">Research</a>
+          <a href="careers.html">Careers</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const referrer = document.referrer;
+      const homepageBtn = document.querySelector('a[href="index.html"]');
+      
+      if (referrer && !referrer.includes(window.location.hostname)) {
+        homepageBtn.textContent = 'Go to Homepage';
+      } else {
+        homepageBtn.textContent = 'Go Back';
+        homepageBtn.onclick = function(e) {
+          e.preventDefault();
+          window.history.back();
+        };
+      }
+    });
+  </script>
+</body>
+</html>
