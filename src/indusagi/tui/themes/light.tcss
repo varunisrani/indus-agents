@@ -1,0 +1,118 @@
+/*
+ * Indus CLI - Light Theme
+ *
+ * A clean light theme for daytime use.
+ */
+
+/* Light theme color overrides */
+$primary: #d97706;
+$secondary: #6b7280;
+$accent: #2563eb;
+$success: #16a34a;
+$warning: #ca8a04;
+$error: #dc2626;
+$info: #0891b2;
+
+$background: #ffffff;
+$background-panel: #f9fafb;
+$background-element: #f3f4f6;
+$background-hover: #e5e7eb;
+$background-selected: #dbeafe;
+
+$text: #1f2937;
+$text-muted: #6b7280;
+$text-strong: #111827;
+
+$border: #d1d5db;
+$border-active: #d97706;
+$border-subtle: #e5e7eb;
+
+/* Syntax highlighting */
+$syntax-comment: #6b7280;
+$syntax-keyword: #7c3aed;
+$syntax-string: #16a34a;
+$syntax-number: #d97706;
+$syntax-function: #2563eb;
+$syntax-type: #ca8a04;
+$syntax-variable: #dc2626;
+
+/* Light theme screen */
+Screen {
+    background: $background;
+    color: $text;
+}
+
+Header {
+    background: $background-panel;
+    color: $text;
+    border-bottom: solid $border;
+}
+
+Footer {
+    background: $background-panel;
+    border-top: solid $border;
+}
+
+/* Light theme messages */
+.message-user {
+    background: #eff6ff;
+    border-left: tall $accent;
+}
+
+.message-assistant {
+    background: #fffbeb;
+    border-left: tall $primary;
+}
+
+.message-tool {
+    background: #fefce8;
+    border-left: tall $warning;
+}
+
+.message-error {
+    background: #fef2f2;
+    border-left: tall $error;
+}
+
+/* Light input styling */
+Input {
+    background: $background;
+    border: tall $border;
+}
+
+Input:focus {
+    border: tall $primary;
+}
+
+/* Light button styling */
+Button {
+    background: $background-element;
+    border: tall $border;
+}
+
+Button.-primary {
+    background: $primary;
+    color: #ffffff;
+}
+
+/* Light sidebar */
+.sidebar {
+    background: $background-panel;
+    border-left: solid $border;
+}
+
+/* Light command palette */
+.command-palette {
+    background: $background;
+    border: thick $primary;
+}
+
+.command-item.-selected {
+    background: $background-selected;
+}
+
+/* Light tool execution */
+.tool-execution {
+    background: $background-element;
+    border: solid $border;
+}

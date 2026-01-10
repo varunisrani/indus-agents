@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(c:/Users/Varun israni/claudegc/frontend/**)",
+      "Read(c:/Users/Varun israni/claudegc/claude_code_new/spec_workflow/**)",
+      "mcp__supabase__list_projects",
+      "mcp__supabase__list_tables",
+      "mcp__supabase__execute_sql",
+      "mcp__figma-dev-mode-mcp-server__get_code",
+      "mcp__figma-dev-mode-mcp-server__get_screenshot",
+      "mcp__figma-dev-mode-mcp-server__get_metadata",
+      "WebFetch(domain:localhost)",
+      "mcp__supabase__get_project",
+      "mcp__supabase__search_docs",
+      "Bash(findstr:*)",
+      "Bash(find:*)"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "supabase"
+  ],
+  "env": {
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "glm-4-7",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "glm-4.7",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "glm-4.6",
+    "ANTHROPIC_AUTH_TOKEN": "ac05ab732c1f4dd59ccd58713426f263.wAl6LIMIWAtdUn40",
+    "ANTHROPIC_BASE_URL": "https://api.z.ai/api/anthropic"
+  }
+  
+}

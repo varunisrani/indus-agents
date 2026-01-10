@@ -1,0 +1,632 @@
+/*
+ * Indus CLI - Base Theme
+ *
+ * Core styling variables and base component styles.
+ * This file is always loaded first, then theme-specific files override variables.
+ */
+
+/* ============================================================================
+   CSS Variables (overridden by theme files)
+   ============================================================================ */
+
+$primary: #fab283;
+$secondary: #a0a0a0;
+$accent: #61afef;
+$success: #98c379;
+$warning: #e5c07b;
+$error: #e06c75;
+$info: #56b6c2;
+
+$background: #0a0a0a;
+$background-panel: #141414;
+$background-element: #1a1a1a;
+$background-hover: #252525;
+$background-selected: #2a2a2a;
+
+$text: #d4d4d4;
+$text-muted: #808080;
+$text-strong: #ffffff;
+
+$border: #333333;
+$border-active: #fab283;
+$border-subtle: #222222;
+
+/* Syntax colors */
+$syntax-comment: #6a737d;
+$syntax-keyword: #c678dd;
+$syntax-string: #98c379;
+$syntax-number: #d19a66;
+$syntax-function: #61afef;
+$syntax-type: #e5c07b;
+$syntax-variable: #e06c75;
+
+/* ============================================================================
+   Base Styles
+   ============================================================================ */
+
+/* Screen */
+Screen {
+    background: $background;
+    color: $text;
+}
+
+/* Header */
+Header {
+    background: $background-panel;
+    color: $text;
+    dock: top;
+    height: 3;
+}
+
+/* Footer */
+Footer {
+    background: $background-panel;
+    color: $text-muted;
+    dock: bottom;
+    height: 1;
+}
+
+Footer > .footer--key {
+    background: $background-element;
+    color: $primary;
+}
+
+Footer > .footer--description {
+    color: $text-muted;
+}
+
+/* ============================================================================
+   Containers
+   ============================================================================ */
+
+#main-container {
+    width: 100%;
+    height: 100%;
+}
+
+.panel {
+    background: $background-panel;
+    border: solid $border;
+    padding: 1;
+}
+
+.panel-title {
+    background: $background-element;
+    color: $text-strong;
+    padding: 0 1;
+    text-style: bold;
+}
+
+/* Horizontal and Vertical containers */
+Horizontal {
+    height: auto;
+}
+
+Vertical {
+    width: 100%;
+}
+
+/* ============================================================================
+   Input Components
+   ============================================================================ */
+
+Input {
+    background: $background-element;
+    color: $text;
+    border: tall $border;
+    padding: 0 1;
+    height: 3;
+}
+
+Input:focus {
+    border: tall $border-active;
+}
+
+Input.-invalid {
+    border: tall $error;
+}
+
+Input > .input--placeholder {
+    color: $text-muted;
+}
+
+Input > .input--cursor {
+    background: $primary;
+    color: $background;
+}
+
+/* TextArea */
+TextArea {
+    background: $background-element;
+    color: $text;
+    border: solid $border;
+    padding: 1;
+}
+
+TextArea:focus {
+    border: solid $border-active;
+}
+
+/* ============================================================================
+   Buttons
+   ============================================================================ */
+
+Button {
+    background: $background-element;
+    color: $text;
+    border: tall $border;
+    min-width: 10;
+    height: 3;
+    padding: 0 2;
+}
+
+Button:hover {
+    background: $background-hover;
+    border: tall $border-active;
+}
+
+Button:focus {
+    background: $background-hover;
+    border: tall $border-active;
+    text-style: bold;
+}
+
+Button.-primary {
+    background: $primary;
+    color: $background;
+    border: tall $primary;
+}
+
+Button.-primary:hover {
+    background: $accent;
+    border: tall $accent;
+}
+
+Button.-success {
+    background: $success;
+    color: $background;
+}
+
+Button.-error {
+    background: $error;
+    color: $background;
+}
+
+/* ============================================================================
+   Labels and Text
+   ============================================================================ */
+
+Label {
+    color: $text;
+    padding: 0 1;
+}
+
+.label-muted {
+    color: $text-muted;
+}
+
+.label-strong {
+    color: $text-strong;
+    text-style: bold;
+}
+
+.label-primary {
+    color: $primary;
+}
+
+.label-success {
+    color: $success;
+}
+
+.label-warning {
+    color: $warning;
+}
+
+.label-error {
+    color: $error;
+}
+
+Static {
+    color: $text;
+}
+
+/* ============================================================================
+   Lists and Data Tables
+   ============================================================================ */
+
+ListView {
+    background: $background-panel;
+    border: solid $border;
+}
+
+ListView > ListItem {
+    background: transparent;
+    color: $text;
+    padding: 0 1;
+}
+
+ListView > ListItem:hover {
+    background: $background-hover;
+}
+
+ListView > ListItem.-selected {
+    background: $background-selected;
+    color: $text-strong;
+}
+
+DataTable {
+    background: $background-panel;
+    border: solid $border;
+}
+
+DataTable > .datatable--header {
+    background: $background-element;
+    color: $text-strong;
+    text-style: bold;
+}
+
+DataTable > .datatable--cursor {
+    background: $primary;
+    color: $background;
+}
+
+/* ============================================================================
+   Scrollbars
+   ============================================================================ */
+
+/* Scrollbar styles - using simple selectors for Textual compatibility */
+Scrollbar {
+    background: $background-panel;
+}
+
+ScrollBar {
+    background: $border;
+}
+
+/* ============================================================================
+   Tabs
+   ============================================================================ */
+
+Tabs {
+    background: $background-panel;
+    border-bottom: solid $border;
+}
+
+Tab {
+    background: transparent;
+    color: $text-muted;
+    padding: 0 2;
+}
+
+Tab:hover {
+    color: $text;
+    background: $background-hover;
+}
+
+Tab.-active {
+    color: $primary;
+    text-style: bold;
+    border-bottom: tall $primary;
+}
+
+/* ============================================================================
+   Dialogs / Modals
+   ============================================================================ */
+
+ModalScreen {
+    align: center middle;
+}
+
+.dialog {
+    background: $background-panel;
+    border: thick $border;
+    padding: 1 2;
+    width: 60;
+    max-height: 80%;
+}
+
+.dialog-title {
+    text-style: bold;
+    color: $text-strong;
+    padding-bottom: 1;
+    border-bottom: solid $border;
+    margin-bottom: 1;
+}
+
+.dialog-body {
+    padding: 1 0;
+}
+
+.dialog-buttons {
+    dock: bottom;
+    height: auto;
+    padding-top: 1;
+    border-top: solid $border;
+    align: right middle;
+}
+
+/* ============================================================================
+   Message Components (Chat UI)
+   ============================================================================ */
+
+.message {
+    padding: 1;
+    margin-bottom: 1;
+    border-left: tall $border;
+}
+
+.message-user {
+    border-left: tall $accent;
+    background: $background-element;
+}
+
+.message-assistant {
+    border-left: tall $primary;
+    background: $background-panel;
+}
+
+.message-tool {
+    border-left: tall $warning;
+    background: $background-element;
+}
+
+.message-error {
+    border-left: tall $error;
+    background: #1a0a0a;
+}
+
+.message-role {
+    color: $text-muted;
+    text-style: bold;
+    padding-bottom: 1;
+}
+
+.message-content {
+    color: $text;
+}
+
+.message-timestamp {
+    color: $text-muted;
+    text-align: right;
+}
+
+/* ============================================================================
+   Tool Execution Display
+   ============================================================================ */
+
+.tool-execution {
+    background: $background-element;
+    border: solid $border;
+    padding: 1;
+    margin: 1 0;
+}
+
+.tool-header {
+    color: $warning;
+    text-style: bold;
+}
+
+.tool-args {
+    color: $text-muted;
+    padding-left: 2;
+}
+
+.tool-result {
+    color: $success;
+    padding-left: 2;
+    margin-top: 1;
+}
+
+.tool-error {
+    color: $error;
+    padding-left: 2;
+}
+
+.tool-spinner {
+    color: $primary;
+}
+
+/* ============================================================================
+   Sidebar
+   ============================================================================ */
+
+.sidebar {
+    width: 30;
+    background: $background-panel;
+    border-left: solid $border;
+    dock: right;
+}
+
+.sidebar-section {
+    padding: 1;
+    border-bottom: solid $border-subtle;
+}
+
+.sidebar-title {
+    color: $text-muted;
+    text-style: bold;
+    padding-bottom: 1;
+}
+
+/* ============================================================================
+   Session List
+   ============================================================================ */
+
+.session-item {
+    padding: 1;
+    border-bottom: solid $border-subtle;
+}
+
+.session-item:hover {
+    background: $background-hover;
+}
+
+.session-item.-active {
+    background: $background-selected;
+    border-left: tall $primary;
+}
+
+.session-name {
+    color: $text-strong;
+    text-style: bold;
+}
+
+.session-meta {
+    color: $text-muted;
+}
+
+/* ============================================================================
+   Command Palette
+   ============================================================================ */
+
+.command-palette {
+    width: 60;
+    max-height: 50%;
+    background: $background-panel;
+    border: thick $border-active;
+}
+
+.command-input {
+    background: $background-element;
+    border-bottom: solid $border;
+}
+
+.command-list {
+    padding: 1;
+}
+
+.command-item {
+    padding: 0 1;
+}
+
+.command-item:hover {
+    background: $background-hover;
+}
+
+.command-item.-selected {
+    background: $background-selected;
+    color: $primary;
+}
+
+.command-title {
+    color: $text;
+}
+
+.command-keybind {
+    color: $text-muted;
+    text-align: right;
+}
+
+/* ============================================================================
+   Prompt Input Area
+   ============================================================================ */
+
+.prompt-container {
+    dock: bottom;
+    height: auto;
+    min-height: 5;
+    background: $background-panel;
+    border-top: solid $border;
+    padding: 1;
+}
+
+.prompt-input {
+    background: $background-element;
+    border: solid $border;
+    min-height: 3;
+}
+
+.prompt-input:focus {
+    border: solid $border-active;
+}
+
+.prompt-hint {
+    color: $text-muted;
+    padding-top: 1;
+}
+
+/* ============================================================================
+   Status Indicators
+   ============================================================================ */
+
+.status-processing {
+    color: $primary;
+}
+
+.status-success {
+    color: $success;
+}
+
+.status-error {
+    color: $error;
+}
+
+.status-idle {
+    color: $text-muted;
+}
+
+/* Loading spinner */
+.loading {
+    color: $primary;
+}
+
+/* ============================================================================
+   Toast / Notifications
+   ============================================================================ */
+
+Toast {
+    background: $background-panel;
+    border: solid $border;
+    padding: 1 2;
+}
+
+Toast.-information {
+    border-left: tall $info;
+}
+
+Toast.-success {
+    border-left: tall $success;
+}
+
+Toast.-warning {
+    border-left: tall $warning;
+}
+
+Toast.-error {
+    border-left: tall $error;
+}
+
+/* ============================================================================
+   Home Screen
+   ============================================================================ */
+
+.home-container {
+    align: center middle;
+    padding: 2;
+}
+
+.home-logo {
+    text-align: center;
+    color: $primary;
+    text-style: bold;
+    padding-bottom: 2;
+}
+
+.home-tagline {
+    text-align: center;
+    color: $text-muted;
+    padding-bottom: 2;
+}
+
+.home-actions {
+    align: center middle;
+}
+
+/* ============================================================================
+   Markdown / Rich Text
+   ============================================================================ */
+
+/* Note: Markdown is rendered by Rich, not Textual CSS */
+.markdown {
+    padding: 1;
+}

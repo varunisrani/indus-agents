@@ -922,6 +922,52 @@ def create_agent_cmd(
 
 
 # ============================================================================
+# TUI Command
+# ============================================================================
+
+@app.command()
+def tui(
+    model: Optional[str] = typer.Option(None, "--model", "-m", help="Model to use (e.g., gpt-4o)"),
+    agent: Optional[str] = typer.Option(None, "--agent", "-a", help="Agent to use"),
+    session: Optional[str] = typer.Option(None, "--session", "-s", help="Session ID to resume"),
+    theme: str = typer.Option("dark", "--theme", "-t", help="Theme (dark, light, catppuccin, dracula)"),
+):
+    """
+    Launch the interactive TUI (Terminal User Interface).
+
+    A modern, feature-rich terminal interface for IndusAGI featuring:
+    - Real-time streaming responses
+    - Tool execution visualization
+    - Multi-session management
+    - Customizable themes
+    - Command palette (Ctrl+P)
+
+    Examples:
+        indus tui
+        indus tui --model gpt-4o
+        indus tui --theme catppuccin
+        indus tui -s ses_abc123  # Resume session
+    """
+    try:
+        from indusagi.tui.app import run_tui
+
+        console.print("[bold cyan]Launching Indus CLI TUI...[/bold cyan]")
+        run_tui(
+            model=model,
+            agent=agent,
+            session=session,
+            theme=theme,
+        )
+    except ImportError as e:
+        console.print(f"[error]TUI not available. Install textual: pip install textual[/error]")
+        console.print(f"[dim]Error: {e}[/dim]")
+        raise typer.Exit(1)
+    except Exception as e:
+        console.print(f"[error]Error launching TUI: {e}[/error]")
+        raise typer.Exit(1)
+
+
+# ============================================================================
 # Main Entry Point
 # ============================================================================
 

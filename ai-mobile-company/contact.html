@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - NexusAI</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .contact-info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-info-item .icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .contact-info-item h4 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .contact-info-item p {
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        .contact-form {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            background: var(--dark-bg);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 10px;
+            color: var(--text-light);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            border-radius: 15px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .faq-item summary {
+            padding: 1.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .faq-item summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .faq-item summary::after {
+            content: '+';
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .faq-item[open] summary::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-item[open] summary {
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .faq-item p {
+            padding: 0 1.5rem 1.5rem;
+            color: var(--text-gray);
+            line-height: 1.8;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            width: 50px;
+            height: 50px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.5rem;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--gradient-1);
+            transform: translateY(-5px);
+        }
+
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="index.html" class="logo">NexusAI</a>
+            <label class="menu-toggle" for="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+            <input type="checkbox" id="mobile-menu">
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="contact.html" class="cta-button">Get Started</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" style="min-height: 60vh;">
+        <div class="hero-content">
+            <h1>Contact Us</h1>
+            <p>Let's discuss how AI can transform your mobile application</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section>
+        <div class="section-title">
+            <h2>Get in Touch</h2>
+            <p>We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+        </div>
+
+        <div class="contact-grid">
+            <!-- Contact Form -->
+            <div class="contact-form">
+                <form>
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" required placeholder="John Doe">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required placeholder="john@example.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="company">Company Name</label>
+                        <input type="text" id="company" name="company" placeholder="Your Company">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject">Subject *</label>
+                        <select id="subject" name="subject" required>
+                            <option value="">Select a subject</option>
+                            <option value="sales">Sales Inquiry</option>
+                            <option value="support">Technical Support</option>
+                            <option value="partnership">Partnership</option>
+                            <option value="careers">Careers</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message *</label>
+                        <textarea id="message" name="message" required placeholder="Tell us about your project or inquiry..."></textarea>
+                    </div>
+
+                    <button type="submit" class="cta-button" style="width: 100%; border: none; cursor: pointer;">Send Message</button>
+                </form>
+            </div>
+
+            <!-- Contact Information -->
+            <div>
+                <div class="contact-info-item">
+                    <div class="icon">📍</div>
+                    <div>
+                        <h4>Our Location</h4>
+                        <p>123 AI Innovation Drive<br>Tech City, TC 94043<br>United States</p>
+                    </div>
+                </div>
+
+                <div class="contact-info-item">
+                    <div class="icon">📞</div>
+                    <div>
+                        <h4>Phone Number</h4>
+                        <p>+1 (555) 123-4567<br>Mon-Fri: 9:00 AM - 6:00 PM PST</p>
+                    </div>
+                </div>
+
+                <div class="contact-info-item">
+                    <div class="icon">✉️</div>
+                    <div>
+                        <h4>Email Address</h4>
+                        <p>General: hello@nexusai.com<br>Support: support@nexusai.com<br>Sales: sales@nexusai.com</p>
+                    </div>
+                </div>
+
+                <div class="contact-info-item">
+                    <div class="icon">💬</div>
+                    <div>
+                        <h4>Live Chat</h4>
+                        <p>Chat with our team<br>Available 24/7 for existing customers</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 3rem;">
+                    <h4 style="margin-bottom: 1rem; color: var(--primary-color);">Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#" title="Twitter">𝕏</a>
+                        <a href="#" title="LinkedIn">in</a>
+                        <a href="#" title="GitHub">⚡</a>
+                        <a href="#" title="YouTube">▶</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section style="background: var(--card-bg); border-radius: 20px; padding: 3rem;">
+        <div class="section-title">
+            <h2>Frequently Asked Questions</h2>
+            <p>Quick answers to common questions</p>
+        </div>
+
+        <details class="faq-item">
+            <summary>How quickly can I integrate NexusAI into my app?</summary>
+            <p>Most developers can integrate our SDKs within a few hours. We provide comprehensive documentation, sample code, and quick-start guides to get you up and running quickly. Complex implementations may take 1-2 weeks depending on your requirements.</p>
+        </details>
+
+        <details class="faq-item">
+            <summary>Do you offer a free trial?</summary>
+            <p>Yes! We offer a 14-day free trial with full access to all features. No credit card required. After the trial, you can choose a plan that fits your needs or continue with our free tier for small projects.</p>
+        </details>
+
+        <details class="faq-item">
+            <summary>Is my data secure with NexusAI?</summary>
+            <p>Absolutely. We're GDPR and CCPA compliant. All AI processing can be done on-device, meaning your user data never leaves the phone. For cloud-based features, we use enterprise-grade encryption and security measures.</p>
+        </details>
+
+        <details class="faq-item">
+            <summary>What platforms do you support?</summary>
+            <p>We support iOS (Swift/Objective-C), Android (Kotlin/Java), React Native, Flutter, Xamarin, and web applications. Our SDKs are designed to work seamlessly across all major mobile and web platforms.</p>
+        </details>
+
+        <details class="faq-item">
+            <summary>Can I train custom AI models?</summary>
+            <p>Yes! Our Professional and Enterprise plans include custom model training. You can train models with your own data, and we'll help optimize them for mobile deployment. Contact our sales team for more information.</p>
+        </details>
+
+        <details class="faq-item">
+            <summary>What kind of support do you offer?</summary>
+            <p>We offer multiple support tiers: Community support for all users, email support for Professional plans, and 24/7 priority support with dedicated account managers for Enterprise customers. We also have extensive documentation and tutorials available.</p>
+        </details>
+    </section>
+
+    <!-- Office Locations -->
+    <section>
+        <div class="section-title">
+            <h2>Our Offices</h2>
+            <p>Global presence, local expertise</p>
+        </div>
+        <div class="cards-grid">
+            <div class="card" style="text-align: center;">
+                <div class="card-icon" style="margin: 0 auto 1rem;">🏢</div>
+                <h3>Headquarters</h3>
+                <p style="color: var(--text-gray);">San Francisco, California<br>United States</p>
+            </div>
+            <div class="card" style="text-align: center;">
+                <div class="card-icon" style="margin: 0 auto 1rem;">🌍</div>
+                <h3>EMEA Office</h3>
+                <p style="color: var(--text-gray);">London, United Kingdom</p>
+            </div>
+            <div class="card" style="text-align: center;">
+                <div class="card-icon" style="margin: 0 auto 1rem;">🌏</div>
+                <h3>Asia Pacific</h3>
+                <p style="color: var(--text-gray);">Singapore</p>
+            </div>
+            <div class="card" style="text-align: center;">
+                <div class="card-icon" style="margin: 0 auto 1rem;">🚀</div>
+                <h3>R&D Center</h3>
+                <p style="color: var(--text-gray);">Bangalore, India</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section style="text-align: center; background: var(--card-bg); border-radius: 20px; padding: 4rem 2rem;">
+        <h2 style="font-size: 2.5rem; margin-bottom: 1rem; background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Ready to Get Started?</h2>
+        <p style="color: var(--text-gray); font-size: 1.2rem; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">Start your free trial today and see the power of mobile AI in action.</p>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+            <a href="products.html" class="cta-button">Start Free Trial</a>
+            <a href="services.html" class="cta-button" style="background: transparent; border: 2px solid var(--primary-color);">Schedule a Demo</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>NexusAI</h3>
+                <p style="color: var(--text-gray);">Pioneering the future of mobile artificial intelligence with innovative solutions that transform how we interact with technology.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="services.html">AI Chatbots</a></li>
+                    <li><a href="services.html">Vision AI</a></li>
+                    <li><a href="services.html">Voice AI</a></li>
+                    <li><a href="services.html">Predictive Analytics</a></li>
+                    <li><a href="services.html">Custom AI Solutions</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <ul>
+                    <li>📍 123 AI Innovation Drive, Tech City</li>
+                    <li>📞 +1 (555) 123-4567</li>
+                    <li>✉️ hello@nexusai.com</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 NexusAI. All rights reserved. | Building the future of mobile intelligence.</p>
+        </div>
+    </footer>
+</body>
+</html>

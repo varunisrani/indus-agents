@@ -1,0 +1,121 @@
+/*
+ * Indus CLI - Dracula Theme
+ *
+ * Based on the popular Dracula color palette.
+ * https://draculatheme.com/
+ */
+
+/* Dracula colors */
+$primary: #ff79c6;       /* Pink */
+$secondary: #8be9fd;     /* Cyan */
+$accent: #bd93f9;        /* Purple */
+$success: #50fa7b;       /* Green */
+$warning: #f1fa8c;       /* Yellow */
+$error: #ff5555;         /* Red */
+$info: #8be9fd;          /* Cyan */
+
+$background: #282a36;    /* Background */
+$background-panel: #21222c;  /* Current Line darker */
+$background-element: #44475a; /* Current Line */
+$background-hover: #4a4d5e;
+$background-selected: #6272a4; /* Comment */
+
+$text: #f8f8f2;          /* Foreground */
+$text-muted: #6272a4;    /* Comment */
+$text-strong: #ffffff;
+
+$border: #44475a;        /* Current Line */
+$border-active: #ff79c6; /* Pink */
+$border-subtle: #383a46;
+
+/* Dracula syntax colors */
+$syntax-comment: #6272a4;
+$syntax-keyword: #ff79c6;     /* Pink */
+$syntax-string: #f1fa8c;      /* Yellow */
+$syntax-number: #bd93f9;      /* Purple */
+$syntax-function: #50fa7b;    /* Green */
+$syntax-type: #8be9fd;        /* Cyan */
+$syntax-variable: #ffb86c;    /* Orange */
+
+/* Dracula screen */
+Screen {
+    background: $background;
+    color: $text;
+}
+
+Header {
+    background: $background-panel;
+    color: $primary;
+}
+
+Footer {
+    background: $background-panel;
+}
+
+/* Dracula messages */
+.message-user {
+    background: #2d2840;
+    border-left: tall $accent;
+}
+
+.message-assistant {
+    background: #302535;
+    border-left: tall $primary;
+}
+
+.message-tool {
+    background: #303528;
+    border-left: tall $warning;
+}
+
+.message-error {
+    background: #352528;
+    border-left: tall $error;
+}
+
+/* Dracula inputs */
+Input:focus {
+    border: tall $primary;
+}
+
+Button.-primary {
+    background: $primary;
+    color: $background;
+}
+
+Button.-primary:hover {
+    background: #ff92d0;
+}
+
+/* Dracula command palette */
+.command-palette {
+    background: $background-panel;
+    border: thick $primary;
+}
+
+.command-item.-selected {
+    background: $background-element;
+    color: $primary;
+}
+
+/* Dracula sidebar */
+.sidebar {
+    background: $background-panel;
+}
+
+.session-item.-active {
+    background: #352535;
+}
+
+/* Dracula tool execution */
+.tool-execution {
+    background: $background-element;
+}
+
+.tool-header {
+    color: $warning;
+}
+
+.tool-result {
+    color: $success;
+}

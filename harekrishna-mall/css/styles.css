@@ -1,0 +1,14 @@
+/* Global Styles */
+:root {
+  --primary-color: #1e3a5f;
+  --secondary-color: #f4a020;
+  --background-color: #f8f9fa;
+  --text-color: #333333;
+}
+
+/* Box Model */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}

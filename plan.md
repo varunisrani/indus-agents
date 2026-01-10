@@ -1,320 +1,589 @@
-# Hare Krishna Agarbati Shop - Website Development Plan
+# AI Mobile Company Website - Project Plan
 
 ## Project Overview
-A multi-page informational and e-commerce showcase website for "Hare Krishna Agarbati Shop" - a traditional incense manufacturing company. The website will showcase their products, brand story, and provide contact information using pure HTML and CSS with modern design principles.
+A modern, professional multi-page website for an AI mobile technology company. The site will showcase the company's innovative AI-powered mobile solutions, establish credibility, and generate leads through a clean, tech-forward design.
 
-**Technology Stack:**
-- HTML5 (semantic markup)
-- CSS3 (modern features: Grid, Flexbox, Custom Properties, CSS Animations)
-- Vanilla JavaScript (minimal, for mobile menu and simple interactions)
-- No frameworks or libraries - pure, lightweight implementation
-
-**Design Approach:**
-- Warm, spiritual color palette reflecting traditional Indian aesthetics
-- Modern, clean layout with excellent readability
-- Fully responsive (mobile-first approach)
-- Accessible (WCAG AA compliant)
-- Fast loading with optimized assets
+**Tech Stack:** Pure HTML5, CSS3, Vanilla JavaScript (no frameworks)
+**Design Style:** Modern, minimalist, tech-focused with smooth animations and professional aesthetics
 
 ---
 
 ## Folder Structure
 
 ```
-hare-krishna-agarbati/
-├── index.html                    # Homepage
-├── about.html                    # About Us page
-├── products.html                 # Products catalog
-├── contact.html                  # Contact page
+ai-mobile-website/
+├── index.html              # Home page
+├── about.html              # About page
+├── services.html           # Services page
+├── products.html           # Products page
+├── contact.html            # Contact page
 ├── css/
-│   ├── styles.css                # Main stylesheet
-│   ├── responsive.css            # Mobile/tablet responsiveness
-│   └── animations.css            # CSS animations and transitions
+│   ├── reset.css           # CSS reset
+│   ├── variables.css       # CSS variables (colors, fonts, spacing)
+│   ├── typography.css      # Typography styles
+│   ├── layout.css          # Grid, flexbox, containers
+│   ├── components.css      # Reusable components (buttons, cards)
+│   ├── navigation.css      # Header/nav styling
+│   ├── footer.css          # Footer styling
+│   └── pages.css           # Page-specific styles
 ├── js/
-│   └── main.js                   # Minimal JavaScript (mobile menu, smooth scroll)
-├── images/
-│   ├── logo.png                  # Company logo
-│   ├── hero-bg.jpg               # Homepage hero background
-│   ├── products/
-│   │   ├── incense-1.jpg
-│   │   ├── incense-2.jpg
-│   │   ├── incense-3.jpg
-│   │   ├── incense-4.jpg
-│   │   ├── incense-5.jpg
-│   │   └── incense-6.jpg
-│   └── icons/
-│       ├── cart.svg
-│       ├── menu.svg
-│       ├── close.svg
-│       └── social-icons.svg
-├── fonts/                        # Custom fonts (optional, can use Google Fonts)
-└── favicon.ico                   # Site favicon
+│   ├── main.js             # Main JavaScript functionality
+│   ├── navigation.js       # Mobile menu, smooth scroll
+│   ├── animations.js       # Scroll animations, interactions
+│   └── form-handler.js     # Contact form validation & handling
+├── assets/
+│   ├── images/
+│   │   ├── hero-bg.jpg
+│   │   ├── logo.svg
+│   │   ├── icons/
+│   │   └── products/
+│   └── fonts/
+└── README.md               # Project documentation
 ```
 
 ---
 
-## File Breakdown
+## Design System
 
-### HTML Pages
-
-#### 1. **index.html** (Homepage)
-- **Hero Section:** Full-screen banner with welcoming message, CTA button
-- **Features Section:** 3-4 key selling points (handmade, natural ingredients, traditional methods)
-- **Featured Products:** Showcase 6 popular products with images and brief descriptions
-- **Why Choose Us:** Trust indicators (quality, heritage, customer satisfaction)
-- **Testimonials:** Customer reviews carousel
-- **Newsletter Signup:** Email subscription form
-- **Footer:** Links, social media, contact info
-
-#### 2. **about.html** (About Us)
-- **Company Story:** History and heritage of Hare Krishna Agarbati Shop
-- **Mission & Values:** Spiritual approach, quality commitment
-- **Manufacturing Process:** Step-by-step visual journey
-- **Team Section:** Key team members
-- **Certifications:** Quality assurance badges
-
-#### 3. **products.html** (Products Catalog)
-- **Product Filters:** Categories (Floral, Woody, Herbal, Special)
-- **Product Grid:** 12-15 products with:
-  - Product image
-  - Product name
-  - Scent description
-  - Price
-  - "Enquire" button
-- **Product Modal/Details:** Expanded view (optional, can be simple)
-
-#### 4. **contact.html** (Contact Page)
-- **Contact Form:** Name, email, phone, message
-- **Contact Information:** Address, phone, email, business hours
-- **Location Map:** Embedded Google Map (placeholder)
-- **Social Media Links:** Facebook, Instagram, WhatsApp
-- **FAQ Section:** Common questions
-
-### CSS Files
-
-#### **css/styles.css** (Main Styles)
-- **CSS Custom Properties:** Color palette, spacing, typography
-- **Reset & Base Styles:** Normalize, consistent defaults
-- **Typography:** Font families, sizes, weights, line heights
-- **Layout Components:** Container, grid systems, flexbox utilities
-- **Header/Navigation:** Logo, nav links, mobile menu trigger
-- **Buttons:** Primary, secondary, outline variants
-- **Forms:** Input fields, textareas, buttons
-- **Cards:** Product cards, feature cards
-- **Footer:** Multi-column layout
-
-#### **css/responsive.css** (Media Queries)
-- **Breakpoints:** 320px, 480px, 768px, 1024px, 1200px
-- **Mobile Navigation:** Hamburger menu, slide-out drawer
-- **Responsive Grids:** 1 column → 2 columns → 3 columns → 4 columns
-- **Typography Scaling:** Adjusted font sizes for mobile
-- **Image Optimization:** Responsive images with srcset
-
-#### **css/animations.css** (Animations)
-- **Fade-in animations:** Scroll-triggered reveals
-- **Hover effects:** Button transforms, card lifts
-- **Loading animations:** Skeleton screens (optional)
-- **Smooth transitions:** All interactive elements
-
-### JavaScript
-
-#### **js/main.js** (Minimal Interactions)
-- **Mobile Menu Toggle:** Open/close navigation drawer
-- **Smooth Scrolling:** Anchor link animations
-- **Scroll Animations:** Intersection Observer for fade-ins
-- **Form Handling:** Basic form validation (no backend)
-- **Sticky Header:** Add shadow on scroll
-
----
-
-## Design Specifications
-
-### Color Palette (CSS Custom Properties)
+### Color Palette
 ```css
-:root {
-  /* Primary - Warm, spiritual tones */
-  --color-primary: #D4AF37;        /* Gold */
-  --color-primary-dark: #B8962E;
-  
-  /* Secondary - Earthy, natural */
-  --color-secondary: #8B4513;      /* Saddle brown */
-  --color-secondary-light: #A0522D;
-  
-  /* Accent - Deep maroon/red */
-  --color-accent: #800020;         /* Burgundy */
-  
-  /* Neutrals */
-  --color-bg: #FFFEF9;             /* Off-white, cream */
-  --color-bg-alt: #F5F0E8;         /* Light beige */
-  --color-text: #2C1810;           /* Dark brown */
-  --color-text-light: #6B4423;     /* Medium brown */
-  --color-border: #E8DCC8;
-  
-  /* Semantic */
-  --color-success: #2E7D32;
-  --color-error: #C62828;
-  
-  /* Spacing */
-  --spacing-xs: 0.5rem;
-  --spacing-sm: 1rem;
-  --spacing-md: 2rem;
-  --spacing-lg: 4rem;
-  --spacing-xl: 6rem;
-  
-  /* Typography */
-  --font-primary: 'Georgia', serif;
-  --font-secondary: system-ui, sans-serif;
-}
+/* Primary Colors */
+--primary: #2563eb;          /* Vibrant blue - trust, technology */
+--primary-dark: #1e40af;     /* Darker blue for hover states */
+--primary-light: #3b82f6;    /* Lighter blue for accents */
+
+/* Secondary Colors */
+--secondary: #06b6d4;        /* Cyan - innovation, AI */
+--accent: #8b5cf6;           /* Purple - creativity, future-tech */
+
+/* Neutral Colors */
+--dark: #0f172a;             /* Deep blue-black */
+--gray-dark: #334155;        /* Dark gray text */
+--gray: #64748b;             /* Medium gray */
+--gray-light: #e2e8f0;       /* Light gray backgrounds */
+--light: #f8fafc;            /* Off-white backgrounds */
+--white: #ffffff;
+
+/* Semantic Colors */
+--success: #10b981;
+--warning: #f59e0b;
+--error: #ef4444;
 ```
 
 ### Typography
-- **Headings:** Georgia or similar serif (traditional, elegant)
-- **Body Text:** System UI sans-serif (clean, readable)
-- **Accent Text:** Decorative font for quotes (optional)
+- **Headings:** 'Inter', sans-serif (Google Fonts) - Modern, clean, highly readable
+- **Body:** 'Inter', sans-serif - Consistent with headings
+- **Code/Tech:** 'JetBrains Mono' or 'Fira Code' - For technical specs
 
-### Layout Principles
-- **Container:** Max-width 1200px, centered
-- **Grid:** CSS Grid for product layouts
-- **Flexbox:** Navigation, card layouts, alignments
-- **Spacing:** Consistent padding/margins using variables
+**Font Sizes:**
+- H1: 3rem (48px) - Hero titles
+- H2: 2.5rem (40px) - Section titles
+- H3: 1.5rem (24px) - Subsection titles
+- Body: 1rem (16px) - Base text
+- Small: 0.875rem (14px) - Captions, meta info
+
+### Spacing System
+```css
+--space-xs: 0.25rem;   /* 4px */
+--space-sm: 0.5rem;    /* 8px */
+--space-md: 1rem;      /* 16px */
+--space-lg: 2rem;      /* 32px */
+--space-xl: 4rem;      /* 64px */
+--space-2xl: 6rem;     /* 96px */
+```
+
+### UI Components
+- **Buttons:** Rounded corners (8px), subtle shadows, hover lift effect
+- **Cards:** White background, subtle shadow, border-radius (12px)
+- **Inputs:** Clean borders, focus ring, smooth transitions
+- **Animations:** Fade-in on scroll, hover effects, smooth page transitions
+
+---
+
+## Page-by-Page Breakdown
+
+### 1. Home Page (index.html)
+
+**Purpose:** Create immediate impact, communicate value proposition, guide users to key sections
+
+**Sections:**
+
+#### A. Hero Section (Above the Fold)
+- **Headline:** Powerful, benefit-driven headline (e.g., "Transforming Mobile Experiences with AI")
+- **Subheadline:** Brief explanation of unique value proposition
+- **CTA Buttons:** 
+  - Primary: "Explore Our Solutions" → Links to Products/Services
+  - Secondary: "Get Started" → Links to Contact
+- **Visual:** Dynamic hero image or gradient background with floating AI/mobile elements
+- **Trust Indicators:** "Trusted by 500+ companies worldwide" with client logos
+
+#### B. Features Section (3-4 Key Features)
+- Grid layout (3-4 columns)
+- Each feature card:
+  - Icon (SVG, custom-designed)
+  - Title (e.g., "Intelligent Automation", "Real-time Processing", "Seamless Integration")
+  - Brief description (2-3 sentences)
+  - "Learn More" link
+
+#### C. Value Proposition/Why Choose Us
+- Split layout: Text on one side, visual on the other
+- Key points with checkmarks:
+  - Cutting-edge AI technology
+  - Enterprise-grade security
+  - 99.9% uptime guarantee
+  - 24/7 expert support
+
+#### D. Statistics/Social Proof
+- Counter animation for impressive numbers:
+  - "10M+ Active Users"
+  - "50+ Countries Served"
+  - "99.9% Uptime"
+  - "24/7 Support"
+
+#### E. Testimonials
+- Carousel or grid of client testimonials
+- Each includes:
+  - Client photo
+  - Name and company
+  - Quote
+  - Star rating
+
+#### F. CTA Section
+- Bold background (gradient)
+- Compelling headline
+- Primary CTA button
+- Optional: Secondary CTA (e.g., "Schedule a Demo")
+
+---
+
+### 2. About Page (about.html)
+
+**Purpose:** Build trust, share company story, introduce team, communicate mission and values
+
+**Sections:**
+
+#### A. Hero Section
+- Page title: "About Us"
+- Brief tagline: "Pioneering the Future of Mobile AI"
+- Background image or subtle gradient
+
+#### B. Our Story / Company History
+- Timeline or narrative format
+- Founding story
+- Key milestones
+- Growth journey
+
+#### C. Mission & Vision
+- **Mission Statement:** What we do every day
+- **Vision Statement:** Where we're heading
+- **Core Values:** 3-4 key values with icons
+
+#### D. Leadership Team
+- Grid layout (3-4 columns)
+- Team member cards:
+  - Professional photo
+  - Name and title
+  - Brief bio (2-3 sentences)
+  - LinkedIn/social links
+
+#### E. Company Culture
+- Photo gallery or collage
+- Key culture points:
+  - Innovation-first mindset
+  - Diversity & inclusion
+  - Continuous learning
+  - Work-life balance
+
+#### F. Awards & Recognitions
+- Grid of award logos/badges
+- Brief descriptions
+
+#### G. CTA Section
+- "Join Our Team" or "Partner With Us"
+
+---
+
+### 3. Services Page (services.html)
+
+**Purpose:** Detail service offerings, show expertise, encourage service inquiries
+
+**Sections:**
+
+#### A. Hero Section
+- Page title: "Our Services"
+- Tagline: "Comprehensive AI Mobile Solutions for Your Business"
+
+#### B. Services Overview
+- Brief introduction paragraph
+- Service categories preview
+
+#### C. Detailed Services (3-5 Main Services)
+Each service in its own section with:
+- **Service Title:** Clear, descriptive name
+- **Icon:** Visual representation
+- **Description:** What the service includes
+- **Key Features:** Bullet points (3-5 items)
+- **Benefits:** What clients gain
+- **Use Cases:** Example scenarios
+- **CTA:** "Learn More" or "Get Started"
+
+**Example Services:**
+1. **AI-Powered App Development**
+   - Custom mobile applications with integrated AI
+   - Machine learning models
+   - Natural language processing
+
+2. **Mobile Strategy & Consulting**
+   - Technology assessment
+   - Roadmap planning
+   - Implementation guidance
+
+3. **Enterprise Integration**
+   - API development
+   - System integration
+   - Legacy modernization
+
+4. **Analytics & Insights**
+   - User behavior analytics
+   - Performance monitoring
+   - Predictive analytics
+
+5. **Support & Maintenance**
+   - 24/7 monitoring
+   - Regular updates
+   - Dedicated support team
+
+#### D. Process Section
+- "How We Work" - 4-6 step process:
+  1. Discovery
+  2. Strategy
+  3. Development
+  4. Testing
+  5. Deployment
+  6. Support
+
+#### E. Case Studies / Success Stories
+- 2-3 brief case studies
+- Client challenge, solution, results
+
+#### F. Pricing/Packages (Optional)
+- Tiered pricing table
+- Feature comparison
+
+#### G. CTA Section
+- "Ready to Get Started?"
+- Contact form or consultation booking
+
+---
+
+### 4. Products Page (products.html)
+
+**Purpose:** Showcase products, highlight features, drive product adoption/sales
+
+**Sections:**
+
+#### A. Hero Section
+- Page title: "Our Products"
+- Tagline: "Innovative AI Mobile Solutions"
+
+#### B. Featured Product
+- Large, prominent showcase
+- Product screenshot/mockup
+- Key features (highlighted)
+- Benefits list
+- Pricing (if applicable)
+- Primary CTA: "Try Free" or "Buy Now"
+- Secondary CTA: "Watch Demo"
+
+#### C. Product Grid (All Products)
+- Grid layout (2-3 columns)
+- Each product card:
+  - Product image/icon
+  - Product name
+  - Brief description (1-2 sentences)
+  - Key features (3 bullet points)
+  - Price (if applicable)
+  - "Learn More" button
+
+**Example Products:**
+1. **AI Mobile SDK**
+   - Developer tools
+   - Documentation link
+   - Integration guide
+
+2. **Smart Analytics Platform**
+   - Real-time dashboards
+   - User insights
+   - Performance metrics
+
+3. **Chatbot Framework**
+   - NLP capabilities
+   - Multi-language support
+   - Custom branding
+
+4. **Predictive Maintenance**
+   - IoT integration
+   - Alert system
+   - Reporting tools
+
+#### D. Product Comparison Table
+- Feature comparison across products
+- Clear visual differentiation
+
+#### E. Integrations Section
+- "Works With Your Favorite Tools"
+- Logo grid of compatible platforms
+- API documentation link
+
+#### F. Testimonials / Reviews
+- Product-specific reviews
+- Star ratings
+- User quotes
+
+#### G. Resources Section
+- Documentation links
+- API reference
+- Tutorials
+- Community forum
+
+#### H. CTA Section
+- "Start Building Today"
+- Free trial sign-up
+
+---
+
+### 5. Contact Page (contact.html)
+
+**Purpose:** Make it easy for visitors to get in touch, capture leads, provide support information
+
+**Sections:**
+
+#### A. Hero Section
+- Page title: "Get In Touch"
+- Tagline: "We'd Love to Hear From You"
+
+#### B. Contact Options (Grid Layout)
+- **Contact Form** (Left side)
+  - Name field (required)
+  - Email field (required, validated)
+  - Phone field (optional)
+  - Subject dropdown (General, Sales, Support, Partnership)
+  - Message textarea (required)
+  - Submit button with loading state
+  - Success/error message display
+
+- **Contact Information** (Right side)
+  - Email address with mailto link
+  - Phone number with tel link
+  - Office address (if applicable)
+  - Map embed (optional)
+  - Business hours
+
+#### C. Quick Contact Buttons
+- Large, clickable buttons:
+  - "Email Us"
+  - "Call Us"
+  - "Live Chat" (if available)
+  - "Schedule a Call"
+
+#### D. Office Locations (If multiple)
+- Address cards
+- Photos of offices
+- Local contact details
+
+#### E. Social Media Links
+- Icon links to:
+  - LinkedIn
+  - Twitter/X
+  - Facebook
+  - Instagram
+  - YouTube
+
+#### F. FAQ Section
+- Accordion-style FAQs
+- Common questions about:
+  - Products/services
+  - Pricing
+  - Support
+  - Partnerships
+
+#### G. Support Resources
+- Links to:
+  - Help Center
+  - Documentation
+  - Community Forum
+  - Status Page
+
+---
+
+## Global Components
+
+### 1. Navigation (Header)
+- **Logo:** Company logo (left) - links to home
+- **Navigation Links:** (center/right)
+  - Home
+  - About
+  - Services
+  - Products
+  - Contact
+- **CTA Button:** "Get Started" or "Contact Us"
+- **Mobile Menu:** Hamburger icon for mobile, slide-out menu
+- **Sticky Header:** Fixed on scroll with subtle shadow
+- **Active State:** Current page highlighted
+
+### 2. Footer
+- **Company Info:** Logo, brief description
+- **Quick Links:** Navigation links repeated
+- **Services Links:** Links to key services
+- **Legal Links:** Privacy Policy, Terms of Service, Cookie Policy
+- **Social Media:** Icon links
+- **Newsletter Signup:** Email input with subscribe button
+- **Copyright:** Current year, company name
+
+### 3. Buttons
+- **Primary Button:** Solid background, white text, hover lift
+- **Secondary Button:** Outline style, hover fill
+- **Text Link:** Underline on hover
+- **Sizes:** Small, Medium, Large
+
+### 4. Forms
+- Clean, modern styling
+- Clear labels
+- Helpful placeholder text
+- Validation messages
+- Focus states
+- Disabled states
+
+---
+
+## Technical Implementation Details
+
+### HTML Structure
+- Semantic HTML5 elements (`<header>`, `<nav>`, `<main>`, `<section>`, `<article>`, `<footer>`)
+- Proper heading hierarchy (h1 → h2 → h3)
+- Accessible markup (ARIA labels where needed)
+- SEO-friendly meta tags
+
+### CSS Architecture
+- **CSS Variables:** For colors, fonts, spacing
+- **BEM Naming:** Block__Element--Modifier convention
+- **Mobile-First:** Start with mobile styles, use media queries for larger screens
+- **Flexbox & Grid:** Modern layout techniques
+- **Smooth Transitions:** All interactive elements
+- **Responsive Images:** `srcset` and `sizes` attributes
+
+### JavaScript Functionality
+- **Mobile Navigation:** Toggle menu, smooth scroll
+- **Scroll Animations:** Fade-in elements as they enter viewport
+- **Form Validation:** Real-time validation, error messages
+- **Form Submission:** Prevent default, show success message
+- **Smooth Scrolling:** For anchor links
+- **Active Navigation:** Highlight current page/section
+- **Lazy Loading:** For images (performance)
+- **Counter Animation:** For statistics
+
+### Responsive Breakpoints
+```css
+/* Mobile First Approach */
+/* Base: 320px - 767px (Mobile) */
+@media (min-width: 768px) { /* Tablet */ }
+@media (min-width: 1024px) { /* Desktop */ }
+@media (min-width: 1280px) { /* Large Desktop */ }
+```
+
+### Accessibility Features
+- Keyboard navigation support
+- ARIA labels and roles
+- Focus indicators
+- Color contrast compliance (WCAG AA)
+- Alt text for images
+- Skip to content link
+- Semantic HTML
+
+### Performance Optimizations
+- Minified CSS and JS (production)
+- Optimized images (WebP format, compressed)
+- Lazy loading for below-fold images
+- Minimal external dependencies
+- Fast page load target: < 3 seconds
 
 ---
 
 ## Implementation Steps
 
 ### Phase 1: Setup & Foundation
-1. **Create project folder structure**
-2. **Set up HTML5 boilerplate** for all pages (index, about, products, contact)
-3. **Create CSS custom properties** in styles.css (colors, typography, spacing)
-4. **Add CSS reset** and base styles
-5. **Set up Google Fonts** (optional: Playfair Display for headings, Lato for body)
+1. Create folder structure
+2. Set up HTML skeleton for all 5 pages
+3. Create CSS reset and variables
+4. Set up typography system
+5. Create base layout styles
 
-### Phase 2: Header & Navigation
-6. **Build consistent header** component across all pages
-7. **Create navigation menu** with logo and links
-8. **Implement mobile hamburger menu** with CSS/JS
-9. **Add smooth scroll behavior** for anchor links
+### Phase 2: Global Components
+1. Build navigation/header component
+2. Create footer component
+3. Design button styles
+4. Build form input styles
+5. Create card component styles
 
-### Phase 3: Homepage Development
-10. **Create hero section** with background image and CTA
-11. **Build features section** (3-4 key selling points)
-12. **Add featured products grid** (6 products)
-13. **Create testimonials section** with customer reviews
-14. **Build newsletter signup** form
-15. **Design footer** with links and social media
+### Phase 3: Home Page
+1. Build hero section
+2. Create features grid
+3. Add statistics section with counter animation
+4. Build testimonials carousel
+5. Add CTA sections
+6. Implement scroll animations
 
 ### Phase 4: About Page
-16. **Create company story section** with imagery
-17. **Build mission & values** section
-18. **Add manufacturing process** visual timeline
-19. **Create team section** (optional)
-20. **Add certifications** badges
+1. Create hero section
+2. Build company story section
+3. Design team member grid
+4. Add awards/recognition section
+5. Include culture section
 
-### Phase 5: Products Page
-21. **Create product filter buttons** (Floral, Woody, Herbal, Special)
-22. **Build product grid** with 12-15 products
-23. **Design product cards** with image, name, description, price, button
-24. **Add hover effects** and transitions
-25. **Implement filter functionality** (JavaScript)
+### Phase 5: Services Page
+1. Build page hero
+2. Create service detail sections
+3. Design process timeline
+4. Add case studies
+5. Include pricing table (optional)
 
-### Phase 6: Contact Page
-26. **Create contact form** with proper input fields
-27. **Add contact information** section
-28. **Embed Google Map** (placeholder iframe)
-29. **Build FAQ section** with accordion (optional)
-30. **Add social media links**
+### Phase 6: Products Page
+1. Create hero section
+2. Build featured product showcase
+3. Design product grid
+4. Add comparison table
+5. Include testimonials/reviews
 
-### Phase 7: Responsive Design
-31. **Implement mobile navigation** (hamburger menu, slide-out drawer)
-32. **Create responsive breakpoints** for all sections
-33. **Optimize images** for different screen sizes
-34. **Test on mobile devices** (320px - 768px)
-35. **Test on tablets** (768px - 1024px)
+### Phase 7: Contact Page
+1. Build page hero
+2. Create contact form with validation
+3. Add contact information section
+4. Include FAQ accordion
+5. Add social media links
 
-### Phase 8: Interactions & Polish
-36. **Add scroll animations** (fade-in on scroll using Intersection Observer)
-37. **Implement form validation** (HTML5 + basic JS)
-38. **Add hover effects** to buttons and cards
-39. **Create loading states** (optional skeleton screens)
-40. **Add smooth transitions** throughout
+### Phase 8: JavaScript & Interactivity
+1. Implement mobile navigation
+2. Add smooth scrolling
+3. Create scroll animations
+4. Build form validation
+5. Add counter animations
+6. Implement active navigation states
 
-### Phase 9: Content & Assets
-41. **Add placeholder images** from Unsplash/Picsum for development
-42. **Write compelling copy** for all sections
-43. **Create SVG icons** for menu, cart, social media
-44. **Optimize images** (compress, WebP format)
-45. **Add favicon** to all pages
+### Phase 9: Testing & Optimization
+1. Cross-browser testing (Chrome, Firefox, Safari, Edge)
+2. Responsive testing (mobile, tablet, desktop)
+3. Accessibility audit
+4. Performance optimization
+5. Form testing
+6. Link verification
 
-### Phase 10: Testing & Optimization
-46. **Cross-browser testing** (Chrome, Firefox, Safari, Edge)
-47. **Accessibility audit** (WCAG AA compliance)
-48. **Performance optimization** (minify CSS, optimize images)
-49. **Mobile testing** on actual devices
-50. **Final review** and bug fixes
-
----
-
-## Content Requirements
-
-### Sample Content Structure
-
-**Hero Section:**
-- Headline: "Experience the Divine Fragrance of Tradition"
-- Subtext: "Handcrafted incense made with love, devotion, and the purest natural ingredients"
-- CTA: "Explore Our Collection"
-
-**Product Categories:**
-- Floral Collection (Rose, Jasmine, Lavender)
-- Woody Collection (Sandalwood, Cedar, Patchouli)
-- Herbal Collection (Tulsi, Neem, Camphor)
-- Special Collection (Premium, Meditation, Festival)
-
-**Key Features:**
-- 100% Natural Ingredients
-- Handmade with Devotion
-- Traditional Recipes
-- Eco-friendly Packaging
-
----
-
-## Technical Best Practices
-
-### HTML
-- ✅ Semantic HTML5 elements (header, nav, main, section, article, footer)
-- ✅ Proper heading hierarchy (h1 → h2 → h3)
-- ✅ Alt text for all images
-- ✅ ARIA labels for accessibility
-- ✅ Meta tags for SEO and responsiveness
-
-### CSS
-- ✅ CSS Custom Properties for theming
-- ✅ Mobile-first approach (min-width media queries)
-- ✅ BEM naming convention (optional, but recommended)
-- ✅ Flexbox and Grid for layouts
-- ✅ Relative units (rem, em, %) for scalability
-- ✅ CSS animations over JavaScript (performance)
-
-### JavaScript
-- ✅ Minimal and lightweight
-- ✅ No jQuery or frameworks
-- ✅ Modern ES6+ syntax
-- ✅ Progressive enhancement
-- ✅ Event delegation for dynamic content
-
-### Performance
-- ✅ Lazy loading for images
-- ✅ Optimized image formats (WebP with fallbacks)
-- ✅ Minified CSS in production
-- ✅ Font display: swap for custom fonts
-- ✅ No render-blocking resources
-
-### Accessibility
-- ✅ Keyboard navigation support
-- ✅ Focus indicators on interactive elements
-- ✅ Sufficient color contrast (4.5:1 minimum)
-- ✅ Screen reader friendly
-- ✅ Semantic markup
-- ✅ Skip to main content link
+### Phase 10: Final Polish
+1. Content review
+2. Image optimization
+3. SEO meta tags
+4. Favicon and touch icons
+5. Final bug fixes
+6. Documentation
 
 ---
 
@@ -323,95 +592,89 @@ hare-krishna-agarbati/
 ### Functionality
 - [ ] All navigation links work correctly
 - [ ] Mobile menu opens/closes properly
-- [ ] Forms validate correctly
-- [ ] Product filters work (if implemented)
-- [ ] Smooth scrolling works
+- [ ] Contact form validates and submits
 - [ ] All buttons have hover/active states
+- [ ] Smooth scrolling works
+- [ ] Animations trigger on scroll
 
 ### Responsive Design
-- [ ] Displays correctly on mobile (320px+)
-- [ ] Displays correctly on tablet (768px+)
-- [ ] Displays correctly on desktop (1024px+)
+- [ ] Mobile (320px - 767px) looks good
+- [ ] Tablet (768px - 1023px) looks good
+- [ ] Desktop (1024px+) looks good
 - [ ] Images scale properly
 - [ ] Text remains readable at all sizes
-- [ ] No horizontal scrolling
 
-### Browser Compatibility
+### Cross-Browser
 - [ ] Chrome (latest)
 - [ ] Firefox (latest)
 - [ ] Safari (latest)
 - [ ] Edge (latest)
-- [ ] Mobile browsers (iOS Safari, Chrome Mobile)
 
 ### Accessibility
 - [ ] Keyboard navigation works
-- [ ] Screen reader reads content correctly
+- [ ] All images have alt text
 - [ ] Color contrast meets WCAG AA
-- [ ] Forms have proper labels
-- [ ] Alt text on all images
+- [ ] Focus indicators visible
+- [ ] Screen reader friendly
 
 ### Performance
-- [ ] Page loads under 3 seconds
-- [ ] Images are optimized
+- [ ] Page load under 3 seconds
+- [ ] Images optimized
 - [ ] No console errors
-- [ ] Smooth 60fps animations
+- [ ] Smooth animations (60fps)
 
 ---
 
-## Deployment Considerations
+## Assets Needed
 
-### Before Launch
-1. **Replace placeholder content** with actual text and images
-2. **Set up contact form** backend (or use service like Formspree)
-3. **Add analytics** (Google Analytics, optional)
-4. **Configure favicon** and touch icons
-5. **Test all forms** for functionality
-6. **Set up 404 page** (optional)
+### Images
+- Hero background images (5 pages)
+- Team member photos (6-8)
+- Product screenshots/mockups (4-6)
+- Client logos (8-10)
+- Icon set (SVG format, 20+ icons)
+- Office photos (2-3)
 
-### Hosting Options
-- **GitHub Pages** (free, static hosting)
-- **Netlify** (free tier, easy deployment)
-- **Vercel** (free tier, excellent performance)
-- **Traditional web host** (any shared hosting)
+### Icons (SVG)
+- Navigation icons (menu, close, arrow)
+- Social media icons
+- Feature icons (20+)
+- UI icons (check, close, warning, etc.)
 
----
-
-## Future Enhancements (Optional)
-
-- **E-commerce integration** (Shopify, WooCommerce)
-- **Product search functionality**
-- **Shopping cart** (localStorage-based)
-- **Blog section** for recipes, tips
-- **Photo gallery** for events
-- **Multi-language support**
-- **Dark mode toggle**
-- **Product comparison feature**
+### Fonts
+- Inter (Google Fonts) - Primary
+- JetBrains Mono (optional) - Code/tech
 
 ---
 
 ## Success Criteria
 
-✅ All 4 pages fully functional and linked  
-✅ Fully responsive across all device sizes  
-✅ Modern, professional design with spiritual aesthetic  
-✅ Accessible (WCAG AA compliant)  
-✅ Fast loading (under 3 seconds)  
-✅ Cross-browser compatible  
-✅ Clean, maintainable code  
-✅ Ready for production deployment  
+✅ All 5 pages fully functional and responsive
+✅ Modern, professional design consistent across all pages
+✅ Smooth animations and transitions
+✅ Accessible to all users (WCAG AA compliant)
+✅ Fast loading performance (< 3 seconds)
+✅ Cross-browser compatible
+✅ Contact form with validation
+✅ Mobile-first responsive design
+✅ Clean, maintainable code
+✅ SEO-optimized HTML structure
 
 ---
 
-## Notes
+## Optional Enhancements (Future Considerations)
 
-- **Images:** Use placeholder services like Unsplash Source or Picsum for development
-- **Forms:** Can use Formspree.io for free form handling without backend
-- **Icons:** Use SVG icons directly in HTML or icon fonts (Font Awesome CDN)
-- **Fonts:** Google Fonts (Playfair Display + Lato) or system fonts for zero dependencies
-- **Colors:** Adjust based on brand guidelines if available
+- Dark mode toggle
+- Blog/News section
+- Career/Job openings page
+- Live chat integration
+- Multi-language support
+- CMS integration for content management
+- Advanced analytics tracking
+- A/B testing capabilities
+- Progressive Web App (PWA) features
 
 ---
 
-**Project Estimated Time:** 8-12 hours for full implementation  
-**Difficulty Level:** Intermediate (requires HTML/CSS knowledge, minimal JS)  
-**Maintainability:** High (clean, well-organized code structure)  
+**Timeline Estimate:** 2-3 weeks for full implementation
+**Priority:** High - Complete all core pages and features first, optional enhancements can be added later

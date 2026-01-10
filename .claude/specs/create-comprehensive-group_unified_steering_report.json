@@ -1,0 +1,17 @@
+{
+  "spec_name": "create-comprehensive-group",
+  "user_prompt": "Create comprehensive Group Participation Monitor Agent testing integration with UI components. This agent replaces Group Management Workflows automation and integrates with app/membermanagement/page.tsx for Group participation data display. Agent file location: deep-agents-from-scratch/agents/phase2/group_participation_openai.py. Functions include: Small group attendance tracking, Bible study engagement monitoring, Ministry team participation analysis, Group health metrics calculation, Meeting reminder automation. Reference the existing attendance-agent-testing-integration spec structure, AgentTestingSection pattern from app/components/dashboard/sections/AgentTestingSection.tsx, backend API pattern from backend/attendance_api.py, and agent integration from attendance_analyzer_openai.py. Create testing sections in Member Management page similar to AgentMemberTest component. Include comprehensive UI integration for group participation data visualization and management workflows.",
+  "session_id": "097d8965-6b3c-4239-8593-5d9215c22dfc",
+  "execution_time": "2025-09-27T02:16:20.982588",
+  "message_count": 263,
+  "steps_completed": {
+    "0": false,
+    "1": true,
+    "2": true,
+    "3": false,
+    "4": true,
+    "5": false,
+    "6": true
+  },
+  "includes_steering": true
+}

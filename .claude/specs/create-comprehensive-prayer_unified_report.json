@@ -1,0 +1,15 @@
+{
+  "spec_name": "create-comprehensive-prayer",
+  "user_prompt": "Create comprehensive Prayer Request Manager Agent testing integration with UI components. This agent replaces Prayer Request Management automation and integrates with app/communicationhub/page.tsx MessageQueueItem component and app/churchdashboard/page.tsx Prayer request alerts. Functions include: Request classification (Urgent/Health/Family/Spiritual/Other), Automated pastor assignment, Follow-up scheduling, Prayer chain coordination, Status tracking and updates. Reference the existing attendance-agent-testing-integration spec structure and AgentTestingSection pattern for consistency. Create testing sections in both Communication Hub and Church Dashboard pages.",
+  "session_id": "a99054f5-12f7-4b28-8ea6-b5484ba0cda6",
+  "execution_time": "2025-09-27T01:49:48.435364",
+  "message_count": 107,
+  "steps_completed": {
+    "1": true,
+    "2": true,
+    "3": false,
+    "4": true,
+    "5": false,
+    "6": true
+  }
+}

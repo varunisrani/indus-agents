@@ -2,12 +2,14 @@
 Provider abstraction layer for LLM APIs.
 
 This module provides a unified interface for different LLM providers
-(OpenAI, Anthropic) to enable seamless provider switching.
+(OpenAI, Anthropic, Ollama, Groq) to enable seamless provider switching.
 """
 
 from .base import BaseProvider, ProviderResponse, ToolCall
 from .openai_provider import OpenAIProvider
 from .anthropic_provider import AnthropicProvider
+from .ollama_provider import OllamaProvider
+from .groq_provider import GroqProvider
 
 __all__ = [
     "BaseProvider",
@@ -15,4 +17,6 @@ __all__ = [
     "ToolCall",
     "OpenAIProvider",
     "AnthropicProvider",
+    "OllamaProvider",
+    "GroqProvider",
 ]

@@ -3,420 +3,280 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Get in touch with NeuralMobile AI. Contact us for support, partnerships, or general inquiries.">
-    <meta name="keywords" content="contact NeuralMobile AI, support, help, customer service">
-    
-    <title>Contact Us - NeuralMobile AI</title>
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/variables.css">
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/typography.css">
-    <link rel="stylesheet" href="css/layout.css">
-    <link rel="stylesheet" href="css/components.css">
-    <link rel="stylesheet" href="css/navigation.css">
-    <link rel="stylesheet" href="css/pages.css">
+    <meta name="description" content="Get in touch with AI Mobile. Contact us for support, sales, or general inquiries.">
+    <title>Contact Us - AI Mobile</title>
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-    <!-- Skip to Content -->
-    <a href="#main-content" class="skip-link">Skip to main content</a>
-    
     <!-- Header -->
     <header class="header">
         <div class="container">
             <nav class="nav">
                 <a href="index.html" class="nav__logo">
-                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="40" height="40" rx="8" fill="url(#gradient)"/>
-                        <path d="M20 10L28 20L20 30L12 20L20 10Z" fill="white"/>
-                        <defs>
-                            <linearGradient id="gradient" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
-                                <stop stop-color="#2563EB"/>
-                                <stop offset="1" stop-color="#7C3AED"/>
-                            </linearGradient>
-                        </defs>
-                    </svg>
-                    <span class="nav__logo-text">NeuralMobile</span>
+                    <div class="nav__logo-icon">AI</div>
+                    <span>Mobile</span>
                 </a>
-                
-                <ul class="nav__menu">
-                    <li class="nav__item"><a href="index.html" class="nav__link">Home</a></li>
-                    <li class="nav__item"><a href="products.html" class="nav__link">Products</a></li>
-                    <li class="nav__item"><a href="about.html" class="nav__link">About</a></li>
-                    <li class="nav__item"><a href="contact.html" class="nav__link nav__link--active">Contact</a></li>
+
+                <ul class="nav__menu" id="navMenu">
+                    <li class="nav__item">
+                        <a href="index.html" class="nav__link">Home</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="about.html" class="nav__link">About</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="products.html" class="nav__link">Products</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="pricing.html" class="nav__link">Pricing</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="contact.html" class="nav__link nav__link--active">Contact</a>
+                    </li>
                 </ul>
-                
-                <button class="nav__toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+
+                <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="nav__toggle-icon"></span>
                 </button>
             </nav>
         </div>
     </header>
-    
-    <!-- Main Content -->
-    <main id="main-content">
+
+    <main>
         <!-- Hero Section -->
-        <section class="contact-hero">
+        <section class="hero" style="min-height: 60vh;">
             <div class="container">
-                <h1 class="contact-hero__title">Get in Touch</h1>
-                <p class="contact-hero__subtitle">Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+                <div class="hero__content">
+                    <h1 class="hero__title">
+                        <span class="text-gradient">Get in Touch</span>
+                    </h1>
+                    <p class="hero__subtitle">We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+                </div>
             </div>
         </section>
-        
-        <!-- Contact Content -->
-        <section class="contact-content">
+
+        <!-- Contact Form & Info -->
+        <section class="section">
             <div class="container">
-                <div class="contact-content__grid">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
                     <!-- Contact Form -->
-                    <div class="contact-form-wrapper">
-                        <h2 class="contact-form-wrapper__title">Send us a Message</h2>
-                        <form class="contact-form" id="contactForm" novalidate>
+                    <div class="animate-on-scroll">
+                        <h2 style="font-size: var(--font-size-2xl); margin-bottom: var(--space-6);">Send us a Message</h2>
+
+                        <form id="contactForm" class="contact-form">
                             <div class="form-group">
                                 <label for="name" class="form-label">Full Name <span class="required">*</span></label>
-                                <input type="text" id="name" name="name" class="form-input" placeholder="John Doe" required>
+                                <input type="text" id="name" name="name" class="form-input" required>
                                 <span class="form-error" id="nameError"></span>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="email" class="form-label">Email Address <span class="required">*</span></label>
-                                <input type="email" id="email" name="email" class="form-input" placeholder="john@example.com" required>
+                                <input type="email" id="email" name="email" class="form-input" required>
                                 <span class="form-error" id="emailError"></span>
                             </div>
-                            
-                            <div class="form-group">
-                                <label for="phone" class="form-label">Phone Number</label>
-                                <input type="tel" id="phone" name="phone" class="form-input" placeholder="+1 (555) 123-4567">
-                            </div>
-                            
+
                             <div class="form-group">
                                 <label for="subject" class="form-label">Subject <span class="required">*</span></label>
                                 <select id="subject" name="subject" class="form-select" required>
                                     <option value="">Select a subject</option>
                                     <option value="general">General Inquiry</option>
+                                    <option value="sales">Sales Question</option>
                                     <option value="support">Technical Support</option>
-                                    <option value="sales">Sales & Partnership</option>
-                                    <option value="careers">Careers & HR</option>
-                                    <option value="feedback">Feedback</option>
+                                    <option value="partnership">Partnership</option>
+                                    <option value="careers">Careers</option>
                                     <option value="other">Other</option>
                                 </select>
                                 <span class="form-error" id="subjectError"></span>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="message" class="form-label">Message <span class="required">*</span></label>
-                                <textarea id="message" name="message" class="form-textarea" rows="6" placeholder="How can we help you?" required></textarea>
+                                <textarea id="message" name="message" class="form-textarea" required></textarea>
                                 <span class="form-error" id="messageError"></span>
                             </div>
-                            
-                            <button type="submit" class="btn btn--primary btn--large contact-form__submit">
-                                <span class="contact-form__submit-text">Send Message</span>
-                                <span class="contact-form__submit-loading">
-                                    <i class="fas fa-spinner fa-spin"></i> Sending...
-                                </span>
-                            </button>
+
+                            <button type="submit" class="btn btn-primary btn-large" style="width: 100%;">Send Message</button>
                         </form>
-                        
-                        <div class="form-success" id="formSuccess" style="display: none;">
-                            <i class="fas fa-check-circle"></i>
-                            <h3>Message Sent Successfully!</h3>
-                            <p>Thank you for contacting us. We'll get back to you within 24 hours.</p>
+
+                        <div id="formSuccess" class="card" style="display: none; margin-top: var(--space-6); text-align: center; padding: var(--space-8);">
+                            <div style="font-size: 60px; margin-bottom: var(--space-4);">✅</div>
+                            <h3 style="margin-bottom: var(--space-3);">Message Sent!</h3>
+                            <p style="color: var(--color-text-secondary);">Thank you for contacting us. We'll get back to you within 24 hours.</p>
                         </div>
                     </div>
-                    
+
                     <!-- Contact Information -->
-                    <div class="contact-info">
-                        <h2 class="contact-info__title">Contact Information</h2>
-                        
-                        <div class="contact-info__item">
-                            <div class="contact-info__icon">
-                                <i class="fas fa-envelope"></i>
+                    <div class="animate-on-scroll">
+                        <h2 style="font-size: var(--font-size-2xl); margin-bottom: var(--space-6);">Contact Information</h2>
+
+                        <div class="card" style="margin-bottom: var(--space-6);">
+                            <div style="display: flex; align-items: flex-start; gap: var(--space-4); margin-bottom: var(--space-6);">
+                                <div style="font-size: 24px;">📧</div>
+                                <div>
+                                    <h3 style="margin-bottom: var(--space-2);">Email</h3>
+                                    <p style="color: var(--color-text-secondary);">support@aimobile.com</p>
+                                    <p style="color: var(--color-text-secondary);">sales@aimobile.com</p>
+                                </div>
                             </div>
-                            <div>
-                                <h4 class="contact-info__label">Email</h4>
-                                <a href="mailto:hello@neuralmobile.ai" class="contact-info__value">hello@neuralmobile.ai</a>
-                                <a href="mailto:support@neuralmobile.ai" class="contact-info__value">support@neuralmobile.ai</a>
+
+                            <div style="display: flex; align-items: flex-start; gap: var(--space-4); margin-bottom: var(--space-6);">
+                                <div style="font-size: 24px;">📱</div>
+                                <div>
+                                    <h3 style="margin-bottom: var(--space-2);">Phone</h3>
+                                    <p style="color: var(--color-text-secondary);">+1 (555) 123-4567</p>
+                                    <p style="color: var(--color-text-secondary);">Mon-Fri, 9am-6pm PST</p>
+                                </div>
                             </div>
-                        </div>
-                        
-                        <div class="contact-info__item">
-                            <div class="contact-info__icon">
-                                <i class="fas fa-phone"></i>
+
+                            <div style="display: flex; align-items: flex-start; gap: var(--space-4); margin-bottom: var(--space-6);">
+                                <div style="font-size: 24px;">📍</div>
+                                <div>
+                                    <h3 style="margin-bottom: var(--space-2);">Office</h3>
+                                    <p style="color: var(--color-text-secondary);">123 AI Innovation Drive</p>
+                                    <p style="color: var(--color-text-secondary);">San Francisco, CA 94102</p>
+                                </div>
                             </div>
-                            <div>
-                                <h4 class="contact-info__label">Phone</h4>
-                                <a href="tel:+15551234567" class="contact-info__value">+1 (555) 123-4567</a>
-                                <p class="contact-info__note">Mon-Fri 9AM-6PM PST</p>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-info__item">
-                            <div class="contact-info__icon">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
-                            <div>
-                                <h4 class="contact-info__label">Office</h4>
-                                <p class="contact-info__value">123 Innovation Drive<br>Silicon Valley, CA 94025<br>United States</p>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-info__item">
-                            <div class="contact-info__icon">
-                                <i class="fas fa-clock"></i>
-                            </div>
-                            <div>
-                                <h4 class="contact-info__label">Working Hours</h4>
-                                <p class="contact-info__value">Monday - Friday: 9:00 AM - 6:00 PM PST</p>
-                                <p class="contact-info__value">Saturday - Sunday: Closed</p>
+
+                            <div style="display: flex; align-items: flex-start; gap: var(--space-4);">
+                                <div style="font-size: 24px;">⏰</div>
+                                <div>
+                                    <h3 style="margin-bottom: var(--space-2);">Business Hours</h3>
+                                    <p style="color: var(--color-text-secondary);">Monday - Friday: 9:00 AM - 6:00 PM</p>
+                                    <p style="color: var(--color-text-secondary);">Saturday - Sunday: Closed</p>
+                                </div>
                             </div>
                         </div>
-                        
-                        <!-- Social Media -->
-                        <div class="contact-social">
-                            <h4 class="contact-social__title">Follow Us</h4>
-                            <div class="contact-social__links">
-                                <a href="#" class="contact-social__link" aria-label="Facebook">
-                                    <i class="fab fa-facebook-f"></i>
-                                </a>
-                                <a href="#" class="contact-social__link" aria-label="Twitter">
-                                    <i class="fab fa-twitter"></i>
-                                </a>
-                                <a href="#" class="contact-social__link" aria-label="LinkedIn">
-                                    <i class="fab fa-linkedin-in"></i>
-                                </a>
-                                <a href="#" class="contact-social__link" aria-label="Instagram">
-                                    <i class="fab fa-instagram"></i>
-                                </a>
-                                <a href="#" class="contact-social__link" aria-label="YouTube">
-                                    <i class="fab fa-youtube"></i>
-                                </a>
+
+                        <!-- Social Links -->
+                        <div class="card">
+                            <h3 style="margin-bottom: var(--space-4);">Follow Us</h3>
+                            <div class="flex gap-4">
+                                <a href="#" class="footer__social-link" style="width: 50px; height: 50px; font-size: 20px;" aria-label="Twitter">𝕏</a>
+                                <a href="#" class="footer__social-link" style="width: 50px; height: 50px; font-size: 20px;" aria-label="LinkedIn">in</a>
+                                <a href="#" class="footer__social-link" style="width: 50px; height: 50px; font-size: 20px;" aria-label="GitHub">⌘</a>
+                                <a href="#" class="footer__social-link" style="width: 50px; height: 50px; font-size: 20px;" aria-label="YouTube">▶</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        
-        <!-- FAQ Section -->
-        <section class="faq">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-header__title">Frequently Asked Questions</h2>
-                    <p class="section-header__subtitle">Find quick answers to common questions</p>
-                </div>
-                
-                <div class="faq__accordion">
-                    <div class="faq-item">
-                        <button class="faq-item__question" aria-expanded="false">
-                            <span>How do I get started with NeuralMobile AI products?</span>
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <div class="faq-item__answer">
-                            <p>Simply visit our Products page, choose the app that fits your needs, and click "Get Started". Most of our products offer a free trial so you can experience the AI capabilities before committing to a subscription.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="faq-item">
-                        <button class="faq-item__question" aria-expanded="false">
-                            <span>What platforms are supported?</span>
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <div class="faq-item__answer">
-                            <p>Our products are available on both iOS (App Store) and Android (Google Play Store). Some products also have web versions that work in any modern browser. Check individual product pages for specific platform availability.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="faq-item">
-                        <button class="faq-item__question" aria-expanded="false">
-                            <span>Is my data secure and private?</span>
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <div class="faq-item__answer">
-                            <p>Absolutely. We take data privacy seriously and use enterprise-grade encryption to protect your information. We never sell your data to third parties. You can read our full privacy policy to learn more about our data practices.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="faq-item">
-                        <button class="faq-item__question" aria-expanded="false">
-                            <span>Do you offer enterprise solutions?</span>
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <div class="faq-item__answer">
-                            <p>Yes! We offer customized enterprise solutions for businesses. Contact our sales team through the contact form above or email us at enterprise@neuralmobile.ai to discuss your specific needs and get a custom quote.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="faq-item">
-                        <button class="faq-item__question" aria-expanded="false">
-                            <span>How do I cancel my subscription?</span>
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <div class="faq-item__answer">
-                            <p>You can cancel your subscription at any time through the app settings or your device's app store (App Store or Google Play). Your access will continue until the end of your current billing period.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="faq-item">
-                        <button class="faq-item__question" aria-expanded="false">
-                            <span>Do you offer customer support?</span>
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <div class="faq-item__answer">
-                            <p>Yes, we offer 24/7 email support for all users. Premium subscribers also get access to priority chat support. You can reach our support team at support@neuralmobile.ai or use the contact form above.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="faq-item">
-                        <button class="faq-item__question" aria-expanded="false">
-                            <span>Are there any educational discounts available?</span>
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <div class="faq-item__answer">
-                            <p>Yes! We offer a 50% discount for students and educators. Verify your educational status through our partner platform to unlock the discount. Contact us at education@neuralmobile.ai for more information.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="faq-item">
-                        <button class="faq-item__question" aria-expanded="false">
-                            <span>How often are your AI models updated?</span>
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <div class="faq-item__answer">
-                            <p>We continuously improve our AI models and release updates monthly. These updates are automatically delivered to your device, ensuring you always have access to the latest AI capabilities without any manual action required.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
+
         <!-- Map Section -->
-        <section class="map-section">
+        <section class="section bg-card">
             <div class="container">
-                <div class="section-header">
-                    <h2 class="section-header__title">Find Us</h2>
-                    <p class="section-header__subtitle">Visit our headquarters in Silicon Valley</p>
+                <div class="section__header">
+                    <h2 class="section__title">Find Us</h2>
+                    <p class="section__subtitle">Visit our headquarters in San Francisco</p>
                 </div>
-                
-                <div class="map-section__wrapper">
-                    <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3168.639290621062!2d-122.08424968469227!3d37.42199997982517!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fba02425dad8f%3A0x6c296c66619367e0!2sGoogleplex!5e0!3m2!1sen!2sus!4v1234567890123!5m2!1sen!2sus" 
-                        width="100%" 
-                        height="400" 
-                        style="border:0; border-radius: 12px;" 
-                        allowfullscreen="" 
-                        loading="lazy" 
-                        referrerpolicy="no-referrer-when-downgrade"
-                        title="NeuralMobile AI Office Location">
-                    </iframe>
+
+                <div class="card animate-on-scroll" style="min-height: 400px; display: flex; align-items: center; justify-content: center; background: var(--color-bg-dark);">
+                    <div class="text-center">
+                        <div style="font-size: 80px; margin-bottom: var(--space-4);">🗺️</div>
+                        <h3>Interactive Map</h3>
+                        <p style="color: var(--color-text-secondary);">123 AI Innovation Drive, San Francisco, CA 94102</p>
+                        <a href="https://maps.google.com" target="_blank" class="btn btn-primary" style="margin-top: var(--space-4);">Open in Google Maps</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="section">
+            <div class="container">
+                <div class="section__header">
+                    <h2 class="section__title">Quick Answers</h2>
+                    <p class="section__subtitle">Find quick answers to common questions</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="card animate-on-scroll stagger-1">
+                        <h3 style="margin-bottom: var(--space-3);">How quickly do you respond?</h3>
+                        <p style="color: var(--color-text-secondary);">We typically respond to all inquiries within 24 hours during business days.</p>
+                    </div>
+
+                    <div class="card animate-on-scroll stagger-2">
+                        <h3 style="margin-bottom: var(--space-3);">Do you offer phone support?</h3>
+                        <p style="color: var(--color-text-secondary);">Yes, phone support is available for Professional and Enterprise plans during business hours.</p>
+                    </div>
+
+                    <div class="card animate-on-scroll stagger-3">
+                        <h3 style="margin-bottom: var(--space-3);">Can I schedule a demo?</h3>
+                        <p style="color: var(--color-text-secondary);">Absolutely! Use the contact form to request a demo, and our team will reach out to schedule a time.</p>
+                    </div>
+
+                    <div class="card animate-on-scroll stagger-4">
+                        <h3 style="margin-bottom: var(--space-3);">Where are you located?</h3>
+                        <p style="color: var(--color-text-secondary);">Our headquarters is in San Francisco, with team members working remotely across the globe.</p>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
-    
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer__grid">
                 <div class="footer__column">
                     <div class="footer__logo">
-                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-                            <rect width="40" height="40" rx="8" fill="url(#gradient2)"/>
-                            <path d="M20 10L28 20L20 30L12 20L20 10Z" fill="white"/>
-                            <defs>
-                                <linearGradient id="gradient2" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#2563EB"/>
-                                    <stop offset="1" stop-color="#7C3AED"/>
-                                </linearGradient>
-                            </defs>
-                        </svg>
-                        <span>NeuralMobile AI</span>
+                        <div class="nav__logo-icon">AI</div>
+                        <span>Mobile</span>
                     </div>
-                    <p class="footer__description">Transforming mobile experiences with cutting-edge artificial intelligence technology.</p>
+                    <p class="footer__description">Transforming mobile experiences through cutting-edge artificial intelligence and automation solutions.</p>
                     <div class="footer__social">
-                        <a href="#" class="footer__social-link" aria-label="Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="#" class="footer__social-link" aria-label="Twitter">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="footer__social-link" aria-label="LinkedIn">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                        <a href="#" class="footer__social-link" aria-label="Instagram">
-                            <i class="fab fa-instagram"></i>
-                        </a>
+                        <a href="#" class="footer__social-link" aria-label="Twitter">𝕏</a>
+                        <a href="#" class="footer__social-link" aria-label="LinkedIn">in</a>
+                        <a href="#" class="footer__social-link" aria-label="GitHub">⌘</a>
                     </div>
                 </div>
-                
+
                 <div class="footer__column">
-                    <h4 class="footer__heading">Products</h4>
+                    <h4 class="footer__heading">Product</h4>
                     <ul class="footer__links">
-                        <li><a href="products.html">NeuralVoice AI</a></li>
-                        <li><a href="products.html">SmartLens Pro</a></li>
-                        <li><a href="products.html">PredictiveType</a></li>
-                        <li><a href="products.html">HealthGuard AI</a></li>
-                        <li><a href="products.html">All Products</a></li>
+                        <li><a href="products.html">Features</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="#">Integrations</a></li>
+                        <li><a href="#">Documentation</a></li>
                     </ul>
                 </div>
-                
+
                 <div class="footer__column">
                     <h4 class="footer__heading">Company</h4>
                     <ul class="footer__links">
                         <li><a href="about.html">About Us</a></li>
-                        <li><a href="about.html">Our Team</a></li>
-                        <li><a href="about.html">Careers</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Blog</a></li>
                         <li><a href="contact.html">Contact</a></li>
-                        <li><a href="#">Press</a></li>
                     </ul>
                 </div>
-                
+
                 <div class="footer__column">
-                    <h4 class="footer__heading">Support</h4>
+                    <h4 class="footer__heading">Legal</h4>
                     <ul class="footer__links">
-                        <li><a href="#">Help Center</a></li>
-                        <li><a href="#">Documentation</a></li>
-                        <li><a href="#">API Reference</a></li>
-                        <li><a href="#">Community</a></li>
-                        <li><a href="#">Status</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">GDPR</a></li>
                     </ul>
-                </div>
-                
-                <div class="footer__column">
-                    <h4 class="footer__heading">Newsletter</h4>
-                    <p class="footer__newsletter-text">Stay updated with our latest AI innovations and product releases.</p>
-                    <form class="footer__newsletter-form">
-                        <input type="email" placeholder="Enter your email" class="footer__newsletter-input" required>
-                        <button type="submit" class="footer__newsletter-btn">
-                            <i class="fas fa-paper-plane"></i>
-                        </button>
-                    </form>
                 </div>
             </div>
-            
+
             <div class="footer__bottom">
-                <div class="footer__copyright">
-                    &copy; 2024 NeuralMobile AI. All rights reserved.
-                </div>
+                <p class="footer__copyright">&copy; 2024 AI Mobile. All rights reserved.</p>
                 <div class="footer__legal">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
-                    <a href="#">Cookie Policy</a>
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Cookies</a>
                 </div>
             </div>
         </div>
     </footer>
-    
-    <!-- JavaScript -->
-    <script src="js/main.js"></script>
+
     <script src="js/navigation.js"></script>
     <script src="js/animations.js"></script>
-    <script src="js/form-validation.js"></script>
+    <script src="js/form-handler.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>

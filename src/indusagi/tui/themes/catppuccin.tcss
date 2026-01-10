@@ -1,0 +1,94 @@
+/*
+ * Indus CLI - Catppuccin Mocha Theme
+ *
+ * Based on the popular Catppuccin color palette.
+ * https://github.com/catppuccin/catppuccin
+ */
+
+/* Catppuccin Mocha colors */
+$primary: #f5a97f;       /* Peach */
+$secondary: #a6da95;     /* Green */
+$accent: #8aadf4;        /* Blue */
+$success: #a6da95;       /* Green */
+$warning: #eed49f;       /* Yellow */
+$error: #ed8796;         /* Red */
+$info: #8bd5ca;          /* Teal */
+
+$background: #24273a;    /* Base */
+$background-panel: #1e2030;  /* Mantle */
+$background-element: #363a4f; /* Surface0 */
+$background-hover: #494d64;   /* Surface1 */
+$background-selected: #5b6078; /* Surface2 */
+
+$text: #cad3f5;          /* Text */
+$text-muted: #a5adcb;    /* Subtext0 */
+$text-strong: #f4f4f5;   /* White */
+
+$border: #494d64;        /* Surface1 */
+$border-active: #f5a97f; /* Peach */
+$border-subtle: #363a4f; /* Surface0 */
+
+/* Catppuccin syntax colors */
+$syntax-comment: #6e738d;     /* Overlay0 */
+$syntax-keyword: #c6a0f6;     /* Mauve */
+$syntax-string: #a6da95;      /* Green */
+$syntax-number: #f5a97f;      /* Peach */
+$syntax-function: #8aadf4;    /* Blue */
+$syntax-type: #eed49f;        /* Yellow */
+$syntax-variable: #ed8796;    /* Red */
+
+/* Catppuccin screen */
+Screen {
+    background: $background;
+    color: $text;
+}
+
+Header {
+    background: $background-panel;
+    color: $primary;
+}
+
+Footer {
+    background: $background-panel;
+}
+
+/* Catppuccin messages */
+.message-user {
+    background: #1e2542;
+    border-left: tall $accent;
+}
+
+.message-assistant {
+    background: #2a2520;
+    border-left: tall $primary;
+}
+
+.message-tool {
+    background: #2a2820;
+    border-left: tall $warning;
+}
+
+/* Catppuccin inputs */
+Input:focus {
+    border: tall $primary;
+}
+
+Button.-primary {
+    background: $primary;
+    color: $background;
+}
+
+/* Catppuccin command palette */
+.command-palette {
+    background: $background-panel;
+    border: thick $primary;
+}
+
+/* Catppuccin sidebar */
+.sidebar {
+    background: $background-panel;
+}
+
+.session-item.-active {
+    background: #302a25;
+}

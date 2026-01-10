@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Simple, transparent pricing for AI Mobile. Choose the perfect plan for your business needs.">
+    <title>Pricing - AI Mobile</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="nav__logo">
+                    <div class="nav__logo-icon">AI</div>
+                    <span>Mobile</span>
+                </a>
+
+                <ul class="nav__menu" id="navMenu">
+                    <li class="nav__item">
+                        <a href="index.html" class="nav__link">Home</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="about.html" class="nav__link">About</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="products.html" class="nav__link">Products</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="pricing.html" class="nav__link nav__link--active">Pricing</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="contact.html" class="nav__link">Contact</a>
+                    </li>
+                </ul>
+
+                <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="nav__toggle-icon"></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" style="min-height: 60vh;">
+            <div class="container">
+                <div class="hero__content">
+                    <h1 class="hero__title">
+                        <span class="text-gradient">Simple, Transparent Pricing</span>
+                    </h1>
+                    <p class="hero__subtitle">Choose the perfect plan for your business. No hidden fees, cancel anytime.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Cards -->
+        <section class="section">
+            <div class="container">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Starter Plan -->
+                    <div class="pricing-card animate-on-scroll stagger-1">
+                        <h3 style="font-size: var(--font-size-2xl); margin-bottom: var(--space-2);">Starter</h3>
+                        <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);">Perfect for individuals and small teams</p>
+                        <div class="pricing-card__price">
+                            $0<span>/month</span>
+                        </div>
+                        <ul class="pricing-card__features">
+                            <li>1 user account</li>
+                            <li>Basic AI Assistant</li>
+                            <li>1,000 queries/month</li>
+                            <li>Email support</li>
+                            <li>Community access</li>
+                            <li style="opacity: 0.5;">Advanced analytics</li>
+                            <li style="opacity: 0.5;">Automation tools</li>
+                            <li style="opacity: 0.5;">Priority support</li>
+                        </ul>
+                        <a href="#" class="btn btn-secondary" style="width: 100%;">Get Started Free</a>
+                    </div>
+
+                    <!-- Professional Plan -->
+                    <div class="pricing-card popular animate-on-scroll stagger-2">
+                        <div class="pricing-card__badge">Most Popular</div>
+                        <h3 style="font-size: var(--font-size-2xl); margin-bottom: var(--space-2);">Professional</h3>
+                        <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);">For growing businesses and teams</p>
+                        <div class="pricing-card__price">
+                            $29<span>/month</span>
+                        </div>
+                        <ul class="pricing-card__features">
+                            <li>Up to 10 user accounts</li>
+                            <li>Advanced AI Assistant</li>
+                            <li>50,000 queries/month</li>
+                            <li>Priority email support</li>
+                            <li>Advanced analytics dashboard</li>
+                            <li>Workflow automation</li>
+                            <li>API access</li>
+                            <li style="opacity: 0.5;">Custom integrations</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary" style="width: 100%;">Start Free Trial</a>
+                    </div>
+
+                    <!-- Enterprise Plan -->
+                    <div class="pricing-card animate-on-scroll stagger-3">
+                        <h3 style="font-size: var(--font-size-2xl); margin-bottom: var(--space-2);">Enterprise</h3>
+                        <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);">For large organizations</p>
+                        <div class="pricing-card__price">
+                            Custom
+                        </div>
+                        <ul class="pricing-card__features">
+                            <li>Unlimited user accounts</li>
+                            <li>Full AI suite access</li>
+                            <li>Unlimited queries</li>
+                            <li>24/7 dedicated support</li>
+                            <li>Custom analytics & reports</li>
+                            <li>Advanced automation workflows</li>
+                            <li>Custom integrations</li>
+                            <li>On-premise deployment option</li>
+                        </ul>
+                        <a href="contact.html" class="btn btn-secondary" style="width: 100%;">Contact Sales</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Feature Comparison Table -->
+        <section class="section bg-card">
+            <div class="container">
+                <div class="section__header">
+                    <h2 class="section__title">Compare Features</h2>
+                    <p class="section__subtitle">Detailed comparison of all plans</p>
+                </div>
+
+                <div style="overflow-x: auto;">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Starter</th>
+                                <th>Professional</th>
+                                <th>Enterprise</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Users</strong></td>
+                                <td>1</td>
+                                <td>10</td>
+                                <td>Unlimited</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Queries/Month</strong></td>
+                                <td>1,000</td>
+                                <td>50,000</td>
+                                <td>Unlimited</td>
+                            </tr>
+                            <tr>
+                                <td><strong>AI Assistant</strong></td>
+                                <td>Basic</td>
+                                <td>Advanced</td>
+                                <td>Full Suite</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Analytics</strong></td>
+                                <td>Basic</td>
+                                <td>Advanced</td>
+                                <td>Custom</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Automation</strong></td>
+                                <td>-</td>
+                                <td>✓</td>
+                                <td>Advanced</td>
+                            </tr>
+                            <tr>
+                                <td><strong>API Access</strong></td>
+                                <td>-</td>
+                                <td>✓</td>
+                                <td>✓</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Custom Integrations</strong></td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>✓</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Support</strong></td>
+                                <td>Email</td>
+                                <td>Priority Email</td>
+                                <td>24/7 Dedicated</td>
+                            </tr>
+                            <tr>
+                                <td><strong>SLA</strong></td>
+                                <td>-</td>
+                                <td>99.5%</td>
+                                <td>99.99%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="section">
+            <div class="container">
+                <div class="section__header">
+                    <h2 class="section__title">Frequently Asked Questions</h2>
+                    <p class="section__subtitle">Find answers to common questions about our pricing</p>
+                </div>
+
+                <div style="max-width: 800px; margin: 0 auto;">
+                    <div class="card animate-on-scroll" style="margin-bottom: var(--space-4);">
+                        <h3 style="margin-bottom: var(--space-3);">Can I change plans later?</h3>
+                        <p style="color: var(--color-text-secondary);">Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately, and we'll prorate any differences.</p>
+                    </div>
+
+                    <div class="card animate-on-scroll" style="margin-bottom: var(--space-4);">
+                        <h3 style="margin-bottom: var(--space-3);">Is there a free trial?</h3>
+                        <p style="color: var(--color-text-secondary);">Yes! We offer a 14-day free trial for the Professional plan. No credit card required to start.</p>
+                    </div>
+
+                    <div class="card animate-on-scroll" style="margin-bottom: var(--space-4);">
+                        <h3 style="margin-bottom: var(--space-3);">What payment methods do you accept?</h3>
+                        <p style="color: var(--color-text-secondary);">We accept all major credit cards, PayPal, and bank transfers for Enterprise plans.</p>
+                    </div>
+
+                    <div class="card animate-on-scroll" style="margin-bottom: var(--space-4);">
+                        <h3 style="margin-bottom: var(--space-3);">Can I cancel anytime?</h3>
+                        <p style="color: var(--color-text-secondary);">Absolutely. You can cancel your subscription at any time with no penalties. Your access continues until the end of your billing period.</p>
+                    </div>
+
+                    <div class="card animate-on-scroll">
+                        <h3 style="margin-bottom: var(--space-3);">Do you offer discounts for nonprofits or education?</h3>
+                        <p style="color: var(--color-text-secondary);">Yes! We offer special pricing for qualified nonprofits, educational institutions, and open-source projects. Contact us for details.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="section bg-gradient">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section__title">Ready to Get Started?</h2>
+                    <p class="section__subtitle" style="margin-bottom: var(--space-8);">Join thousands of businesses already using AI Mobile</p>
+                    <div class="flex justify-center gap-4" style="flex-wrap: wrap;">
+                        <a href="#" class="btn btn-primary btn-large">Start Free Trial</a>
+                        <a href="contact.html" class="btn btn-secondary btn-large">Talk to Sales</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div class="footer__column">
+                    <div class="footer__logo">
+                        <div class="nav__logo-icon">AI</div>
+                        <span>Mobile</span>
+                    </div>
+                    <p class="footer__description">Transforming mobile experiences through cutting-edge artificial intelligence and automation solutions.</p>
+                    <div class="footer__social">
+                        <a href="#" class="footer__social-link" aria-label="Twitter">𝕏</a>
+                        <a href="#" class="footer__social-link" aria-label="LinkedIn">in</a>
+                        <a href="#" class="footer__social-link" aria-label="GitHub">⌘</a>
+                    </div>
+                </div>
+
+                <div class="footer__column">
+                    <h4 class="footer__heading">Product</h4>
+                    <ul class="footer__links">
+                        <li><a href="products.html">Features</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="#">Integrations</a></li>
+                        <li><a href="#">Documentation</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer__column">
+                    <h4 class="footer__heading">Company</h4>
+                    <ul class="footer__links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer__column">
+                    <h4 class="footer__heading">Legal</h4>
+                    <ul class="footer__links">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">GDPR</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer__bottom">
+                <p class="footer__copyright">&copy; 2024 AI Mobile. All rights reserved.</p>
+                <div class="footer__legal">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/navigation.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+/* Grid System */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 20px;
+}
+
+/* Grid Item */
+.grid-item {
+  grid-column: span 4;
+}

@@ -18,6 +18,8 @@ from indusagi.tool_usage_logger import tool_logger
 from indusagi.providers.base import BaseProvider, ProviderResponse, ToolCall
 from indusagi.providers.openai_provider import OpenAIProvider
 from indusagi.providers.anthropic_provider import AnthropicProvider
+from indusagi.providers.ollama_provider import OllamaProvider
+from indusagi.providers.groq_provider import GroqProvider
 from indusagi.utils.prompt_loader import load_prompt_from_file, is_file_path
 
 # Initialize Rich console with custom theme for styled output
@@ -112,9 +114,11 @@ class AgentConfig(BaseModel):
         Create configuration from environment variables.
 
         Environment variables:
-            LLM_PROVIDER: Provider to use ('openai' or 'anthropic')
+            LLM_PROVIDER: Provider to use ('openai', 'anthropic', 'ollama', or 'groq')
             ANTHROPIC_MODEL: Anthropic model (default: claude-sonnet-4-5-20250929)
             OPENAI_MODEL: OpenAI model (default: gpt-4o)
+            OLLAMA_MODEL: Ollama model (default: glm-4.7)
+            GROQ_MODEL: Groq model (default: llama-3.3-70b-versatile)
             MAX_TOKENS: Maximum tokens (default: 1024)
             TEMPERATURE: Temperature (default: 0.7)
 
@@ -128,6 +132,12 @@ class AgentConfig(BaseModel):
         if provider == "anthropic":
             default_model = "claude-sonnet-4-5-20250929"
             model_env = "ANTHROPIC_MODEL"
+        elif provider == "ollama":
+            default_model = "glm-4.7"
+            model_env = "OLLAMA_MODEL"
+        elif provider == "groq":
+            default_model = "llama-3.3-70b-versatile"
+            model_env = "GROQ_MODEL"
         else:
             default_model = "gpt-4o"
             model_env = "OPENAI_MODEL"
@@ -147,23 +157,32 @@ class AgentConfig(BaseModel):
 
         Priority:
         1. LLM_PROVIDER environment variable
-        2. ANTHROPIC_API_KEY (if set)
-        3. OPENAI_API_KEY (if set)
-        4. Default to 'openai'
+        2. GROQ_API_KEY (if set)
+        3. OLLAMA_API_KEY (if set)
+        4. ANTHROPIC_API_KEY (if set)
+        5. OPENAI_API_KEY (if set)
+        6. Default to 'openai'
 
         Returns:
-            Provider name: 'openai' or 'anthropic'
+            Provider name: 'openai', 'anthropic', 'ollama', or 'groq'
         """
         # Check explicit provider setting
         explicit_provider = os.getenv("LLM_PROVIDER")
-        if explicit_provider in ["openai", "anthropic"]:
+        if explicit_provider in ["openai", "anthropic", "ollama", "groq"]:
             return explicit_provider
 
         # Auto-detect based on API keys
+        has_groq = bool(os.getenv("GROQ_API_KEY"))
+        has_ollama = bool(os.getenv("OLLAMA_API_KEY"))
         has_anthropic = bool(os.getenv("ANTHROPIC_API_KEY"))
         has_openai = bool(os.getenv("OPENAI_API_KEY"))
 
-        if has_anthropic and not has_openai:
+        # Prioritize Groq if key is present (fastest inference)
+        if has_groq:
+            return "groq"
+        elif has_ollama:
+            return "ollama"
+        elif has_anthropic and not has_openai:
             return "anthropic"
         elif has_openai:
             return "openai"
@@ -264,7 +283,7 @@ class Agent:
         Create and return the appropriate provider instance.
 
         Args:
-            provider_name: Provider to use ('openai' or 'anthropic')
+            provider_name: Provider to use ('openai', 'anthropic', or 'ollama')
 
         Returns:
             Provider instance
@@ -294,10 +313,32 @@ class Agent:
             base_url = os.getenv("OPENAI_BASE_URL")
             return OpenAIProvider(api_key=api_key, base_url=base_url)
 
+        elif provider_name == "ollama":
+            api_key = os.getenv("OLLAMA_API_KEY")
+            if not api_key:
+                raise ValueError(
+                    "OLLAMA_API_KEY environment variable is required for cloud Ollama. "
+                    "Please set it with: export OLLAMA_API_KEY='your-key-here'"
+                )
+
+            base_url = os.getenv("OLLAMA_BASE_URL", "https://ollama.com")
+            return OllamaProvider(api_key=api_key, base_url=base_url)
+
+        elif provider_name == "groq":
+            api_key = os.getenv("GROQ_API_KEY")
+            if not api_key:
+                raise ValueError(
+                    "GROQ_API_KEY environment variable not set. "
+                    "Please set it with: export GROQ_API_KEY='your-key-here'"
+                )
+
+            base_url = os.getenv("GROQ_BASE_URL")
+            return GroqProvider(api_key=api_key, base_url=base_url)
+
         else:
             raise ValueError(
                 f"Unknown provider: {provider_name}. "
-                "Supported providers: 'openai', 'anthropic'"
+                "Supported providers: 'openai', 'anthropic', 'ollama', 'groq'"
             )
 
     def _tool_call_to_openai_format(self, tool_call: ToolCall) -> Dict[str, Any]:
