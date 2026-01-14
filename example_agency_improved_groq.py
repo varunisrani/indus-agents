@@ -37,13 +37,14 @@ console = Console()
 # Agent Factory Functions (Improved Instructions)
 # ============================================================================
 
-def create_planner_agent(model: str = "llama-3.3-70b-versatile", reasoning_effort: str = "medium") -> Agent:
+def create_planner_agent(model: Optional[str] = None, reasoning_effort: str = "medium") -> Agent:
     """
     Strategic Planner Agent - Creates detailed implementation plans.
     Uses Groq provider for ultra-fast inference.
 
     Loads prompt from markdown file for better maintainability.
     """
+    model = model or os.getenv("GROQ_MODEL", "moonshotai/kimi-k2-instruct-0905")
     config = AgentConfig(
         model=model,
         provider="groq",
@@ -66,13 +67,14 @@ def create_planner_agent(model: str = "llama-3.3-70b-versatile", reasoning_effor
     return agent
 
 
-def create_coder_agent(model: str = "llama-3.3-70b-versatile", reasoning_effort: str = "medium") -> Agent:
+def create_coder_agent(model: Optional[str] = None, reasoning_effort: str = "medium") -> Agent:
     """
     Coder Agent - Entry point with intelligent handoff to Planner.
     Uses Groq provider for ultra-fast inference.
 
     Loads prompt from markdown file for better maintainability.
     """
+    model = model or os.getenv("GROQ_MODEL", "moonshotai/kimi-k2-instruct-0905")
     config = AgentConfig(
         model=model,
         provider="groq",
@@ -95,13 +97,14 @@ def create_coder_agent(model: str = "llama-3.3-70b-versatile", reasoning_effort:
     return agent
 
 
-def create_critic_agent(model: str = "llama-3.3-70b-versatile", reasoning_effort: str = "medium") -> Agent:
+def create_critic_agent(model: Optional[str] = None, reasoning_effort: str = "medium") -> Agent:
     """
     Critic Agent - Risk, QA, and review specialist for plans and code.
     Uses Groq provider for ultra-fast inference.
 
     Loads prompt from markdown file for better maintainability.
     """
+    model = model or os.getenv("GROQ_MODEL", "moonshotai/kimi-k2-instruct-0905")
     config = AgentConfig(
         model=model,
         provider="groq",
@@ -129,7 +132,7 @@ def create_critic_agent(model: str = "llama-3.3-70b-versatile", reasoning_effort
 # ============================================================================
 
 def create_development_agency(
-    model: str = "llama-3.3-70b-versatile",
+    model: Optional[str] = None,
     reasoning_effort: str = "medium",
     max_handoffs: int = 100,
     max_turns: Optional[int] = None,
@@ -147,7 +150,7 @@ def create_development_agency(
     - All agents use Groq's fast inference API
 
     Args:
-        model: LLM model to use (default: "llama-3.3-70b-versatile")
+        model: LLM model to use (default: GROQ_MODEL env var or "moonshotai/kimi-k2-instruct-0905")
         reasoning_effort: Reasoning effort level (default: "medium")
         max_handoffs: Maximum number of handoffs allowed (default: 100)
         max_turns: Max tool-calling iterations per agent. None uses 1000 (default: None)
@@ -157,6 +160,7 @@ def create_development_agency(
     # Use shared preset to keep CLI/TUI/examples consistent
     from indusagi.presets.improved_anthropic_agency import ImprovedAgencyOptions, create_improved_agency
     
+    model = model or os.getenv("GROQ_MODEL", "moonshotai/kimi-k2-instruct-0905")
     current_dir = os.path.dirname(os.path.abspath(__file__))
     prompt_dir = os.path.join(current_dir, "example_agency_improved_groq_prompts")
     opts = ImprovedAgencyOptions(
@@ -305,10 +309,9 @@ def main():
     print_agency_banner()
     print_workflow_explanation()
 
-    # Create agency with Llama 3.3 70B (via Groq)
+    # Create agency using GROQ_MODEL (via Groq)
     console.print("[cyan]Creating development agency...[/cyan]")
     agency = create_development_agency(
-        model="llama-3.3-70b-versatile",  # Fast and capable model on Groq
         reasoning_effort="medium",
         max_handoffs=100,
         use_thread_pool=args.thread_pool,
