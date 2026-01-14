@@ -4,30 +4,26 @@
 [![Python versions](https://img.shields.io/pypi/pyversions/indusagi.svg)](https://pypi.org/project/indusagi/)
 [![License](https://img.shields.io/pypi/l/indusagi.svg)](https://github.com/varunisrani/indus-agents/blob/main/LICENSE)
 
-A modern, extensible indus-agents for building autonomous agents with Large Language Models (LLMs). Built with Python, featuring a clean architecture, type safety, and async-first design.
+A modern, extensible framework for building LLM-powered agents with tools, memory, and multi-agent orchestration. Built with Python and a clean, modular architecture.
 
 ## Features
 
-- **Clean Architecture**: Modular design with clear separation of concerns
-- **Type Safe**: Built with Pydantic models for robust data validation
-- **Async First**: Native async/await support for high-performance applications
-- **Tool System**: Extensible tool interface for agent capabilities
-- **Multiple LLM Support**: Works with OpenAI, Anthropic, and other providers
-- **Beautiful CLI**: Rich terminal interface with intuitive commands
-- **Comprehensive Testing**: Full test coverage with pytest
-- **Developer Friendly**: Easy to extend, customize, and integrate
+- Clean architecture with clear separation of concerns
+- Type safety via Pydantic models
+- Tool calling loop with built-in dev tools
+- Multi-provider support: OpenAI, Anthropic, Groq, Ollama
+- Multi-agent orchestration (Agency + Orchestrator)
+- Conversation memory and tool usage logging
+- Rich CLI and optional TUI
 
 ## Quick Start
 
 ### Installation
 
-#### Using uv (Recommended)
+#### Using uv (recommended)
 
 ```bash
-# Install uv if you haven't already
 pip install uv
-
-# Create a virtual environment and install
 uv venv
 source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 uv pip install indusagi
@@ -36,312 +32,182 @@ uv pip install indusagi
 #### Using pip
 
 ```bash
-# Create a virtual environment
 python -m venv .venv
 source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-
-# Install the package
 pip install indusagi
 ```
 
-#### Development Installation
+#### Development install
 
 ```bash
-# Clone the repository
 git clone https://github.com/varunisrani/indus-agents.git
 cd indus-agents
-
-# Install with development dependencies
 uv pip install -e ".[dev]"
 ```
 
-## Usage
-
-### Basic Example
+### Basic usage
 
 ```python
-import asyncio
 from indusagi import Agent, AgentConfig
 
-async def main():
-    # Create an agent with configuration
-    config = AgentConfig(
-        name="MyAssistant",
-        model="gpt-4",
-        temperature=0.7
-    )
-    agent = Agent(config=config)
+agent = Agent(
+    name="Helper",
+    role="Helpful assistant",
+    config=AgentConfig(model="gpt-5-mini", temperature=0.7),
+)
 
-    # Run the agent
-    response = await agent.run("What is the capital of France?")
-    print(response)
-
-if __name__ == "__main__":
-    asyncio.run(main())
+response = agent.process("What is 2 + 2?")
+print(response)
 ```
 
-### Using Tools
+### Using tools
 
 ```python
-from indusagi import Agent, AgentConfig, BaseTool, ToolConfig, ToolResult
+from typing import ClassVar
+from indusagi import Agent, AgentConfig
+from indusagi.tools import BaseTool, registry
 
-class CalculatorTool(BaseTool):
-    def __init__(self):
-        config = ToolConfig(
-            name="calculator",
-            description="Performs basic arithmetic operations",
-            parameters={
-                "operation": {"type": "string", "enum": ["add", "subtract", "multiply", "divide"]},
-                "a": {"type": "number"},
-                "b": {"type": "number"}
-            }
-        )
-        super().__init__(config)
 
-    async def execute(self, operation: str, a: float, b: float) -> ToolResult:
-        operations = {
-            "add": a + b,
-            "subtract": a - b,
-            "multiply": a * b,
-            "divide": a / b if b != 0 else None
-        }
-        result = operations.get(operation)
+class AddTool(BaseTool):
+    name: ClassVar[str] = "add"
+    description: ClassVar[str] = "Add two numbers"
+    a: int
+    b: int
 
-        if result is None:
-            return ToolResult(success=False, result=None, error="Invalid operation or division by zero")
+    def execute(self) -> str:
+        return str(self.a + self.b)
 
-        return ToolResult(success=True, result=result)
 
-# Create agent with tool
-agent = Agent(config=AgentConfig(name="Calculator Agent"))
-agent.add_tool(CalculatorTool())
+registry.register(AddTool)
+
+agent = Agent(
+    name="Calculator",
+    role="Math helper",
+    config=AgentConfig(model="gpt-5-mini"),
+)
+
+response = agent.process_with_tools(
+    "Add 12 and 30",
+    tools=registry.schemas,
+    tool_executor=registry,
+)
+print(response)
 ```
 
 ### Configuration
 
-Create a `.env` file in your project root:
+Copy `.env.example` to `.env` and fill in your keys. Example:
 
 ```env
-# OpenAI Configuration
-OPENAI_API_KEY=your_api_key_here
-OPENAI_ORG_ID=your_org_id_here
+OPENAI_API_KEY=your-openai-api-key-here
+ANTHROPIC_API_KEY=your-anthropic-api-key-here
+GROQ_API_KEY=your-groq-api-key-here
+OLLAMA_API_KEY=your-ollama-api-key-here
 
-# Agent Configuration
-DEFAULT_MODEL=gpt-4
-DEFAULT_TEMPERATURE=0.7
-MAX_TOKENS=2000
+LLM_PROVIDER=groq
+GROQ_MODEL=moonshotai/kimi-k2-instruct-0905
+OLLAMA_MODEL=glm-4.7
 
-# Application Configuration
-LOG_LEVEL=INFO
-LOG_FILE=agent.log
-
-# Framework Configuration
-ENABLE_HISTORY=true
-MAX_HISTORY_LENGTH=100
+DEFAULT_MODEL=gpt-5-mini
+DEFAULT_TEMPERATURE=1
+MAX_TOKENS=6000
 ```
 
 ## CLI Commands
 
-The framework includes a powerful CLI for managing agents:
-
 ```bash
-# Show version
-indusagi version
-
-# Run an agent with a prompt
 indusagi run "Tell me a joke"
-
-# Run with verbose output
-indusagi run "Explain quantum computing" --verbose
-
-# Show configuration
-indusagi config --show
+indusagi interactive
+indusagi list-tools
+indusagi test-connection
+indusagi list-agents
+indusagi create-agent --output ./agents
+indusagi tui
+indusagi agency-demo
+indusagi version
 ```
 
 ## Project Structure
 
+```text
+indus-agents/
+  src/indusagi/
+    agent.py
+    agency.py
+    orchestrator.py
+    memory.py
+    tools.py
+    tools/
+    providers/
+    presets/
+    templates/
+    tui/
+    utils/
+    cli.py
+  example_agents/
+    example_agency*.py
+    example_agency_improved_*_prompts/
+  example-html-website-create-by-agents/
+    <static html demos>
+  useful-resource/
+    Agency-Code/
+    Mini-Agent/
+    claude-agent-sdk/
+  .env.example
+  agents.md
+  pyproject.toml
+  README.md
+  CHANGELOG.md
+  CONTRIBUTING.md
+  LICENSE
 ```
-indusagi/
-├── src/
-│   └── indusagi/
-│       ├── __init__.py          # Package exports
-│       ├── cli.py               # Command-line interface
-│       ├── agent/               # Agent implementations
-│       │   ├── __init__.py
-│       │   └── base.py          # Base agent class
-│       ├── core/                # Core functionality
-│       │   ├── __init__.py
-│       │   ├── agent.py         # Main agent
-│       │   └── config.py        # Configuration
-│       ├── tools/               # Tool system
-│       │   ├── __init__.py
-│       │   └── base.py          # Base tool class
-│       └── utils/               # Utilities
-│           ├── __init__.py
-│           └── logger.py        # Logging utilities
-├── tests/                       # Test suite
-├── examples/                    # Example scripts
-├── docs/                        # Documentation
-├── pyproject.toml              # Project configuration
-├── README.md                   # This file
-├── CHANGELOG.md                # Version history
-├── CONTRIBUTING.md             # Contribution guidelines
-└── LICENSE                     # MIT License
-```
+
+## Examples and Demos
+
+- `example_agents/` contains the demo scripts and prompt folders used by the agency examples.
+- `example-html-website-create-by-agents/` contains static HTML/CSS/JS demo sites generated by agents.
+
+## Archived or Reference Projects
+
+- `useful-resource/` contains archived or reference subprojects (not part of the core package).
 
 ## Development
 
-### Setup Development Environment
-
 ```bash
-# Install development dependencies
 uv pip install -e ".[dev]"
-
-# Install pre-commit hooks
 pre-commit install
-```
-
-### Running Tests
-
-```bash
-# Run all tests
-pytest
-
-# Run with coverage
-pytest --cov=indusagi --cov-report=html
-
-# Run specific test file
-pytest tests/test_agent/test_base.py
-
-# Run with verbose output
-pytest -v
-```
-
-### Code Quality
-
-```bash
-# Format code with Black
-black src tests
-
-# Lint with Ruff
-ruff check src tests
-
-# Fix linting issues automatically
-ruff check --fix src tests
-
-# Type checking with mypy
-mypy src
-```
-
-### Building the Package
-
-```bash
-# Build distribution packages
+ruff check src
+ruff format src
 python -m build
-
-# This creates:
-# - dist/indusagi-0.1.0-py3-none-any.whl
-# - dist/indusagi-0.1.0.tar.gz
 ```
-
-## Architecture
-
-### Core Components
-
-- **Agent**: Main agent implementation with tool support and conversation history
-- **BaseAgent**: Abstract base class for creating custom agents
-- **AgentConfig**: Configuration model for agent behavior
-- **BaseTool**: Abstract base class for creating tools
-- **ToolConfig**: Configuration model for tools
-- **ToolResult**: Standardized result format from tool execution
-
-### Design Principles
-
-1. **Modularity**: Each component has a single, well-defined responsibility
-2. **Extensibility**: Easy to add new agents, tools, and capabilities
-3. **Type Safety**: Pydantic models ensure data validation and IDE support
-4. **Async First**: All I/O operations are async for better performance
-5. **Testability**: Dependency injection and clear interfaces for easy testing
-
-## Examples
-
-Check the `examples/` directory for more usage examples:
-
-- `basic_agent.py` - Simple agent usage
-- `tool_usage.py` - Agent with custom tools
-- `async_patterns.py` - Advanced async patterns
-- `multi_agent.py` - Multiple agents working together
 
 ## Contributing
 
-We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
-
-### Quick Start for Contributors
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Make your changes and add tests
-4. Ensure tests pass: `pytest`
-5. Format code: `black src tests`
-6. Commit changes: `git commit -m 'Add amazing feature'`
-7. Push to branch: `git push origin feature/amazing-feature`
-8. Open a Pull Request
-
-## Roadmap
-
-- [x] Core agent implementation
-- [x] Tool system foundation
-- [x] CLI interface
-- [x] Comprehensive testing
-- [ ] OpenAI function calling integration
-- [ ] Anthropic Claude integration
-- [ ] Memory management system
-- [ ] Multi-agent coordination
-- [ ] Plugin system
-- [ ] Web interface
-- [ ] Documentation site
-- [ ] Advanced tool library
-- [ ] Streaming responses
-- [ ] Token usage tracking
-- [ ] Agent templates
-
-## Documentation
-
-- [Quick Reference](QUICK_REFERENCE.md) - Fast lookup for common tasks
-- [Deployment Guide](DEPLOYMENT.md) - Publishing and deployment
-- [API Documentation](https://github.com/varunisrani/indus-agents/docs) - Full API reference
-- [Examples](examples/) - Code examples and tutorials
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ## Support
 
-- **Issues**: [GitHub Issues](https://github.com/varunisrani/indus-agents/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/varunisrani/indus-agents/discussions)
-- **Email**: your.email@example.com
+- Issues: https://github.com/varunisrani/indus-agents/issues
+- Discussions: https://github.com/varunisrani/indus-agents/discussions
+- Email: team@indusagi.ai
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License. See [LICENSE](LICENSE).
 
 ## Acknowledgments
 
-- Built with [Typer](https://typer.tiangolo.com/) for the CLI
-- Styled with [Rich](https://rich.readthedocs.io/) for beautiful terminal output
-- Validated with [Pydantic](https://pydantic.dev/) for data models
-- Powered by [OpenAI](https://openai.com/) and other LLM providers
+- Built with Typer for the CLI
+- Styled with Rich for terminal output
+- Validated with Pydantic models
 
 ## Citation
 
-If you use this framework in your research, please cite:
-
 ```bibtex
 @software{indusagi,
-  title = {indus-agents: A Modern indus-agents},
-  author = {Your Name},
+  title = {indus-agents},
+  author = {IndusAGI Team},
   year = {2025},
   url = {https://github.com/varunisrani/indus-agents}
 }
 ```
-
----
-
-Made with care by the indus-agents team.
