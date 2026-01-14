@@ -174,7 +174,12 @@ class AgentConfig(BaseModel):
         # Auto-detect based on API keys
         has_groq = bool(os.getenv("GROQ_API_KEY"))
         has_ollama = bool(os.getenv("OLLAMA_API_KEY"))
-        has_anthropic = bool(os.getenv("ANTHROPIC_API_KEY"))
+        has_anthropic = bool(
+            os.getenv("ANTHROPIC_API_KEY")
+            or os.getenv("Z_AI_API_KEY")
+            or os.getenv("MINIMAX_API_KEY")
+            or os.getenv("GLM_API_KEY")
+        )
         has_openai = bool(os.getenv("OPENAI_API_KEY"))
 
         # Prioritize Groq if key is present (fastest inference)
@@ -292,14 +297,25 @@ class Agent:
             ValueError: If provider_name is invalid or API key is missing
         """
         if provider_name == "anthropic":
-            api_key = os.getenv("ANTHROPIC_API_KEY")
+            api_key = (
+                os.getenv("ANTHROPIC_API_KEY")
+                or os.getenv("Z_AI_API_KEY")
+                or os.getenv("MINIMAX_API_KEY")
+                or os.getenv("GLM_API_KEY")
+            )
             if not api_key:
                 raise ValueError(
                     "ANTHROPIC_API_KEY environment variable not set. "
-                    "Please set it with: export ANTHROPIC_API_KEY='your-key-here'"
+                    "Please set it with: export ANTHROPIC_API_KEY='your-key-here' "
+                    "or provide Z_AI_API_KEY / MINIMAX_API_KEY / GLM_API_KEY for compatible endpoints."
                 )
 
-            base_url = os.getenv("ANTHROPIC_BASE_URL")
+            base_url = (
+                os.getenv("ANTHROPIC_BASE_URL")
+                or os.getenv("Z_AI_BASE_URL")
+                or os.getenv("MINIMAX_BASE_URL")
+                or os.getenv("GLM_API_BASE")
+            )
             return AnthropicProvider(api_key=api_key, base_url=base_url)
 
         elif provider_name == "openai":

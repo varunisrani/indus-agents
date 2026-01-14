@@ -18,6 +18,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Streaming responses
 - Token usage tracking
 
+## [0.2.1.1] - 2026-01-14
+
+### Fixed
+
+- Allow Anthropic-compatible endpoints (Z.AI/GLM/MiniMax) to reuse their keys/base URLs and send Bearer auth so GLM/Anthropic-compatible calls stop returning 401.
+
 ## [0.2.0] - 2026-01-06
 
 ### Added

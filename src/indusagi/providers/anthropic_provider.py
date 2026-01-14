@@ -44,8 +44,20 @@ class AnthropicProvider(BaseProvider):
                 "Install it with: pip install anthropic"
             )
 
+        # Some Anthropic-compatible hosts (e.g., Z.AI, MiniMax) expect Bearer auth
+        extra_headers = None
+        if base_url and "anthropic.com" not in base_url:
+            extra_headers = {"Authorization": f"Bearer {api_key}"}
+
         if base_url:
-            self.client = Anthropic(api_key=api_key, base_url=base_url)
+            if extra_headers:
+                self.client = Anthropic(
+                    api_key=api_key,
+                    base_url=base_url,
+                    default_headers=extra_headers
+                )
+            else:
+                self.client = Anthropic(api_key=api_key, base_url=base_url)
         else:
             self.client = Anthropic(api_key=api_key)
 

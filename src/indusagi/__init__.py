@@ -32,7 +32,7 @@ CLI Usage:
 For more information, see README.md
 """
 
-__version__ = "0.2.1"
+__version__ = "0.2.1.1"
 __author__ = "IndusAGI Team"
 __email__ = "contact@example.com"
 __license__ = "MIT"
