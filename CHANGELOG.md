@@ -24,6 +24,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Allow Anthropic-compatible endpoints (Z.AI/GLM/MiniMax) to reuse their keys/base URLs and send Bearer auth so GLM/Anthropic-compatible calls stop returning 401.
 
+## [0.2.1.2] - 2026-01-14
+
+### Fixed
+
+- Use Anthropic client's `auth_token` (Bearer) for non-anthropic.com base URLs to avoid incompatible x-api-key headers on Z.AI/MiniMax endpoints.
+
 ## [0.2.0] - 2026-01-06
 
 ### Added

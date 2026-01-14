@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "indusagi"
-version = "0.2.1.1"
+version = "0.2.1.2"
 description = "A modern, extensible indus-agents for building autonomous agents with LLMs"
 readme = "README.md"
 requires-python = ">=3.9"
