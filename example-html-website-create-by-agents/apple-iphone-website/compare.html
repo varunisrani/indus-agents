@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compare iPhone Models - Apple</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+</head>
+<body>
+    <header id="header">
+        <nav class="nav">
+            <div class="nav-container">
+                <div class="nav-menu">
+                    <a href="index.html" class="nav-logo">
+                        <span class="nav-icon">🍎</span>
+                    </a>
+                    <ul class="nav-links">
+                        <li><a href="models.html">iPhone</a></li>
+                        <li><a href="features.html">Features</a></li>
+                        <li><a href="compare.html">Compare</a></li>
+                        <li><a href="support.html">Support</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+                <div class="nav-tools">
+                    <a href="#" class="nav-search">
+                        <span class="nav-icon">🔍</span>
+                    </a>
+                    <a href="#" class="nav-bag">
+                        <span class="nav-icon">🛍️</span>
+                    </a>
+                    <button class="nav-toggle" id="nav-toggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero hero-compact">
+            <div class="hero-content">
+                <h1 class="hero-title">Compare iPhone models</h1>
+                <p class="hero-subtitle">Find the best iPhone for you</p>
+            </div>
+        </section>
+
+        <section class="compare-section">
+            <div class="container">
+                <div class="compare-header">
+                    <h2>Technical Specifications</h2>
+                    <div class="compare-controls">
+                        <button class="btn btn-outline" id="compare-3">Compare 3</button>
+                        <button class="btn btn-outline" id="compare-4">Compare 4</button>
+                    </div>
+                </div>
+
+                <div class="compare-table" id="compare-table">
+                    <div class="compare-device-selector">
+                        <div class="device-selector" data-position="0">
+                            <select class="device-select">
+                                <option value="15pro">iPhone 15 Pro</option>
+                                <option value="15promax" selected>iPhone 15 Pro Max</option>
+                                <option value="15">iPhone 15</option>
+                                <option value="se">iPhone SE</option>
+                            </select>
+                        </div>
+                        <div class="device-selector" data-position="1">
+                            <select class="device-select">
+                                <option value="15pro" selected>iPhone 15 Pro</option>
+                                <option value="15promax">iPhone 15 Pro Max</option>
+                                <option value="15">iPhone 15</option>
+                                <option value="se">iPhone SE</option>
+                            </select>
+                        </div>
+                        <div class="device-selector" data-position="2">
+                            <select class="device-select">
+                                <option value="15pro">iPhone 15 Pro</option>
+                                <option value="15promax">iPhone 15 Pro Max</option>
+                                <option value="15" selected>iPhone 15</option>
+                                <option value="se">iPhone SE</option>
+                            </select>
+                        </div>
+                        <div class="device-selector" data-position="3" id="device-4">
+                            <select class="device-select">
+                                <option value="15pro">iPhone 15 Pro</option>
+                                <option value="15promax">iPhone 15 Pro Max</option>
+                                <option value="15">iPhone 15</option>
+                                <option value="se" selected>iPhone SE</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="specs-table">
+                        <div class="spec-row header-row">
+                            <div class="spec-category">Features</div>
+                            <div class="spec-device" id="device-0-name">iPhone 15 Pro Max</div>
+                            <div class="spec-device" id="device-1-name">iPhone 15 Pro</div>
+                            <div class="spec-device" id="device-2-name">iPhone 15</div>
+                            <div class="spec-device" id="device-3-name">iPhone SE</div>
+                        </div>
+
+                        <div class="spec-section">
+                            <div class="spec-category">Display</div>
+                            <div class="spec-values">
+                                <div class="spec-value">6.7" Super Retina XDR</div>
+                                <div class="spec-value">6.1" Super Retina XDR</div>
+                                <div class="spec-value">6.1" Super Retina XDR</div>
+                                <div class="spec-value">4.7" Retina HD</div>
+                            </div>
+                        </div>
+
+                        <div class="spec-section">
+                            <div class="spec-category">Chip</div>
+                            <div class="spec-values">
+                                <div class="spec-value">A17 Pro</div>
+                                <div class="spec-value">A17 Pro</div>
+                                <div class="spec-value">A16 Bionic</div>
+                                <div class="spec-value">A15 Bionic</div>
+                            </div>
+                        </div>
+
+                        <div class="spec-section">
+                            <div class="spec-category">Memory</div>
+                            <div class="spec-values">
+                                <div class="spec-value">256GB, 512GB, 1TB</div>
+                                <div class="spec-value">128GB, 256GB, 512GB, 1TB</div>
+                                <div class="spec-value">128GB, 256GB, 512GB</div>
+                                <div class="spec-value">64GB, 128GB, 256GB</div>
+                            </div>
+                        </div>
+
+                        <div class="spec-section">
+                            <div class="spec-category">Camera</div>
+                            <div class="spec-values">
+                                <div class="spec-value">48MP Main</div>
+                                <div class="spec-value">48MP Main</div>
+                                <div class="spec-value">48MP Main</div>
+                                <div class="spec-value">12MP Wide</div>
+                            </div>
+                        </div>
+
+                        <div class="spec-section">
+                            <div class="spec-category">Battery Life</div>
+                            <div class="spec-values">
+                                <div class="spec-value">Up to 29 hours video</div>
+                                <div class="spec-value">Up to 23 hours video</div>
+                                <div class="spec-value">Up to 20 hours video</div>
+                                <div class="spec-value">Up to 15 hours video</div>
+                            </div>
+                        </div>
+
+                        <div class="spec-section">
+                            <div class="spec-category">Price</div>
+                            <div class="spec-values">
+                                <div class="spec-value">From $1199</div>
+                                <div class="spec-value">From $999</div>
+                                <div class="spec-value">From $799</div>
+                                <div class="spec-value">From $429</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="compare-help">
+                    <h3>Which iPhone is right for you?</h3>
+                    <div class="compare-help-grid">
+                        <div class="help-item">
+                            <span class="help-icon">🏆</span>
+                            <h4>Pro Performance</h4>
+                            <p>iPhone 15 Pro Max for ultimate performance and battery life</p>
+                        </div>
+                        <div class="help-item">
+                            <span class="help-icon">💰</span>
+                            <h4>Best Value</h4>
+                            <p>iPhone SE gives you premium features at an affordable price</p>
+                        </div>
+                        <div class="help-item">
+                            <span class="help-icon">⚖️</span>
+                            <h4>Balanced Choice</h4>
+                            <p>iPhone 15 offers premium features in a compact size</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Shop</h4>
+                    <ul>
+                        <li><a href="#">iPhone</a></li>
+                        <li><a href="#">iPad</a></li>
+                        <li><a href="#">Mac</a></li>
+                        <li><a href="#">Watch</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Repair</a></li>
+                        <li><a href="#">Warranty</a></li>
+                        <li><a href="#">Trade In</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Account</h4>
+                    <ul>
+                        <li><a href="#">Manage ID</a></li>
+                        <li><a href="#">Apple Account</a></li>
+                        <li><a href="#">Store</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Apple Inc. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/navigation.js"></script>
+    <script>
+        // Compare table functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const compare3Btn = document.getElementById('compare-3');
+            const compare4Btn = document.getElementById('compare-4');
+            const device4 = document.getElementById('device-4');
+            const deviceSelectors = document.querySelectorAll('.device-select');
+            
+            compare3Btn.addEventListener('click', function() {
+                compare4Btn.classList.remove('active');
+                compare3Btn.classList.add('active');
+                device4.style.display = 'none';
+                updateTableColumns();
+            });
+            
+            compare4Btn.addEventListener('click', function() {
+                compare3Btn.classList.remove('active');
+                compare4Btn.classList.add('active');
+                device4.style.display = 'block';
+                updateTableColumns();
+            });
+            
+            deviceSelectors.forEach(select => {
+                select.addEventListener('change', function() {
+                    updateDeviceName(this);
+                });
+            });
+            
+            // Initialize with 3-column view
+            compare3Btn.click();
+        });
+        
+        function updateTableColumns() {
+            const table = document.getElementById('compare-table');
+            const device4 = document.getElementById('device-4');
+            const is4Col = device4.style.display !== 'none';
+            
+            if (is4Col) {
+                table.querySelectorAll('.spec-row').forEach(row => {
+                    row.style.gridTemplateColumns = '200px 1fr 1fr 1fr 1fr';
+                });
+            } else {
+                table.querySelectorAll('.spec-row').forEach(row => {
+                    row.style.gridTemplateColumns = '200px 1fr 1fr 1fr';
+                });
+            }
+        }
+        
+        function updateDeviceName(select) {
+            const deviceName = select.options[select.selectedIndex].text;
+            const position = select.closest('.device-selector').dataset.position;
+            const nameElement = document.getElementById(`device-${position}-name`);
+            
+            if (nameElement) {
+                nameElement.textContent = deviceName;
+            }
+        }
+    </script>
+</body>
+</html>
