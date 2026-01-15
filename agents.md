@@ -10,7 +10,7 @@
 - `agent.py`: main `Agent` implementation and `AgentConfig` (provider selection, tool loop, retries).
 - `agency.py`: multi-agent "agency" coordination (Coder/Planner style workflows).
 - `orchestrator.py`: routing system that selects specialized agents.
-- `providers/`: provider adapters (`openai_provider.py`, `anthropic_provider.py`, `groq_provider.py`, `ollama_provider.py`).
+- `providers/`: provider adapters (`openai_provider.py`, `anthropic_provider.py`, `groq_provider.py`, `ollama_provider.py`, `google_provider.py`).
 - `tools.py` + `tools/`: tool registry and built-in tools (bash, read, write, edit, glob, grep, todo_write, handoff).
 - `memory.py`: conversation memory and message tracking.
 - `cli.py`: Typer-based CLI commands.
@@ -46,6 +46,7 @@
   - `ANTHROPIC_API_KEY`
   - `GROQ_API_KEY`
   - `OLLAMA_API_KEY` (Ollama Cloud)
+  - `GEMINI_API_KEY` / `GOOGLE_API_KEY` (Google Gemini Developer API)
 - Optional defaults used by `AgentConfig.from_env` (see `src/indusagi/agent.py`).
 - Dependencies:
   - Core: `openai`, `anthropic`, `pydantic`, `typer`, `rich`, `httpx`, `python-dotenv`.

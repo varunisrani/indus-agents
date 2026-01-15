@@ -18,10 +18,12 @@ class ToolCall:
         id: Unique identifier for the tool call
         name: Name of the tool/function to call
         arguments: Dictionary of arguments to pass to the tool
+        thought_signature: Optional Gemini thought signature for tool calls
     """
     id: str
     name: str
     arguments: Dict[str, Any]
+    thought_signature: Optional[bytes] = None
 
 
 @dataclass
