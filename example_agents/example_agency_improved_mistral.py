@@ -13,8 +13,17 @@ Usage:
 """
 
 import os
+import sys
+import argparse
 from typing import Optional, List, Dict, Any
 from dotenv import load_dotenv
+
+# Prefer local src/ package when running from the repo.
+current_dir = os.path.dirname(os.path.abspath(__file__))
+repo_root = os.path.abspath(os.path.join(current_dir, os.pardir))
+src_path = os.path.join(repo_root, "src")
+if os.path.isdir(src_path) and src_path not in sys.path:
+    sys.path.insert(0, src_path)
 
 # Load environment variables
 load_dotenv()
@@ -23,6 +32,7 @@ from indusagi import Agent, AgentConfig, Agency
 from indusagi.tools import Bash, Read, Edit, Write, Glob, Grep, TodoWrite
 from indusagi.tools import handoff_to_agent, set_current_agency, registry
 from indusagi.hooks import SystemReminderHook, CompositeHook
+from indusagi.presets.improved_anthropic_agency import ImprovedAgencyOptions, create_improved_agency
 
 # Rich imports for beautiful terminal output
 from rich.console import Console
@@ -37,14 +47,13 @@ console = Console()
 # Agent Factory Functions (Improved Instructions)
 # ============================================================================
 
-def create_planner_agent(model: Optional[str] = None, reasoning_effort: str = "medium") -> Agent:
+def create_planner_agent(model: str = "mistral-large-latest", reasoning_effort: str = "medium") -> Agent:
     """
     Strategic Planner Agent - Creates detailed implementation plans.
     Uses Mistral provider.
 
     Loads prompt from markdown file for better maintainability.
     """
-    model = model or os.getenv("MISTRAL_MODEL", "mistral-large-latest")
     config = AgentConfig(
         model=model,
         provider="mistral",
@@ -61,20 +70,19 @@ def create_planner_agent(model: Optional[str] = None, reasoning_effort: str = "m
         name="Planner",
         role="Strategic planning and task breakdown specialist",
         config=config,
-        prompt_file=prompt_file  # ✅ Load from .md file
+        prompt_file=prompt_file  # ? Load from .md file
     )
 
     return agent
 
 
-def create_coder_agent(model: Optional[str] = None, reasoning_effort: str = "medium") -> Agent:
+def create_coder_agent(model: str = "mistral-large-latest", reasoning_effort: str = "medium") -> Agent:
     """
     Coder Agent - Entry point with intelligent handoff to Planner.
     Uses Mistral provider.
 
     Loads prompt from markdown file for better maintainability.
     """
-    model = model or os.getenv("MISTRAL_MODEL", "mistral-large-latest")
     config = AgentConfig(
         model=model,
         provider="mistral",
@@ -91,20 +99,19 @@ def create_coder_agent(model: Optional[str] = None, reasoning_effort: str = "med
         name="Coder",
         role="Code implementation and execution",
         config=config,
-        prompt_file=prompt_file  # ✅ Load from .md file
+        prompt_file=prompt_file  # ? Load from .md file
     )
 
     return agent
 
 
-def create_critic_agent(model: Optional[str] = None, reasoning_effort: str = "medium") -> Agent:
+def create_critic_agent(model: str = "mistral-large-latest", reasoning_effort: str = "medium") -> Agent:
     """
     Critic Agent - Risk, QA, and review specialist for plans and code.
     Uses Mistral provider.
 
     Loads prompt from markdown file for better maintainability.
     """
-    model = model or os.getenv("MISTRAL_MODEL", "mistral-large-latest")
     config = AgentConfig(
         model=model,
         provider="mistral",
@@ -121,7 +128,7 @@ def create_critic_agent(model: Optional[str] = None, reasoning_effort: str = "me
         name="Critic",
         role="Risk and quality reviewer (edge cases, failure modes, test ideas)",
         config=config,
-        prompt_file=prompt_file  # ✅ Load from .md file
+        prompt_file=prompt_file  # ? Load from .md file
     )
 
     return agent
@@ -132,7 +139,7 @@ def create_critic_agent(model: Optional[str] = None, reasoning_effort: str = "me
 # ============================================================================
 
 def create_development_agency(
-    model: Optional[str] = None,
+    model: str = "mistral-large-latest",
     reasoning_effort: str = "medium",
     max_handoffs: int = 100,
     max_turns: Optional[int] = None,
@@ -147,20 +154,15 @@ def create_development_agency(
     - Coder decides when to handoff to Planner
     - Planner creates plans and hands back to Coder
     - Bidirectional communication flows
-    - All agents use Mistral's API
+    - All agents use Mistral's OpenAI-compatible API
 
     Args:
-        model: LLM model to use (default: MISTRAL_MODEL env var or "mistral-large-latest")
+        model: LLM model to use (default: "mistral-large-latest")
         reasoning_effort: Reasoning effort level (default: "medium")
         max_handoffs: Maximum number of handoffs allowed (default: 100)
         max_turns: Max tool-calling iterations per agent. None uses 1000 (default: None)
-        use_thread_pool: Run each agent in isolated thread with separate resources (default: False)
-        thread_response_timeout: Timeout for thread responses in seconds (default: 600.0)
     """
-    # Use shared preset to keep CLI/TUI/examples consistent
-    from indusagi.presets.improved_anthropic_agency import ImprovedAgencyOptions, create_improved_agency
-
-    model = model or os.getenv("MISTRAL_MODEL", "mistral-large-latest")
+    # Use shared preset to keep CLI/TUI/examples consistent.
     current_dir = os.path.dirname(os.path.abspath(__file__))
     prompt_dir = os.path.join(current_dir, "example_agency_improved_prompts")
     opts = ImprovedAgencyOptions(
@@ -200,63 +202,162 @@ def print_agency_banner():
     console.print()
 
 
-def display_agency_config(agency: Agency):
-    """Display current configuration."""
-    config_table = Table(
-        title="Agency Configuration",
-        box=box.ROUNDED,
-        show_header=False
-    )
-    config_table.add_column("Setting", style="cyan")
-    config_table.add_column("Value", style="white")
+def print_workflow_explanation():
+    """Display workflow explanation."""
+    workflow = """[bold cyan]How it works:[/bold cyan]
 
-    config_table.add_row("Agents:", f"{len(agency.agents)}")
+  [green]1.[/green] You talk to [bright_blue]Coder[/bright_blue] (entry agent)
+  [green]2.[/green] Coder decides: simple task = handle directly
+  [green]3.[/green]              : complex task = handoff to [bright_blue]Planner[/bright_blue]
+  [green]4.[/green] Planner creates plan.md -> hands back to [bright_blue]Coder[/bright_blue]
+  [green]5.[/green] Optional: Coder can fan out to [bright_blue]Planner[/bright_blue] + [bright_blue]Critic[/bright_blue] in parallel
+  [green]6.[/green] Coder merges parallel outputs and implements
+"""
+
+    console.print(Panel(
+        workflow,
+        box=box.ROUNDED,
+        border_style="cyan",
+        padding=(1, 2),
+        width=70,
+    ))
+    console.print()
+
+
+def print_agency_config(agency):
+    """Display agency configuration in table."""
+    config_table = Table.grid(padding=(0, 2))
+    config_table.add_column(style="cyan", justify="left", width=20)
+    config_table.add_column(style="white", justify="left")
+
+    config_table.add_row("Agency:", agency.name)
+    config_table.add_row("Entry Agent:", f"[bright_blue]{agency.entry_agent.name}[/bright_blue] (smart router)")
+    config_table.add_row("Total Agents:", str(len(agency.agents)))
     config_table.add_row("Provider:", agency.entry_agent.provider.get_provider_name())
     config_table.add_row("Model:", agency.entry_agent.config.model)
-    config_table.add_row("Tools:", f"{len(registry.tools)} available")
 
-    console.print(config_table)
+    console.print(Panel(
+        config_table,
+        title="[bright_cyan]Agency Configuration[/bright_cyan]",
+        box=box.ROUNDED,
+        border_style="bright_cyan",
+        padding=(1, 2),
+    ))
+    console.print()
+
+
+def print_example_prompts():
+    """Display example prompts."""
+    examples = """[bold yellow]Simple tasks (Coder handles directly):[/bold yellow]
+  [green]-[/green] "Create a hello world HTML page"
+  [green]-[/green] "Create a simple calculator with HTML/CSS/JS"
+
+[bold yellow]Complex tasks (Coder -> Planner -> Coder):[/bold yellow]
+  [green]-[/green] "Create plan.md for a todo app, then implement it"
+  [green]-[/green] "Plan and build a weather dashboard with API integration"
+  [green]-[/green] "I need a multi-page website. First create plan.md"
+[bold yellow]Parallel handoffs (Coder fans out to multiple agents):[/bold yellow]
+  [green]-[/green] "Run Planner + Critic in parallel for a spec and risk list"
+  [green]-[/green] "Ask Planner and Coder to explore two options, then summarize"
+"""
+
+    console.print(Panel(
+        examples,
+        title="[bright_cyan]Example Prompts[/bright_cyan]",
+        box=box.ROUNDED,
+        border_style="yellow",
+        padding=(1, 2),
+    ))
+    console.print()
 
 
 # ============================================================================
-# Main Execution
+# Main Entry Point
 # ============================================================================
 
 def main():
-    """Run the improved agency demo."""
+    """
+    Main entry point - improved agency with dynamic routing using Mistral.
+    """
+    # Check for API key
+    if not os.getenv("MISTRAL_API_KEY"):
+        console.print(Panel(
+            "[red]Error: MISTRAL_API_KEY not set in environment[/red]\n\n"
+            "Please set it in .env file",
+            title="[red]Configuration Error[/red]",
+            border_style="red",
+            box=box.ROUNDED,
+        ))
+        return
+
+    parser = argparse.ArgumentParser(description="Improved Agency Demo (Mistral)")
+    parser.add_argument(
+        "--thread-pool",
+        action="store_true",
+        help="Run each agent in an isolated worker thread with separate tools",
+    )
+    parser.add_argument(
+        "--thread-timeout",
+        type=float,
+        default=600.0,
+        help="Seconds to wait for a threaded agent response before timing out",
+    )
+    args = parser.parse_args()
+
+    # Display banner and workflow
     print_agency_banner()
+    print_workflow_explanation()
 
-    # Create agency
-    agency = create_development_agency()
+    # Create agency with Mistral model
+    console.print("[cyan]Creating development agency...[/cyan]")
+    agency = create_development_agency(
+        model=os.getenv("MISTRAL_MODEL", "mistral-large-latest"),
+        reasoning_effort="medium",
+        max_handoffs=100,
+        use_thread_pool=args.thread_pool,
+        thread_response_timeout=args.thread_timeout,
+        # max_turns=None uses 1000 as default (increased from 100)
+    )
 
-    # Display config
-    display_agency_config(agency)
+    # Display configuration
+    print_agency_config(agency)
 
-    # Set current agency for handoff tools
-    set_current_agency(agency)
+    # Show flows
+    console.print(Panel(
+        "[bold]Communication Flows:[/bold]",
+        box=box.ROUNDED,
+        border_style="dim",
+    ))
+    agency.visualize()
+    console.print()
 
-    # Interactive loop
-    console.print("\n[bold green]Agency ready! Type your request or 'exit' to quit.[/bold green]\n")
+    # Show examples
+    print_example_prompts()
 
-    while True:
-        try:
-            user_input = input("\n[User] > ").strip()
+    # Run terminal demo
+    console.print(Panel(
+        "[cyan]Starting interactive demo...[/cyan]\n\n"
+        "[dim]Commands: /quit, /agents, /handoffs, /logs, /stats[/dim]",
+        box=box.ROUNDED,
+        border_style="green",
+    ))
+    console.print()
 
-            if user_input.lower() in ["exit", "quit", "bye"]:
-                console.print("\n[bold yellow]Goodbye![/bold yellow]")
-                break
-
-            if not user_input:
-                continue
-
-            response = agency.run(user_input)
-            console.print(f"\n[bold blue]Assistant:[/bold blue] {response}")
-
-        except KeyboardInterrupt:
-            console.print("\n[bold yellow]Interrupted. Goodbye![/bold yellow]")
-            break
-        except Exception as e:
-            console.print(f"\n[bold red]Error: {str(e)}[/bold red]")
+    try:
+        agency.terminal_demo(show_reasoning=False)
+    except KeyboardInterrupt:
+        console.print("\n\n[yellow]Interrupted by user. Exiting...[/yellow]")
+    except Exception as e:
+        console.print(Panel(
+            f"[red]{str(e)}[/red]",
+            title="[red]Error[/red]",
+            border_style="red",
+            box=box.ROUNDED,
+        ))
+        import traceback
+        traceback.print_exc()
+    finally:
+        agency.shutdown()
 
 
 if __name__ == "__main__":
