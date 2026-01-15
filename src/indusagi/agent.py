@@ -20,6 +20,7 @@ from indusagi.providers.openai_provider import OpenAIProvider
 from indusagi.providers.anthropic_provider import AnthropicProvider
 from indusagi.providers.ollama_provider import OllamaProvider
 from indusagi.providers.groq_provider import GroqProvider
+from indusagi.providers.google_provider import GoogleProvider
 from indusagi.utils.prompt_loader import load_prompt_from_file, is_file_path
 
 # Initialize Rich console with custom theme for styled output
@@ -41,7 +42,8 @@ class AgentConfig(BaseModel):
 
     Attributes:
         model: Model to use (e.g., 'gpt-4o', 'claude-sonnet-4-5-20250929')
-        provider: LLM provider ('openai' or 'anthropic'). Auto-detected if None.
+        provider: LLM provider ('openai', 'anthropic', 'ollama', 'groq', 'google').
+                  Auto-detected if None.
         max_tokens: Maximum tokens in response (100-32000)
         temperature: Sampling temperature for randomness (0.0-2.0)
         top_p: Nucleus sampling parameter (0.0-1.0)
@@ -57,7 +59,8 @@ class AgentConfig(BaseModel):
     )
     provider: Optional[str] = Field(
         default=None,
-        description="LLM provider: 'openai' or 'anthropic'. Auto-detected if None."
+        description="LLM provider: 'openai', 'anthropic', 'ollama', 'groq', or 'google'. "
+        "Auto-detected if None."
     )
     max_tokens: int = Field(
         default=1024,
@@ -114,11 +117,12 @@ class AgentConfig(BaseModel):
         Create configuration from environment variables.
 
         Environment variables:
-            LLM_PROVIDER: Provider to use ('openai', 'anthropic', 'ollama', or 'groq')
+            LLM_PROVIDER: Provider to use ('openai', 'anthropic', 'ollama', 'groq', or 'google')
             ANTHROPIC_MODEL: Anthropic model (default: claude-sonnet-4-5-20250929)
             OPENAI_MODEL: OpenAI model (default: gpt-4o)
             OLLAMA_MODEL: Ollama model (default: glm-4.7)
             GROQ_MODEL: Groq model (default: llama-3.3-70b-versatile)
+            GOOGLE_MODEL: Google Gemini model (default: gemini-2.0-flash)
             MAX_TOKENS: Maximum tokens (default: 1024)
             TEMPERATURE: Temperature (default: 0.7)
 
@@ -138,6 +142,9 @@ class AgentConfig(BaseModel):
         elif provider == "groq":
             default_model = "llama-3.3-70b-versatile"
             model_env = "GROQ_MODEL"
+        elif provider == "google":
+            default_model = "gemini-2.0-flash"
+            model_env = "GOOGLE_MODEL"
         else:
             default_model = "gpt-5-mini"
             model_env = "OPENAI_MODEL"
@@ -159,21 +166,26 @@ class AgentConfig(BaseModel):
         1. LLM_PROVIDER environment variable
         2. GROQ_API_KEY (if set)
         3. OLLAMA_API_KEY (if set)
-        4. ANTHROPIC_API_KEY (if set)
-        5. OPENAI_API_KEY (if set)
-        6. Default to 'openai'
+        4. GOOGLE_API_KEY/GEMINI_API_KEY/GOOGLE_GENAI_USE_VERTEXAI (if set)
+        5. ANTHROPIC_API_KEY (if set)
+        6. OPENAI_API_KEY (if set)
+        7. Default to 'openai'
 
         Returns:
             Provider name: 'openai', 'anthropic', 'ollama', or 'groq'
         """
         # Check explicit provider setting
         explicit_provider = os.getenv("LLM_PROVIDER")
-        if explicit_provider in ["openai", "anthropic", "ollama", "groq"]:
+        if explicit_provider in ["openai", "anthropic", "ollama", "groq", "google"]:
             return explicit_provider
 
         # Auto-detect based on API keys
         has_groq = bool(os.getenv("GROQ_API_KEY"))
         has_ollama = bool(os.getenv("OLLAMA_API_KEY"))
+        has_google = (
+            bool(os.getenv("GOOGLE_API_KEY") or os.getenv("GEMINI_API_KEY"))
+            or os.getenv("GOOGLE_GENAI_USE_VERTEXAI") == "1"
+        )
         has_anthropic = bool(os.getenv("ANTHROPIC_API_KEY"))
         has_openai = bool(os.getenv("OPENAI_API_KEY"))
 
@@ -182,6 +194,8 @@ class AgentConfig(BaseModel):
             return "groq"
         elif has_ollama:
             return "ollama"
+        elif has_google:
+            return "google"
         elif has_anthropic and not has_openai:
             return "anthropic"
         elif has_openai:
@@ -283,7 +297,7 @@ class Agent:
         Create and return the appropriate provider instance.
 
         Args:
-            provider_name: Provider to use ('openai', 'anthropic', or 'ollama')
+            provider_name: Provider to use ('openai', 'anthropic', 'ollama', 'groq', 'google')
 
         Returns:
             Provider instance
@@ -334,11 +348,28 @@ class Agent:
 
             base_url = os.getenv("GROQ_BASE_URL")
             return GroqProvider(api_key=api_key, base_url=base_url)
+        elif provider_name == "google":
+            api_key = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
+            use_vertexai = os.getenv("GOOGLE_GENAI_USE_VERTEXAI") == "1"
+            project = os.getenv("GOOGLE_CLOUD_PROJECT")
+            location = os.getenv("GOOGLE_CLOUD_LOCATION")
+            if not api_key and not use_vertexai:
+                raise ValueError(
+                    "GEMINI_API_KEY or GOOGLE_API_KEY environment variable not set. "
+                    "For Vertex AI, set GOOGLE_GENAI_USE_VERTEXAI=1 with "
+                    "GOOGLE_CLOUD_PROJECT and GOOGLE_CLOUD_LOCATION."
+                )
+            return GoogleProvider(
+                api_key=api_key,
+                use_vertexai=use_vertexai,
+                project=project,
+                location=location,
+            )
 
         else:
             raise ValueError(
                 f"Unknown provider: {provider_name}. "
-                "Supported providers: 'openai', 'anthropic', 'ollama', 'groq'"
+                "Supported providers: 'openai', 'anthropic', 'ollama', 'groq', 'google'"
             )
 
     def _tool_call_to_openai_format(self, tool_call: ToolCall) -> Dict[str, Any]:

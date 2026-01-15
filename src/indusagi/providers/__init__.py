@@ -10,6 +10,7 @@ from .openai_provider import OpenAIProvider
 from .anthropic_provider import AnthropicProvider
 from .ollama_provider import OllamaProvider
 from .groq_provider import GroqProvider
+from .google_provider import GoogleProvider
 
 __all__ = [
     "BaseProvider",
@@ -19,4 +20,5 @@ __all__ = [
     "AnthropicProvider",
     "OllamaProvider",
     "GroqProvider",
+    "GoogleProvider",
 ]
