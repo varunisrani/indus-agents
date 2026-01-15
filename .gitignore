@@ -104,6 +104,7 @@ celerybeat.pid
 
 # Environments
 .env
+.env.*
 .venv
 env/
 venv/
@@ -151,3 +152,5 @@ Thumbs.db
 .uv/
 activity-tracker-agent/.env.local
 Mini-Agent/
+mcp.json
+example_agents/mcp.json

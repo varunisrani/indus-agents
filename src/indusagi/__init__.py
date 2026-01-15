@@ -52,6 +52,11 @@ from indusagi.utils.prompt_loader import load_prompt_from_file, select_prompt_fi
 # Import tool usage logger
 from indusagi.tool_usage_logger import tool_logger, ToolUsageLogger
 
+# MCP integration
+from indusagi.mcp import McpConfig, StdioMcpServer, StreamableHttpMcpServer, load_mcp_json
+from indusagi.mcp import IndusToolDef, ToolExecResult, McpToolRouter, McpToolRegistry
+from indusagi.mcp import ToolExecutorMux
+
 # Expose public API
 __all__ = [
     # Version info
@@ -90,6 +95,17 @@ __all__ = [
     # Tool Usage Logging
     "tool_logger",
     "ToolUsageLogger",
+
+    # MCP integration
+    "McpConfig",
+    "StdioMcpServer",
+    "StreamableHttpMcpServer",
+    "load_mcp_json",
+    "IndusToolDef",
+    "ToolExecResult",
+    "McpToolRouter",
+    "McpToolRegistry",
+    "ToolExecutorMux",
 
     # Templates (imported on demand)
     # "templates",

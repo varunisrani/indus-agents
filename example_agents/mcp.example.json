@@ -1,0 +1,31 @@
+{
+  "mcpServers": {
+    "deepwiki": {
+      "type": "streamable-http",
+      "url": "https://mcp.deepwiki.com/mcp"
+    },
+    "devin": {
+      "type": "streamable-http",
+      "url": "https://mcp.devin.ai/mcp",
+      "headers": {
+        "Authorization": "Bearer <API_KEY>"
+      }
+    },
+    "supabase": {
+      "type": "streamable-http",
+      "url": "https://mcp.supabase.com/mcp?read_only=true&project_ref=YOUR_PROJECT_REF"
+    },
+    "gmail": {
+      "command": "uvx",
+      "args": [
+        "git+https://github.com/ampcome-mcps/gmail-mcp.git"
+      ],
+      "env": {
+        "NANGO_BASE_URL": "https://api.nango.dev",
+        "NANGO_SECRET_KEY": "YOUR_NANGO_SECRET_KEY",
+        "NANGO_CONNECTION_ID": "YOUR_CONNECTION_ID",
+        "NANGO_INTEGRATION_ID": "google-mail"
+      }
+    }
+  }
+}
