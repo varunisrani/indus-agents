@@ -6,7 +6,7 @@ Supports both the Gemini Developer API and Vertex AI Gemini.
 """
 
 import json
-from typing import List, Dict, Any, Optional, Iterator
+from typing import List, Dict, Any, Optional, Iterator, Tuple
 
 from google import genai
 
@@ -86,20 +86,19 @@ class GoogleProvider(BaseProvider):
         contents = self._convert_messages_to_google(messages)
         tool_payload = self._convert_openai_tools(tools)
 
-        api_params = {
-            "model": config.model,
-            "contents": contents,
-            "system_instruction": system_prompt or None,
-            "generation_config": {
-                "temperature": config.temperature,
-                "top_p": config.top_p,
-                "max_output_tokens": config.max_tokens,
-            },
-        }
-        if tool_payload:
-            api_params["tools"] = tool_payload
+        api_params = self._build_api_params(
+            contents=contents,
+            system_prompt=system_prompt,
+            config=config,
+            tool_payload=tool_payload,
+            include_system_instruction=True,
+        )
 
-        response = self.client.models.generate_content(**api_params)
+        response = self._invoke_generate(
+            self.client.models.generate_content,
+            api_params,
+            system_prompt,
+        )
 
         return self._normalize_response(response)
 
@@ -125,20 +124,19 @@ class GoogleProvider(BaseProvider):
         contents = self._convert_messages_to_google(messages)
         tool_payload = self._convert_openai_tools(tools)
 
-        api_params = {
-            "model": config.model,
-            "contents": contents,
-            "system_instruction": system_prompt or None,
-            "generation_config": {
-                "temperature": config.temperature,
-                "top_p": config.top_p,
-                "max_output_tokens": config.max_tokens,
-            },
-        }
-        if tool_payload:
-            api_params["tools"] = tool_payload
+        api_params = self._build_api_params(
+            contents=contents,
+            system_prompt=system_prompt,
+            config=config,
+            tool_payload=tool_payload,
+            include_system_instruction=True,
+        )
 
-        stream = self.client.models.generate_content_stream(**api_params)
+        stream = self._invoke_generate(
+            self.client.models.generate_content_stream,
+            api_params,
+            system_prompt,
+        )
 
         saw_tool_call = False
         for chunk in stream:
@@ -159,6 +157,116 @@ class GoogleProvider(BaseProvider):
     def get_provider_name(self) -> str:
         """Get provider name."""
         return "google"
+
+    def _build_api_params(
+        self,
+        contents: List[Dict[str, Any]],
+        system_prompt: str,
+        config: "AgentConfig",
+        tool_payload: Optional[List[Dict[str, Any]]],
+        include_system_instruction: bool,
+    ) -> Dict[str, Any]:
+        config_payload = {
+            "temperature": config.temperature,
+            "top_p": config.top_p,
+            "max_output_tokens": config.max_tokens,
+        }
+        if include_system_instruction and system_prompt:
+            config_payload["system_instruction"] = system_prompt
+        if tool_payload:
+            config_payload["tools"] = tool_payload
+
+        api_params: Dict[str, Any] = {
+            "model": config.model,
+            "contents": contents,
+            "config": {k: v for k, v in config_payload.items() if v is not None},
+        }
+        return api_params
+
+    def _invoke_generate(
+        self,
+        method,
+        api_params: Dict[str, Any],
+        system_prompt: str,
+    ):
+        params = dict(api_params)
+        attempts = 0
+        last_exc: Optional[TypeError] = None
+
+        while attempts < 4:
+            try:
+                return method(**params)
+            except TypeError as exc:
+                last_exc = exc
+                message = str(exc)
+                handled = False
+
+                if "config" in message and "config" in params:
+                    config_dict = self._ensure_config_dict(params.pop("config"))
+                    system_value = config_dict.pop("system_instruction", None)
+                    tools_value = config_dict.pop("tools", None)
+                    if config_dict:
+                        params["generation_config"] = config_dict
+                    if system_value:
+                        params["system_instruction"] = system_value
+                    if tools_value:
+                        params["tools"] = tools_value
+                    handled = True
+
+                if "generation_config" in message and "generation_config" in params:
+                    generation_config = params.pop("generation_config", None)
+                    if generation_config is not None:
+                        config_dict = self._ensure_config_dict(params.get("config"))
+                        if isinstance(generation_config, dict):
+                            config_dict.update(generation_config)
+                        params["config"] = config_dict
+                    handled = True
+
+                if "system_instruction" in message and "system_instruction" in params:
+                    system_value = params.pop("system_instruction", None)
+                    if system_value:
+                        params["contents"] = self._prepend_system_prompt(
+                            params.get("contents", []), system_value
+                        )
+                    handled = True
+
+                if "tools" in message and "tools" in params:
+                    tools_value = params.pop("tools", None)
+                    if tools_value:
+                        config_dict = self._ensure_config_dict(params.get("config"))
+                        config_dict["tools"] = tools_value
+                        params["config"] = config_dict
+                    handled = True
+
+                if not handled:
+                    raise
+
+                attempts += 1
+
+        if last_exc is not None:
+            raise last_exc
+        raise TypeError("Failed to call Gemini API with the provided parameters.")
+
+    def _ensure_config_dict(self, config_value: Any) -> Dict[str, Any]:
+        if config_value is None:
+            return {}
+        if isinstance(config_value, dict):
+            return dict(config_value)
+        model_dump = getattr(config_value, "model_dump", None)
+        if callable(model_dump):
+            return dict(model_dump())
+        to_dict = getattr(config_value, "to_dict", None)
+        if callable(to_dict):
+            return dict(to_dict())
+        return dict(getattr(config_value, "__dict__", {}))
+
+    def _prepend_system_prompt(
+        self, contents: List[Dict[str, Any]], system_prompt: str
+    ) -> List[Dict[str, Any]]:
+        if not system_prompt:
+            return contents
+        system_content = {"role": "user", "parts": [{"text": system_prompt}]}
+        return [system_content] + list(contents)
 
     def _convert_openai_tools(
         self, tools: Optional[List[Dict[str, Any]]]
@@ -199,9 +307,12 @@ class GoogleProvider(BaseProvider):
                     parts.append({"text": msg["content"]})
 
                 for tool_call in msg.get("tool_calls", []) or []:
-                    function_call = self._convert_tool_call_to_google(tool_call)
+                    function_call, thought_signature = self._convert_tool_call_to_google(tool_call)
                     if function_call:
-                        parts.append({"function_call": function_call})
+                        part = {"function_call": function_call}
+                        if thought_signature is not None:
+                            part["thought_signature"] = thought_signature
+                        parts.append(part)
 
                 if parts:
                     contents.append({"role": "model", "parts": parts})
@@ -241,12 +352,15 @@ class GoogleProvider(BaseProvider):
                         tool_call_name_by_id[tool_call_id] = name
         return tool_call_name_by_id
 
-    def _convert_tool_call_to_google(self, tool_call: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+    def _convert_tool_call_to_google(
+        self, tool_call: Dict[str, Any]
+    ) -> Tuple[Optional[Dict[str, Any]], Optional[Any]]:
         function = tool_call.get("function", {})
         name = function.get("name")
         arguments = function.get("arguments", "")
+        thought_signature = tool_call.get("thought_signature")
         if not name:
-            return None
+            return None, thought_signature
 
         if isinstance(arguments, str):
             try:
@@ -254,7 +368,7 @@ class GoogleProvider(BaseProvider):
             except json.JSONDecodeError:
                 arguments = {}
 
-        return {"name": name, "args": arguments}
+        return {"name": name, "args": arguments}, thought_signature
 
     def _normalize_response(self, response) -> ProviderResponse:
         content = self._extract_text(response)
@@ -307,8 +421,13 @@ class GoogleProvider(BaseProvider):
 
         for part in parts:
             function_call = getattr(part, "function_call", None)
+            if function_call is None and isinstance(part, dict):
+                function_call = part.get("function_call")
             if not function_call:
                 continue
+            thought_signature = getattr(part, "thought_signature", None)
+            if thought_signature is None and isinstance(part, dict):
+                thought_signature = part.get("thought_signature")
 
             name = getattr(function_call, "name", None)
             args = getattr(function_call, "args", None)
@@ -328,6 +447,7 @@ class GoogleProvider(BaseProvider):
                     id=f"{name or 'tool'}-{len(tool_calls) + 1}",
                     name=name or "tool",
                     arguments=args or {},
+                    thought_signature=thought_signature,
                 )
             )
 

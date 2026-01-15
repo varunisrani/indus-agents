@@ -12,8 +12,16 @@ Usage:
 """
 
 import os
+import sys
 from typing import Optional
 from dotenv import load_dotenv
+
+# Prefer local src/ package when running from the repo.
+current_dir = os.path.dirname(os.path.abspath(__file__))
+repo_root = os.path.abspath(os.path.join(current_dir, os.pardir))
+src_path = os.path.join(repo_root, "src")
+if os.path.isdir(src_path) and src_path not in sys.path:
+    sys.path.insert(0, src_path)
 
 # Load environment variables
 load_dotenv()

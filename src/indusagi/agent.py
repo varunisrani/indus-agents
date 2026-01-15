@@ -383,7 +383,7 @@ class Agent:
             Tool call in OpenAI format
         """
         import json
-        return {
+        payload = {
             "id": tool_call.id,
             "type": "function",
             "function": {
@@ -391,6 +391,12 @@ class Agent:
                 "arguments": json.dumps(tool_call.arguments)
             }
         }
+        if (
+            getattr(tool_call, "thought_signature", None)
+            and self.provider.get_provider_name() == "google"
+        ):
+            payload["thought_signature"] = tool_call.thought_signature
+        return payload
 
     def process(self, user_input: str) -> str:
         """
