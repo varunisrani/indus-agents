@@ -58,6 +58,7 @@ class ModelItem(ListItem):
             "anthropic": "🟣",
             "ollama": "🦙",
             "groq": "⚡",
+            "mistral": "🟠",
         }
         icon = provider_icons.get(self.model.provider.lower(), "🤖")
         text.append(f"{icon} ", style="")
@@ -237,6 +238,29 @@ class ModelSelectDialog(ModalScreen):
             provider="Groq",
             description="Fast Mixtral on Groq",
             context_length=32768,
+        ),
+
+        # Mistral
+        ModelInfo(
+            id="mistral-large-latest",
+            name="Mistral Large",
+            provider="Mistral",
+            description="Top-tier Mistral model",
+            context_length=128000,
+        ),
+        ModelInfo(
+            id="mistral-small-latest",
+            name="Mistral Small",
+            provider="Mistral",
+            description="Smaller, faster Mistral model",
+            context_length=64000,
+        ),
+        ModelInfo(
+            id="open-mixtral-8x7b",
+            name="Mixtral 8x7B",
+            provider="Mistral",
+            description="Open Mixtral model from Mistral",
+            context_length=32000,
         ),
     ]
 

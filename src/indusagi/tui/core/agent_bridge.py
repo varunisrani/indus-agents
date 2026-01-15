@@ -115,6 +115,12 @@ class AgentBridge:
             "api_base_env": "OLLAMA_HOST",
             "default_base": "http://localhost:11434",
         },
+        "Mistral": {
+            "provider": "mistral",
+            "api_key_env": "MISTRAL_API_KEY",
+            "api_base_env": "MISTRAL_BASE_URL",
+            "default_base": "https://api.mistral.ai/v1",
+        },
     }
 
     def __init__(

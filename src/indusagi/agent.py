@@ -1,8 +1,9 @@
 """
-Core Agent class for LLM interaction using OpenAI and Anthropic APIs.
+Core Agent class for LLM interaction using multiple providers.
 
 This module provides the Agent class which handles communication with multiple LLM
-providers (OpenAI, Anthropic), manages conversation history, and supports tool calling.
+providers (OpenAI, Anthropic, Mistral, etc.), manages conversation history,
+and supports tool calling.
 """
 from typing import Optional, List, Dict, Any, Callable
 from pydantic import BaseModel, Field
@@ -21,6 +22,7 @@ from indusagi.providers.anthropic_provider import AnthropicProvider
 from indusagi.providers.ollama_provider import OllamaProvider
 from indusagi.providers.groq_provider import GroqProvider
 from indusagi.providers.google_provider import GoogleProvider
+from indusagi.providers.mistral_provider import MistralProvider
 from indusagi.utils.prompt_loader import load_prompt_from_file, is_file_path
 
 # Initialize Rich console with custom theme for styled output
@@ -42,7 +44,7 @@ class AgentConfig(BaseModel):
 
     Attributes:
         model: Model to use (e.g., 'gpt-4o', 'claude-sonnet-4-5-20250929')
-        provider: LLM provider ('openai', 'anthropic', 'ollama', 'groq', 'google').
+        provider: LLM provider ('openai', 'anthropic', 'ollama', 'groq', 'google', 'mistral').
                   Auto-detected if None.
         max_tokens: Maximum tokens in response (100-32000)
         temperature: Sampling temperature for randomness (0.0-2.0)
@@ -59,7 +61,7 @@ class AgentConfig(BaseModel):
     )
     provider: Optional[str] = Field(
         default=None,
-        description="LLM provider: 'openai', 'anthropic', 'ollama', 'groq', or 'google'. "
+        description="LLM provider: 'openai', 'anthropic', 'ollama', 'groq', 'google', or 'mistral'. "
         "Auto-detected if None."
     )
     max_tokens: int = Field(
@@ -117,12 +119,13 @@ class AgentConfig(BaseModel):
         Create configuration from environment variables.
 
         Environment variables:
-            LLM_PROVIDER: Provider to use ('openai', 'anthropic', 'ollama', 'groq', or 'google')
+            LLM_PROVIDER: Provider to use ('openai', 'anthropic', 'ollama', 'groq', 'google', or 'mistral')
             ANTHROPIC_MODEL: Anthropic model (default: claude-sonnet-4-5-20250929)
             OPENAI_MODEL: OpenAI model (default: gpt-4o)
             OLLAMA_MODEL: Ollama model (default: glm-4.7)
             GROQ_MODEL: Groq model (default: llama-3.3-70b-versatile)
             GOOGLE_MODEL: Google Gemini model (default: gemini-2.0-flash)
+            MISTRAL_MODEL: Mistral model (default: mistral-large-latest)
             MAX_TOKENS: Maximum tokens (default: 1024)
             TEMPERATURE: Temperature (default: 0.7)
 
@@ -145,6 +148,9 @@ class AgentConfig(BaseModel):
         elif provider == "google":
             default_model = "gemini-2.0-flash"
             model_env = "GOOGLE_MODEL"
+        elif provider == "mistral":
+            default_model = "mistral-large-latest"
+            model_env = "MISTRAL_MODEL"
         else:
             default_model = "gpt-5-mini"
             model_env = "OPENAI_MODEL"
@@ -167,16 +173,17 @@ class AgentConfig(BaseModel):
         2. GROQ_API_KEY (if set)
         3. OLLAMA_API_KEY (if set)
         4. GOOGLE_API_KEY/GEMINI_API_KEY/GOOGLE_GENAI_USE_VERTEXAI (if set)
-        5. ANTHROPIC_API_KEY (if set)
-        6. OPENAI_API_KEY (if set)
-        7. Default to 'openai'
+        5. MISTRAL_API_KEY (if set)
+        6. ANTHROPIC_API_KEY (if set)
+        7. OPENAI_API_KEY (if set)
+        8. Default to 'openai'
 
         Returns:
-            Provider name: 'openai', 'anthropic', 'ollama', or 'groq'
+            Provider name: 'openai', 'anthropic', 'ollama', 'groq', 'google', or 'mistral'
         """
         # Check explicit provider setting
         explicit_provider = os.getenv("LLM_PROVIDER")
-        if explicit_provider in ["openai", "anthropic", "ollama", "groq", "google"]:
+        if explicit_provider in ["openai", "anthropic", "ollama", "groq", "google", "mistral"]:
             return explicit_provider
 
         # Auto-detect based on API keys
@@ -186,6 +193,7 @@ class AgentConfig(BaseModel):
             bool(os.getenv("GOOGLE_API_KEY") or os.getenv("GEMINI_API_KEY"))
             or os.getenv("GOOGLE_GENAI_USE_VERTEXAI") == "1"
         )
+        has_mistral = bool(os.getenv("MISTRAL_API_KEY"))
         has_anthropic = bool(os.getenv("ANTHROPIC_API_KEY"))
         has_openai = bool(os.getenv("OPENAI_API_KEY"))
 
@@ -196,6 +204,8 @@ class AgentConfig(BaseModel):
             return "ollama"
         elif has_google:
             return "google"
+        elif has_mistral:
+            return "mistral"
         elif has_anthropic and not has_openai:
             return "anthropic"
         elif has_openai:
@@ -207,7 +217,7 @@ class AgentConfig(BaseModel):
 
 class Agent:
     """
-    AI Agent that interacts with LLM providers (OpenAI, Anthropic).
+    AI Agent that interacts with LLM providers (OpenAI, Anthropic, Mistral, etc.).
 
     The Agent class manages conversation with LLM, maintains message history,
     and supports tool calling for extended capabilities. It handles retries,
@@ -297,7 +307,7 @@ class Agent:
         Create and return the appropriate provider instance.
 
         Args:
-            provider_name: Provider to use ('openai', 'anthropic', 'ollama', 'groq', 'google')
+            provider_name: Provider to use ('openai', 'anthropic', 'ollama', 'groq', 'google', 'mistral')
 
         Returns:
             Provider instance
@@ -365,11 +375,21 @@ class Agent:
                 project=project,
                 location=location,
             )
+        elif provider_name == "mistral":
+            api_key = os.getenv("MISTRAL_API_KEY")
+            if not api_key:
+                raise ValueError(
+                    "MISTRAL_API_KEY environment variable not set. "
+                    "Please set it with: export MISTRAL_API_KEY='your-key-here'"
+                )
+
+            base_url = os.getenv("MISTRAL_BASE_URL")
+            return MistralProvider(api_key=api_key, base_url=base_url)
 
         else:
             raise ValueError(
                 f"Unknown provider: {provider_name}. "
-                "Supported providers: 'openai', 'anthropic', 'ollama', 'groq', 'google'"
+                "Supported providers: 'openai', 'anthropic', 'ollama', 'groq', 'google', 'mistral'"
             )
 
     def _tool_call_to_openai_format(self, tool_call: ToolCall) -> Dict[str, Any]:
