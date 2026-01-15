@@ -124,7 +124,7 @@ class SettingsDialog(ModalScreen):
     ]
 
     # Available providers and models
-    PROVIDERS = ["OpenAI", "Anthropic", "GLM (Z.AI)", "Groq", "Ollama", "Custom"]
+    PROVIDERS = ["OpenAI", "Anthropic", "GLM (Z.AI)", "Groq", "Ollama", "Mistral", "Custom"]
 
     MODELS = {
         "OpenAI": [
@@ -151,6 +151,11 @@ class SettingsDialog(ModalScreen):
             ("Llama 3.2", "llama3.2"),
             ("Mixtral", "mixtral"),
             ("CodeLlama", "codellama"),
+        ],
+        "Mistral": [
+            ("Mistral Large", "mistral-large-latest"),
+            ("Mistral Small", "mistral-small-latest"),
+            ("Mixtral 8x7B", "open-mixtral-8x7b"),
         ],
         "Custom": [
             ("Custom Model", "custom"),
@@ -266,6 +271,19 @@ class SettingsDialog(ModalScreen):
                     id="input-ollama-url"
                 )
 
+            # Mistral
+            yield Static("Mistral", classes="provider-label")
+            with Horizontal(classes="field-row"):
+                yield Static("API Key:", classes="field-label")
+                yield Input(placeholder="mistral_...", password=True, id="input-mistral-key")
+            with Horizontal(classes="field-row"):
+                yield Static("API URL:", classes="field-label")
+                yield Input(
+                    placeholder="https://api.mistral.ai/v1 (optional)",
+                    value=os.environ.get("MISTRAL_BASE_URL", ""),
+                    id="input-mistral-url"
+                )
+
             yield Static("Keys saved for current session only.", classes="hint")
 
     def _compose_theme_tab(self) -> ComposeResult:
@@ -368,6 +386,8 @@ class SettingsDialog(ModalScreen):
             anthropic_url = self.query_one("#input-anthropic-url", Input).value.strip()
             groq_key = self.query_one("#input-groq-key", Input).value.strip()
             ollama_url = self.query_one("#input-ollama-url", Input).value.strip()
+            mistral_key = self.query_one("#input-mistral-key", Input).value.strip()
+            mistral_url = self.query_one("#input-mistral-url", Input).value.strip()
 
             # Save to app state
             if model_val:
@@ -401,6 +421,11 @@ class SettingsDialog(ModalScreen):
 
             if ollama_url:
                 os.environ["OLLAMA_HOST"] = ollama_url
+
+            if mistral_key:
+                os.environ["MISTRAL_API_KEY"] = mistral_key
+            if mistral_url:
+                os.environ["MISTRAL_BASE_URL"] = mistral_url
 
             # Reinitialize agent bridge
             from indusagi.tui.core.agent_bridge import AgentBridge
