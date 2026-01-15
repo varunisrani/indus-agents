@@ -11,7 +11,7 @@ A modern, extensible framework for building LLM-powered agents with tools, memor
 - Clean architecture with clear separation of concerns
 - Type safety via Pydantic models
 - Tool calling loop with built-in dev tools
-- Multi-provider support: OpenAI, Anthropic, Groq, Ollama
+- Multi-provider support: OpenAI, Anthropic, Groq, Ollama, Google Gemini
 - Multi-agent orchestration (Agency + Orchestrator)
 - Conversation memory and tool usage logging
 - Rich CLI and optional TUI
@@ -103,10 +103,12 @@ OPENAI_API_KEY=your-openai-api-key-here
 ANTHROPIC_API_KEY=your-anthropic-api-key-here
 GROQ_API_KEY=your-groq-api-key-here
 OLLAMA_API_KEY=your-ollama-api-key-here
+GEMINI_API_KEY=your-gemini-api-key-here
 
 LLM_PROVIDER=groq
 GROQ_MODEL=moonshotai/kimi-k2-instruct-0905
 OLLAMA_MODEL=glm-4.7
+GOOGLE_MODEL=gemini-2.0-flash
 
 DEFAULT_MODEL=gpt-5-mini
 DEFAULT_TEMPERATURE=1
